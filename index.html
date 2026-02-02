@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumtech Gateway | Technology & Digital Services</title>
+    <meta name="description" content="Kumtech Gateway offers world-class digital solutions, web development, graphic design, and digital marketing to elevate your business.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="#">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'light-gold': '#E7C9A5',
+                        'warm-brown': '#A65633',
+                        'dark-brown': '#45220B',
+                        'deep-brown': '#271109',
+                        'light-bg': '#F9F5F0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'custom': '0 5px 15px rgba(39, 17, 9, 0.08)',
+                        'custom-hover': '0 15px 30px rgba(39, 17, 9, 0.15)',
+                    }
+                }
+            },
+            plugins: [
+                function({ addVariant }) {
+                    addVariant('open', '&.active');
+                }
+            ]
+        }
+    </script>
+    <style>
+        /* Smooth Scroll Behavior */
+        html { scroll-behavior: smooth; }
+        /* Custom Scroll Reveal Utilities */
+        .reveal-up { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal-left { opacity: 0; transform: translateX(-50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal-right { opacity: 0; transform: translateX(50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal-zoom { opacity: 0; transform: scale(0.8); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        
+        .reveal-up.active, .reveal-left.active, .reveal-right.active { opacity: 1; transform: translate(0); }
+        .reveal-zoom.active { opacity: 1; transform: scale(1); }
+
+        /* Stagger Delays */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+        .delay-500 { transition-delay: 0.5s; }
+        .delay-600 { transition-delay: 0.6s; }
+    </style>
+</head>
+<body class="font-sans text-deep-brown bg-white overflow-x-hidden leading-relaxed">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-white/95 z-50 shadow-sm py-4 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-5 flex justify-between items-center max-w-[1200px]">
+            <a href="#home" class="flex text-2xl font-bold">
+                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-16">
+            </a>
+            
+            <div class="flex items-center gap-5">
+                <ul class="flex gap-10 md:flex-row flex-col absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent p-5 md:p-0 shadow-lg md:shadow-none transition-all duration-300 -translate-y-[150%] md:translate-y-0 -z-10 md:z-auto open:translate-y-0" id="navMenu">
+                    <li><a href="#home" class="nav-link font-medium text-base text-dark-brown relative py-1 hover:text-warm-brown transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-warm-brown after:transition-all hover:after:w-full active">Home</a></li>
+                    <li><a href="#about" class="nav-link font-medium text-base text-dark-brown relative py-1 hover:text-warm-brown transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-warm-brown after:transition-all hover:after:w-full">About</a></li>
+                    <li><a href="#services" class="nav-link font-medium text-base text-dark-brown relative py-1 hover:text-warm-brown transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-warm-brown after:transition-all hover:after:w-full">Services</a></li>
+                    <li><a href="#portfolio" class="nav-link font-medium text-base text-dark-brown relative py-1 hover:text-warm-brown transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-warm-brown after:transition-all hover:after:w-full">Portfolio</a></li>
+                    <li><a href="#contact" class="nav-link font-medium text-base text-dark-brown relative py-1 hover:text-warm-brown transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-warm-brown after:transition-all hover:after:w-full">Contact</a></li>
+                </ul>
+                
+                <button class="md:hidden block bg-none border-none cursor-pointer w-[30px] h-[30px] relative z-50 menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="hamburger block w-[25px] h-[2px] bg-deep-brown relative transition-all duration-300 before:content-[''] before:absolute before:w-[25px] before:h-[2px] before:bg-deep-brown before:transition-all before:duration-300 before:-top-[8px] after:content-[''] after:absolute after:w-[25px] after:h-[2px] after:bg-deep-brown after:transition-all after:duration-300 after:top-[8px]"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home/Hero Section -->
+    <section class="pt-40 pb-24 relative bg-gradient-to-br from-[#F7F1EA]/80 to-white overflow-hidden" id="home">
+        <div class="container mx-auto px-5 max-w-[1200px] flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div class="flex-1 text-center lg:text-left">
+                <h1 class="font-heading text-4xl lg:text-5xl xl:text-6xl font-extrabold text-deep-brown mb-6 leading-tight tracking-tight reveal-up">Designing the Future of <span class="bg-clip-text text-transparent bg-gradient-to-r from-warm-brown to-deep-brown relative inline-block after:content-[''] after:absolute after:bottom-2 after:left-0 after:w-full after:h-4 after:bg-light-gold/40 after:-z-10 after:-skew-x-6 after:-rotate-2">Your Business</span></h1>
+                <p class="text-lg lg:text-xl text-dark-brown mb-10 max-w-lg mx-auto lg:mx-0 reveal-up delay-200">Elevate your brand with world-class digital solutions. We blend technical expertise and creative strategy to build scalable products that drive measurable business results.</p>
+                <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start reveal-up delay-400">
+                    <a href="#contact" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-warm-brown to-dark-brown text-white hover:from-dark-brown hover:to-deep-brown hover:-translate-y-1 hover:shadow-custom-hover">Start Your Project</a>
+                    <a href="#portfolio" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-dark-brown border-dark-brown hover:bg-dark-brown hover:text-white hover:-translate-y-1 hover:shadow-custom-hover">Explore Our Work</a>
+                </div>
+                
+                <div class="mt-9 flex items-center justify-center lg:justify-start gap-5 flex-wrap reveal-up delay-600">
+                    <div class="flex items-center gap-2.5 text-dark-brown text-sm">
+                        <div class="flex gap-0.5 text-amber-500 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span><strong class="text-deep-brown font-bold">4.9/5</strong> Client Rating</span>
+                    </div>
+                    <div class="w-px h-5 bg-warm-brown/30 hidden sm:block"></div>
+                    <div class="flex items-center gap-2.5 text-dark-brown text-sm">
+                        <i class="fas fa-shield-alt text-warm-brown text-lg"></i>
+                        <span>Trusted by <strong class="text-deep-brown font-bold">150+</strong> Businesses</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 relative h-auto flex items-end justify-center lg:-mb-24 w-full reveal-zoom delay-200">
+                <div class="relative w-full h-auto flex justify-center items-end">
+                    <img src="images/hero.png" alt="Digital Growth" class="w-auto max-w-full max-h-[85vh] relative z-10 drop-shadow-2xl lg:ml-12">
+                    <!-- Decorative Elements -->
+                    <div class="absolute rounded-full bg-gradient-to-r from-light-gold to-warm-brown opacity-70 z-0 w-[120px] h-[120px] -top-8 -right-8 animate-[float_6s_ease-in-out_infinite]"></div>
+                    <div class="absolute rounded-full bg-gradient-to-r from-warm-brown to-dark-brown opacity-50 z-0 w-20 h-20 -bottom-5 -right-5 animate-[float_7s_ease-in-out_infinite_1.5s]"></div>
+                    <div class="absolute rounded-full bg-gradient-to-r from-dark-brown to-deep-brown opacity-30 z-0 w-[60px] h-[60px] bottom-24 right-36 animate-[float_8s_ease-in-out_infinite_3s]"></div>
+                    <div class="absolute bg-light-gold opacity-40 z-0 w-[100px] h-[100px] top-36 -right-10 [clip-path:polygon(50%_0%,100%_50%,50%_100%,0%_50%)] animate-[float_9s_ease-in-out_infinite_reverse]"></div>
+                    <div class="absolute bg-light-gold opacity-40 z-0 w-20 h-20 top-12 right-52 [clip-path:polygon(0%_0%,100%_0%,100%_100%,0%_100%)] rotate-45 animate-[float_9s_ease-in-out_infinite_reverse]"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-24 relative bg-light-bg" id="about">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">About Kumtech Gateway</h2>
+                <p class="text-lg text-warm-brown max-w-xl mx-auto reveal-up delay-200">Our story of innovation and excellence</p>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="flex-1 relative w-full reveal-left">
+                    <div class="relative">
+                        <img src="images/PSX_20251123_141018.jpg" alt="About Kumtech" class="w-full rounded-xl shadow-custom object-cover h-[500px]" loading="lazy">
+                        <div class="absolute bottom-8 right-5 lg:-right-5 bg-warm-brown text-white p-5 rounded-xl text-center shadow-custom-hover min-w-[140px]">
+                            <span class="block text-4xl font-bold leading-none">5+</span>
+                            <span class="text-sm opacity-90">Years of<br>Excellence</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 reveal-right">
+                    <h3 class="font-heading text-3xl font-semibold text-deep-brown mb-5 leading-tight">We Build Digital Solutions That Drive Growth</h3>
+                    <p class="mb-5 text-dark-brown leading-relaxed">Kumtech Gateway was founded with a vision to bridge the gap between businesses and cutting-edge digital solutions. We believe in the power of technology to transform organizations and drive growth in an increasingly digital world.</p>
+                    <p class="mb-5 text-dark-brown leading-relaxed">Our team combines technical expertise with creative vision to deliver services that not only meet but exceed client expectations. We focus on building lasting partnerships and providing solutions that are both innovative and practical.</p>
+                    
+                    <div class="flex gap-10 my-8 pt-8 border-t border-warm-brown/20">
+                        <div class="relative pr-5 after:content-[''] after:absolute after:-right-5 after:top-[10%] after:h-[80%] after:w-px after:bg-warm-brown/20">
+                            <h4 class="text-4xl font-bold text-warm-brown mb-1">150+</h4>
+                            <p class="text-sm text-dark-brown">Projects Completed</p>
+                        </div>
+                        <div>
+                            <h4 class="text-4xl font-bold text-warm-brown mb-1">98%</h4>
+                            <p class="text-sm text-dark-brown">Client Satisfaction</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-warm-brown to-dark-brown text-white hover:from-dark-brown hover:to-deep-brown hover:-translate-y-1 hover:shadow-custom-hover">Work With Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-24 relative" id="services">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Our Services</h2>
+                <p class="text-lg text-warm-brown max-w-xl mx-auto reveal-up delay-200">Comprehensive digital solutions for your business</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-100">
+                    <div class="text-4xl text-warm-brown mb-6 inline-block w-20 h-20 leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-semibold mb-4 text-deep-brown">Graphic Design</h3>
+                    <p class="text-dark-brown mb-6 text-sm leading-relaxed">Creating visually compelling designs that communicate your brand identity and message effectively across all platforms.</p>
+                    <ul class="text-left mt-5 space-y-2">
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Logo & Brand Identity</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Marketing Materials</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">UI/UX Design</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Print Design</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-200">
+                    <div class="text-4xl text-warm-brown mb-6 inline-block w-20 h-20 leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-semibold mb-4 text-deep-brown">Web Design</h3>
+                    <p class="text-dark-brown mb-6 text-sm leading-relaxed">Designing responsive, user-friendly websites that provide exceptional user experiences and drive conversions.</p>
+                    <ul class="text-left mt-5 space-y-2">
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Responsive Design</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">User Experience</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Wireframing & Prototyping</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Visual Design</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-300">
+                    <div class="text-4xl text-warm-brown mb-6 inline-block w-20 h-20 leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-semibold mb-4 text-deep-brown">Web Development</h3>
+                    <p class="text-dark-brown mb-6 text-sm leading-relaxed">Building robust, scalable web applications with clean code and modern technologies for optimal performance.</p>
+                    <ul class="text-left mt-5 space-y-2">
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Frontend Development</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Backend Development</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">E-commerce Solutions</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">API Integration</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-400">
+                    <div class="text-4xl text-warm-brown mb-6 inline-block w-20 h-20 leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-semibold mb-4 text-deep-brown">Ads Management</h3>
+                    <p class="text-dark-brown mb-6 text-sm leading-relaxed">Strategic advertising campaigns across digital platforms to maximize reach, engagement, and return on investment.</p>
+                    <ul class="text-left mt-5 space-y-2">
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Social Media Ads</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Search Engine Marketing</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Campaign Optimization</li>
+                        <li class="text-dark-brown text-sm pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-warm-brown before:font-bold">Analytics & Reporting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="py-24 relative bg-light-bg" id="portfolio">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Our Portfolio</h2>
+                <p class="text-lg text-warm-brown max-w-xl mx-auto reveal-up delay-200">Showcasing our recent projects and successes</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
+                <div class="bg-white rounded-xl overflow-hidden shadow-custom transition-all duration-300 flex flex-col hover:-translate-y-2 hover:shadow-custom-hover group reveal-up delay-100">
+                    <div class="h-60 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop" alt="NovaTech Brand Identity" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs uppercase tracking-widest text-warm-brown font-semibold mb-4 inline-block bg-warm-brown/10 px-3 py-1.5 rounded-full w-fit">Branding & Identity</span>
+                        <h3 class="font-heading text-xl font-semibold mb-4 text-deep-brown leading-tight">NovaTech Brand Identity</h3>
+                        <p class="text-dark-brown/80 mb-6 text-sm leading-relaxed flex-1">Complete brand overhaul including logo, color palette, and marketing collateral for a leading tech startup.</p>
+                        <a href="#" class="font-semibold text-warm-brown inline-flex items-center gap-2 text-sm mt-auto transition-colors hover:text-deep-brown group/link">View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/link:translate-x-1"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl overflow-hidden shadow-custom transition-all duration-300 flex flex-col hover:-translate-y-2 hover:shadow-custom-hover group reveal-up delay-200">
+                    <div class="h-60 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=800&auto=format&fit=crop" alt="LuxeStore E-commerce" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs uppercase tracking-widest text-warm-brown font-semibold mb-4 inline-block bg-warm-brown/10 px-3 py-1.5 rounded-full w-fit">E-commerce Development</span>
+                        <h3 class="font-heading text-xl font-semibold mb-4 text-deep-brown leading-tight">LuxeStore E-commerce Platform</h3>
+                        <p class="text-dark-brown/80 mb-6 text-sm leading-relaxed flex-1">A high-performance online store featuring seamless payment integration and a custom admin dashboard.</p>
+                        <a href="#" class="font-semibold text-warm-brown inline-flex items-center gap-2 text-sm mt-auto transition-colors hover:text-deep-brown group/link">View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/link:translate-x-1"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl overflow-hidden shadow-custom transition-all duration-300 flex flex-col hover:-translate-y-2 hover:shadow-custom-hover group reveal-up delay-300">
+                    <div class="h-60 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop" alt="FitTrack Mobile App" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs uppercase tracking-widest text-warm-brown font-semibold mb-4 inline-block bg-warm-brown/10 px-3 py-1.5 rounded-full w-fit">UI/UX Design</span>
+                        <h3 class="font-heading text-xl font-semibold mb-4 text-deep-brown leading-tight">FitTrack Mobile App</h3>
+                        <p class="text-dark-brown/80 mb-6 text-sm leading-relaxed flex-1">Intuitive user interface design for a fitness tracking application focused on user engagement and retention.</p>
+                        <a href="#" class="font-semibold text-warm-brown inline-flex items-center gap-2 text-sm mt-auto transition-colors hover:text-deep-brown group/link">View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/link:translate-x-1"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl overflow-hidden shadow-custom transition-all duration-300 flex flex-col hover:-translate-y-2 hover:shadow-custom-hover group reveal-up delay-400">
+                    <div class="h-60 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop" alt="GreenLeaf Ad Campaign" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs uppercase tracking-widest text-warm-brown font-semibold mb-4 inline-block bg-warm-brown/10 px-3 py-1.5 rounded-full w-fit">Digital Marketing</span>
+                        <h3 class="font-heading text-xl font-semibold mb-4 text-deep-brown leading-tight">GreenLeaf Ad Campaign</h3>
+                        <p class="text-dark-brown/80 mb-6 text-sm leading-relaxed flex-1">Strategic multi-channel advertising campaign that increased ROI by 150% for an eco-friendly brand.</p>
+                        <a href="#" class="font-semibold text-warm-brown inline-flex items-center gap-2 text-sm mt-auto transition-colors hover:text-deep-brown group/link">View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/link:translate-x-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16 reveal-up delay-500">
+                <a href="portfolio.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-warm-brown to-dark-brown text-white hover:from-dark-brown hover:to-deep-brown hover:-translate-y-1 hover:shadow-custom-hover">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-24 relative" id="contact">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Get In Touch</h2>
+                <p class="text-lg text-warm-brown max-w-xl mx-auto reveal-up delay-200">Let's discuss how we can help transform your digital presence</p>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-16 items-start">
+                <div class="flex-1 reveal-left">
+                    <div class="flex gap-5 mb-9 items-start">
+                        <div class="w-[60px] h-[60px] bg-light-gold/10 rounded-full flex items-center justify-center text-warm-brown text-2xl shrink-0">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-deep-brown mb-2">Email</h3>
+                            <p class="text-dark-brown text-base">kumtechgateway@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-5 mb-9 items-start">
+                        <div class="w-[60px] h-[60px] bg-light-gold/10 rounded-full flex items-center justify-center text-warm-brown text-2xl shrink-0">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-deep-brown mb-2">Phone</h3>
+                            <p class="text-dark-brown text-base">+237 679 796 638</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-5 mb-9 items-start">
+                        <div class="w-[60px] h-[60px] bg-light-gold/10 rounded-full flex items-center justify-center text-warm-brown text-2xl shrink-0">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-deep-brown mb-2">Business Hours</h3>
+                            <p class="text-dark-brown text-base">Always Open</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h3 class="text-xl font-semibold text-deep-brown mb-5">Connect With Us</h3>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-11 h-11 rounded-full bg-light-gold/10 flex items-center justify-center text-warm-brown text-lg transition-all duration-300 hover:bg-warm-brown hover:text-white hover:-translate-y-1" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-11 h-11 rounded-full bg-light-gold/10 flex items-center justify-center text-warm-brown text-lg transition-all duration-300 hover:bg-warm-brown hover:text-white hover:-translate-y-1" aria-label="TikTok">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                            <a href="#" class="w-11 h-11 rounded-full bg-light-gold/10 flex items-center justify-center text-warm-brown text-lg transition-all duration-300 hover:bg-warm-brown hover:text-white hover:-translate-y-1" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="w-11 h-11 rounded-full bg-light-gold/10 flex items-center justify-center text-warm-brown text-lg transition-all duration-300 hover:bg-warm-brown hover:text-white hover:-translate-y-1" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://wa.me/237679796638" class="w-11 h-11 rounded-full bg-light-gold/10 flex items-center justify-center text-warm-brown text-lg transition-all duration-300 hover:bg-warm-brown hover:text-white hover:-translate-y-1" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-1 bg-gradient-to-br from-dark-brown to-deep-brown p-10 rounded-xl text-white reveal-right">
+                    <h3 class="text-3xl font-semibold mb-5 text-white">Ready to Start Your Project?</h3>
+                    <p class="mb-8 leading-relaxed opacity-90">Contact us today for a free consultation. Let's discuss your project requirements and how we can help bring your vision to life with our expertise in technology and digital services.</p>
+                    <div class="flex gap-5 flex-wrap flex-col sm:flex-row">
+                        <a href="mailto:kumtechgateway@gmail.com" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-white text-deep-brown hover:bg-light-gold hover:-translate-y-1 hover:shadow-custom-hover">Email Us Now</a>
+                        <a href="tel:+237679796638" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-white border-white hover:bg-white hover:text-deep-brown hover:-translate-y-1 hover:shadow-custom-hover">Call Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonials Slider -->
+            <div class="mt-20 text-center reveal-up delay-400">
+                <h3 class="text-3xl font-semibold text-deep-brown mb-10">Client Testimonials</h3>
+                <div class="max-w-3xl mx-auto relative bg-white p-10 rounded-xl shadow-custom">
+                    <div class="testimonial-track">
+                        <div class="testimonial-slide active flex flex-col items-center animate-[fadeIn_0.5s_ease]">
+                            <div class="text-3xl text-light-gold mb-5"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-lg italic text-dark-brown mb-8 leading-relaxed">"Kumtech Gateway transformed our online presence completely. Their team is professional, creative, and incredibly skilled."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-warm-brown text-white rounded-full flex items-center justify-center font-semibold">JD</div>
+                                <div class="text-left">
+                                    <h4 class="text-base font-semibold text-deep-brown mb-0.5">John Doe</h4>
+                                    <p class="text-sm text-warm-brown">CEO, TechStart Inc.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-slide hidden flex-col items-center animate-[fadeIn_0.5s_ease]">
+                            <div class="text-3xl text-light-gold mb-5"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-lg italic text-dark-brown mb-8 leading-relaxed">"The attention to detail and commitment to quality was outstanding. Highly recommend their web development services."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-warm-brown text-white rounded-full flex items-center justify-center font-semibold">JS</div>
+                                <div class="text-left">
+                                    <h4 class="text-base font-semibold text-deep-brown mb-0.5">Jane Smith</h4>
+                                    <p class="text-sm text-warm-brown">Marketing Director, Creative Co.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-slide hidden flex-col items-center animate-[fadeIn_0.5s_ease]">
+                            <div class="text-3xl text-light-gold mb-5"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-lg italic text-dark-brown mb-8 leading-relaxed">"Excellent communication and results. Our ad campaigns have never performed better since working with Kumtech."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-warm-brown text-white rounded-full flex items-center justify-center font-semibold">MJ</div>
+                                <div class="text-left">
+                                    <h4 class="text-base font-semibold text-deep-brown mb-0.5">Michael Johnson</h4>
+                                    <p class="text-sm text-warm-brown">Founder, GreenLife</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-center gap-5 mt-8">
+                        <button class="bg-none border-none text-warm-brown text-xl cursor-pointer transition-all p-1 hover:text-deep-brown hover:scale-110 slider-btn prev-btn" aria-label="Previous testimonial"><i class="fas fa-chevron-left"></i></button>
+                        <div class="flex gap-2.5 slider-dots">
+                            <span class="w-2.5 h-2.5 bg-warm-brown/30 rounded-full cursor-pointer transition-all hover:bg-warm-brown hover:scale-125 dot active" data-index="0"></span>
+                            <span class="w-2.5 h-2.5 bg-warm-brown/30 rounded-full cursor-pointer transition-all hover:bg-warm-brown hover:scale-125 dot" data-index="1"></span>
+                            <span class="w-2.5 h-2.5 bg-warm-brown/30 rounded-full cursor-pointer transition-all hover:bg-warm-brown hover:scale-125 dot" data-index="2"></span>
+                        </div>
+                        <button class="bg-none border-none text-warm-brown text-xl cursor-pointer transition-all p-1 hover:text-deep-brown hover:scale-110 slider-btn next-btn" aria-label="Next testimonial"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-deep-brown text-white/80 py-20 pb-8 text-sm">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="flex flex-wrap gap-16 mb-16 flex-col lg:flex-row">
+                <div class="flex-1 min-w-[280px] max-w-sm">
+                    <a href="#home" class="flex text-2xl font-bold text-white">
+                        <img src="images/logo.png" alt="Kumtech Gateway" class="h-12 w-auto">
+                    </a>
+                    <p class="my-6 leading-relaxed opacity-80">Empowering businesses with innovative digital solutions. We turn ideas into reality through technology and creativity.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-warm-brown hover:-translate-y-1" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-warm-brown hover:-translate-y-1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-warm-brown hover:-translate-y-1" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-warm-brown hover:-translate-y-1" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/237679796638" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-warm-brown hover:-translate-y-1" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="flex-[2] flex justify-between gap-8 flex-wrap flex-col sm:flex-row">
+                    <div class="min-w-[150px]">
+                        <h4 class="text-white text-xl mb-6 relative">Company</h4>
+                        <ul>
+                            <li class="mb-3"><a href="#about" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">About Us</a></li>
+                            <li class="mb-3"><a href="#portfolio" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Our Work</a></li>
+                            <li class="mb-3"><a href="#contact" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Contact</a></li>
+                            <li class="mb-3"><a href="#" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Careers</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="min-w-[150px]">
+                        <h4 class="text-white text-xl mb-6 relative">Services</h4>
+                        <ul>
+                            <li class="mb-3"><a href="#services" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Web Development</a></li>
+                            <li class="mb-3"><a href="#services" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Graphic Design</a></li>
+                            <li class="mb-3"><a href="#services" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Digital Marketing</a></li>
+                            <li class="mb-3"><a href="#services" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Consulting</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="min-w-[150px]">
+                        <h4 class="text-white text-xl mb-6 relative">Contact</h4>
+                        <ul>
+                            <li class="flex gap-4 mb-4">
+                                <i class="fas fa-clock text-warm-brown mt-1"></i>
+                                <span>Always Open</span>
+                            </li>
+                            <li class="flex gap-4 mb-4">
+                                <i class="fas fa-envelope text-warm-brown mt-1"></i>
+                                <span>kumtechgateway@gmail.com</span>
+                            </li>
+                            <li class="flex gap-4 mb-4">
+                                <i class="fas fa-phone text-warm-brown mt-1"></i>
+                                <span>+237 679 796 638</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex justify-between items-center flex-wrap gap-5 flex-col sm:flex-row text-center sm:text-left">
+                <p class="opacity-70 text-sm">&copy; <span id="currentYear"></span> Kumtech Gateway. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-sm opacity-70 hover:opacity-100 hover:text-light-gold">Privacy Policy</a>
+                    <a href="#" class="text-sm opacity-70 hover:opacity-100 hover:text-light-gold">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
