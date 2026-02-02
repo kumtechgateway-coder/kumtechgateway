@@ -269,6 +269,25 @@ document.addEventListener('DOMContentLoaded', function() {
         filterItems();
     }
     
+    // Back to Top Button
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible', 'translate-y-5');
+                backToTopBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible', 'translate-y-5');
+                backToTopBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
     // Console greeting (optional, can be removed in production)
     console.log('Kumtech Gateway Portfolio Website loaded successfully.');
     console.log('Brand Colors: #FFFFFF, #E7C9A5, #A65633, #45220B, #271109');
