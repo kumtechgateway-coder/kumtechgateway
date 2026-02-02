@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -61,7 +62,7 @@
 </head>
 <body class="font-sans text-deep-brown bg-white overflow-x-hidden leading-relaxed">
     <!-- Navigation -->
-    <nav class="absolute top-0 left-0 w-full bg-white/95 z-50 shadow-sm py-4 transition-all duration-300" id="navbar">
+    <nav class="fixed top-0 left-0 w-full bg-white z-50 shadow-sm py-4 transition-all duration-300 navbar" id="navbar" style="position: fixed;">
         <div class="container mx-auto px-5 flex justify-between items-center max-w-[1200px]">
             <a href="index.html" class="flex text-2xl font-bold">
                 <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-16">
@@ -95,13 +96,13 @@
     <section class="py-24 relative" id="portfolio">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <!-- Controls -->
-            <div class="mb-12 flex flex-col items-center gap-8 reveal-up delay-300">
+            <div class="sticky top-[80px] z-40 bg-white py-6 mb-10 flex flex-col items-center gap-6 reveal-up delay-300 shadow-sm transition-all w-full rounded-b-xl border-t border-warm-brown/10">
                 <div class="relative w-full max-w-lg">
                     <input type="text" id="portfolioSearch" class="w-full py-3.5 px-5 pr-12 border-2 border-warm-brown/20 rounded-full font-sans text-base outline-none transition-all focus:border-warm-brown focus:ring-4 focus:ring-warm-brown/10" placeholder="Search projects..." aria-label="Search projects">
                     <button class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-none border-none text-warm-brown text-lg p-2.5 cursor-pointer"><i class="fas fa-search"></i></button>
                 </div>
                 
-                <div class="flex flex-wrap justify-center gap-2.5">
+                <div class="flex flex-wrap justify-center gap-2.5 w-full">
                     <button class="filter-btn px-5 py-2 rounded-full border border-warm-brown/30 bg-transparent text-dark-brown cursor-pointer transition-all font-medium hover:bg-warm-brown hover:text-white hover:border-warm-brown active bg-warm-brown text-white border-warm-brown" data-filter="all">All Projects</button>
                     <button class="filter-btn px-5 py-2 rounded-full border border-warm-brown/30 bg-transparent text-dark-brown cursor-pointer transition-all font-medium hover:bg-warm-brown hover:text-white hover:border-warm-brown" data-filter="branding">Branding</button>
                     <button class="filter-btn px-5 py-2 rounded-full border border-warm-brown/30 bg-transparent text-dark-brown cursor-pointer transition-all font-medium hover:bg-warm-brown hover:text-white hover:border-warm-brown" data-filter="web-design">Web Design</button>
@@ -226,9 +227,9 @@
                     <div class="min-w-[150px]">
                         <h4 class="text-white text-xl mb-6 relative">Services</h4>
                         <ul>
-                            <li class="mb-3"><a href="index.html#services" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Web Development</a></li>
-                            <li class="mb-3"><a href="index.html#services" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Graphic Design</a></li>
-                            <li class="mb-3"><a href="index.html#services" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Digital Marketing</a></li>
+                            <li class="mb-3"><a href="index.html#service-web-development" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Web Development</a></li>
+                            <li class="mb-3"><a href="index.html#service-graphic-design" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Graphic Design</a></li>
+                            <li class="mb-3"><a href="index.html#service-digital-marketing" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Digital Marketing</a></li>
                             <li class="mb-3"><a href="index.html#services" class="text-white/70 transition-all inline-block hover:text-light-gold hover:translate-x-1">Consulting</a></li>
                         </ul>
                     </div>
