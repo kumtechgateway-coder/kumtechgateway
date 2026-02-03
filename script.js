@@ -12,6 +12,29 @@
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Utility: Throttle function for scroll events
+    function throttle(func) {
+        let ticking = false;
+        return function(...args) {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    func.apply(this, args);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+    }
+
+    // Utility: Debounce function for search input
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     
@@ -51,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Scroll event listener
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', throttle(function() {
         // Update active nav link based on scroll position
         if (document.getElementById('home')) {
             let current = '';
@@ -71,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-    });
+    }));
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -147,7 +170,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Auto slide every 5 seconds
-        setInterval(nextSlide, 5000);
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        // Pause on hover
+        const sliderContainer = document.querySelector('.testimonial-track') || slides[0].parentElement;
+        sliderContainer.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        sliderContainer.addEventListener('mouseleave', () => {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        });
     }
     
     // Portfolio Filtering and Search
@@ -259,10 +293,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Search input event
         if (searchInput) {
-            searchInput.addEventListener('keyup', () => {
+            searchInput.addEventListener('keyup', debounce(() => {
                 currentPage = 1; // Reset to first page on search
                 filterItems();
-            });
+            }, 300));
         }
         
         // Initial load
@@ -271,18 +305,27 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Back to Top Button
     const backToTopBtn = document.getElementById('backToTop');
+    const whatsappMobileBtn = document.getElementById('whatsappMobileBtn');
+    
+    const scrollableButtons = [backToTopBtn, whatsappMobileBtn].filter(Boolean);
+
+    if (scrollableButtons.length > 0) {
+        window.addEventListener('scroll', throttle(() => {
+            if (window.scrollY > 300) {
+                scrollableButtons.forEach(btn => {
+                    btn.classList.remove('opacity-0', 'invisible', 'translate-y-5');
+                    btn.classList.add('opacity-100', 'visible', 'translate-y-0');
+                });
+            } else {
+                scrollableButtons.forEach(btn => {
+                    btn.classList.add('opacity-0', 'invisible', 'translate-y-5');
+                    btn.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                });
+            }
+        }));
+    }
     
     if (backToTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.remove('opacity-0', 'invisible', 'translate-y-5');
-                backToTopBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
-            } else {
-                backToTopBtn.classList.add('opacity-0', 'invisible', 'translate-y-5');
-                backToTopBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
-            }
-        });
-        
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -442,5 +485,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         closeModalBtn.addEventListener('click', closeModal);
         modalOverlay.addEventListener('click', closeModal);
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
     }
 });
