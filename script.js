@@ -89,7 +89,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
+                const href = link.getAttribute('href');
+                if (href === `#${current}` || href === `index.html#${current}` || (current === 'home' && href === 'index.html')) {
                     link.classList.add('active');
                 }
             });
@@ -97,15 +98,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }));
     
     // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"], a[href^="index.html#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
             
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+            let targetId = this.getAttribute('href');
+            if (targetId.startsWith('index.html#')) {
+                targetId = targetId.replace('index.html', '');
+            }
+            
+            if (targetId === '#' || !targetId.startsWith('#')) return;
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
+                e.preventDefault();
                 window.scrollTo({
                     top: targetElement.offsetTop - 80,
                     behavior: 'smooth'
@@ -283,9 +288,9 @@ document.addEventListener('DOMContentLoaded', function() {
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 // Remove active classes (bg-warm-brown text-white border-warm-brown) and add default hover classes
-                filterBtns.forEach(b => b.classList.remove('bg-warm-brown', 'text-white', 'border-warm-brown'));
+                filterBtns.forEach(b => b.classList.remove('active'));
                 // Add active classes
-                btn.classList.add('bg-warm-brown', 'text-white', 'border-warm-brown');
+                btn.classList.add('active');
                 currentPage = 1; // Reset to first page on filter change
                 filterItems();
             });
