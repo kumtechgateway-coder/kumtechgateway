@@ -29,6 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="style.css">
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -101,10 +102,10 @@
 </head>
 <body class="font-sans text-deep-brown bg-white overflow-x-hidden leading-relaxed">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-white/95 z-50 shadow-sm py-4 transition-all duration-300" id="navbar">
+    <nav class="fixed top-0 left-0 w-full bg-white/95 z-50 shadow-sm py-2 md:py-4 transition-all duration-300" id="navbar">
         <div class="container mx-auto px-5 flex justify-between items-center max-w-[1200px]">
             <a href="#home" class="flex text-2xl font-bold">
-                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-16">
+                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-12 md:w-16">
             </a>
             
             <div class="flex items-center gap-5">
@@ -130,10 +131,10 @@
 
     <main>
     <!-- Home/Hero Section -->
-    <section class="pt-40 pb-24 relative bg-gradient-to-br from-[#F7F1EA]/80 to-white overflow-hidden" id="home">
+    <section class="pt-28 md:pt-40 pb-16 md:pb-24 relative bg-gradient-to-br from-[#F7F1EA]/80 to-white overflow-hidden" id="home">
         <div class="container mx-auto px-5 max-w-[1200px] flex flex-col lg:flex-row items-center justify-between gap-12">
             <div class="flex-1 text-center lg:text-left">
-                <h1 class="font-heading text-4xl lg:text-5xl xl:text-6xl font-extrabold text-deep-brown mb-6 leading-tight tracking-tight reveal-up">Designing the Future of <span class="bg-clip-text text-transparent bg-gradient-to-r from-warm-brown to-deep-brown relative inline-block after:content-[''] after:absolute after:bottom-2 after:left-0 after:w-full after:h-4 after:bg-light-gold/40 after:-z-10 after:-skew-x-6 after:-rotate-2">Your Business</span></h1>
+                <h1 class="font-heading text-3xl lg:text-5xl xl:text-6xl font-extrabold text-deep-brown mb-6 leading-tight tracking-tight reveal-up">Designing the Future of <span class="bg-clip-text text-transparent bg-gradient-to-r from-warm-brown to-deep-brown relative inline-block after:content-[''] after:absolute after:bottom-2 after:left-0 after:w-full after:h-4 after:bg-light-gold/40 after:-z-10 after:-skew-x-6 after:-rotate-2">Your Business</span></h1>
                 <p class="text-lg lg:text-xl text-dark-brown mb-10 max-w-lg mx-auto lg:mx-0 reveal-up delay-200">Elevate your brand with world-class digital solutions. We blend technical expertise and creative strategy to build scalable products that drive measurable business results.</p>
                 <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start reveal-up delay-400">
                     <a href="#contact" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-warm-brown to-dark-brown text-white hover:from-dark-brown hover:to-deep-brown hover:-translate-y-1 hover:shadow-custom-hover">Start Your Project</a>
@@ -173,10 +174,10 @@
     </section>
 
     <!-- About Section -->
-    <section class="py-24 relative bg-light-bg overflow-hidden" id="about">
+    <section class="py-16 md:py-24 relative bg-light-bg overflow-hidden" id="about">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">About Kumtech Gateway</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">About Kumtech Gateway</h2>
                 <p class="text-lg text-warm-brown max-w-xl mx-auto reveal-up delay-200">Our story of innovation and excellence</p>
             </div>
             <div class="flex flex-col lg:flex-row gap-16 items-center">
@@ -212,15 +213,15 @@
     </section>
 
     <!-- Services Section -->
-    <section class="py-24 relative" id="services">
+    <section class="py-16 md:py-24 relative" id="services">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Our Services</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Our Services</h2>
                 <p class="text-lg text-warm-brown max-w-xl mx-auto reveal-up delay-200">Comprehensive digital solutions for your business</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-100">
-                    <div class="text-4xl text-warm-brown mb-6 inline-block w-20 h-20 leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-100">
+                    <div class="text-3xl md:text-4xl text-warm-brown mb-6 inline-block w-16 h-16 md:w-20 md:h-20 leading-[64px] md:leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
                         <i class="fas fa-paint-brush"></i>
                     </div>
                     <h3 class="font-heading text-2xl font-semibold mb-4 text-deep-brown">Graphic Design</h3>
@@ -233,8 +234,8 @@
                     </ul>
                 </div>
                 
-                <div class="bg-white p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-200">
-                    <div class="text-4xl text-warm-brown mb-6 inline-block w-20 h-20 leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-200">
+                    <div class="text-3xl md:text-4xl text-warm-brown mb-6 inline-block w-16 h-16 md:w-20 md:h-20 leading-[64px] md:leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
                         <i class="fas fa-laptop-code"></i>
                     </div>
                     <h3 class="font-heading text-2xl font-semibold mb-4 text-deep-brown">Web Design</h3>
@@ -247,8 +248,8 @@
                     </ul>
                 </div>
                 
-                <div class="bg-white p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-300">
-                    <div class="text-4xl text-warm-brown mb-6 inline-block w-20 h-20 leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-300">
+                    <div class="text-3xl md:text-4xl text-warm-brown mb-6 inline-block w-16 h-16 md:w-20 md:h-20 leading-[64px] md:leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3 class="font-heading text-2xl font-semibold mb-4 text-deep-brown">Web Development</h3>
@@ -261,8 +262,8 @@
                     </ul>
                 </div>
                 
-                <div class="bg-white p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-400">
-                    <div class="text-4xl text-warm-brown mb-6 inline-block w-20 h-20 leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-custom transition-all duration-300 text-center border-t-4 border-transparent hover:-translate-y-2 hover:shadow-custom-hover hover:border-warm-brown group reveal-up delay-400">
+                    <div class="text-3xl md:text-4xl text-warm-brown mb-6 inline-block w-16 h-16 md:w-20 md:h-20 leading-[64px] md:leading-[80px] rounded-full bg-light-gold/10 group-hover:animate-[pulse_1.5s_infinite]">
                         <i class="fas fa-bullhorn"></i>
                     </div>
                     <h3 class="font-heading text-2xl font-semibold mb-4 text-deep-brown">Ads Management</h3>
@@ -279,22 +280,22 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section class="py-24 relative bg-light-bg" id="portfolio">
+    <section class="py-16 md:py-24 relative bg-light-bg" id="portfolio">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Our Portfolio</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Our Portfolio</h2>
                 <p class="text-lg text-warm-brown max-w-xl mx-auto reveal-up delay-200">Showcasing our recent projects and successes</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center portfolio-grid">
                 <!-- Item 1 -->
                 <div class="group bg-white rounded-2xl overflow-hidden border border-warm-brown/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-100" data-category="branding" data-id="novatech">
-                    <div class="w-full h-72 relative">
-                        <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop&h=400" alt="NovaTech Brand Identity" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" style="object-fit: cover;">
+                    <div class="w-full aspect-square relative">
+                        <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop&h=400" alt="NovaTech Brand Identity" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-deep-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-warm-brown shadow-sm border border-white/50">Branding</div>
                     </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">NovaTech Brand Identity</h3>
+                    <div class="p-6 md:p-8 flex flex-col flex-1">
+                        <h3 class="font-heading text-xl md:text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">NovaTech Brand Identity</h3>
                         <p class="text-dark-brown/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Complete brand overhaul including logo, color palette, and marketing collateral for a leading tech startup.</p>
                         <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-warm-brown/20 text-warm-brown font-semibold text-sm hover:bg-warm-brown hover:text-white hover:border-warm-brown transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
@@ -304,13 +305,13 @@
                 
                 <!-- Item 2 -->
                 <div class="group bg-white rounded-2xl overflow-hidden border border-warm-brown/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-200" data-category="development web-design" data-id="luxestore">
-                    <div class="w-full h-72 relative">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=800&auto=format&fit=crop&h=400" alt="LuxeStore E-commerce" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" style="object-fit: cover;">
+                    <div class="w-full aspect-square relative">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=800&auto=format&fit=crop&h=400" alt="LuxeStore E-commerce" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-deep-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-warm-brown shadow-sm border border-white/50">E-commerce</div>
                     </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">LuxeStore Platform</h3>
+                    <div class="p-6 md:p-8 flex flex-col flex-1">
+                        <h3 class="font-heading text-xl md:text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">LuxeStore Platform</h3>
                         <p class="text-dark-brown/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">A high-performance online store featuring seamless payment integration and a custom admin dashboard.</p>
                         <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-warm-brown/20 text-warm-brown font-semibold text-sm hover:bg-warm-brown hover:text-white hover:border-warm-brown transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
@@ -320,13 +321,13 @@
                 
                 <!-- Item 3 -->
                 <div class="group bg-white rounded-2xl overflow-hidden border border-warm-brown/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-300" data-category="ui-ux" data-id="fittrack">
-                    <div class="w-full h-72 relative">
-                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop&h=400" alt="FitTrack Mobile App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" style="object-fit: cover;">
+                    <div class="w-full aspect-square relative">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop&h=400" alt="FitTrack Mobile App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-deep-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-warm-brown shadow-sm border border-white/50">UI/UX Design</div>
                     </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">FitTrack Mobile App</h3>
+                    <div class="p-6 md:p-8 flex flex-col flex-1">
+                        <h3 class="font-heading text-xl md:text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">FitTrack Mobile App</h3>
                         <p class="text-dark-brown/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Intuitive user interface design for a fitness tracking application focused on user engagement and retention.</p>
                         <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-warm-brown/20 text-warm-brown font-semibold text-sm hover:bg-warm-brown hover:text-white hover:border-warm-brown transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
@@ -336,13 +337,13 @@
                 
                 <!-- Item 4 -->
                 <div class="group bg-white rounded-2xl overflow-hidden border border-warm-brown/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-400" data-category="marketing" data-id="greenleaf">
-                    <div class="w-full h-72 relative">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop&h=400" alt="GreenLeaf Ad Campaign" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" style="object-fit: cover;">
+                    <div class="w-full aspect-square relative">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop&h=400" alt="GreenLeaf Ad Campaign" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-deep-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-warm-brown shadow-sm border border-white/50">Marketing</div>
                     </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">GreenLeaf Campaign</h3>
+                    <div class="p-6 md:p-8 flex flex-col flex-1">
+                        <h3 class="font-heading text-xl md:text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">GreenLeaf Campaign</h3>
                         <p class="text-dark-brown/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Strategic multi-channel advertising campaign that increased ROI by 150% for an eco-friendly brand.</p>
                         <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-warm-brown/20 text-warm-brown font-semibold text-sm hover:bg-warm-brown hover:text-white hover:border-warm-brown transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
@@ -368,13 +369,13 @@
 
                 <!-- Item 6 (New) -->
                 <div class="group bg-white rounded-2xl overflow-hidden border border-warm-brown/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-200" data-category="branding" data-id="urbanbrew">
-                    <div class="w-full h-72 relative">
-                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=800&auto=format&fit=crop&h=400" alt="Coffee House Branding" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" style="object-fit: cover;">
+                    <div class="w-full aspect-square relative">
+                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=800&auto=format&fit=crop&h=400" alt="Coffee House Branding" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-deep-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-warm-brown shadow-sm border border-white/50">Branding</div>
                     </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">Urban Brew Branding</h3>
+                    <div class="p-6 md:p-8 flex flex-col flex-1">
+                        <h3 class="font-heading text-xl md:text-2xl font-bold text-deep-brown mb-3 group-hover:text-warm-brown transition-colors portfolio-title">Urban Brew Branding</h3>
                         <p class="text-dark-brown/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Visual identity design including packaging and signage for a modern urban coffee chain.</p>
                         <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-warm-brown/20 text-warm-brown font-semibold text-sm hover:bg-warm-brown hover:text-white hover:border-warm-brown transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
@@ -390,10 +391,10 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="py-24 relative overflow-hidden" id="contact">
+    <section class="py-16 md:py-24 relative overflow-hidden" id="contact">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Get In Touch</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-deep-brown mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-warm-brown after:to-light-gold after:rounded-sm reveal-up">Get In Touch</h2>
                 <p class="text-lg text-warm-brown max-w-xl mx-auto reveal-up delay-200">Let's discuss how we can help transform your digital presence</p>
             </div>
             <div class="flex flex-col lg:flex-row gap-16 items-start">
@@ -518,7 +519,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-deep-brown text-white/80 py-20 pb-8 text-sm">
+    <footer class="bg-deep-brown text-white/80 py-12 md:py-20 pb-8 text-sm">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="flex flex-wrap gap-16 mb-16 flex-col lg:flex-row">
                 <div class="flex-1 min-w-[280px] max-w-sm">
@@ -612,7 +613,7 @@
             <div class="overflow-y-auto custom-scrollbar w-full h-full p-8 md:p-10 block">
                 <!-- Image (Floated) -->
                 <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100">
-                    <img src="" alt="" id="modalImage" class="w-full h-auto object-contain aspect-square">
+                    <img src="" alt="" id="modalImage" class="w-full h-auto object-cover aspect-square">
                 </div>
 
                     <!-- Header -->

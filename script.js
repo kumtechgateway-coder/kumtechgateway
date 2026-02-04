@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create pagination container
         const portfolioContainer = document.querySelector('.portfolio-grid').closest('.container');
         let paginationContainer = document.createElement('div');
-        paginationContainer.className = 'pagination-controls';
+        paginationContainer.className = 'pagination-controls flex justify-center gap-2 mt-12';
         portfolioContainer.appendChild(paginationContainer);
 
         const renderPagination = (totalItems) => {
@@ -268,16 +268,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Check if item falls within current page slice
                     if (currentMatchIndex >= startIndex && currentMatchIndex < endIndex) {
-                        item.classList.remove('hide');
+                        item.classList.remove('hidden');
                         item.style.animation = 'none';
                         item.offsetHeight; /* trigger reflow */
                         item.style.animation = '';
                     } else {
-                        item.classList.add('hide');
+                        item.classList.add('hidden');
                     }
                     currentMatchIndex++;
                 } else {
-                    item.classList.add('hide');
+                    item.classList.add('hidden');
                 }
             });
             

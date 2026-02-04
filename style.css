@@ -546,3 +546,18 @@ img {
     backdrop-filter: blur(2px);
     z-index: 9;
 }
+
+/* Mobile Menu Animation */
+#menuToggle.active .hamburger {
+    background-color: transparent;
+}
+
+#menuToggle.active .hamburger::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+#menuToggle.active .hamburger::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
