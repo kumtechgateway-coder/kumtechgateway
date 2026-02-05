@@ -561,3 +561,14 @@ img {
     top: 0;
     transform: rotate(-45deg);
 }
+
+/* Hide scrollbar for modal on mobile */
+@media (max-width: 768px) {
+    .custom-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .custom-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+}
