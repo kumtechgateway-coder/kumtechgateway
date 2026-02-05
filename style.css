@@ -572,3 +572,9 @@ img {
         scrollbar-width: none;  /* Firefox */
     }
 }
+
+/* Performance: Render optimizations for below-fold content */
+#about, #services, #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 800px;
+}

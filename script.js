@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-    }));
+    }), { passive: true });
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"], a[href^="index.html#"]').forEach(anchor => {
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     btn.classList.remove('opacity-100', 'visible', 'translate-y-0');
                 });
             }
-        }));
+        }), { passive: true });
     }
     
     if (backToTopBtn) {

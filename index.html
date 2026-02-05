@@ -24,7 +24,9 @@
     <meta property="twitter:description" content="Elevate your brand with world-class digital solutions. We blend technical expertise and creative strategy to build scalable products.">
     <meta property="twitter:image" content="https://kumtechgateway.com/images/hero.png">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" as="image" href="images/hero.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -161,7 +163,7 @@
             </div>
             <div class="flex-1 relative h-auto flex items-end justify-center lg:-mb-24 w-full reveal-zoom delay-200">
                 <div class="relative w-full h-auto flex justify-center items-end">
-                    <img src="images/hero.png" alt="Digital Growth" class="w-auto max-w-full max-h-[100vh] relative z-10 drop-shadow-2xl lg:ml-12">
+                    <img src="images/hero.png" alt="Digital Growth" class="w-auto max-w-full max-h-[100vh] relative z-10 drop-shadow-2xl lg:ml-12" fetchpriority="high">
                     <!-- Decorative Elements -->
                     <div class="absolute rounded-full bg-gradient-to-r from-light-gold to-warm-brown opacity-70 z-0 w-[120px] h-[120px] -top-8 -right-8 animate-[float_6s_ease-in-out_infinite]"></div>
                     <div class="absolute rounded-full bg-gradient-to-r from-warm-brown to-dark-brown opacity-50 z-0 w-20 h-20 -bottom-5 -right-5 animate-[float_7s_ease-in-out_infinite_1.5s]"></div>
