@@ -13,11 +13,11 @@ Enhanced Style Sheet
 
 :root {
     --white: #FFFFFF;
-    --light-gold: #E7C9A5;
-    --warm-brown: #A65633;
-    --dark-brown: #45220B;
-    --deep-brown: #271109;
-    --light-bg: #F9F5F0;
+    --cyan: #00B4D8;
+    --tech-blue: #1F3C88;
+    --charcoal: #0F172A;
+    --soft-gray: #F1F5F9;
+    --orange: #F97316;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --shadow: 0 5px 15px rgba(39, 17, 9, 0.08);
     --shadow-hover: 0 15px 30px rgba(39, 17, 9, 0.15);
@@ -104,11 +104,11 @@ img {
 
 @keyframes pulse-glow {
     0%, 100% { 
-        box-shadow: 0 0 0 0 rgba(166, 86, 51, 0.4);
+        box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.4);
         transform: scale(1);
     }
     50% { 
-        box-shadow: 0 0 0 15px rgba(166, 86, 51, 0);
+        box-shadow: 0 0 0 15px rgba(0, 180, 216, 0);
         transform: scale(1.05);
     }
 }
@@ -210,9 +210,9 @@ img {
 
 .animate-shimmer {
     background: linear-gradient(90deg, 
-        rgba(166, 86, 51, 0.1) 25%, 
-        rgba(166, 86, 51, 0.2) 50%, 
-        rgba(166, 86, 51, 0.1) 75%);
+        rgba(31, 60, 136, 0.1) 25%, 
+        rgba(31, 60, 136, 0.2) 50%, 
+        rgba(31, 60, 136, 0.1) 75%);
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
 }
@@ -247,7 +247,7 @@ img {
 }
 
 .text-gradient {
-    background: linear-gradient(135deg, var(--warm-brown), var(--dark-brown));
+    background: linear-gradient(135deg, var(--tech-blue), var(--cyan));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -280,23 +280,23 @@ img {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--light-bg);
+    background: var(--soft-gray);
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, var(--warm-brown), var(--dark-brown));
+    background: linear-gradient(to bottom, var(--tech-blue), var(--charcoal));
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, var(--dark-brown), var(--deep-brown));
+    background: linear-gradient(to bottom, var(--cyan), var(--tech-blue));
 }
 
 /* Selection style */
 ::selection {
-    background-color: rgba(166, 86, 51, 0.3);
-    color: var(--deep-brown);
+    background-color: rgba(0, 180, 216, 0.3);
+    color: var(--charcoal);
 }
 
 /* Focus styles for accessibility */
@@ -308,9 +308,9 @@ img {
 /* Loading skeletons */
 .skeleton {
     background: linear-gradient(90deg, 
-        rgba(231, 201, 165, 0.1) 25%, 
-        rgba(231, 201, 165, 0.2) 50%, 
-        rgba(231, 201, 165, 0.1) 75%);
+        rgba(241, 245, 249, 0.5) 25%, 
+        rgba(241, 245, 249, 0.8) 50%, 
+        rgba(241, 245, 249, 0.5) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: var(--radius);
@@ -415,7 +415,7 @@ img {
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(to right, var(--light-gold), var(--warm-brown));
+    background: linear-gradient(to right, var(--cyan), var(--tech-blue));
     transform-origin: 0%;
     z-index: 1001;
 }
@@ -439,7 +439,7 @@ img {
     }
     
     a {
-        color: var(--deep-brown);
+        color: var(--charcoal);
         text-decoration: none;
     }
     
@@ -455,11 +455,11 @@ img {
 /* High contrast mode */
 @media (prefers-contrast: high) {
     :root {
-        --light-gold: #FFD699;
-        --warm-brown: #CC4400;
-        --dark-brown: #331100;
-        --deep-brown: #110500;
-        --light-bg: #FFF5E6;
+        --cyan: #007A99;
+        --tech-blue: #002266;
+        --charcoal: #000000;
+        --soft-gray: #FFFFFF;
+        --orange: #CC4400;
     }
 }
 
@@ -489,11 +489,11 @@ img {
 @media (prefers-color-scheme: dark) {
     :root {
         --white: #1a1a1a;
-        --light-gold: #D4B48C;
-        --warm-brown: #CC7755;
-        --dark-brown: #E8D0C0;
-        --deep-brown: #F5E6D8;
-        --light-bg: #2a2a2a;
+        --cyan: #00B4D8;
+        --tech-blue: #4A6FA5;
+        --charcoal: #E2E8F0;
+        --soft-gray: #0F172A;
+        --orange: #FB923C;
     }
     
     body {
@@ -517,7 +517,7 @@ img {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--warm-brown);
+        color: var(--tech-blue);
         font-weight: bold;
     }
 }
@@ -531,8 +531,8 @@ img {
     transform: translate(-50%, -50%);
     width: 40px;
     height: 40px;
-    border: 3px solid var(--light-gold);
-    border-top-color: var(--warm-brown);
+    border: 3px solid var(--cyan);
+    border-top-color: var(--tech-blue);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     z-index: 10;

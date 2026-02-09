@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const createBtn = (text, page, isDisabled = false, isActive = false) => {
                 const btn = document.createElement('button');
                 btn.innerText = text;
-                btn.className = `px-4 py-2 border border-warm-brown/30 bg-transparent text-dark-brown rounded cursor-pointer transition-all font-medium hover:bg-warm-brown hover:text-white hover:border-warm-brown disabled:opacity-50 disabled:cursor-not-allowed ${isActive ? 'bg-warm-brown text-white border-warm-brown' : ''}`;
+                btn.className = `px-4 py-2 border border-tech-blue/30 bg-transparent text-charcoal rounded cursor-pointer transition-all font-medium hover:bg-orange hover:text-white hover:border-orange disabled:opacity-50 disabled:cursor-not-allowed ${isActive ? 'bg-orange text-white border-orange' : ''}`;
                 btn.disabled = isDisabled;
                 
                 if (!isDisabled) {
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Filter button click events
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Remove active classes (bg-warm-brown text-white border-warm-brown) and add default hover classes
+                // Remove active classes (bg-orange text-white border-orange) and add default hover classes
                 filterBtns.forEach(b => b.classList.remove('active'));
                 // Add active classes
                 btn.classList.add('active');
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Console greeting (optional, can be removed in production)
     console.log('Kumtech Gateway Portfolio Website loaded successfully.');
-    console.log('Brand Colors: #FFFFFF, #E7C9A5, #A65633, #45220B, #271109');
+    console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316');
 
     // Case Study Data
     const caseStudies = {
@@ -462,8 +462,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     resultsList.innerHTML = '';
                     data.results.forEach(result => {
                         const li = document.createElement('li');
-                        li.className = 'flex items-start gap-2 text-dark-brown/80';
-                        li.innerHTML = `<i class="fas fa-check-circle text-warm-brown mt-1 shrink-0"></i><span>${result}</span>`;
+                        li.className = 'flex items-start gap-2 text-charcoal/80';
+                        li.innerHTML = `<i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${result}</span>`;
                         resultsList.appendChild(li);
                     });
                     
