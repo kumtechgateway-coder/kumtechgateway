@@ -105,10 +105,10 @@
 </head>
 <body class="font-sans text-charcoal bg-white overflow-x-hidden leading-relaxed">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-white/95 z-50 shadow-sm py-2 md:py-4 transition-all duration-300" id="navbar">
+    <nav class="fixed top-0 left-0 w-full bg-white z-50 shadow-sm py-2 md:py-4 transition-all duration-300" id="navbar">
         <div class="container mx-auto px-5 flex justify-between items-center max-w-[1200px]">
             <a href="#home" class="flex text-2xl font-bold">
-                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-12 md:w-16">
+                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-12 md:w-16" loading="lazy">
             </a>
             
             <div class="flex items-center gap-5">
@@ -117,6 +117,7 @@
                     <li><a href="index.html#about" class="nav-link font-medium text-base text-charcoal relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full">About</a></li>
                     <li><a href="index.html#services" class="nav-link font-medium text-base text-charcoal relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full">Services</a></li>
                     <li><a href="portfolio.html" class="nav-link font-medium text-base text-charcoal relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full">Portfolio</a></li>
+                    <li><a href="gallery.html" class="nav-link font-medium text-base text-charcoal relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full">Gallery</a></li>
                     <li><a href="index.html#contact" class="nav-link font-medium text-base text-charcoal relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full">Contact</a></li>
                 </ul>
                 
@@ -164,7 +165,7 @@
             </div>
             <div class="flex-1 relative h-auto flex items-end justify-center lg:-mb-24 w-full reveal-zoom delay-200">
                 <div class="relative w-full h-auto flex justify-center items-end">
-                    <img src="images/hero.png" alt="Digital Growth" class="w-auto max-w-full max-h-[100vh] relative z-10 drop-shadow-2xl lg:ml-12" fetchpriority="high">
+                    <img src="images/hero.png" alt="Digital Growth" class="w-auto max-w-full max-h-[100vh] relative z-10 drop-shadow-2xl lg:ml-12" fetchpriority="high" loading="lazy">
                     <!-- Decorative Elements -->
                     <div class="absolute rounded-full bg-gradient-to-r from-cyan to-tech-blue opacity-70 z-0 w-[120px] h-[120px] -top-8 -right-8 animate-[float_6s_ease-in-out_infinite]"></div>
                     <div class="absolute rounded-full bg-gradient-to-r from-tech-blue to-charcoal opacity-50 z-0 w-20 h-20 -bottom-5 -right-5 animate-[float_7s_ease-in-out_infinite_1.5s]"></div>
@@ -177,35 +178,35 @@
     </section>
 
     <!-- About Section -->
-    <section class="py-16 md:py-24 relative bg-soft-gray overflow-hidden" id="about">
+    <section class="py-16 md:py-24 relative bg-gradient-to-br from-charcoal to-tech-blue overflow-hidden" id="about">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">About Kumtech Gateway</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-cyan after:to-white after:rounded-sm reveal-up">About Kumtech Gateway</h2>
                 <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">Our story of innovation and excellence</p>
             </div>
             <div class="flex flex-col lg:flex-row gap-16 items-center">
                 <div class="flex-1 relative w-full reveal-left">
                     <div class="relative">
                         <img src="images/PSX_20251123_141018.jpg" alt="About Kumtech" class="w-full rounded-xl shadow-custom object-cover h-[auto]" loading="lazy">
-                        <div class="absolute bottom-8 right-5 lg:-right-5 bg-tech-blue text-white p-5 rounded-xl text-center shadow-custom-hover min-w-[140px]">
+                        <div class="absolute bottom-8 right-5 lg:-right-5 bg-white text-tech-blue p-5 rounded-xl text-center shadow-custom-hover min-w-[140px]">
                             <span class="block text-4xl font-bold leading-none">5+</span>
                             <span class="text-sm opacity-90">Years of<br>Excellence</span>
                         </div>
                     </div>
                 </div>
                 <div class="flex-1 reveal-right">
-                    <h3 class="font-heading text-3xl font-semibold text-tech-blue mb-5 leading-tight">We Build Digital Solutions That Drive Growth</h3>
-                    <p class="mb-5 text-charcoal leading-relaxed">Kumtech Gateway was founded with a vision to bridge the gap between businesses and cutting-edge digital solutions. We believe in the power of technology to transform organizations and drive growth in an increasingly digital world.</p>
-                    <p class="mb-5 text-charcoal leading-relaxed">Our team combines technical expertise with creative vision to deliver services that not only meet but exceed client expectations. We focus on building lasting partnerships and providing solutions that are both innovative and practical.</p>
+                    <h3 class="font-heading text-3xl font-semibold text-white mb-5 leading-tight">We Build Digital Solutions That Drive Growth</h3>
+                    <p class="mb-5 text-white/80 leading-relaxed">Kumtech Gateway was founded with a vision to bridge the gap between businesses and cutting-edge digital solutions. We believe in the power of technology to transform organizations and drive growth in an increasingly digital world.</p>
+                    <p class="mb-5 text-white/80 leading-relaxed">Our team combines technical expertise with creative vision to deliver services that not only meet but exceed client expectations. We focus on building lasting partnerships and providing solutions that are both innovative and practical.</p>
                     
-                    <div class="flex gap-10 my-8 pt-8 border-t border-tech-blue/20">
-                        <div class="relative pr-5 after:content-[''] after:absolute after:-right-5 after:top-[10%] after:h-[80%] after:w-px after:bg-tech-blue/20">
+                    <div class="flex gap-10 my-8 pt-8 border-t border-white/20">
+                        <div class="relative pr-5 after:content-[''] after:absolute after:-right-5 after:top-[10%] after:h-[80%] after:w-px after:bg-white/20">
                             <h4 class="text-4xl font-bold text-cyan mb-1">150+</h4>
-                            <p class="text-sm text-charcoal">Projects Completed</p>
+                            <p class="text-sm text-white/70">Projects Completed</p>
                         </div>
                         <div>
                             <h4 class="text-4xl font-bold text-cyan mb-1">98%</h4>
-                            <p class="text-sm text-charcoal">Client Satisfaction</p>
+                            <p class="text-sm text-white/70">Client Satisfaction</p>
                         </div>
                     </div>
                     
@@ -282,89 +283,101 @@
         </div>
     </section>
 
+    <!-- CTA Banner -->
+    <section class="py-20 relative bg-fixed bg-cover bg-center overflow-hidden" style="background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(31, 60, 136, 0.9)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop');">
+        <div class="container mx-auto px-5 max-w-[1200px] text-center relative z-10">
+            <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-6 leading-tight reveal-up">Ready to Elevate Your Digital Presence?</h2>
+            <p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 reveal-up delay-200">Join hundreds of successful businesses who have transformed their brand with our expert solutions.</p>
+            <div class="flex flex-col sm:flex-row gap-5 justify-center reveal-up delay-300">
+                <a href="#contact" class="inline-block px-8 py-4 rounded-full font-bold text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white hover:shadow-lg hover:-translate-y-1 hover:shadow-custom-hover">Get a Free Quote</a>
+                <a href="#portfolio" class="inline-block px-8 py-4 rounded-full font-bold text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-white border-white hover:bg-white hover:text-tech-blue hover:-translate-y-1 hover:shadow-custom-hover">View Case Studies</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Portfolio Section -->
-    <section class="py-16 md:py-24 relative bg-soft-gray" id="portfolio">
+    <section class="py-16 md:py-24 relative bg-white" id="portfolio">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
                 <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Our Portfolio</h2>
                 <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">Showcasing our recent projects and successes</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center portfolio-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-center portfolio-grid">
                 <!-- Item 1 -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-100" data-category="branding" data-id="novatech">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col aspect-[2/3] portfolio-card reveal-up delay-100" data-category="branding" data-id="novatech">
                     <div class="w-full aspect-square relative">
-                        <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop&h=400" alt="NovaTech Brand Identity" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&h=800&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=400&h=400&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&h=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1200&h=1200&auto=format&fit=crop 1200w" sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw" alt="NovaTech Brand Identity" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-tech-blue shadow-sm border border-white/50">Branding</div>
                     </div>
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-xl md:text-2xl font-bold text-tech-blue mb-3 group-hover:text-cyan transition-colors portfolio-title">NovaTech Brand Identity</h3>
-                        <p class="text-charcoal/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Complete brand overhaul including logo, color palette, and marketing collateral for a leading tech startup.</p>
-                        <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-cyan/20 text-cyan font-semibold text-sm hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
+                    <div class="p-3 flex flex-col flex-1">
+                        <h3 class="font-heading text-base font-bold text-tech-blue mb-1 group-hover:text-cyan transition-colors portfolio-title">NovaTech Brand Identity</h3>
+                        <p class="text-charcoal/70 mb-2 text-xs leading-relaxed line-clamp-2 flex-1 portfolio-description">Complete brand overhaul including logo, color palette, and marketing collateral for a leading tech startup.</p>
+                        <a href="javascript:void(0)" class="w-full py-1.5 rounded-lg border border-cyan/20 text-cyan font-semibold text-xs hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
                 
                 <!-- Item 2 -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-200" data-category="development web-design" data-id="luxestore">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col aspect-[2/3] portfolio-card reveal-up delay-200" data-category="development web-design" data-id="luxestore">
                     <div class="w-full aspect-square relative">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=800&auto=format&fit=crop&h=400" alt="LuxeStore E-commerce" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=800&h=800&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=400&h=400&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=800&h=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=1200&h=1200&auto=format&fit=crop 1200w" sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw" alt="LuxeStore E-commerce" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-tech-blue shadow-sm border border-white/50">E-commerce</div>
                     </div>
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-xl md:text-2xl font-bold text-tech-blue mb-3 group-hover:text-cyan transition-colors portfolio-title">LuxeStore Platform</h3>
-                        <p class="text-charcoal/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">A high-performance online store featuring seamless payment integration and a custom admin dashboard.</p>
-                        <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-cyan/20 text-cyan font-semibold text-sm hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
+                    <div class="p-3 flex flex-col flex-1">
+                        <h3 class="font-heading text-base font-bold text-tech-blue mb-1 group-hover:text-cyan transition-colors portfolio-title">LuxeStore Platform</h3>
+                        <p class="text-charcoal/70 mb-2 text-xs leading-relaxed line-clamp-2 flex-1 portfolio-description">A high-performance online store featuring seamless payment integration and a custom admin dashboard.</p>
+                        <a href="javascript:void(0)" class="w-full py-1.5 rounded-lg border border-cyan/20 text-cyan font-semibold text-xs hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
                 
                 <!-- Item 3 -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-300" data-category="ui-ux" data-id="fittrack">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col aspect-[2/3] portfolio-card reveal-up delay-300" data-category="ui-ux" data-id="fittrack">
                     <div class="w-full aspect-square relative">
-                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop&h=400" alt="FitTrack Mobile App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&h=800&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=400&h=400&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&h=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&h=1200&auto=format&fit=crop 1200w" sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw" alt="FitTrack Mobile App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-tech-blue shadow-sm border border-white/50">UI/UX Design</div>
                     </div>
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-xl md:text-2xl font-bold text-tech-blue mb-3 group-hover:text-cyan transition-colors portfolio-title">FitTrack Mobile App</h3>
-                        <p class="text-charcoal/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Intuitive user interface design for a fitness tracking application focused on user engagement and retention.</p>
-                        <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-cyan/20 text-cyan font-semibold text-sm hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
+                    <div class="p-3 flex flex-col flex-1">
+                        <h3 class="font-heading text-base font-bold text-tech-blue mb-1 group-hover:text-cyan transition-colors portfolio-title">FitTrack Mobile App</h3>
+                        <p class="text-charcoal/70 mb-2 text-xs leading-relaxed line-clamp-2 flex-1 portfolio-description">Intuitive user interface design for a fitness tracking application focused on user engagement and retention.</p>
+                        <a href="javascript:void(0)" class="w-full py-1.5 rounded-lg border border-cyan/20 text-cyan font-semibold text-xs hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
                 
                 <!-- Item 4 -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-400" data-category="marketing" data-id="greenleaf">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col aspect-[2/3] portfolio-card reveal-up delay-400" data-category="marketing" data-id="greenleaf">
                     <div class="w-full aspect-square relative">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop&h=400" alt="GreenLeaf Ad Campaign" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&h=800&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400&h=400&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&h=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&h=1200&auto=format&fit=crop 1200w" sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw" alt="GreenLeaf Ad Campaign" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-tech-blue shadow-sm border border-white/50">Marketing</div>
                     </div>
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-xl md:text-2xl font-bold text-tech-blue mb-3 group-hover:text-cyan transition-colors portfolio-title">GreenLeaf Campaign</h3>
-                        <p class="text-charcoal/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Strategic multi-channel advertising campaign that increased ROI by 150% for an eco-friendly brand.</p>
-                        <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-cyan/20 text-cyan font-semibold text-sm hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
+                    <div class="p-3 flex flex-col flex-1">
+                        <h3 class="font-heading text-base font-bold text-tech-blue mb-1 group-hover:text-cyan transition-colors portfolio-title">GreenLeaf Campaign</h3>
+                        <p class="text-charcoal/70 mb-2 text-xs leading-relaxed line-clamp-2 flex-1 portfolio-description">Strategic multi-channel advertising campaign that increased ROI by 150% for an eco-friendly brand.</p>
+                        <a href="javascript:void(0)" class="w-full py-1.5 rounded-lg border border-cyan/20 text-cyan font-semibold text-xs hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
                 
                 <!-- Item 5 (New) -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-100" data-category="web-design" data-id="archistudio">
-                    <div class="w-full h-72 relative">
-                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=800&auto=format&fit=crop&h=400" alt="Modern Architecture Portfolio" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" style="object-fit: cover;">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col aspect-[2/3] portfolio-card reveal-up delay-100" data-category="web-design" data-id="archistudio">
+                    <div class="w-full aspect-square relative">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=800&h=800&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=400&h=400&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=800&h=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&h=1200&auto=format&fit=crop 1200w" sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw" alt="Modern Architecture Portfolio" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-tech-blue shadow-sm border border-white/50">Web Design</div>
                     </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-2xl font-bold text-tech-blue mb-3 group-hover:text-cyan transition-colors portfolio-title">ArchiStudio Portfolio</h3>
-                        <p class="text-charcoal/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Minimalist and elegant portfolio website design for an award-winning architecture firm.</p>
-                        <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-cyan/20 text-cyan font-semibold text-sm hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
+                    <div class="p-3 flex flex-col flex-1">
+                        <h3 class="font-heading text-base font-bold text-tech-blue mb-1 group-hover:text-cyan transition-colors portfolio-title">ArchiStudio Portfolio</h3>
+                        <p class="text-charcoal/70 mb-2 text-xs leading-relaxed line-clamp-2 flex-1 portfolio-description">Minimalist and elegant portfolio website design for an award-winning architecture firm.</p>
+                        <a href="javascript:void(0)" class="w-full py-1.5 rounded-lg border border-cyan/20 text-cyan font-semibold text-xs hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
@@ -372,16 +385,16 @@
                 
 
                 <!-- Item 6 (New) -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full portfolio-card reveal-up delay-200" data-category="branding" data-id="urbanbrew">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col aspect-[2/3] portfolio-card reveal-up delay-200" data-category="branding" data-id="urbanbrew">
                     <div class="w-full aspect-square relative">
-                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=800&auto=format&fit=crop&h=400" alt="Coffee House Branding" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=800&h=800&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=400&h=400&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=800&h=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=1200&h=1200&auto=format&fit=crop 1200w" sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw" alt="Coffee House Branding" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-tech-blue shadow-sm border border-white/50">Branding</div>
                     </div>
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <h3 class="font-heading text-xl md:text-2xl font-bold text-tech-blue mb-3 group-hover:text-cyan transition-colors portfolio-title">Urban Brew Branding</h3>
-                        <p class="text-charcoal/70 mb-6 leading-relaxed line-clamp-3 flex-1 portfolio-description">Visual identity design including packaging and signage for a modern urban coffee chain.</p>
-                        <a href="javascript:void(0)" class="w-full py-3.5 rounded-xl border border-cyan/20 text-cyan font-semibold text-sm hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
+                    <div class="p-3 flex flex-col flex-1">
+                        <h3 class="font-heading text-base font-bold text-tech-blue mb-1 group-hover:text-cyan transition-colors portfolio-title">Urban Brew Branding</h3>
+                        <p class="text-charcoal/70 mb-2 text-xs leading-relaxed line-clamp-2 flex-1 portfolio-description">Visual identity design including packaging and signage for a modern urban coffee chain.</p>
+                        <a href="javascript:void(0)" class="w-full py-1.5 rounded-lg border border-cyan/20 text-cyan font-semibold text-xs hover:bg-cyan hover:text-white hover:border-cyan transition-all duration-300 flex items-center justify-center gap-2 view-case-btn group/btn">
                             View Case Study <i class="fas fa-arrow-right transition-transform duration-300 group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
@@ -390,6 +403,89 @@
             
             <div class="text-center mt-16 reveal-up delay-500">
                 <a href="portfolio.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white hover:shadow-lg hover:-translate-y-1 hover:shadow-custom-hover">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-16 md:py-24 relative bg-soft-gray" id="gallery-preview">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Creative Gallery</h2>
+                <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">A glimpse into our creative design work</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 portfolio-grid">
+                <!-- Item 1 -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-100">
+                    <div class="w-full relative aspect-[3/4] cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop" alt="Event Flyer" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 pointer-events-none">
+                            <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Event Flyer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-200">
+                    <div class="w-full relative aspect-[3/4] cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?q=80&w=800&auto=format&fit=crop" alt="Concert Poster" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 pointer-events-none">
+                            <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Concert Poster</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-300">
+                    <div class="w-full relative aspect-[3/4] cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" alt="Social Media" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 pointer-events-none">
+                            <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Social Media</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-400">
+                    <div class="w-full relative aspect-[3/4] cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop" alt="Web Banner" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 pointer-events-none">
+                            <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Web Banner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 reveal-up delay-500">
+                <a href="gallery.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal border-tech-blue hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover">View Full Gallery</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Banner -->
+    <section class="py-16 bg-gradient-to-r from-tech-blue to-cyan text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
+            <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-white blur-3xl"></div>
+            <div class="absolute top-1/2 right-0 w-64 h-64 rounded-full bg-white blur-3xl"></div>
+        </div>
+        <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/20">
+                <div class="px-4 py-4 reveal-up delay-100">
+                    <div class="text-4xl mb-4 text-orange"><i class="fas fa-lightbulb"></i></div>
+                    <h3 class="text-xl font-bold mb-2">1. Strategy</h3>
+                    <p class="text-white/80 text-sm">We analyze your goals and market to create a roadmap for success.</p>
+                </div>
+                <div class="px-4 py-4 reveal-up delay-200">
+                    <div class="text-4xl mb-4 text-orange"><i class="fas fa-layer-group"></i></div>
+                    <h3 class="text-xl font-bold mb-2">2. Execution</h3>
+                    <p class="text-white/80 text-sm">Our experts build your solution with precision and modern technology.</p>
+                </div>
+                <div class="px-4 py-4 reveal-up delay-300">
+                    <div class="text-4xl mb-4 text-orange"><i class="fas fa-rocket"></i></div>
+                    <h3 class="text-xl font-bold mb-2">3. Growth</h3>
+                    <p class="text-white/80 text-sm">We launch, optimize, and help you scale your business to new heights.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -466,55 +562,58 @@
             </div>
             
             <!-- Testimonials Slider -->
-            <div class="mt-20 text-center reveal-up delay-400">
-                <h3 class="text-3xl font-semibold text-tech-blue mb-10">Client Testimonials</h3>
-                <div class="max-w-3xl mx-auto relative bg-white p-10 rounded-xl shadow-custom">
-                    <div class="testimonial-track">
-                        <div class="testimonial-slide active flex flex-col items-center animate-[fadeIn_0.5s_ease]">
-                            <div class="text-3xl text-cyan mb-5"><i class="fas fa-quote-left"></i></div>
-                            <p class="text-lg italic text-charcoal mb-8 leading-relaxed">"Kumtech Gateway transformed our online presence completely. Their team is professional, creative, and incredibly skilled."</p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-tech-blue text-white rounded-full flex items-center justify-center font-semibold">JD</div>
-                                <div class="text-left">
-                                    <h4 class="text-base font-semibold text-tech-blue mb-0.5">John Doe</h4>
-                                    <p class="text-sm text-cyan">CEO, TechStart Inc.</p>
-                                </div>
+            <div class="mt-20 reveal-up delay-400">
+                <div class="text-center mb-16">
+                    <h3 class="text-3xl font-semibold text-tech-blue mb-4">Client Testimonials</h3>
+                    <p class="text-charcoal/70 max-w-2xl mx-auto">See what our partners say about our collaboration.</p>
+                </div>
+                
+                <div class="relative px-2 md:px-4">
+                    <!-- Navigation Buttons -->
+                    <button id="prevTestimonial" class="absolute top-1/2 left-0 md:-left-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white text-tech-blue shadow-lg flex items-center justify-center hover:bg-tech-blue hover:text-white transition-colors border border-tech-blue/10" aria-label="Previous Testimonial">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="nextTestimonial" class="absolute top-1/2 right-0 md:-right-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white text-tech-blue shadow-lg flex items-center justify-center hover:bg-tech-blue hover:text-white transition-colors border border-tech-blue/10" aria-label="Next Testimonial">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <div id="testimonialTrack" class="flex overflow-x-auto gap-8 snap-x snap-mandatory hide-scrollbar pb-4" style="scroll-behavior: smooth;">
+                    <!-- Card 1 -->
+                        <div class="min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white p-8 rounded-2xl shadow-custom border border-tech-blue/5 relative hover:-translate-y-2 transition-transform duration-300">
+                        <div class="text-4xl text-cyan/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-cyan text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">JD</div>
+                            <div>
+                                <h4 class="font-bold text-tech-blue">John Doe</h4>
+                                <p class="text-xs text-cyan uppercase tracking-wider font-semibold">CEO, TechStart Inc.</p>
                             </div>
                         </div>
-                        
-                        <div class="testimonial-slide hidden flex-col items-center animate-[fadeIn_0.5s_ease]">
-                            <div class="text-3xl text-cyan mb-5"><i class="fas fa-quote-left"></i></div>
-                            <p class="text-lg italic text-charcoal mb-8 leading-relaxed">"The attention to detail and commitment to quality was outstanding. Highly recommend their web development services."</p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-tech-blue text-white rounded-full flex items-center justify-center font-semibold">JS</div>
-                                <div class="text-left">
-                                    <h4 class="text-base font-semibold text-tech-blue mb-0.5">Jane Smith</h4>
-                                    <p class="text-sm text-cyan">Marketing Director, Creative Co.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="testimonial-slide hidden flex-col items-center animate-[fadeIn_0.5s_ease]">
-                            <div class="text-3xl text-cyan mb-5"><i class="fas fa-quote-left"></i></div>
-                            <p class="text-lg italic text-charcoal mb-8 leading-relaxed">"Excellent communication and results. Our ad campaigns have never performed better since working with Kumtech."</p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-tech-blue text-white rounded-full flex items-center justify-center font-semibold">MJ</div>
-                                <div class="text-left">
-                                    <h4 class="text-base font-semibold text-tech-blue mb-0.5">Michael Johnson</h4>
-                                    <p class="text-sm text-cyan">Founder, GreenLife</p>
-                                </div>
-                            </div>
-                        </div>
+                        <p class="text-charcoal/80 italic leading-relaxed relative z-10">"Kumtech Gateway transformed our online presence completely. Their team is professional, creative, and incredibly skilled."</p>
                     </div>
-                    
-                    <div class="flex items-center justify-center gap-5 mt-8">
-                        <button class="bg-none border-none text-tech-blue text-xl cursor-pointer transition-all p-1 hover:text-cyan hover:scale-110 slider-btn prev-btn" aria-label="Previous testimonial"><i class="fas fa-chevron-left"></i></button>
-                        <div class="flex gap-2.5 slider-dots">
-                            <span class="w-2.5 h-2.5 bg-tech-blue/30 rounded-full cursor-pointer transition-all hover:bg-tech-blue hover:scale-125 dot active" data-index="0"></span>
-                            <span class="w-2.5 h-2.5 bg-tech-blue/30 rounded-full cursor-pointer transition-all hover:bg-tech-blue hover:scale-125 dot" data-index="1"></span>
-                            <span class="w-2.5 h-2.5 bg-tech-blue/30 rounded-full cursor-pointer transition-all hover:bg-tech-blue hover:scale-125 dot" data-index="2"></span>
+                    <!-- Card 2 -->
+                        <div class="min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white p-8 rounded-2xl shadow-custom border border-tech-blue/5 relative hover:-translate-y-2 transition-transform duration-300">
+                        <div class="text-4xl text-cyan/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-cyan text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">JS</div>
+                            <div>
+                                <h4 class="font-bold text-tech-blue">Jane Smith</h4>
+                                <p class="text-xs text-cyan uppercase tracking-wider font-semibold">Marketing Director</p>
+                            </div>
                         </div>
-                        <button class="bg-none border-none text-tech-blue text-xl cursor-pointer transition-all p-1 hover:text-cyan hover:scale-110 slider-btn next-btn" aria-label="Next testimonial"><i class="fas fa-chevron-right"></i></button>
+                        <p class="text-charcoal/80 italic leading-relaxed relative z-10">"The attention to detail and commitment to quality was outstanding. Highly recommend their web development services."</p>
+                    </div>
+                    <!-- Card 3 -->
+                        <div class="min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white p-8 rounded-2xl shadow-custom border border-tech-blue/5 relative hover:-translate-y-2 transition-transform duration-300">
+                        <div class="text-4xl text-cyan/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-cyan text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">MJ</div>
+                            <div>
+                                <h4 class="font-bold text-tech-blue">Michael Johnson</h4>
+                                <p class="text-xs text-cyan uppercase tracking-wider font-semibold">Founder, GreenLife</p>
+                            </div>
+                        </div>
+                        <p class="text-charcoal/80 italic leading-relaxed relative z-10">"Excellent communication and results. Our ad campaigns have never performed better since working with Kumtech."</p>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -528,7 +627,7 @@
             <div class="flex flex-wrap gap-16 mb-16 flex-col lg:flex-row">
                 <div class="flex-1 min-w-[280px] max-w-sm">
                     <a href="#home" class="flex text-2xl font-bold text-white">
-                        <img src="images/logo.png" alt="Kumtech Gateway" class="h-12 w-auto">
+                        <img src="images/logo.png" alt="Kumtech Gateway" class="h-12 w-auto" loading="lazy">
                     </a>
                     <p class="my-6 leading-relaxed opacity-80">Empowering businesses with innovative digital solutions. We turn ideas into reality through technology and creativity.</p>
                     <div class="flex gap-4">
@@ -617,7 +716,7 @@
             <div class="overflow-y-auto custom-scrollbar w-full h-full p-8 md:p-10 block">
                 <!-- Image (Floated) -->
                 <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100">
-                    <img src="" alt="" id="modalImage" class="w-full h-auto object-cover aspect-square">
+                    <img src="" alt="" id="modalImage" class="w-full h-auto object-cover aspect-square" loading="lazy">
                 </div>
 
                     <!-- Header -->
@@ -663,6 +762,12 @@
                         </div>
                     </div>
                     
+                    <!-- Related Projects -->
+                    <div id="modalRelated" class="mt-10 pt-8 border-t border-tech-blue/10 hidden">
+                        <h3 class="text-xl font-bold text-tech-blue mb-6">Related Projects</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="relatedProjectsGrid"></div>
+                    </div>
+                    
                     <!-- CTA -->
                     <div class="mt-10 pt-6 border-t border-tech-blue/10">
                          <a href="#contact" class="inline-flex items-center justify-center w-full py-4 bg-tech-blue text-white rounded-xl font-medium hover:bg-cyan transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all">
@@ -671,6 +776,20 @@
                     </div>
                 </div>
         </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 z-[120] bg-black/90 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <button id="closeLightbox" class="absolute top-6 right-6 text-white/70 hover:text-white text-4xl transition-colors cursor-pointer z-50">
+            <i class="fas fa-times"></i>
+        </button>
+        <button id="prevLightboxBtn" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-3xl md:text-5xl transition-colors cursor-pointer z-50 p-4">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="nextLightboxBtn" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-3xl md:text-5xl transition-colors cursor-pointer z-50 p-4">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <img id="lightboxImage" src="" alt="Gallery Image" class="max-w-[90vw] max-h-[90vh] object-contain transform scale-95 transition-all duration-300 select-none">
     </div>
 
     <!-- Script -->

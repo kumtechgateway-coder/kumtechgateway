@@ -5,9 +5,6 @@ Enhanced Style Sheet
 
 /* CSS Reset & Base Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     scroll-padding-top: 100px; /* Offsets fixed header for anchor links */
 }
 
@@ -24,48 +21,6 @@ Enhanced Style Sheet
     --shadow-hover: 0 15px 30px rgba(39, 17, 9, 0.15);
     --radius: 12px;
     --max-width: 1200px;
-}
-
-/* Performance optimizations */
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Mobile-first responsive design */
-@media (max-width: 640px) {
-    .mobile-hidden {
-        display: none !important;
-    }
-    
-    .mobile-block {
-        display: block !important;
-    }
-    
-    .mobile-flex {
-        display: flex !important;
-    }
-    
-    .mobile-flex-col {
-        flex-direction: column !important;
-    }
-    
-    .mobile-text-center {
-        text-align: center !important;
-    }
-    
-    .mobile-w-full {
-        width: 100% !important;
-    }
-    
-    .mobile-mb-4 {
-        margin-bottom: 1rem !important;
-    }
-    
-    .mobile-p-4 {
-        padding: 1rem !important;
-    }
 }
 
 /* Touch device optimizations */
@@ -243,35 +198,18 @@ img {
     animation: gradientShift 6s ease infinite;
 }
 
-.animate-spin {
-    animation: spin 1s linear infinite;
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
 }
 
-.text-gradient {
-    background: linear-gradient(135deg, var(--tech-blue), var(--cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.glass-effect {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.will-change-transform {
-    will-change: transform;
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .backface-hidden {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-}
-
-.transition-all-smooth {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom scrollbar */
@@ -453,17 +391,6 @@ img {
     }
 }
 
-/* High contrast mode */
-@media (prefers-contrast: high) {
-    :root {
-        --cyan: #007A99;
-        --tech-blue: #002266;
-        --charcoal: #000000;
-        --soft-gray: #FFFFFF;
-        --orange: #CC4400;
-    }
-}
-
 /* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -483,29 +410,6 @@ img {
     .animate-gradient,
     .animate-spin {
         animation: none !important;
-    }
-}
-
-/* Dark mode support (optional) */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --white: #1a1a1a;
-        --cyan: #00B4D8;
-        --tech-blue: #4A6FA5;
-        --charcoal: #E2E8F0;
-        --soft-gray: #0F172A;
-        --orange: #FB923C;
-        --soft-amber: #FDBA74;
-    }
-    
-    body {
-        background-color: #1a1a1a;
-        color: #F5E6D8;
-    }
-    
-    .glass-effect {
-        background: rgba(26, 26, 26, 0.8);
-        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 }
 

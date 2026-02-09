@@ -137,64 +137,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     revealElements.forEach(el => revealObserver.observe(el));
     
-    // Testimonial Slider
-    const slides = document.querySelectorAll('.testimonial-slide');
-    const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    
-    if (slides.length > 0) {
-        let currentSlide = 0;
-        
-        function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentSlide = index;
-        }
-        
-        function nextSlide() {
-            let index = currentSlide + 1;
-            if (index >= slides.length) index = 0;
-            showSlide(index);
-        }
-        
-        function prevSlide() {
-            let index = currentSlide - 1;
-            if (index < 0) index = slides.length - 1;
-            showSlide(index);
-        }
-        
-        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-        
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => showSlide(index));
-        });
-        
-        // Auto slide every 5 seconds
-        let slideInterval = setInterval(nextSlide, 5000);
-
-        // Pause on hover
-        const sliderContainer = document.querySelector('.testimonial-track') || slides[0].parentElement;
-        sliderContainer.addEventListener('mouseenter', () => {
-            clearInterval(slideInterval);
-        });
-        
-        sliderContainer.addEventListener('mouseleave', () => {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 5000);
-        });
-    }
-    
     // Portfolio Filtering and Search
     const filterBtns = document.querySelectorAll('.filter-btn');
     const portfolioItems = document.querySelectorAll('.portfolio-card');
     const searchInput = document.getElementById('portfolioSearch');
     const itemsPerPage = 20;
     let currentPage = 1;
+	let allItems = []; // Store all portfolio items after filtering
     
     if (filterBtns.length > 0 && portfolioItems.length > 0) {
         // Create pagination container
@@ -248,12 +197,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const activeFilter = activeBtn ? activeBtn.getAttribute('data-filter').toLowerCase().trim() : 'all';
             const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
             
+            // FLIP Animation: Record start positions
+            const startPositions = new Map();
+            portfolioItems.forEach(item => {
+                if (!item.classList.contains('hidden')) {
+                    startPositions.set(item, item.getBoundingClientRect());
+                }
+            });
+
             let totalMatches = 0;
             let currentMatchIndex = 0;
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
 
-            // First pass: Count total matches to determine pagination
+            // Apply filtering
             portfolioItems.forEach(item => {
                 const categoryAttr = item.getAttribute('data-category');
                 const categories = categoryAttr ? categoryAttr.toLowerCase().split(/[\s,]+/) : [];
@@ -269,9 +226,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Check if item falls within current page slice
                     if (currentMatchIndex >= startIndex && currentMatchIndex < endIndex) {
                         item.classList.remove('hidden');
-                        item.style.animation = 'none';
-                        item.offsetHeight; /* trigger reflow */
-                        item.style.animation = '';
                     } else {
                         item.classList.add('hidden');
                     }
@@ -282,8 +236,48 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             renderPagination(totalMatches);
+
+            // FLIP Animation: Apply transforms
+            portfolioItems.forEach(item => {
+                if (item.classList.contains('hidden')) return;
+
+                const startRect = startPositions.get(item);
+                const endRect = item.getBoundingClientRect();
+
+                // Item was visible and is still visible (Move)
+                if (startRect) {
+                    const deltaX = startRect.left - endRect.left;
+                    const deltaY = startRect.top - endRect.top;
+
+                    if (deltaX !== 0 || deltaY !== 0) {
+                        // Invert
+                        item.style.transition = 'none';
+                        item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                        
+                        // Play
+                        requestAnimationFrame(() => {
+                            item.getBoundingClientRect(); // Force reflow
+                            item.style.transition = 'transform 0.6s cubic-bezier(0.2, 0, 0.2, 1)';
+                            item.style.transform = '';
+                        });
+                    }
+                } 
+                // Item is entering
+                else {
+                    item.style.transition = 'none';
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.9) translateY(20px)';
+                    
+                    requestAnimationFrame(() => {
+                        item.getBoundingClientRect(); // Force reflow
+                        item.style.transition = 'opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
+                        item.style.opacity = '1';
+                        item.style.transform = '';
+                    });
+                }
+            });
         };
-        
+
         // Filter button click events
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -303,11 +297,77 @@ document.addEventListener('DOMContentLoaded', function() {
                 filterItems();
             }, 300));
         }
-        
+
+		// "Load More" button functionality
+		const loadMoreBtn = document.getElementById('loadMoreBtn');
+		if (loadMoreBtn) {
+			loadMoreBtn.addEventListener('click', () => {
+				currentPage++;
+				filterItems(); // Re-apply the filter to show more items
+				// Hide "Load More" button if all items are displayed
+				const activeBtn = document.querySelector('.filter-btn.active');
+				const activeFilter = activeBtn ? activeBtn.getAttribute('data-filter').toLowerCase().trim() : 'all';
+				const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+				let totalMatches = 0;
+
+				filterItems();
+
+			});
+		}
+
         // Initial load
         filterItems();
+
+        // Search Overlay Logic
+        const searchTrigger = document.getElementById('searchTrigger');
+        const searchOverlay = document.getElementById('searchOverlay');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+
+        if (searchTrigger && searchOverlay && closeSearchBtn) {
+            function openSearch() {
+                searchOverlay.classList.remove('hidden');
+                setTimeout(() => {
+                    searchOverlay.classList.remove('opacity-0');
+                    if (searchInput) searchInput.focus();
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSearch() {
+                searchOverlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    searchOverlay.classList.add('hidden');
+                }, 300);
+                document.body.style.overflow = '';
+            }
+
+            searchTrigger.addEventListener('click', openSearch);
+            closeSearchBtn.addEventListener('click', closeSearch);
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !searchOverlay.classList.contains('hidden')) {
+                    closeSearch();
+                }
+            });
+        }
     }
     
+    // Testimonial Slider Logic
+    const testimonialTrack = document.getElementById('testimonialTrack');
+    const prevTestimonialBtn = document.getElementById('prevTestimonial');
+    const nextTestimonialBtn = document.getElementById('nextTestimonial');
+
+    if (testimonialTrack && prevTestimonialBtn && nextTestimonialBtn) {
+        prevTestimonialBtn.addEventListener('click', () => {
+            const cardWidth = testimonialTrack.firstElementChild.offsetWidth + 32; // width + gap (2rem = 32px)
+            testimonialTrack.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        });
+        nextTestimonialBtn.addEventListener('click', () => {
+            const cardWidth = testimonialTrack.firstElementChild.offsetWidth + 32;
+            testimonialTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        });
+    }
+
     // Back to Top Button
     const backToTopBtn = document.getElementById('backToTop');
     const whatsappMobileBtn = document.getElementById('whatsappMobileBtn');
@@ -341,161 +401,251 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316, #FDBA74');
 
     // Case Study Data
-    const caseStudies = {
-        'novatech': {
-            title: 'NovaTech Brand Identity',
-            category: 'Branding & Identity',
-            client: 'NovaTech Solutions',
-            timeline: '6 Weeks',
-            services: 'Logo Design, Brand Guidelines, Stationery',
-            image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop',
-            challenge: 'NovaTech, a promising AI startup, struggled with a disjointed visual identity that failed to communicate their cutting-edge technology and reliability to enterprise clients.',
-            solution: 'We developed a comprehensive brand identity centered around the concept of "Human-Centric Innovation." The new logo combines organic curves with geometric precision, symbolizing the harmony between technology and humanity.',
-            results: [
-                '40% increase in brand recognition within 3 months',
-                'Successfully secured Series B funding',
-                'Positive feedback from 95% of stakeholders'
-            ]
-        },
-        'luxestore': {
-            title: 'LuxeStore E-commerce Platform',
-            category: 'E-commerce Development',
-            client: 'LuxeStore Inc.',
-            timeline: '3 Months',
-            services: 'Web Development, UI/UX, Payment Integration',
-            image: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=800&auto=format&fit=crop',
-            challenge: 'LuxeStore needed a high-performance e-commerce platform that could handle high traffic volumes while providing a premium, seamless shopping experience for luxury goods.',
-            solution: 'We built a custom headless e-commerce solution using modern frameworks. The platform features instant page loads, a streamlined checkout process, and a bespoke admin dashboard for inventory management.',
-            results: [
-                'Page load speed improved by 60%',
-                'Conversion rate increased by 25%',
-                'Mobile sales grew by 45%'
-            ]
-        },
-        'fittrack': {
-            title: 'FitTrack Mobile App',
-            category: 'UI/UX Design',
-            client: 'FitTrack Health',
-            timeline: '2 Months',
-            services: 'User Research, Wireframing, Prototyping',
-            image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop',
-            challenge: 'FitTrack wanted to redesign their mobile app to improve user retention. The existing interface was cluttered and users found it difficult to track their daily progress.',
-            solution: 'We conducted extensive user research to understand pain points. The new design focuses on simplicity and gamification, with a clean dashboard and intuitive navigation that encourages daily usage.',
-            results: [
-                'User retention rate increased by 30%',
-                'Daily active users doubled in 2 months',
-                'App Store rating improved from 3.5 to 4.8'
-            ]
-        },
-        'greenleaf': {
-            title: 'GreenLeaf Ad Campaign',
-            category: 'Digital Marketing',
-            client: 'GreenLeaf Organics',
-            timeline: '4 Months',
-            services: 'Social Media Ads, PPC, Content Strategy',
-            image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop',
-            challenge: 'GreenLeaf, an eco-friendly brand, needed to increase brand awareness and sales in a competitive market with a limited advertising budget.',
-            solution: 'We implemented a targeted multi-channel campaign focusing on eco-conscious consumers. We used compelling storytelling and data-driven audience targeting to maximize ROI.',
-            results: [
-                'ROI increased by 150%',
-                'Cost per acquisition reduced by 40%',
-                'Social media engagement grew by 200%'
-            ]
-        },
-        'archistudio': {
-            title: 'ArchiStudio Portfolio',
-            category: 'Web Design',
-            client: 'ArchiStudio Architects',
-            timeline: '5 Weeks',
-            services: 'Web Design, Frontend Development',
-            image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=800&auto=format&fit=crop',
-            challenge: 'ArchiStudio needed a portfolio website that reflected their minimalist architectural style. The previous site was outdated and did not showcase their high-quality imagery effectively.',
-            solution: 'We designed a minimalist, image-first website with smooth transitions and a focus on typography. The layout allows the architectural photography to take center stage.',
-            results: [
-                'Bounce rate decreased by 35%',
-                'Inquiries from new clients increased by 20%',
-                'Featured in Awwwards nominees'
-            ]
-        },
-        'urbanbrew': {
-            title: 'Urban Brew Branding',
-            category: 'Branding',
-            client: 'Urban Brew Coffee',
-            timeline: '4 Weeks',
-            services: 'Logo Design, Packaging, Signage',
-            image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=800&auto=format&fit=crop',
-            challenge: 'Urban Brew needed a distinct visual identity to stand out in a saturated coffee market. They wanted a look that was modern yet inviting.',
-            solution: 'We created a bold, typographic logo and a warm color palette inspired by coffee roasts. The packaging design features unique patterns that tell the story of the coffee origin.',
-            results: [
-                'Store foot traffic increased by 15%',
-                'Merchandise sales grew by 50%',
-                'Strong social media brand recognition'
-            ]
-        }
-    };
+    let caseStudies = {};
+
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            caseStudies = data;
+        })
+        .catch(error => console.error('Error loading case studies:', error));
 
     // Modal Logic
     const modal = document.getElementById('caseStudyModal');
     const modalOverlay = document.getElementById('modalOverlay');
-    const modalContent = document.getElementById('modalContent');
     const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalContent = document.getElementById('modalContent');
+    const body = document.body;
+
+    function openModal(id) {
+        const study = caseStudies[id];
+        if (!study) return;
+
+        document.getElementById('modalCategory').textContent = study.category;
+        document.getElementById('modalTitle').textContent = study.title;
+        document.getElementById('modalClient').textContent = study.client;
+        document.getElementById('modalTimeline').textContent = study.timeline;
+        document.getElementById('modalServices').textContent = study.services;
+        document.getElementById('modalChallenge').textContent = study.challenge;
+        document.getElementById('modalSolution').textContent = study.solution;
+        
+        const img = document.getElementById('modalImage');
+        if (img) {
+            const baseUrl = study.image.split('?')[0];
+            img.src = `${baseUrl}?q=80&w=800&auto=format&fit=crop`;
+            img.alt = study.title;
+            img.srcset = `${baseUrl}?q=80&w=400&auto=format&fit=crop 400w, 
+                          ${baseUrl}?q=80&w=800&auto=format&fit=crop 800w, 
+                          ${baseUrl}?q=80&w=1200&auto=format&fit=crop 1200w`;
+            img.sizes = "(max-width: 768px) 90vw, 450px";
+        }
+
+        const resultsList = document.getElementById('modalResults');
+        if (resultsList) {
+            resultsList.innerHTML = '';
+            if (study.results && study.results.length > 0) {
+                study.results.forEach(result => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-start gap-3 text-charcoal/80';
+                    li.innerHTML = `<i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${result}</span>`;
+                    resultsList.appendChild(li);
+                });
+            }
+        }
+
+        // Related Projects Logic
+        const relatedContainer = document.getElementById('modalRelated');
+        const relatedGrid = document.getElementById('relatedProjectsGrid');
+        
+        if (relatedContainer && relatedGrid) {
+            relatedGrid.innerHTML = '';
+            
+            // Filter related projects: same category (or partial match), not current project
+            const related = Object.entries(caseStudies)
+                .filter(([key, data]) => key !== id && (data.category === study.category || study.category.includes(data.category) || data.category.includes(study.category)))
+                .slice(0, 2); // Limit to 2
+
+            if (related.length > 0) {
+                relatedContainer.classList.remove('hidden');
+                related.forEach(([key, data]) => {
+                    const div = document.createElement('div');
+                    div.className = 'group cursor-pointer border border-tech-blue/10 rounded-xl overflow-hidden hover:shadow-lg transition-all bg-white';
+                    div.innerHTML = `
+                        <div class="h-40 overflow-hidden relative">
+                            <img src="${data.image.split('?')[0]}?q=80&w=400&auto=format&fit=crop" alt="${data.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-tech-blue/0 group-hover:bg-tech-blue/10 transition-colors duration-300"></div>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-tech-blue mb-1 text-sm group-hover:text-cyan transition-colors line-clamp-1">${data.title}</h4>
+                            <p class="text-xs text-charcoal/60 uppercase tracking-wider">${data.category}</p>
+                        </div>
+                    `;
+                    div.addEventListener('click', () => {
+                        // Scroll to top of modal content
+                        const scrollContainer = document.querySelector('#modalContent .overflow-y-auto');
+                        if(scrollContainer) scrollContainer.scrollTop = 0;
+                        openModal(key);
+                    });
+                    relatedGrid.appendChild(div);
+                });
+            } else {
+                relatedContainer.classList.add('hidden');
+            }
+        }
+
+        if (modal) {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                if (modalOverlay) modalOverlay.classList.remove('opacity-0');
+                if (modalContent) {
+                    modalContent.classList.remove('opacity-0', 'scale-95');
+                    modalContent.classList.add('scale-100');
+                }
+            }, 10);
+            body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeModal() {
+        if (modalOverlay) modalOverlay.classList.add('opacity-0');
+        if (modalContent) {
+            modalContent.classList.add('opacity-0', 'scale-95');
+            modalContent.classList.remove('scale-100');
+        }
+        
+        setTimeout(() => {
+            if (modal) modal.classList.add('hidden');
+            body.style.overflow = '';
+        }, 300);
+    }
 
     if (modal) {
         document.addEventListener('click', function(e) {
-            if (e.target.closest('.view-case-btn')) {
+            const btn = e.target.closest('.view-case-btn');
+            const card = e.target.closest('.portfolio-card');
+            
+            if (btn && card) {
                 e.preventDefault();
-                const card = e.target.closest('.portfolio-card');
                 const id = card.getAttribute('data-id');
-                const data = caseStudies[id];
-                
-                if (data) {
-                    document.getElementById('modalImage').src = data.image;
-                    document.getElementById('modalCategory').textContent = data.category;
-                    document.getElementById('modalTitle').textContent = data.title;
-                    document.getElementById('modalClient').textContent = data.client;
-                    document.getElementById('modalTimeline').textContent = data.timeline;
-                    document.getElementById('modalServices').textContent = data.services;
-                    document.getElementById('modalChallenge').textContent = data.challenge;
-                    document.getElementById('modalSolution').textContent = data.solution;
-                    
-                    const resultsList = document.getElementById('modalResults');
-                    resultsList.innerHTML = '';
-                    data.results.forEach(result => {
-                        const li = document.createElement('li');
-                        li.className = 'flex items-start gap-2 text-charcoal/80';
-                        li.innerHTML = `<i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${result}</span>`;
-                        resultsList.appendChild(li);
-                    });
-                    
-                    modal.classList.remove('hidden');
-                    setTimeout(() => {
-                        modalOverlay.classList.remove('opacity-0');
-                        modalContent.classList.remove('opacity-0', 'scale-95');
-                        modalContent.classList.add('scale-100');
-                    }, 10);
-                    document.body.style.overflow = 'hidden';
-                }
+                if (id) openModal(id);
             }
         });
 
-        const closeModal = () => {
-            modalOverlay.classList.add('opacity-0');
-            modalContent.classList.add('opacity-0', 'scale-95');
-            modalContent.classList.remove('scale-100');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
-        };
-
-        closeModalBtn.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', closeModal);
-
-        // Close on Escape key
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+        
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
                 closeModal();
             }
         });
+
+        // Close modal when clicking the CTA button inside it
+        const modalCta = modal.querySelector('a[href*="contact"]');
+        if (modalCta) {
+            modalCta.addEventListener('click', closeModal);
+        }
+    }
+
+    // Gallery Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeLightboxBtn = document.getElementById('closeLightbox');
+    const prevLightboxBtn = document.getElementById('prevLightboxBtn');
+    const nextLightboxBtn = document.getElementById('nextLightboxBtn');
+    
+    if (lightbox && lightboxImage) {
+        // Select images specifically within portfolio cards to avoid selecting logos/icons
+        const galleryImages = document.querySelectorAll('.portfolio-card img');
+        let currentImageIndex = 0;
+
+        const showImage = (index) => {
+            if (index < 0) index = galleryImages.length - 1;
+            if (index >= galleryImages.length) index = 0;
+            currentImageIndex = index;
+            
+            const img = galleryImages[currentImageIndex];
+            
+            // Fade effect for transition
+            lightboxImage.style.opacity = '0.5';
+            lightboxImage.style.transform = 'scale(0.98)';
+            
+            setTimeout(() => {
+                lightboxImage.src = img.src;
+                lightboxImage.alt = img.alt;
+                lightboxImage.style.opacity = '1';
+                lightboxImage.style.transform = 'scale(1)';
+            }, 150);
+        };
+        
+        galleryImages.forEach((img, index) => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => {
+                currentImageIndex = index;
+                lightboxImage.src = img.src;
+                lightboxImage.alt = img.alt;
+                lightbox.classList.remove('hidden');
+                // Small delay to allow display:block to apply before opacity transition
+                requestAnimationFrame(() => {
+                    lightbox.classList.remove('opacity-0');
+                    lightboxImage.classList.remove('scale-95');
+                    lightboxImage.classList.add('scale-100');
+                });
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        const closeLightbox = () => {
+            lightbox.classList.add('opacity-0');
+            lightboxImage.classList.remove('scale-100');
+            lightboxImage.classList.add('scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxImage.src = '';
+            }, 300);
+            document.body.style.overflow = '';
+        };
+        
+        if (closeLightboxBtn) closeLightboxBtn.addEventListener('click', closeLightbox);
+        
+        if (prevLightboxBtn) {
+            prevLightboxBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showImage(currentImageIndex - 1);
+            });
+        }
+
+        if (nextLightboxBtn) {
+            nextLightboxBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showImage(currentImageIndex + 1);
+            });
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('hidden')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') showImage(currentImageIndex - 1);
+            if (e.key === 'ArrowRight') showImage(currentImageIndex + 1);
+        });
+
+        // Swipe Gesture Support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) showImage(currentImageIndex + 1); // Swipe Left -> Next
+            if (touchEndX > touchStartX + 50) showImage(currentImageIndex - 1); // Swipe Right -> Prev
+        }, { passive: true });
     }
 });
