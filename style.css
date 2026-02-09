@@ -18,6 +18,7 @@ Enhanced Style Sheet
     --charcoal: #0F172A;
     --soft-gray: #F1F5F9;
     --orange: #F97316;
+    --soft-amber: #FDBA74;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --shadow: 0 5px 15px rgba(39, 17, 9, 0.08);
     --shadow-hover: 0 15px 30px rgba(39, 17, 9, 0.15);
@@ -494,6 +495,7 @@ img {
         --charcoal: #E2E8F0;
         --soft-gray: #0F172A;
         --orange: #FB923C;
+        --soft-amber: #FDBA74;
     }
     
     body {

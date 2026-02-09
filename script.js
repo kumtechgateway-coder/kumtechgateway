@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const createBtn = (text, page, isDisabled = false, isActive = false) => {
                 const btn = document.createElement('button');
                 btn.innerText = text;
-                btn.className = `px-4 py-2 border border-tech-blue/30 bg-transparent text-charcoal rounded cursor-pointer transition-all font-medium hover:bg-orange hover:text-white hover:border-orange disabled:opacity-50 disabled:cursor-not-allowed ${isActive ? 'bg-orange text-white border-orange' : ''}`;
+                btn.className = `px-4 py-2 border border-tech-blue/30 bg-transparent text-charcoal rounded cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange disabled:opacity-50 disabled:cursor-not-allowed ${isActive ? 'bg-gradient-to-r from-orange to-soft-amber text-white border-orange' : ''}`;
                 btn.disabled = isDisabled;
                 
                 if (!isDisabled) {
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Console greeting (optional, can be removed in production)
     console.log('Kumtech Gateway Portfolio Website loaded successfully.');
-    console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316');
+    console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316, #FDBA74');
 
     // Case Study Data
     const caseStudies = {
