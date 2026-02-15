@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Portfolio Filtering and Search
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const portfolioItems = document.querySelectorAll('.portfolio-card');
+    const portfolioItems = document.querySelectorAll('.portfolio-card:not(.no-filter)');
     const searchInput = document.getElementById('portfolioSearch');
     const itemsPerPage = 20;
     let currentPage = 1;
