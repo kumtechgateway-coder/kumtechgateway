@@ -137,6 +137,38 @@ document.addEventListener('DOMContentLoaded', function() {
     
     revealElements.forEach(el => revealObserver.observe(el));
     
+    // Counter Animation
+    const counters = document.querySelectorAll('.counter');
+    
+    if (counters.length > 0) {
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const duration = 2000; // 2 seconds
+                    const step = target / (duration / 16); // approx 60fps
+                    
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            counter.textContent = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    
+                    updateCounter();
+                    observer.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(counter => counterObserver.observe(counter));
+    }
+
     // Portfolio Filtering and Search
     const filterBtns = document.querySelectorAll('.filter-btn');
     const portfolioItems = document.querySelectorAll('.portfolio-card:not(.no-filter)');
@@ -161,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const createBtn = (text, page, isDisabled = false, isActive = false) => {
                 const btn = document.createElement('button');
                 btn.innerText = text;
-                btn.className = `px-4 py-2 border border-tech-blue/30 bg-transparent text-charcoal rounded cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange disabled:opacity-50 disabled:cursor-not-allowed ${isActive ? 'bg-gradient-to-r from-orange to-soft-amber text-white border-orange' : ''}`;
+                btn.className = `px-4 py-2 border border-gray-200 bg-transparent text-charcoal rounded cursor-pointer transition-all font-medium hover:bg-tech-blue hover:text-white hover:border-tech-blue disabled:opacity-50 disabled:cursor-not-allowed ${isActive ? 'bg-tech-blue text-white border-tech-blue' : ''}`;
                 btn.disabled = isDisabled;
                 
                 if (!isDisabled) {
@@ -432,12 +464,36 @@ document.addEventListener('DOMContentLoaded', function() {
         const img = document.getElementById('modalImage');
         if (img) {
             const baseUrl = study.image.split('?')[0];
-            img.src = `${baseUrl}?q=80&w=800&auto=format&fit=crop`;
+            img.src = `${baseUrl}?q=80&w=800&auto=format`;
             img.alt = study.title;
-            img.srcset = `${baseUrl}?q=80&w=400&auto=format&fit=crop 400w, 
-                          ${baseUrl}?q=80&w=800&auto=format&fit=crop 800w, 
-                          ${baseUrl}?q=80&w=1200&auto=format&fit=crop 1200w`;
+            img.srcset = `${baseUrl}?q=80&w=400&auto=format 400w, 
+                          ${baseUrl}?q=80&w=800&auto=format 800w, 
+                          ${baseUrl}?q=80&w=1200&auto=format 1200w`;
             img.sizes = "(max-width: 768px) 90vw, 450px";
+
+            // Full Screen / Lightbox Logic for Modal Image
+            img.onclick = (e) => {
+                e.stopPropagation();
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImage = document.getElementById('lightboxImage');
+                
+                if (lightbox && lightboxImage) {
+                    lightboxImage.src = img.src;
+                    lightboxImage.alt = img.alt;
+                    
+                    // Hide nav buttons for single image view from modal
+                    if(prevLightboxBtn) prevLightboxBtn.classList.add('hidden');
+                    if(nextLightboxBtn) nextLightboxBtn.classList.add('hidden');
+                    
+                    lightbox.classList.remove('hidden');
+                    requestAnimationFrame(() => {
+                        lightbox.classList.remove('opacity-0');
+                        lightboxImage.classList.remove('scale-95');
+                        lightboxImage.classList.add('scale-100');
+                    });
+                    document.body.style.overflow = 'hidden';
+                }
+            };
         }
 
         const resultsList = document.getElementById('modalResults');
@@ -449,6 +505,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     li.className = 'flex items-start gap-3 text-charcoal/80';
                     li.innerHTML = `<i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${result}</span>`;
                     resultsList.appendChild(li);
+                });
+            }
+        }
+
+        // Gallery Logic
+        const galleryContainer = document.getElementById('modalGallery');
+        if (galleryContainer) {
+            galleryContainer.innerHTML = '';
+            galleryContainer.classList.add('hidden');
+            
+            if (study.gallery && Array.isArray(study.gallery) && study.gallery.length > 0) {
+                galleryContainer.classList.remove('hidden');
+                study.gallery.forEach(imgSrc => {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'rounded-xl overflow-hidden shadow-md border border-gray-100 group h-48 bg-gray-50';
+                    const cleanSrc = imgSrc.split('?')[0];
+                    imgContainer.innerHTML = `<img src="${cleanSrc}?q=80&w=600&auto=format" class="w-full h-full object-contain hover:scale-105 transition-transform duration-500 cursor-pointer" loading="lazy" onclick="document.getElementById('modalImage').src = '${cleanSrc}?q=80&w=800&auto=format'">`;
+                    galleryContainer.appendChild(imgContainer);
                 });
             }
         }
@@ -521,13 +595,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (modal) {
         document.addEventListener('click', function(e) {
-            const btn = e.target.closest('.view-case-btn');
             const card = e.target.closest('.portfolio-card');
             
-            if (btn && card) {
-                e.preventDefault();
+            if (card) {
                 const id = card.getAttribute('data-id');
-                if (id) openModal(id);
+                if (id) {
+                    e.preventDefault();
+                    openModal(id);
+                }
             }
         });
 
@@ -602,6 +677,10 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 lightbox.classList.add('hidden');
                 lightboxImage.src = '';
+                
+                // Restore nav buttons in case they were hidden by modal view
+                if(prevLightboxBtn) prevLightboxBtn.classList.remove('hidden');
+                if(nextLightboxBtn) nextLightboxBtn.classList.remove('hidden');
             }, 300);
             document.body.style.overflow = '';
         };
@@ -647,5 +726,64 @@ document.addEventListener('DOMContentLoaded', function() {
             if (touchEndX < touchStartX - 50) showImage(currentImageIndex + 1); // Swipe Left -> Next
             if (touchEndX > touchStartX + 50) showImage(currentImageIndex - 1); // Swipe Right -> Prev
         }, { passive: true });
+    }
+
+    // Scroll Progress Bar & Navbar Theme Logic
+    const progressBar = document.getElementById('scroll-progress-bar');
+    const nav = document.getElementById('navbar');
+    const darkSections = document.querySelectorAll('[data-theme="dark"]');
+
+    window.addEventListener('scroll', throttle(() => {
+        // Progress Bar
+        if (progressBar) {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            progressBar.style.width = `${scrollPercent}%`;
+            progressBar.style.filter = `hue-rotate(${scrollPercent * 1.5}deg)`;
+        }
+
+        // Navbar Theme
+        if (nav && darkSections.length > 0) {
+            const navHeight = nav.offsetHeight;
+            const triggerPoint = navHeight / 2;
+            let isDark = false;
+            
+            darkSections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
+                    isDark = true;
+                }
+            });
+            
+            if (isDark) {
+                nav.classList.add('navbar-dark');
+            } else {
+                nav.classList.remove('navbar-dark');
+            }
+        }
+    }), { passive: true });
+
+    // Theme Toggle Logic
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Check for saved user preference, if any, on load
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+    } else {
+        html.classList.remove('dark');
+    }
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
     }
 });

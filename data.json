@@ -1,92 +1,17 @@
 {
-    "novatech": {
-        "title": "NovaTech Brand Identity",
-        "category": "Branding & Identity",
-        "client": "NovaTech Solutions",
-        "timeline": "6 Weeks",
-        "services": "Logo Design, Brand Guidelines, Stationery",
-        "image": "images/portfolio-novatech.jpg",
-        "challenge": "NovaTech, a promising AI startup, struggled with a disjointed visual identity that failed to communicate their cutting-edge technology and reliability to enterprise clients.",
-        "solution": "We developed a comprehensive brand identity centered around the concept of \"Human-Centric Innovation.\" The new logo combines organic curves with geometric precision, symbolizing the harmony between technology and humanity.",
-        "results": [
-            "40% increase in brand recognition within 3 months",
-            "Successfully secured Series B funding",
-            "Positive feedback from 95% of stakeholders"
-        ]
-    },
-    "luxestore": {
-        "title": "LuxeStore E-commerce Platform",
-        "category": "E-commerce Development",
-        "client": "LuxeStore Inc.",
-        "timeline": "3 Months",
-        "services": "Web Development, UI/UX, Payment Integration",
-        "image": "images/portfolio-luxestore.jpg",
-        "challenge": "LuxeStore needed a high-performance e-commerce platform that could handle high traffic volumes while providing a premium, seamless shopping experience for luxury goods.",
-        "solution": "We built a custom headless e-commerce solution using modern frameworks. The platform features instant page loads, a streamlined checkout process, and a bespoke admin dashboard for inventory management.",
-        "results": [
-            "Page load speed improved by 60%",
-            "Conversion rate increased by 25%",
-            "Mobile sales grew by 45%"
-        ]
-    },
-    "fittrack": {
-        "title": "FitTrack Mobile App",
-        "category": "UI/UX Design",
-        "client": "FitTrack Health",
-        "timeline": "2 Months",
-        "services": "User Research, Wireframing, Prototyping",
-        "image": "images/portfolio-fittrack.jpg",
-        "challenge": "FitTrack wanted to redesign their mobile app to improve user retention. The existing interface was cluttered and users found it difficult to track their daily progress.",
-        "solution": "We conducted extensive user research to understand pain points. The new design focuses on simplicity and gamification, with a clean dashboard and intuitive navigation that encourages daily usage.",
-        "results": [
-            "User retention rate increased by 30%",
-            "Daily active users doubled in 2 months",
-            "App Store rating improved from 3.5 to 4.8"
-        ]
-    },
-    "greenleaf": {
-        "title": "GreenLeaf Ad Campaign",
-        "category": "Digital Marketing",
-        "client": "GreenLeaf Organics",
-        "timeline": "4 Months",
-        "services": "Social Media Ads, PPC, Content Strategy",
-        "image": "images/portfolio-greenleaf.jpg",
-        "challenge": "GreenLeaf, an eco-friendly brand, needed to increase brand awareness and sales in a competitive market with a limited advertising budget.",
-        "solution": "We implemented a targeted multi-channel campaign focusing on eco-conscious consumers. We used compelling storytelling and data-driven audience targeting to maximize ROI.",
-        "results": [
-            "ROI increased by 150%",
-            "Cost per acquisition reduced by 40%",
-            "Social media engagement grew by 200%"
-        ]
-    },
-    "archistudio": {
-        "title": "ArchiStudio Portfolio",
-        "category": "Web Design",
-        "client": "ArchiStudio Architects",
-        "timeline": "5 Weeks",
-        "services": "Web Design, Frontend Development",
-        "image": "images/portfolio-archistudio.jpg",
-        "challenge": "ArchiStudio needed a portfolio website that reflected their minimalist architectural style. The previous site was outdated and did not showcase their high-quality imagery effectively.",
-        "solution": "We designed a minimalist, image-first website with smooth transitions and a focus on typography. The layout allows the architectural photography to take center stage.",
-        "results": [
-            "Bounce rate decreased by 35%",
-            "Inquiries from new clients increased by 20%",
-            "Featured in Awwwards nominees"
-        ]
-    },
-    "urbanbrew": {
-        "title": "Urban Brew Branding",
+    "kumtech-branding": {
         "category": "Branding",
-        "client": "Urban Brew Coffee",
-        "timeline": "4 Weeks",
-        "services": "Logo Design, Packaging, Signage",
-        "image": "images/portfolio-urbanbrew.jpg",
-        "challenge": "Urban Brew needed a distinct visual identity to stand out in a saturated coffee market. They wanted a look that was modern yet inviting.",
-        "solution": "We created a bold, typographic logo and a warm color palette inspired by coffee roasts. The packaging design features unique patterns that tell the story of the coffee origin.",
-        "results": [
-            "Store foot traffic increased by 15%",
-            "Merchandise sales grew by 50%",
-            "Strong social media brand recognition"
+        "title": "Kumtech Gateway Brand Identity",
+        "client": "Kumtech Gateway",
+        "timeline": "2023",
+        "services": "Logo Design, Brand Strategy, UI/UX",
+        "challenge": "To create a modern, tech-focused identity that reflects reliability and innovation.",
+        "solution": "We developed a clean, geometric logo and a vibrant color palette combining Tech Blue and Cyan.",
+        "results": ["Increased brand recognition", "Consistent visual language", "Modernized digital presence"],
+        "image": "images/logo.png",
+        "gallery": [
+            "images/hero.png",
+            "images/PSX_20251123_141018.jpg"
         ]
     }
 }
