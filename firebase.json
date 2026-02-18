@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "kumtechgateway-237",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

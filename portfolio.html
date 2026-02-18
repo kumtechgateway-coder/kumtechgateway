@@ -8,6 +8,8 @@
     <meta name="keywords" content="portfolio, case studies, web design projects, branding examples, marketing campaigns, Kumtech Gateway work">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://kumtechgateway.com/portfolio.html">
+    <link rel="alternate" hreflang="en" href="https://kumtechgateway.com/portfolio.html" />
+    <link rel="alternate" hreflang="x-default" href="https://kumtechgateway.com/portfolio.html" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -23,6 +25,7 @@
     <meta property="twitter:description" content="Explore our diverse range of projects. From branding to full-stack development, see how we help businesses grow.">
     <meta property="twitter:image" content="https://kumtechgateway.com/images/logo.png">
 
+    <link rel="preload" as="image" href="images/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,6 +47,23 @@
         "name": "Kumtech Gateway",
         "image": "https://kumtechgateway.com/images/logo.png"
       }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://kumtechgateway.com/"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Portfolio",
+        "item": "https://kumtechgateway.com/portfolio.html"
+      }]
     }
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -77,49 +97,6 @@
             ]
         }
     </script>
-    <style>
-        /* Smooth Scroll Behavior */
-        html { scroll-behavior: smooth; }
-        /* Custom Scroll Reveal Utilities */
-        .reveal-up { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal-left { opacity: 0; transform: translateX(-50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal-right { opacity: 0; transform: translateX(50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal-zoom { opacity: 0; transform: scale(0.8); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
-        
-        .reveal-up.active, .reveal-left.active, .reveal-right.active { opacity: 1; transform: translate(0); }
-        .reveal-zoom.active { opacity: 1; transform: scale(1); }
-
-        /* Stagger Delays */
-        .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.2s; }
-        .delay-300 { transition-delay: 0.3s; }
-        .delay-400 { transition-delay: 0.4s; }
-        .delay-500 { transition-delay: 0.5s; }
-        .delay-600 { transition-delay: 0.6s; }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        /* Glass Effect */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        /* Scroll Progress & Navbar Transitions */
-        #navbar { transition: background-color 0.4s ease, box-shadow 0.4s ease; }
-        #navbar.navbar-dark { background-color: rgba(15, 23, 42, 0.95); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        #navbar.navbar-dark .nav-link { color: rgba(255,255,255,0.9); }
-        #navbar.navbar-dark .nav-link:hover, #navbar.navbar-dark .nav-link.active { color: #00B4D8; }
-        #navbar.navbar-dark .nav-link::after { background-color: #00B4D8; }
-        #navbar.navbar-dark .hamburger, 
-        #navbar.navbar-dark .hamburger::before, 
-        #navbar.navbar-dark .hamburger::after { background-color: white; }
-    </style>
 </head>
 <body class="font-sans text-charcoal bg-white overflow-x-hidden leading-relaxed dark:bg-charcoal dark:text-white transition-colors duration-300">
     <!-- Scroll Progress Bar -->
@@ -191,7 +168,7 @@
 
                     
                     <div class="w-full relative aspect-[4/3] overflow-hidden bg-soft-gray flex items-center justify-center p-4">
-                        <img src="images/logo.png" alt="Kumtech Gateway Branding" class="w-auto h-full max-w-full object-contain transition-transform duration-700 group-hover:scale-110">
+                        <img src="images/logo.png" alt="Kumtech Gateway Branding" class="w-auto h-full max-w-full object-contain transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found'">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                             <span class="text-cyan text-xs font-bold uppercase tracking-wider mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Branding</span>
                             <h3 class="text-white font-bold text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Kumtech Gateway Identity</h3>
@@ -299,87 +276,6 @@
     <a href="https://wa.me/237679796638" id="whatsappMobileBtn" target="_blank" rel="noopener noreferrer" class="md:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-orange to-soft-amber text-white rounded-full flex items-center justify-center text-2xl shadow-lg cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 hover:bg-tech-blue hover:from-tech-blue hover:to-tech-blue hover:-translate-y-1 z-50" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
-
-    <!-- Case Study Modal -->
-    <div id="caseStudyModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center" aria-hidden="true">
-        <!-- Overlay -->
-        <div class="absolute inset-0 bg-charcoal/90 backdrop-blur-sm transition-opacity opacity-0" id="modalOverlay"></div>
-        
-        <!-- Modal Content -->
-        <div class="relative w-full max-w-5xl max-h-[90vh] mx-5 bg-white rounded-2xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300 flex flex-col" id="modalContent">
-            <!-- Close Button -->
-            <button class="absolute top-4 right-4 z-20 w-10 h-10 bg-black/5 hover:bg-black/10 text-charcoal rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer" id="closeModalBtn">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-
-            <!-- Scrollable Content Area -->
-            <div class="overflow-y-auto custom-scrollbar w-full h-full p-8 md:p-10 block">
-                <!-- Image (Floated) -->
-                <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100">
-                    <img src="" alt="" id="modalImage" class="w-full h-full object-contain bg-gray-50 aspect-square cursor-zoom-in" loading="lazy">
-                </div>
-
-                    <!-- Header -->
-                    <div class="mb-8">
-                        <span id="modalCategory" class="inline-block py-1 px-3 rounded-full bg-cyan/10 text-cyan text-xs font-semibold tracking-wider uppercase mb-3"></span>
-                        <h2 id="modalTitle" class="text-3xl md:text-4xl font-heading font-bold text-tech-blue leading-tight"></h2>
-                        
-                        <div class="flex flex-wrap gap-6 mt-6 border-b border-tech-blue/10 pb-6">
-                            <div>
-                                <span class="block text-xs text-cyan font-bold uppercase tracking-wide mb-1">Client</span>
-                                <span id="modalClient" class="text-tech-blue font-medium"></span>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-cyan font-bold uppercase tracking-wide mb-1">Timeline</span>
-                                <span id="modalTimeline" class="text-tech-blue font-medium"></span>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-cyan font-bold uppercase tracking-wide mb-1">Services</span>
-                                <span id="modalServices" class="text-tech-blue font-medium"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Body Content -->
-                    <div class="space-y-8">
-                        <div>
-                            <h3 class="text-lg font-bold text-tech-blue mb-3 flex items-center gap-2">
-                                <i class="fas fa-mountain text-cyan"></i> The Challenge
-                            </h3>
-                            <p id="modalChallenge" class="text-charcoal/80 leading-relaxed"></p>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-tech-blue mb-3 flex items-center gap-2">
-                                <i class="fas fa-lightbulb text-cyan"></i> The Solution
-                            </h3>
-                            <p id="modalSolution" class="text-charcoal/80 leading-relaxed"></p>
-                        </div>
-                        <div class="bg-soft-gray p-6 rounded-xl border border-tech-blue/10">
-                            <h3 class="text-lg font-bold text-tech-blue mb-4 flex items-center gap-2">
-                                <i class="fas fa-chart-line text-cyan"></i> Key Results
-                            </h3>
-                            <ul id="modalResults" class="space-y-3"></ul>
-                        </div>
-                    </div>
-
-                    <!-- Gallery Grid -->
-                    <div id="modalGallery" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 clear-both hidden"></div>
-                    
-                    <!-- Related Projects -->
-                    <div id="modalRelated" class="mt-10 pt-8 border-t border-tech-blue/10 hidden">
-                        <h3 class="text-xl font-bold text-tech-blue mb-6">Related Projects</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="relatedProjectsGrid"></div>
-                    </div>
-                    
-                    <!-- CTA -->
-                    <div class="mt-10 pt-6 border-t border-tech-blue/10">
-                         <a href="index.html#contact" class="inline-flex items-center justify-center w-full py-4 bg-tech-blue text-white rounded-xl font-medium hover:bg-cyan transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all">
-                            Start a Project Like This
-                         </a>
-                    </div>
-                </div>
-        </div>
-    </div>
 
     <!-- Search Overlay -->
     <div id="searchOverlay" class="fixed inset-0 z-[110] bg-white/95 backdrop-blur-md hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
