@@ -99,10 +99,9 @@
     </script>
 </head>
 <body class="font-sans text-charcoal bg-white overflow-x-hidden leading-relaxed dark:bg-charcoal dark:text-white transition-colors duration-300">
-    <!-- Scroll Progress Bar -->
-    <div class="fixed top-0 left-0 w-full h-1 z-[60] pointer-events-none">
-        <div id="scroll-progress-bar" class="h-full bg-gradient-to-r from-tech-blue to-cyan w-0 transition-all duration-100 ease-out"></div>
-    </div>
+    <!-- Custom Cursor -->
+    <div id="cursor-dot" class="hidden md:block"></div>
+    <div id="cursor-outline" class="hidden md:block"></div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm py-2 md:py-4 transition-all duration-300 navbar border-b border-gray-100 dark:bg-charcoal/90 dark:border-white/10" id="navbar">
@@ -422,7 +421,7 @@
     </main>
 
     <!-- Portfolio CTA Banner -->
-    <section class="py-20 bg-gradient-to-r from-tech-blue to-cyan text-white relative overflow-hidden" data-theme="dark">
+    <section class="py-20 text-white relative overflow-hidden animated-gradient-bg" data-theme="dark">
         <div class="container mx-auto px-5 max-w-[1200px] text-center">
             <h2 class="font-heading text-3xl md:text-4xl font-bold mb-6 reveal-up">Have a Unique Project in Mind?</h2>
             <p class="text-lg text-white/70 max-w-2xl mx-auto mb-10 reveal-up delay-200">We love challenges. If you don't see a project similar to yours, let's talk about how we can build a custom solution for you.</p>

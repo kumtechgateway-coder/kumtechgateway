@@ -98,6 +98,64 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Internationalization
     I18n.init();
 
+    // Custom Cursor Logic
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorOutline = document.getElementById('cursor-outline');
+    const bodyForCursor = document.body;
+
+    if (cursorDot && cursorOutline) {
+        bodyForCursor.classList.add('cursor-hidden'); // Hide default cursor
+        window.addEventListener('mousemove', function(e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: 'forwards' });
+        });
+
+        bodyForCursor.addEventListener('mouseenter', () => {
+            if (window.innerWidth > 768) { // Only show on desktop
+                bodyForCursor.classList.add('cursor-active');
+            }
+        });
+
+        bodyForCursor.addEventListener('mouseleave', () => {
+            bodyForCursor.classList.remove('cursor-active');
+        });
+
+        document.querySelectorAll('a, button, .cursor-pointer, [data-id], .filter-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('hover');
+            });
+        });
+    }
+
+    // Hero Particle Animation
+    const particleContainer = document.getElementById('hero-particle-bg');
+    if (particleContainer) {
+        const numParticles = 25;
+        for (let i = 0; i < numParticles; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 5 + 1;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.bottom = `-${size}px`;
+            particle.style.animationDelay = `${Math.random() * 25}s`;
+            particle.style.setProperty('--x-end', (Math.random() - 0.5) * 400);
+            particleContainer.appendChild(particle);
+        }
+    }
+
     // Restore State (Scroll + Pagination)
     const stateKey = `appState-${window.location.pathname}`;
     const savedState = JSON.parse(sessionStorage.getItem(stateKey));
@@ -230,49 +288,80 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Scroll event listener
-    function updateActiveLink() {
-        const path = window.location.pathname;
-        const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+    // Navigation Highlighting Logic
+    const path = window.location.pathname;
+    const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
 
+    if (currentPage !== 'index.html') {
         // Logic for non-homepage pages
-        if (currentPage !== 'index.html') {
-            navLinks.forEach(link => {
-                const linkPage = link.getAttribute('href').split('#')[0];
-                if (linkPage === currentPage) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-            return; // Stop here for non-homepages
-        }
-
-        // Homepage scroll spy logic
-        let currentSection = 'home';
-        sections.forEach(section => {
-            if (window.scrollY >= section.offsetTop - 200) {
-                currentSection = section.getAttribute('id');
+        navLinks.forEach(link => {
+            const linkPage = link.getAttribute('href').split('#')[0];
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
         });
+    } else {
+        // Homepage scroll spy logic using IntersectionObserver
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0
+        };
 
-        navLinks.forEach(link => {
-            const linkHref = link.getAttribute('href');
-            const linkSection = linkHref.substring(linkHref.indexOf('#') + 1);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    
+                    let activeLink = null;
+                    navLinks.forEach(link => {
+                        const linkHref = link.getAttribute('href');
+                        const linkSection = linkHref.includes('#') ? linkHref.split('#')[1] : (linkHref === 'index.html' ? 'home' : '');
+                        if (linkSection === id) activeLink = link;
+                    });
 
-            link.classList.remove('active');
+                    if (activeLink) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
 
-            if ((linkHref === 'index.html' || linkHref === '#home') && currentSection === 'home') {
-                link.classList.add('active');
-            } else if (linkHref.startsWith('index.html#') && linkSection === currentSection) {
-                link.classList.add('active');
-            }
+        sections.forEach(section => {
+            if (section.id) observer.observe(section);
         });
     }
 
-    // Initial call and on scroll
-    updateActiveLink();
-    window.addEventListener('scroll', throttle(updateActiveLink), { passive: true });
+    // Scroll Spinner Logic
+    const spinner = document.getElementById('scroll-spinner');
+    if (spinner) {
+        window.addEventListener('scroll', throttle(() => {
+            const rotation = window.scrollY / 2;
+            spinner.style.transform = `rotate(${rotation}deg)`;
+        }), { passive: true });
+    }
+
+    // About Section Parallax
+    const aboutParallax = document.getElementById('about-parallax');
+    if (aboutParallax) {
+        window.addEventListener('scroll', throttle(() => {
+            const scrollY = window.scrollY;
+            const section = document.getElementById('about');
+            
+            if (section) {
+                const sectionTop = section.offsetTop;
+                const relativeScroll = scrollY - sectionTop;
+                const shape1 = aboutParallax.children[0];
+                const shape2 = aboutParallax.children[1];
+                
+                if (shape1) shape1.style.transform = `translateY(${relativeScroll * 0.15}px)`;
+                if (shape2) shape2.style.transform = `translateY(${relativeScroll * -0.1}px)`;
+            }
+        }), { passive: true });
+    }
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"], a[href^="index.html#"]').forEach(anchor => {
@@ -297,7 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Complex Scroll Animations
-    const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-zoom');
+    const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-zoom, .reveal-pop');
     
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -314,38 +403,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     revealElements.forEach(el => revealObserver.observe(el));
     
-    // Counter Animation
-    const counters = document.querySelectorAll('.counter');
-    
-    if (counters.length > 0) {
-        const counterObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = parseInt(counter.getAttribute('data-target'));
-                    const duration = 2000; // 2 seconds
-                    const step = target / (duration / 16); // approx 60fps
-                    
-                    let current = 0;
-                    const updateCounter = () => {
-                        current += step;
-                        if (current < target) {
-                            counter.textContent = Math.ceil(current);
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            counter.textContent = target;
-                        }
-                    };
-                    
-                    updateCounter();
-                    observer.unobserve(counter);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        counters.forEach(counter => counterObserver.observe(counter));
-    }
-
     // Portfolio Filtering and Search
     const filterBtns = document.querySelectorAll('.filter-btn');
     const portfolioItems = document.querySelectorAll('.portfolio-card:not(.no-filter)');
@@ -594,19 +651,52 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Testimonial Slider Logic
+    const testimonialContainer = document.getElementById('testimonialTrack')?.parentElement;
     const testimonialTrack = document.getElementById('testimonialTrack');
     const prevTestimonialBtn = document.getElementById('prevTestimonial');
     const nextTestimonialBtn = document.getElementById('nextTestimonial');
 
-    if (testimonialTrack && prevTestimonialBtn && nextTestimonialBtn) {
+    if (testimonialContainer && testimonialTrack && prevTestimonialBtn && nextTestimonialBtn) {
+        let autoScrollInterval;
+
+        const getScrollAmount = () => {
+            const card = testimonialTrack.firstElementChild;
+            if (!card) return 0;
+            return card.offsetWidth + 32; // card width + gap
+        };
+
+        const scrollNext = () => {
+            // If we are near the end of the scroll, loop back to the start
+            if (testimonialTrack.scrollLeft + testimonialTrack.clientWidth >= testimonialTrack.scrollWidth - 10) {
+                testimonialTrack.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                testimonialTrack.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            }
+        };
+
+        const startAutoScroll = () => {
+            clearInterval(autoScrollInterval); // Clear to avoid multiple intervals
+            autoScrollInterval = setInterval(scrollNext, 5000);
+        };
+
+        const stopAutoScroll = () => {
+            clearInterval(autoScrollInterval);
+        };
+
         prevTestimonialBtn.addEventListener('click', () => {
-            const cardWidth = testimonialTrack.firstElementChild.offsetWidth + 32; // width + gap (2rem = 32px)
-            testimonialTrack.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            testimonialTrack.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
         });
+
         nextTestimonialBtn.addEventListener('click', () => {
-            const cardWidth = testimonialTrack.firstElementChild.offsetWidth + 32;
-            testimonialTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            testimonialTrack.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
         });
+
+        // Pause auto-scroll on hover
+        testimonialContainer.addEventListener('mouseenter', stopAutoScroll);
+        testimonialContainer.addEventListener('mouseleave', startAutoScroll);
+
+        // Start auto-scrolling
+        startAutoScroll();
     }
 
     // Back to Top Button
@@ -1066,21 +1156,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: true });
     }
 
-    // Scroll Progress Bar & Navbar Theme Logic
-    const progressBar = document.getElementById('scroll-progress-bar');
+    // Navbar Theme Logic
     const nav = document.getElementById('navbar');
     const darkSections = document.querySelectorAll('[data-theme="dark"]');
 
     window.addEventListener('scroll', throttle(() => {
-        // Progress Bar
-        if (progressBar) {
-            const scrollTop = window.scrollY;
-            const docHeight = document.body.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            progressBar.style.width = `${scrollPercent}%`;
-            progressBar.style.filter = `hue-rotate(${scrollPercent * 1.5}deg)`;
-        }
-
         // Navbar Theme
         if (nav && darkSections.length > 0) {
             const navHeight = nav.offsetHeight;
