@@ -18,7 +18,7 @@ const AppState = {
     caseStudies: {},
     filter: {
         currentPage: 1,
-        itemsPerPage: 20,
+        itemsPerPage: 6,
         history: ['all'],
         historyIndex: 0,
         activeCategory: 'all'
@@ -58,8 +58,46 @@ const Toast = {
     }
 };
 
+/**
+ * Internationalization (i18n) System
+ */
+const I18n = {
+    translations: {},
+    init() {
+        // Detect language (default to 'en')
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('fr') ? 'fr' : 'en';
+        
+        // Fetch translations
+        fetch('translations.json')
+            .then(response => response.json())
+            .then(data => {
+                this.translations = data;
+                this.apply(lang);
+            })
+            .catch(error => console.error('Error loading translations:', error));
+    },
+    apply(lang) {
+        document.documentElement.lang = lang;
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (this.translations[lang] && this.translations[lang][key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = this.translations[lang][key];
+                } else {
+                    el.innerHTML = this.translations[lang][key];
+                }
+            }
+        });
+    }
+};
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Internationalization
+    I18n.init();
+
     // Restore State (Scroll + Pagination)
     const stateKey = `appState-${window.location.pathname}`;
     const savedState = JSON.parse(sessionStorage.getItem(stateKey));
@@ -159,56 +197,82 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section');
     
     // Mobile menu toggle
-    menuToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-        menuToggle.classList.toggle('active');
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-    });
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+    }
     
     // Close mobile menu when clicking a link
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            menuToggle.classList.remove('active');
-            document.body.style.overflow = '';
+            if (navMenu && menuToggle) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         });
     });
     
     // Close mobile menu when clicking outside
     document.addEventListener('click', function(event) {
-        const isClickInsideMenu = navMenu.contains(event.target);
-        const isClickOnToggle = menuToggle.contains(event.target);
-        
-        if (navMenu.classList.contains('active') && !isClickInsideMenu && !isClickOnToggle) {
-            navMenu.classList.remove('active');
-            menuToggle.classList.remove('active');
-            document.body.style.overflow = '';
+        if (navMenu && menuToggle) {
+            const isClickInsideMenu = navMenu.contains(event.target);
+            const isClickOnToggle = menuToggle.contains(event.target);
+            
+            if (navMenu.classList.contains('active') && !isClickInsideMenu && !isClickOnToggle) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         }
     });
     
     // Scroll event listener
-    window.addEventListener('scroll', throttle(function() {
-        // Update active nav link based on scroll position
-        if (document.getElementById('home')) {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (window.scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
+    function updateActiveLink() {
+        const path = window.location.pathname;
+        const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+
+        // Logic for non-homepage pages
+        if (currentPage !== 'index.html') {
             navLinks.forEach(link => {
-                link.classList.remove('active');
-                const href = link.getAttribute('href');
-                if (href === `#${current}` || href === `index.html#${current}` || (current === 'home' && href === 'index.html')) {
+                const linkPage = link.getAttribute('href').split('#')[0];
+                if (linkPage === currentPage) {
                     link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
                 }
             });
+            return; // Stop here for non-homepages
         }
-    }), { passive: true });
+
+        // Homepage scroll spy logic
+        let currentSection = 'home';
+        sections.forEach(section => {
+            if (window.scrollY >= section.offsetTop - 200) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            const linkSection = linkHref.substring(linkHref.indexOf('#') + 1);
+
+            link.classList.remove('active');
+
+            if ((linkHref === 'index.html' || linkHref === '#home') && currentSection === 'home') {
+                link.classList.add('active');
+            } else if (linkHref.startsWith('index.html#') && linkSection === currentSection) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Initial call and on scroll
+    updateActiveLink();
+    window.addEventListener('scroll', throttle(updateActiveLink), { passive: true });
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"], a[href^="index.html#"]').forEach(anchor => {
@@ -1043,7 +1107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const html = document.documentElement;
     
     // Check for saved user preference, if any, on load
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (localStorage.theme === 'dark') {
         html.classList.add('dark');
     } else {
         html.classList.remove('dark');

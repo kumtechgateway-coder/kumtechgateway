@@ -1,0 +1,26 @@
+{
+    "en": {
+        "nav.home": "Home",
+        "nav.about": "About",
+        "nav.services": "Services",
+        "nav.portfolio": "Portfolio",
+        "nav.gallery": "Gallery",
+        "nav.contact": "Contact",
+        "hero.title": "Designing the Future of <span class=\"bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-cyan to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block\">Your Business</span>",
+        "hero.subtitle": "Elevate your brand with world-class digital solutions. We blend technical expertise and creative strategy to build scalable products that drive measurable business results.",
+        "hero.cta": "Start Your Project",
+        "hero.explore": "Explore Our Work"
+    },
+    "fr": {
+        "nav.home": "Accueil",
+        "nav.about": "À propos",
+        "nav.services": "Services",
+        "nav.portfolio": "Portfolio",
+        "nav.gallery": "Galerie",
+        "nav.contact": "Contact",
+        "hero.title": "Concevoir l'avenir de <span class=\"bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-cyan to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block\">votre entreprise</span>",
+        "hero.subtitle": "Élevez votre marque avec des solutions numériques de classe mondiale. Nous allions expertise technique et stratégie créative pour créer des produits évolutifs qui génèrent des résultats tangibles.",
+        "hero.cta": "Démarrer votre projet",
+        "hero.explore": "Découvrir notre travail"
+    }
+}
