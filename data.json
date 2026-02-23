@@ -1,14 +1,14 @@
 {
     "kumtech-branding": {
         "category": "Branding",
-        "title": "Kumtech Gateway Brand Identity",
+        "title": "Kumtech Gateway Brand Identity & Logo Design",
         "client": "Kumtech Gateway",
         "timeline": "2023",
         "services": "Logo Design, Brand Strategy, UI/UX",
         "challenge": "To create a modern, tech-focused identity that reflects reliability and innovation.",
         "solution": "We developed a clean, geometric logo and a vibrant color palette combining Tech Blue and Cyan.",
         "results": ["Increased brand recognition", "Consistent visual language", "Modernized digital presence"],
-        "image": "images/logo.png",
+        "image": "images/kumtech-branding.jpg",
         "gallery": [
             "https://placehold.co/800x600/1F3C88/FFFFFF?text=Kumtech+Stationery",
             "https://placehold.co/800x600/00B4D8/FFFFFF?text=Brand+Guidelines"
@@ -16,7 +16,7 @@
     },
     "modern-ecom": {
         "category": "Web Design",
-        "title": "Modern E-commerce Platform",
+        "title": "Modern Shopify E-commerce Web Design",
         "client": "Global Retail Co.",
         "timeline": "2024",
         "services": "Web Design, Development, UX Research",
@@ -31,7 +31,7 @@
     },
     "social-media-boost": {
         "category": "Marketing",
-        "title": "Social Media Campaign Boost",
+        "title": "Instagram & TikTok Social Media Marketing Strategy",
         "client": "Lifestyle Influencer",
         "timeline": "2024",
         "services": "Ads Management, Content Creation, Analytics",
@@ -46,7 +46,7 @@
     },
     "intuitive-app-design": {
         "category": "UI/UX",
-        "title": "Intuitive Mobile App Design",
+        "title": "Healthcare Mobile App UI/UX Design",
         "client": "HealthTech Startup",
         "timeline": "2023",
         "services": "UI/UX Design, Prototyping, User Testing",
@@ -61,7 +61,7 @@
     },
     "scalable-api-solution": {
         "category": "Development",
-        "title": "Scalable API Solution",
+        "title": "Node.js Backend API Development & DevOps",
         "client": "SaaS Provider",
         "timeline": "2023",
         "services": "Backend Development, API Design, DevOps",
@@ -76,7 +76,7 @@
     },
     "eco-friendly-brand": {
         "category": "Branding",
-        "title": "Eco-Friendly Brand Identity",
+        "title": "Sustainable Product Branding & Packaging Design",
         "client": "Sustainable Goods Co.",
         "timeline": "2024",
         "services": "Branding, Packaging Design, Content Strategy",
@@ -91,7 +91,7 @@
     },
     "portfolio-website": {
         "category": "Web Design",
-        "title": "High-Performance Portfolio Website",
+        "title": "SEO-Optimized Photographer Portfolio Website",
         "client": "Creative Photographer",
         "timeline": "2023",
         "services": "Web Design, Web Development, SEO",
@@ -106,7 +106,7 @@
     },
     "seo-strategy": {
         "category": "Marketing",
-        "title": "Comprehensive SEO Strategy",
+        "title": "Local SEO Strategy for Law Firms",
         "client": "Local Law Firm",
         "timeline": "2024",
         "services": "SEO, Content Marketing, Local SEO",
@@ -121,7 +121,7 @@
     },
     "real-estate-portal": {
         "category": "Web Design",
-        "title": "Real Estate Portal",
+        "title": "Real Estate Web Portal Development",
         "client": "Property Group",
         "timeline": "2023",
         "services": "Web Design, Development, Map Integration",
@@ -136,7 +136,7 @@
     },
     "fitness-tracker": {
         "category": "Development",
-        "title": "Fitness Tracker App",
+        "title": "React Native Fitness Tracker App Development",
         "client": "Wellness Tech",
         "timeline": "2024",
         "services": "Mobile App Development, UI/UX, API Development",
@@ -151,7 +151,7 @@
     },
     "email-marketing": {
         "category": "Marketing",
-        "title": "Email Marketing Automation",
+        "title": "E-commerce Email Marketing Automation",
         "client": "Online Retailer",
         "timeline": "2023",
         "services": "Email Marketing, Automation, Content Strategy",
@@ -166,7 +166,7 @@
     },
     "travel-branding": {
         "category": "Branding",
-        "title": "Travel Agency Branding",
+        "title": "Travel Agency Branding & Web Design",
         "client": "Adventure Tours Co.",
         "timeline": "2024",
         "services": "Branding, Logo Design, Web Design",

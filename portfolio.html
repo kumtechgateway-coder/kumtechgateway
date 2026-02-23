@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H55QGC66WN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-H55QGC66WN');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumtech Gateway | Our Portfolio & Case Studies</title>
@@ -45,7 +53,18 @@
       "provider": {
         "@type": "ProfessionalService",
         "name": "Kumtech Gateway",
-        "image": "https://kumtechgateway.com/images/logo.png"
+        "image": "https://kumtechgateway.com/images/logo.png",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "CM",
+            "addressLocality": "Yaoundé"
+        },
+        "sameAs": [
+            "https://www.facebook.com/",
+            "https://www.tiktok.com/",
+            "https://www.linkedin.com/",
+            "https://www.instagram.com/"
+        ]
       }
     }
     </script>
@@ -107,7 +126,7 @@
     <nav class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm py-2 md:py-4 transition-all duration-300 navbar border-b border-gray-100 dark:bg-charcoal/90 dark:border-white/10" id="navbar">
         <div class="container mx-auto px-5 flex justify-between items-center max-w-[1200px]">
             <a href="index.html" class="flex text-2xl font-bold">
-                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-12 md:w-16" loading="lazy">
+                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-12 md:w-16" width="64" height="64" loading="lazy">
             </a>
             
             <div class="flex items-center gap-5">
@@ -119,7 +138,7 @@
                 <ul class="flex gap-10 md:flex-row flex-col absolute md:static top-full left-0 w-full md:w-auto bg-white dark:bg-charcoal md:bg-transparent md:dark:bg-transparent p-5 md:p-0 shadow-lg md:shadow-none transition-all duration-300 -translate-y-[150%] md:translate-y-0 -z-10 md:z-auto open:translate-y-0" id="navMenu">
                     <li><a href="index.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full active open:text-cyan open:after:w-full" data-i18n="nav.home">Home</a></li>
                     <li><a href="index.html#about" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.about">About</a></li>
-                    <li><a href="index.html#services" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.services">Services</a></li>
+                    <li><a href="services.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.services">Services</a></li>
                     <li><a href="portfolio.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.portfolio">Portfolio</a></li>
                     <li><a href="gallery.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.gallery">Gallery</a></li>
                     <li><a href="index.html#contact" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.contact">Contact</a></li>
@@ -140,6 +159,12 @@
     <main>
     <!-- Portfolio Section -->
     <section class="pt-28 md:pt-40 pb-16 md:pb-24 relative dark:bg-charcoal" id="portfolio">
+            <!-- Page Header -->
+            <div class="container mx-auto px-5 max-w-[1200px] text-center mb-10 reveal-up">
+                <h1 class="font-heading text-4xl md:text-5xl font-bold text-tech-blue dark:text-white mb-4">Our Portfolio & Case Studies</h1>
+                <p class="text-lg text-charcoal/70 dark:text-gray-400 max-w-2xl mx-auto">Explore our diverse range of projects, from branding to full-stack development.</p>
+            </div>
+
             <!-- Controls -->
             <div class="sticky top-[64px] md:top-[96px] z-40 bg-white/80 dark:bg-charcoal/80 backdrop-blur-lg py-4 md:py-5 mb-8 md:mb-10 flex justify-center items-center gap-3 reveal-up delay-300 transition-all w-full border-b border-gray-100 dark:border-white/10 shadow-sm">
                 
@@ -435,15 +460,15 @@
             <div class="flex flex-wrap gap-16 mb-16 flex-col lg:flex-row">
                 <div class="flex-1 min-w-[280px] max-w-sm">
                     <a href="index.html" class="flex text-2xl font-bold text-white">
-                        <img src="images/logo.png" alt="Kumtech Gateway" class="h-12 w-auto" loading="lazy">
+                        <img src="images/logo.png" alt="Kumtech Gateway" class="h-12 w-auto" width="48" height="48" loading="lazy">
                     </a>
                     <p class="my-6 leading-relaxed opacity-80">Empowering businesses with innovative digital solutions. We turn ideas into reality through technology and creativity.</p>
                     <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/237679796638" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="TikTok" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="LinkedIn" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/237679796638" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="WhatsApp" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 
