@@ -93,13 +93,17 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
     border-radius: 50%;
     opacity: 0;
     transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.3s ease;
     z-index: 9999;
 }
 #cursor-dot {
     width: 8px;
     height: 8px;
     background-color: #00B4D8; /* cyan */
+    display: none;
+}
+#cursor-dot.hover {
+    background-color: #F97316; /* orange */
 }
 #cursor-outline {
     width: 40px;
@@ -114,7 +118,7 @@ body.cursor-active #cursor-outline {
 #cursor-outline.hover {
     width: 60px;
     height: 60px;
-    background-color: rgba(0, 180, 216, 0.3);
+    background-color: rgba(249, 115, 22, 0.3); /* orange with opacity */
 }
 
 /* Hero Particle Background */
@@ -210,4 +214,61 @@ body.cursor-active #cursor-outline {
     to {
         left: 150%;
     }
+}
+
+/* Contact Form Animations */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+.shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.contact-method-btn.active {
+    border-color: #1F3C88;
+    background-color: rgba(31, 60, 136, 0.05);
+}
+.dark .contact-method-btn.active {
+    border-color: #00B4D8;
+    background-color: rgba(0, 180, 216, 0.1);
+}
+
+/* Flying Icon Animation */
+.flying-icon {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.animate-bounce-slow {
+    animation: bounce-slow 2s infinite;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Success Modal States */
+#successModal.active {
+    opacity: 1;
+    visibility: visible;
+}
+#successModal.active #successIcon {
+    transform: scale(1);
+}
+#successModal.active #successTitle,
+#successModal.active #successText,
+#successModal.active #resetFormBtn {
+    opacity: 1;
+    transform: translateY(0);
+}
+#successModal.active #successContent {
+    transform: scale(1);
 }

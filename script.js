@@ -104,13 +104,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const bodyForCursor = document.body;
 
     if (cursorDot && cursorOutline) {
-        bodyForCursor.classList.add('cursor-hidden'); // Hide default cursor
         window.addEventListener('mousemove', function(e) {
             const posX = e.clientX;
             const posY = e.clientY;
 
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
+
+            // Ensure cursor is visible on move
+            if (window.innerWidth > 768) {
+                if (!bodyForCursor.classList.contains('cursor-active')) bodyForCursor.classList.add('cursor-active');
+            } else {
+                bodyForCursor.classList.remove('cursor-active');
+            }
 
             cursorOutline.animate({
                 left: `${posX}px`,
@@ -131,9 +137,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('a, button, .cursor-pointer, [data-id], .filter-btn').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursorOutline.classList.add('hover');
+                cursorDot.classList.add('hover');
             });
             el.addEventListener('mouseleave', () => {
                 cursorOutline.classList.remove('hover');
+                cursorDot.classList.remove('hover');
             });
         });
     }
@@ -1203,5 +1211,195 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.theme = 'dark';
             }
         });
+    }
+
+    // Contact Form Logic
+    const contactFormContainer = document.getElementById('contact-form-container');
+    if (contactFormContainer) {
+        const methodBtns = document.querySelectorAll('.contact-method-btn');
+        const emailForm = document.getElementById('contactForm');
+        const whatsappView = document.getElementById('whatsappView');
+        const phoneView = document.getElementById('phoneView');
+        const views = {
+            'email': emailForm,
+            'whatsapp': whatsappView,
+            'phone': phoneView
+        };
+
+        // Switch Methods
+        methodBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update buttons
+                methodBtns.forEach(b => b.classList.remove('active', 'border-tech-blue', 'bg-tech-blue/5'));
+                btn.classList.add('active');
+                
+                const method = btn.getAttribute('data-method');
+                
+                // Hide all views
+                Object.values(views).forEach(el => {
+                    if(el) el.classList.add('hidden');
+                    if(el) el.classList.remove('flex');
+                });
+
+                // Show selected
+                const selectedView = views[method];
+                if (selectedView) {
+                    if (method === 'email') {
+                        selectedView.classList.remove('hidden');
+                    } else {
+                        selectedView.classList.remove('hidden');
+                        selectedView.classList.add('flex');
+                    }
+                }
+            });
+        });
+
+        // Form Submission
+        const sendBtn = document.getElementById('sendBtn');
+        const sendIcon = document.getElementById('sendIcon');
+        const successModal = document.getElementById('successModal');
+        const resetFormBtn = document.getElementById('resetFormBtn');
+        const successSound = new Audio('sounds/success.mp3');
+
+        if (emailForm && sendBtn) {
+            emailForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Validation
+                const inputs = emailForm.querySelectorAll('input, select, textarea');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('border-red-500');
+                    } else {
+                        input.classList.remove('border-red-500');
+                    }
+                });
+
+                if (!isValid) {
+                    emailForm.classList.add('shake');
+                    setTimeout(() => emailForm.classList.remove('shake'), 500);
+                    Toast.show('Please fill in all fields', 'error');
+                    return;
+                }
+
+                // Send Email via EmailJS
+                sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                sendBtn.disabled = true;
+
+                // REPLACE WITH YOUR EMAILJS SERVICE ID AND TEMPLATE ID
+                const serviceID = 'YOUR_SERVICE_ID'; 
+                const templateID = 'YOUR_TEMPLATE_ID';
+
+                emailjs.sendForm(serviceID, templateID, emailForm)
+                    .then(() => {
+                    // Success Animation
+                    const iconRect = sendIcon.getBoundingClientRect();
+                    const flyIcon = document.createElement('div');
+                    flyIcon.innerHTML = '<i class="fas fa-paper-plane text-white text-xl"></i>';
+                    flyIcon.className = 'flying-icon bg-gradient-to-r from-tech-blue to-cyan w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,180,216,0.6)] z-[9999]';
+                    flyIcon.style.left = `${iconRect.left}px`;
+                    flyIcon.style.top = `${iconRect.top}px`;
+                    document.body.appendChild(flyIcon);
+
+                    // Target position (Success Icon in Modal)
+                    const successIcon = document.getElementById('successIcon');
+                    let targetX, targetY;
+
+                    if (successIcon) {
+                        // Temporarily remove scale transform to measure actual position
+                        const wasScaled = successIcon.classList.contains('scale-0');
+                        if (wasScaled) successIcon.classList.remove('scale-0');
+                        
+                        const destRect = successIcon.getBoundingClientRect();
+                        targetX = destRect.left + destRect.width / 2 - 28; // Center - half flyIcon width
+                        targetY = destRect.top + destRect.height / 2 - 28;
+                        
+                        if (wasScaled) successIcon.classList.add('scale-0');
+                    } else {
+                        targetX = window.innerWidth / 2 - 28;
+                        targetY = window.innerHeight / 2 - 28;
+                    }
+
+                    requestAnimationFrame(() => {
+                        flyIcon.style.left = `${targetX}px`;
+                        flyIcon.style.top = `${targetY}px`;
+                        flyIcon.style.transform = 'scale(1.7)';
+                    });
+
+                    setTimeout(() => {
+                        // Morph into checkmark
+                        flyIcon.style.transition = 'all 0.3s ease';
+                        flyIcon.classList.remove('bg-gradient-to-r', 'from-tech-blue', 'to-cyan');
+                        flyIcon.style.background = '#dcfce7'; // bg-green-100
+                        flyIcon.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.4)';
+                        flyIcon.innerHTML = '<i class="fas fa-check text-green-500 text-3xl"></i>';
+                        
+                        // Play Success Sound
+                        successSound.currentTime = 0;
+                        successSound.play().catch(e => console.warn('Audio playback failed:', e));
+
+                        setTimeout(() => {
+                            flyIcon.remove();
+                            successModal.classList.add('active');
+                            
+                            // Handle Success Icon instant appearance
+                            const successIcon = document.getElementById('successIcon');
+                            if (successIcon) {
+                                successIcon.style.transition = 'none';
+                                successIcon.classList.remove('scale-0', 'delay-300');
+                                successIcon.classList.add('scale-100');
+                            }
+
+                            // Trigger Confetti
+                            if (typeof confetti === 'function') {
+                                confetti({
+                                    particleCount: 150,
+                                    spread: 70,
+                                    origin: { y: 0.6 },
+                                    colors: ['#00B4D8', '#1F3C88', '#F97316', '#FDBA74'] // Brand colors
+                                });
+                            }
+
+                            sendBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
+                            sendBtn.disabled = false;
+                            emailForm.reset();
+                        }, 300);
+                    }, 800); // Flight time
+                })
+                .catch((err) => {
+                    console.error('EmailJS Error:', err);
+                    sendBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
+                    sendBtn.disabled = false;
+                    emailForm.classList.add('shake');
+                    setTimeout(() => emailForm.classList.remove('shake'), 500);
+                    Toast.show('Failed to send message. Please check your connection.', 'error');
+                });
+            });
+        }
+
+        if (resetFormBtn) {
+            const resetModal = () => {
+                successModal.classList.remove('active');
+                const successIcon = document.getElementById('successIcon');
+                if (successIcon) {
+                    setTimeout(() => {
+                        successIcon.style.transition = '';
+                        successIcon.classList.add('scale-0', 'delay-300');
+                        successIcon.classList.remove('scale-100');
+                    }, 500);
+                }
+            };
+
+            resetFormBtn.addEventListener('click', resetModal);
+            
+            // Close on overlay click
+            const successOverlay = document.getElementById('successOverlay');
+            if (successOverlay) {
+                successOverlay.addEventListener('click', resetModal);
+            }
+        }
     }
 });
