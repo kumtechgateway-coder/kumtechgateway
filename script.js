@@ -267,6 +267,13 @@ document.addEventListener('DOMContentLoaded', function() {
         menuToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             menuToggle.classList.toggle('active');
+            
+            // Toggle Icon
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            }
             document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
         });
     }
@@ -277,6 +284,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navMenu && menuToggle) {
                 navMenu.classList.remove('active');
                 menuToggle.classList.remove('active');
+                
+                // Reset Icon
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
                 document.body.style.overflow = '';
             }
         });
@@ -291,6 +305,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navMenu.classList.contains('active') && !isClickInsideMenu && !isClickOnToggle) {
                 navMenu.classList.remove('active');
                 menuToggle.classList.remove('active');
+                
+                // Reset Icon
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
                 document.body.style.overflow = '';
             }
         }
@@ -304,7 +325,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Logic for non-homepage pages
         navLinks.forEach(link => {
             const linkPage = link.getAttribute('href').split('#')[0];
-            if (linkPage === currentPage) {
+            const isBlogPostPage = currentPage === 'blog-post.html';
+            const isBlogLink = linkPage === 'blog.html';
+
+            // Activate link if it's the current page, or if we're on a blog post and it's the blog link
+            if (linkPage === currentPage || (isBlogPostPage && isBlogLink)) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -739,16 +764,13 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Kumtech Gateway Portfolio Website loaded successfully.');
     console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316, #FDBA74');
 
-    // Fetch Case Study Data
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-            AppState.caseStudies = data;
-        })
-        .catch(error => {
-            console.error('Error loading case studies:', error);
-            Toast.show('Failed to load project data. Please check your connection.', 'error');
-        });
+    // Load Case Study Data from the global caseStudyData variable (defined in data.js)
+    if (typeof caseStudyData !== 'undefined') {
+        AppState.caseStudies = caseStudyData;
+    } else {
+        console.error('Error loading case studies: caseStudyData is not defined. Check if data.js is loaded correctly.');
+        Toast.show('Failed to load project data.', 'error');
+    }
 
     /**
      * Injects the Case Study Modal HTML into the DOM.
@@ -1265,8 +1287,14 @@ document.addEventListener('DOMContentLoaded', function() {
             emailForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 
+                // Honeypot Check (Spam Prevention)
+                const honeypot = document.getElementById('website_check');
+                if (honeypot && honeypot.value) {
+                    return; // Silent rejection
+                }
+
                 // Validation
-                const inputs = emailForm.querySelectorAll('input, select, textarea');
+                const inputs = emailForm.querySelectorAll('input:not(.honeypot), select, textarea');
                 let isValid = true;
                 
                 inputs.forEach(input => {
@@ -1289,9 +1317,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 sendBtn.disabled = true;
 
-                // REPLACE WITH YOUR EMAILJS SERVICE ID AND TEMPLATE ID
-                const serviceID = 'YOUR_SERVICE_ID'; 
-                const templateID = 'YOUR_TEMPLATE_ID';
+                const serviceID = 'service_616vx27';
+                const templateID = 'template_io83jnh';
 
                 emailjs.sendForm(serviceID, templateID, emailForm)
                     .then(() => {
@@ -1400,6 +1427,107 @@ document.addEventListener('DOMContentLoaded', function() {
             if (successOverlay) {
                 successOverlay.addEventListener('click', resetModal);
             }
+        }
+    }
+
+    // ==========================================
+    // BLOG FUNCTIONALITY
+    // ==========================================
+    
+    // 1. Blog Listing Page (blog.html)
+    const blogGrid = document.getElementById('blog-grid');
+    if (blogGrid) {
+        fetch('blog.json')
+            .then(response => response.json())
+            .then(posts => {
+                blogGrid.innerHTML = ''; // Clear loading spinner
+                
+                posts.forEach((post, index) => {
+                    const delay = index * 100;
+                    const html = `
+                        <div class="blog-card bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/5 flex flex-col h-full reveal-up" style="animation-delay: ${delay}ms">
+                            <a href="blog-post.html?id=${post.id}" class="block overflow-hidden h-48 relative group">
+                                <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute top-4 left-4 bg-tech-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md">
+                                    ${post.category}
+                                </div>
+                            </a>
+                            <div class="p-6 flex flex-col flex-1">
+                                <div class="flex items-center gap-3 text-xs text-charcoal/60 dark:text-gray-400 mb-3">
+                                    <span><i class="far fa-calendar-alt mr-1"></i> ${post.date}</span>
+                                    <span><i class="far fa-user mr-1"></i> ${post.author}</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-3 leading-tight hover:text-cyan transition-colors">
+                                    <a href="blog-post.html?id=${post.id}">${post.title}</a>
+                                </h3>
+                                <p class="text-charcoal/70 dark:text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
+                                    ${post.excerpt}
+                                </p>
+                                <a href="blog-post.html?id=${post.id}" class="inline-flex items-center text-tech-blue dark:text-cyan font-bold text-sm hover:underline mt-auto">
+                                    Read Article <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    blogGrid.insertAdjacentHTML('beforeend', html);
+                });
+
+                // Trigger animations
+                setTimeout(() => {
+                    document.querySelectorAll('.reveal-up').forEach(el => el.classList.add('active'));
+                }, 100);
+            })
+            .catch(err => {
+                console.error('Error loading blog posts:', err);
+                blogGrid.innerHTML = '<p class="text-center col-span-full text-red-500">Failed to load blog posts.</p>';
+            });
+    }
+
+    // 2. Single Blog Post Page (blog-post.html)
+    const postContainer = document.getElementById('post-container');
+    if (postContainer) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        if (postId) {
+            fetch('blog.json')
+                .then(res => res.json())
+                .then(posts => {
+                    const post = posts.find(p => p.id === postId);
+                    if (post) {
+                        // Update Page Title for SEO (Client-side)
+                        document.title = `${post.title} | Kumtech Gateway Blog`;
+                        document.querySelector('meta[name="description"]').setAttribute('content', post.excerpt);
+
+                        postContainer.innerHTML = `
+                            <div class="mb-8">
+                                <span class="text-cyan font-bold tracking-wider uppercase text-sm mb-2 block">${post.category}</span>
+                                <h1 class="text-3xl md:text-5xl font-heading font-bold text-tech-blue dark:text-white mb-6 leading-tight">${post.title}</h1>
+                                <div class="post-meta flex items-center gap-4 text-charcoal/60 dark:text-gray-400 text-sm border-b border-gray-200 dark:border-white/10 pb-6">
+                                    <span class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-charcoal">${post.author.charAt(0)}</div> ${post.author}</span>
+                                    <span>&bull;</span>
+                                    <span>${post.date}</span>
+                                </div>
+                            </div>
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-auto rounded-2xl shadow-lg mb-10 object-cover max-h-[500px]">
+                            <div class="prose prose-lg dark:prose-invert max-w-none text-charcoal/80 dark:text-gray-300 leading-relaxed">
+                                ${post.content}
+                            </div>
+                            <div class="share-buttons mt-12 pt-8 border-t border-gray-200 dark:border-white/10">
+                                <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-4">Share this article</h3>
+                                <div class="flex gap-4">
+                                    <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' ' + window.location.href)}" target="_blank" class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Post Not Found</h2><a href="blog.html" class="text-tech-blue hover:underline">Return to Blog</a></div>';
+                    }
+                });
+        } else {
+            window.location.href = 'blog.html';
         }
     }
 });

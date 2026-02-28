@@ -1,4 +1,11 @@
-{
+// This file contains the data for all case studies/portfolio projects.
+// It's structured as a JavaScript object where each key is a unique project ID.
+// This object is assigned to a global variable `caseStudyData` which is then
+// loaded into the application's state in script.js.
+
+console.log("data.js is loading...");
+
+var caseStudyData = {
     "kumtech-branding": {
         "category": "Branding",
         "title": "Kumtech Gateway Brand Identity & Logo Design",
@@ -179,4 +186,4 @@
             "https://placehold.co/800x600/00B4D8/FFFFFF?text=Adventure+Logo"
         ]
     }
-}
+};

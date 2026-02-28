@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumtech Gateway | Creative Gallery</title>
-    <meta name="description" content="Browse our gallery of creative works including flyers, posters, social media graphics, and banners.">
+    <title>Kumtech Gateway | Graphic Design Gallery - Flyers, Posters & Banners</title>
+    <meta name="description" content="Explore our graphic design portfolio featuring flyers, posters, social media graphics, and banners created for businesses in Cameroon.">
     <meta name="robots" content="index, follow">
     <link rel="alternate" hreflang="en" href="https://kumtechgateway.com/gallery.html" />
     <link rel="alternate" hreflang="x-default" href="https://kumtechgateway.com/gallery.html" />
@@ -86,6 +86,7 @@
                     <li><a href="index.html#about" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.about">About</a></li>
                     <li><a href="portfolio.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.portfolio">Portfolio</a></li>
                    <li><a href="gallery.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.gallery">Gallery</a></li>
+                   <li><a href="blog.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.blog">Blog</a></li>
                     <li><a href="index.html#contact" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.contact">Contact</a></li>
                 </ul>
                 
@@ -105,7 +106,7 @@
        <section class="pt-28 md:pt-40 pb-16 md:pb-24 relative dark:bg-charcoal" id="gallery">
             <div class="container mx-auto px-5 max-w-[1200px]">
                 <div class="text-center mb-12">
-                   <h1 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Creative Gallery</h1>
+                   <h1 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Creative Graphic Design Gallery</h1>
                    <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">Explore our collection of flyers, posters, and social media designs.</p>
                 </div>
             </div>
@@ -210,6 +211,7 @@
                         <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up ${delay} mb-6 break-inside-avoid" data-category="flyers">
                             <div class="w-full relative skeleton">
                                 <img src="images/flyer${imgIndex}.webp" alt="Flyer Design ${imgIndex}" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 opacity-0 transition-opacity duration-500" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=No+Image';this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')" onload="this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')">
+                                <img src="images/flyer${imgIndex}.webp" alt="Flyer Design ${imgIndex}" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 opacity-0 transition-opacity duration-500" loading="lazy" onerror="this.closest('.portfolio-card').style.display='none'" onload="this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')">
                             </div>
                             <div class="hidden portfolio-title">Flyer Design ${imgIndex}</div>
                             <div class="hidden portfolio-description">Creative flyer design</div>
@@ -357,6 +359,7 @@
         <img id="lightboxImage" src="" alt="Gallery Image" class="max-w-[90vw] max-h-[90vh] object-contain transform scale-95 transition-all duration-300 select-none">
     </div>
 
+    <script src="data.js"></script>
     <script src="script.js"></script>
 
 </body>

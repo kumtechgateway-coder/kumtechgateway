@@ -1,17 +1,22 @@
-const CACHE_NAME = 'kumtech-cache-v5';
+const CACHE_NAME = 'kumtech-cache-v6'; // Cache version updated
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './portfolio.html',
   './gallery.html',
+  './services.html',
+  './blog.html',
+  './blog-post.html',
+  './404.html',
   './style.css',
   './script.js',
-  './data.json',
+  './data.js', // Corrected from data.json
+  './blog.json',
   './translations.json',
   './images/logo.png',
-  './images/hero.png',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://cdn.tailwindcss.com'
+  './images/hero.png'
+  // Note: CDN assets like FontAwesome and Tailwind are intentionally excluded.
+  // Caching them directly can cause CORS issues. The browser's HTTP cache is sufficient.
 ];
 
 // Install Service Worker

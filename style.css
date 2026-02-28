@@ -39,9 +39,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
 #navbar.navbar-dark .nav-link { color: rgba(255,255,255,0.9); }
 #navbar.navbar-dark .nav-link:hover, #navbar.navbar-dark .nav-link.active { color: #00B4D8; }
 #navbar.navbar-dark .nav-link::after { background-color: #00B4D8; }
-#navbar.navbar-dark .hamburger, 
-#navbar.navbar-dark .hamburger::before, 
-#navbar.navbar-dark .hamburger::after { background-color: white; }
+#navbar.navbar-dark .menu-toggle i { color: white; }
 
 /* Skeleton Loading */
 .skeleton {
@@ -74,16 +72,191 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
 /* Modal Skeleton Overrides */
 .skeleton-text { color: transparent !important; background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; border-radius: 4px; user-select: none; }
 
-/* Mobile Menu & Hamburger Animation */
-.menu-toggle.active .hamburger { background-color: transparent !important; }
-.menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
-.menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
-
 #navMenu.active { transform: translateY(0); }
+
+/* Mobile Menu Link Styling */
+@media (max-width: 767px) {
+    #navMenu.active {
+        /* Reduce the large gap between links on mobile for a tighter look */
+        gap: 0.25rem; /* 4px */
+    }
+
+    #navMenu.active .nav-link {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1.25rem; /* 12px top/bottom, 20px left/right */
+        border-radius: 0.5rem; /* 8px */
+    }
+
+    /* Add a background on hover for the entire link area */
+    #navMenu.active .nav-link:hover {
+        background-color: #f1f5f9; /* soft-gray */
+    }
+
+    .dark #navMenu.active .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Also apply a background to the active link for consistency */
+    #navMenu.active .nav-link.active {
+        background-color: rgba(0, 180, 216, 0.1); /* A subtle highlight for the active page */
+    }
+
+    .dark #navMenu.active .nav-link.active {
+        background-color: rgba(0, 180, 216, 0.15);
+    }
+}
 
 /* Custom Cursor */
 .cursor-hidden {
     cursor: none;
+}
+
+/* General Page Content Styling for Blog and other pages */
+/* This class should be applied to a main content wrapper on blog.html and blog-post.html */
+.main-content {
+    background-color: #f8fafc; /* soft-gray-50, light mode default */
+    color: #0F172A; /* charcoal */
+    padding-top: 8rem; /* 128px, to clear the fixed navbar */
+    padding-bottom: 5rem; /* 80px */
+    min-height: calc(100vh - 80px); /* Example: full height minus navbar/footer */
+}
+
+.dark .main-content {
+    background-color: #0F172A; /* dark slate */
+    color: #e2e8f0; /* light gray */
+}
+
+/* Blog Listing Page Specifics */
+#blog-grid {
+    padding: 2rem 1.5rem; /* Add some vertical and horizontal padding */
+    max-width: 1200px; /* Constrain width for readability */
+    margin: 0 auto; /* Center the grid */
+    display: grid; /* Ensure it's a grid */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid, slightly smaller min for mobile */
+    gap: 2rem; /* Spacing between cards */
+}
+
+/* Blog Card Enhancements */
+.blog-card { /* Assuming this class is added to the post div in script.js */
+    transition: all 0.3s ease-in-out;
+}
+.blog-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.dark .blog-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Single Blog Post Page Specifics */
+#post-container {
+    max-width: 900px; /* Constrain width for readability */
+    margin: 0 auto; /* Center the content */
+    padding: 2.5rem 2rem; /* Padding for content */
+    background-color: #ffffff; /* White background for post content */
+    border-radius: 1rem; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* Subtle shadow */
+}
+
+.dark #post-container {
+    background-color: #1e293b; /* Darker slate for dark mode posts */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* Enhance Prose Styling for better brand integration */
+/* Targeting elements within the prose class for more specific control */
+#post-container .prose h1,
+#post-container .prose h2,
+#post-container .prose h3,
+#post-container .prose h4,
+#post-container .prose h5,
+#post-container .prose h6 {
+    color: #1F3C88; /* tech-blue */
+    font-family: 'Inter', sans-serif; /* Assuming Inter is the main font, or a suitable sans-serif */
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+}
+
+.dark #post-container .prose h1,
+.dark #post-container .prose h2,
+.dark #post-container .prose h3,
+.dark #post-container .prose h4,
+.dark #post-container .prose h5,
+.dark #post-container .prose h6 {
+    color: #00B4D8; /* cyan */
+}
+
+#post-container .prose a {
+    color: #00B4D8; /* cyan for links */
+    text-decoration: underline;
+}
+
+#post-container .prose a:hover {
+    color: #1F3C88; /* tech-blue on hover */
+}
+
+.dark #post-container .prose a {
+    color: #00B4D8;
+}
+
+.dark #post-container .prose a:hover {
+    color: #F97316; /* orange on hover in dark mode */
+}
+
+/* Blog Post Meta Info (using the new .post-meta class) */
+.post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #64748b; /* slate-500 */
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.dark .post-meta {
+    color: #94a3b8; /* slate-400 */
+    border-bottom-color: #334155; /* slate-700 */
+}
+
+.post-meta span i {
+    color: #00B4D8; /* cyan icons */
+}
+
+/* Blog Post Image (direct child img of #post-container) */
+#post-container > img {
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.dark #post-container > img {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Share buttons (using the new .share-buttons class) */
+.share-buttons {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.dark .share-buttons {
+    border-top-color: #334155;
+}
+
+/* Custom bullet points for lists within prose */
+#post-container .prose ul li::before {
+    content: "•";
+    color: #00B4D8; /* cyan bullet */
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
 }
 #cursor-dot, #cursor-outline {
     pointer-events: none;
@@ -192,6 +365,15 @@ body.cursor-active #cursor-outline {
     0% { background-position: 0% 50%, center center; }
     50% { background-position: 100% 50%, center center; }
     100% { background-position: 0% 50%, center center; }
+}
+
+/* Hero Image Float Animation */
+@keyframes float-img {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+.animate-float-img {
+    animation: float-img 6s ease-in-out infinite;
 }
 
 /* Portfolio Card Glare Effect */

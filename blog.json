@@ -1,0 +1,32 @@
+[
+    {
+        "id": "why-business-needs-website-cameroon",
+        "title": "Why Every Business in Cameroon Needs a Website in 2024",
+        "excerpt": "In the bustling markets of Yaoundé and Douala, a digital presence is no longer optional. Discover how a professional website can double your customer base.",
+        "content": "<p class='mb-4'>The digital landscape in Cameroon is evolving rapidly. With internet penetration increasing in cities like Yaoundé and Douala, businesses that rely solely on physical foot traffic are leaving money on the table.</p><h3 class='text-2xl font-bold text-tech-blue mb-3'>1. Credibility and Trust</h3><p class='mb-4'>A professional website acts as your digital storefront. Customers today expect legitimate businesses to have an online presence. Without one, you risk losing credibility to competitors who do.</p><h3 class='text-2xl font-bold text-tech-blue mb-3'>2. 24/7 Marketing</h3><p class='mb-4'>Unlike your physical office, your website never closes. It markets your services to potential clients at 2 AM just as effectively as it does at 2 PM.</p>",
+        "date": "February 24, 2024",
+        "author": "Kumtech Team",
+        "category": "Web Development",
+        "image": "https://placehold.co/800x400/1F3C88/FFFFFF?text=Web+Development+Cameroon"
+    },
+    {
+        "id": "digital-marketing-strategies-yaounde",
+        "title": "Top Digital Marketing Strategies for Yaoundé Businesses",
+        "excerpt": "From Facebook Ads to local SEO, learn the most effective marketing channels to reach customers in the Centre Region.",
+        "content": "<p class='mb-4'>Marketing in Yaoundé requires a unique blend of modern digital tactics and local understanding. Here is how you can dominate your niche.</p><h3 class='text-2xl font-bold text-tech-blue mb-3'>Local SEO is King</h3><p class='mb-4'>When people search for 'services near me', you want to appear first. Optimizing your Google Business Profile is the first step to capturing local leads.</p>",
+        "date": "February 10, 2024",
+        "author": "Sarah M.",
+        "category": "Digital Marketing",
+        "image": "https://placehold.co/800x400/00B4D8/FFFFFF?text=Digital+Marketing"
+    },
+    {
+        "id": "graphic-design-trends-2024",
+        "title": "Graphic Design Trends That Will Define 2024",
+        "excerpt": "Stay ahead of the curve with these visual design trends. Minimalist logos, bold typography, and eco-friendly branding are taking over.",
+        "content": "<p class='mb-4'>Visual identity is the face of your brand. In 2024, we are seeing a shift towards cleaner, more sustainable design aesthetics.</p>",
+        "date": "January 15, 2024",
+        "author": "Kumtech Design",
+        "category": "Graphic Design",
+        "image": "https://placehold.co/800x400/F97316/FFFFFF?text=Design+Trends"
+    }
+]

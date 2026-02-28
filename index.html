@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumtech Gateway | Web Development & Digital Marketing Agency</title>
-    <meta name="description" content="Kumtech Gateway offers world-class digital solutions, web development, graphic design, and digital marketing to elevate your business.">
-    <meta name="keywords" content="web development, graphic design, digital marketing, branding, SEO, mobile apps, Kumtech Gateway, software agency">
+    <title>Kumtech Gateway | Web Design, Development & Digital Marketing Agency in Yaoundé, Cameroon</title>
+    <meta name="description" content="Kumtech Gateway is a leading digital marketing agency in Yaoundé, Cameroon. We specialize in web design, web development, graphic design, and ads management.">
+    <meta name="keywords" content="web design, web development, graphic design, digital marketing, ads management, marketing agency, cameroon, yaounde, seo, mobile apps">
     <meta name="author" content="Kumtech Gateway">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://kumtechgateway.com/">
@@ -15,15 +15,15 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kumtechgateway.com/">
-    <meta property="og:title" content="Kumtech Gateway | Web Development & Digital Marketing Agency">
-    <meta property="og:description" content="Elevate your brand with world-class digital solutions. We blend technical expertise and creative strategy to build scalable products.">
+    <meta property="og:title" content="Kumtech Gateway | Web Design & Digital Marketing Agency in Cameroon">
+    <meta property="og:description" content="Expert web development, graphic design, and ads management services in Yaoundé. Elevate your brand with our digital solutions.">
     <meta property="og:image" content="https://kumtechgateway.com/images/hero.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://kumtechgateway.com/">
-    <meta property="twitter:title" content="Kumtech Gateway | Web Development & Digital Marketing Agency">
-    <meta property="twitter:description" content="Elevate your brand with world-class digital solutions. We blend technical expertise and creative strategy to build scalable products.">
+    <meta property="twitter:title" content="Kumtech Gateway | Web Design & Digital Marketing Agency in Cameroon">
+    <meta property="twitter:description" content="Expert web development, graphic design, and ads management services in Yaoundé. Elevate your brand with our digital solutions.">
     <meta property="twitter:image" content="https://kumtechgateway.com/images/hero.png">
 
     <link rel="preload" as="image" href="images/hero.png">
@@ -142,6 +142,7 @@
                     <li><a href="index.html#about" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.about">About</a></li>
                     <li><a href="portfolio.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.portfolio">Portfolio</a></li>
                     <li><a href="gallery.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.gallery">Gallery</a></li>
+                    <li><a href="blog.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.blog">Blog</a></li>
                     <li><a href="index.html#contact" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.contact">Contact</a></li>
                 </ul>
                 
@@ -151,7 +152,7 @@
                 </a>
                 
                 <button class="md:hidden block bg-none border-none cursor-pointer w-[30px] h-[30px] relative z-50 menu-toggle" id="menuToggle" aria-label="Toggle menu">
-                    <span class="hamburger block w-[25px] h-[2px] bg-tech-blue relative transition-all duration-300 before:content-[''] before:absolute before:w-[25px] before:h-[2px] before:bg-tech-blue before:transition-all before:duration-300 before:-top-[8px] after:content-[''] after:absolute after:w-[25px] after:h-[2px] after:bg-tech-blue after:transition-all after:duration-300 after:top-[8px]"></span>
+                    <i class="fas fa-bars text-2xl text-tech-blue dark:text-white transition-transform duration-300"></i>
                 </button>
             </div>
         </div>
@@ -159,17 +160,20 @@
 
     <main>
     <!-- Home/Hero Section -->
-    <section class="pt-28 md:pt-40 pb-16 md:pb-24 relative bg-gradient-to-br from-soft-gray/80 to-white dark:from-charcoal dark:to-slate-900 overflow-hidden" id="home">
-        <div class="container mx-auto px-5 max-w-[1200px] flex flex-col lg:flex-row items-center justify-between gap-12">
+    <section class="relative flex items-center min-h-screen lg:h-screen bg-gradient-to-br from-soft-gray/80 to-white dark:from-charcoal dark:to-slate-900 overflow-hidden pt-28 lg:pt-24 pb-12" id="home">
+        <!-- Particle Background Moved to Section Level -->
+        <div class="absolute inset-0 z-0 pointer-events-none" id="hero-particle-bg"></div>
+
+        <div class="container mx-auto px-5 max-w-[1200px] flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 relative z-10">
             <div class="flex-1 text-center lg:text-left">
-                <h1 class="font-heading text-4xl lg:text-6xl xl:text-7xl font-extrabold text-tech-blue dark:text-white mb-6 leading-tight tracking-tight reveal-up drop-shadow-sm" data-i18n="hero.title">Designing the Future of <span class="bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-cyan to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block">Your Business</span></h1>
-                <p class="text-lg lg:text-xl text-charcoal dark:text-gray-300 mb-10 max-w-lg mx-auto lg:mx-0 reveal-up delay-200" data-i18n="hero.subtitle">Elevate your brand with world-class digital solutions. We blend technical expertise and creative strategy to build scalable products that drive measurable business results.</p>
+                <h1 class="font-heading text-3xl sm:text-4xl font-extrabold text-tech-blue dark:text-white mb-4 leading-tight tracking-tight reveal-up drop-shadow-sm">Web Design, Development & <span class="bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-cyan to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block">Digital Marketing Agency in Cameroon</span></h1>
+                <p class="text-lg text-charcoal dark:text-gray-300 mb-6 lg:mb-8 max-w-lg mx-auto lg:mx-0 reveal-up delay-200">Elevate your brand with world-class digital solutions. We are a top marketing agency in Yaoundé blending technical expertise in web development and graphic design to build scalable products.</p>
                 <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start reveal-up delay-400">
-                    <a href="#contact" class="inline-block px-8 py-4 rounded-full font-bold text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white shadow-lg shadow-orange/20 hover:shadow-xl hover:shadow-orange/30 hover:-translate-y-1" data-i18n="hero.cta">Start Your Project</a>
-                    <a href="#portfolio" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal dark:text-white border-tech-blue dark:border-white hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover" data-i18n="hero.explore">Explore Our Work</a>
+                    <a href="#contact" class="inline-block px-7 py-3 rounded-full font-bold text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white shadow-lg shadow-orange/20 hover:shadow-xl hover:shadow-orange/30 hover:-translate-y-1" data-i18n="hero.cta">Start Your Project</a>
+                    <a href="#portfolio" class="inline-block px-7 py-3 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal dark:text-white border-tech-blue dark:border-white hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover" data-i18n="hero.explore">Explore Our Work</a>
                 </div>
                 
-                <div class="mt-9 flex items-center justify-center lg:justify-start gap-5 flex-wrap reveal-up delay-600">
+                <div class="mt-8 flex items-center justify-center lg:justify-start gap-5 flex-wrap reveal-up delay-600">
                     <div class="flex items-center gap-2.5 text-charcoal text-sm">
                         <div class="flex gap-0.5 text-orange text-sm">
                             <i class="fas fa-star"></i>
@@ -187,11 +191,11 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-1 relative h-auto flex items-center justify-center lg:-mb-24 w-full reveal-zoom delay-200">
-                <div class="relative w-full max-w-xl h-auto flex justify-center items-center aspect-square">
-                    <!-- Particle Background -->
-                    <div class="absolute inset-0 z-0" id="hero-particle-bg"></div>
-                    <img src="images/hero.png" alt="Digital Growth" class="relative z-10 drop-shadow-2xl w-full h-full object-contain" width="600" height="600" fetchpriority="high" loading="lazy">
+            <div class="flex-1 relative w-full flex justify-center lg:justify-end reveal-zoom delay-200 mt-8 lg:mt-0">
+                <div class="relative w-full max-w-md">
+                    <!-- Decorative Blur Behind Image -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-tech-blue/20 to-cyan/20 rounded-full blur-3xl -z-10"></div>
+                    <img src="images/hero.png" alt="Digital Growth" class="relative z-10 drop-shadow-2xl w-full h-auto object-contain animate-float-img" width="600" height="600" fetchpriority="high" loading="lazy">
                 </div>
             </div>
         </div>
@@ -226,7 +230,7 @@
 
         <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-cyan after:to-white after:rounded-sm reveal-up">About Kumtech Gateway</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-cyan after:to-white after:rounded-sm reveal-up">About Kumtech Gateway - Web Design & Marketing in Yaoundé</h2>
                 <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">Our story of innovation and excellence</p>
             </div>
             <div class="flex flex-col lg:flex-row gap-16 items-center">
@@ -309,7 +313,7 @@
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-20">
                 <span class="text-cyan font-bold tracking-wider uppercase text-sm mb-3 block reveal-up">What We Do</span>
-                <h2 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue dark:text-white mb-6 reveal-up delay-100">Comprehensive Digital Solutions</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue dark:text-white mb-6 reveal-up delay-100">Web Development, Graphic Design & Ads Management Services</h2>
                 <p class="text-lg text-charcoal/70 dark:text-gray-400 max-w-2xl mx-auto reveal-up delay-200">We deliver end-to-end services designed to help your business grow, engage customers, and streamline operations with cutting-edge technology.</p>
             </div>
             
@@ -398,7 +402,7 @@
     </section>
 
     <!-- CTA Banner -->
-    <section class="py-20 relative bg-fixed bg-cover bg-center overflow-hidden animated-gradient-bg" style="--bg-image: url('images/cta-bg.jpg');" data-theme="dark">
+    <section class="py-20 relative bg-fixed bg-cover bg-center overflow-hidden animated-gradient-bg" style="--bg-image: url('https://placehold.co/1920x1080/0F172A/FFFFFF?text=Ready+To+Elevate');" data-theme="dark">
         <div class="container mx-auto px-5 max-w-[1200px] text-center relative z-10">
             <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-6 leading-tight reveal-up">Ready to Elevate Your Digital Presence?</h2>
             <p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 reveal-up delay-200">Join hundreds of successful businesses who have transformed their brand with our expert solutions.</p>
@@ -413,7 +417,7 @@
     <section class="py-16 md:py-24 relative bg-white dark:bg-charcoal" id="portfolio">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Our Portfolio</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Our Web Design & Graphic Design Portfolio</h2>
                 <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">Showcasing our recent projects and successes</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-center portfolio-grid">
@@ -421,7 +425,7 @@
                 <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-md hover:shadow-2xl hover:shadow-tech-blue/10 transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card cursor-pointer reveal-up"
                     data-id="kumtech-branding" data-category="Branding">
                     <div class="w-full relative aspect-[4/3] overflow-hidden bg-soft-gray flex items-center justify-center p-4">
-                        <img src="images/kumtech-branding.jpg" alt="Kumtech Gateway Brand Identity & Logo Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found'">
+                        <img src="https://placehold.co/600x400/1F3C88/FFFFFF?text=Kumtech+Branding" alt="Kumtech Gateway Brand Identity & Logo Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found'">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                             <span class="text-cyan text-xs font-bold uppercase tracking-wider mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Branding</span>
                             <h3 class="text-white font-bold text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Kumtech Gateway Identity</h3>
@@ -504,7 +508,7 @@
     <section class="py-16 md:py-24 relative bg-soft-gray dark:bg-slate-900" id="gallery-preview">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Creative Gallery</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Creative Graphic Design Gallery</h2>
                 <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">A glimpse into our creative design work</p>
             </div>
             
@@ -548,7 +552,7 @@
     <section class="py-16 md:py-24 relative overflow-hidden" id="contact">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Get In Touch</h2>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Contact Our Digital Marketing Agency in Yaoundé</h2>
                 <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">Let's discuss how we can help transform your digital presence</p>
             </div>
             <div class="flex flex-col lg:flex-row gap-16 items-start">
@@ -640,19 +644,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="subject" class="block text-sm font-medium text-charcoal dark:text-gray-300 mb-1">Subject</label>
-                            <select id="subject" name="subject" class="w-full px-4 py-3 rounded-lg bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all appearance-none cursor-pointer text-charcoal dark:text-white">
-                                <option value="" disabled selected>Select a topic</option>
-                                <option value="General Inquiry">General Inquiry</option>
-                                <option value="Project Quote">Project Quote</option>
-                                <option value="Web Development">Web Development</option>
-                                <option value="Graphic Design">Graphic Design</option>
-                                <option value="Marketing">Digital Marketing</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="message" class="block text-sm font-medium text-charcoal dark:text-gray-300 mb-1">Message</label>
                             <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all resize-none text-charcoal dark:text-white" placeholder="Tell us about your project..."></textarea>
+                        </div>
+                        <!-- Honeypot Field (Hidden) -->
+                        <div class="hidden">
+                            <input type="text" name="website_check" id="website_check" class="honeypot" tabindex="-1" autocomplete="off">
                         </div>
                         <button type="submit" id="sendBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-tech-blue to-cyan text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 group">
                             <span>Send Message</span>
@@ -881,10 +878,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
         (function(){
-            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual Public Key from EmailJS
+            emailjs.init("Ke9ARhxYKkr1xzW7K");
         })();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 
