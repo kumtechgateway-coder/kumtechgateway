@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v6'; // Cache version updated
+const CACHE_NAME = 'kumtech-cache-v8'; // Cache version updated
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -7,10 +7,13 @@ const ASSETS_TO_CACHE = [
   './services.html',
   './blog.html',
   './blog-post.html',
+  './navbar.html',
+  './footer.html',
   './404.html',
   './style.css',
   './script.js',
-  './data.js', // Corrected from data.json
+  './portfolio-data.js', // New data source
+  './portfolio-generator.js', // New generator script
   './blog.json',
   './translations.json',
   './images/logo.png',

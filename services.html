@@ -69,22 +69,25 @@
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Service",
-              "name": "Web Development"
+              "@type": "ProfessionalService",
+              "name": "Web Development",
+              "description": "Custom website development, e-commerce solutions, and web applications using modern technologies."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "CreativeWork",
+              "name": "Graphic Design",
+              "description": "Logo design, branding, marketing materials, and UI/UX design."
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Graphic Design"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Digital Marketing"
+              "name": "Digital Marketing & Ads",
+              "description": "SEO, Social Media Marketing, Google Ads, and Facebook Ads management."
             }
           }
         ]
@@ -145,140 +148,285 @@
     <div id="cursor-dot" class="hidden md:block"></div>
     <div id="cursor-outline" class="hidden md:block"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm py-2 md:py-4 transition-all duration-300 navbar border-b border-gray-100 dark:bg-charcoal/90 dark:border-white/10" id="navbar">
-        <div class="container mx-auto px-5 flex justify-between items-center max-w-[1200px]">
-            <a href="index.html" class="flex text-2xl font-bold">
-                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-12 md:w-16" width="64" height="64" loading="lazy">
-            </a>
-            
-            <div class="flex items-center gap-5">
-                <button id="themeToggle" class="w-10 h-10 rounded-full bg-soft-gray dark:bg-white/10 flex items-center justify-center text-charcoal dark:text-white transition-all hover:bg-tech-blue hover:text-white" aria-label="Toggle Dark Mode">
-                    <i class="fas fa-moon dark:hidden"></i>
-                    <i class="fas fa-sun hidden dark:block"></i>
-                </button>
-
-                <ul class="flex gap-10 md:flex-row flex-col absolute md:static top-full left-0 w-full md:w-auto bg-white dark:bg-charcoal md:bg-transparent md:dark:bg-transparent p-5 md:p-0 shadow-lg md:shadow-none transition-all duration-300 -translate-y-[150%] md:translate-y-0 -z-10 md:z-auto open:translate-y-0" id="navMenu">
-                    <li><a href="index.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.home">Home</a></li>
-                    <li><a href="index.html#about" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.about">About</a></li>
-                    <li><a href="portfolio.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.portfolio">Portfolio</a></li>
-                    <li><a href="gallery.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.gallery">Gallery</a></li>
-                    <li><a href="blog.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.blog">Blog</a></li>
-                    <li><a href="index.html#contact" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.contact">Contact</a></li>
-                </ul>
-                
-                <a href="https://wa.me/237679796638" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm cursor-pointer transition-all duration-300 border-2 text-center bg-gradient-to-r from-orange to-soft-amber text-white border-transparent hover:bg-charcoal hover:from-charcoal hover:to-charcoal hover:-translate-y-0.5" aria-label="Chat on WhatsApp">
-                    <i class="fab fa-whatsapp text-base"></i>
-                    <span>WhatsApp Us</span>
-                </a>
-                
-                <button class="md:hidden block bg-none border-none cursor-pointer w-[30px] h-[30px] relative z-50 menu-toggle" id="menuToggle" aria-label="Toggle menu">
-                    <span class="hamburger block w-[25px] h-[2px] bg-tech-blue relative transition-all duration-300 before:content-[''] before:absolute before:w-[25px] before:h-[2px] before:bg-tech-blue before:transition-all before:duration-300 before:-top-[8px] after:content-[''] after:absolute after:w-[25px] after:h-[2px] after:bg-tech-blue after:transition-all after:duration-300 after:top-[8px]"></span>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <!-- Navigation Placeholder -->
+    <header id="navbar-placeholder"></header>
 
     <main>
         <!-- Page Header -->
-        <section class="pt-28 md:pt-40 pb-16 md:pb-24 relative dark:bg-charcoal">
-            <div class="container mx-auto px-5 max-w-[1200px] text-center">
-                <h1 class="font-heading text-4xl md:text-5xl font-bold text-tech-blue dark:text-white mb-4 reveal-up">Expert Web Design, Graphic Design & Ads Management Services</h1>
-                <p class="text-lg text-charcoal/70 dark:text-gray-400 max-w-2xl mx-auto reveal-up delay-200">We provide a full spectrum of digital solutions to help your business thrive in the modern economy.</p>
+        <section class="pt-32 md:pt-48 pb-20 relative overflow-hidden dark:bg-charcoal">
+            <!-- Background elements -->
+            <div class="absolute inset-0 bg-gradient-to-br from-soft-gray to-white dark:from-charcoal dark:to-slate-900 -z-20"></div>
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-tech-blue/5 rounded-full blur-3xl -z-10"></div>
+            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan/5 rounded-full blur-3xl -z-10"></div>
+            
+            <div class="container mx-auto px-5 max-w-[1200px] text-center relative z-10">
+                <span class="inline-block py-1 px-3 rounded-full bg-cyan/10 text-cyan text-sm font-bold tracking-wider uppercase mb-4 reveal-up">Our Expertise</span>
+                <h1 class="font-heading text-4xl md:text-6xl font-bold text-tech-blue dark:text-white mb-6 reveal-up leading-tight">
+                    Digital Solutions That <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-tech-blue">Ignite Growth</span>
+                </h1>
+                <p class="text-lg md:text-xl text-charcoal/70 dark:text-gray-300 max-w-2xl mx-auto reveal-up delay-200 leading-relaxed">
+                    From pixel-perfect designs to robust code and strategic marketing, we provide the full spectrum of services to elevate your brand.
+                </p>
             </div>
         </section>
 
         <!-- Services List -->
-        <section class="pb-20 relative dark:bg-charcoal">
+        <section class="pb-20 relative dark:bg-charcoal overflow-hidden">
             <div class="container mx-auto px-5 max-w-[1200px]">
+                
                 <!-- Graphic Design -->
-                <div id="graphic-design" class="flex flex-col md:flex-row gap-12 items-center mb-24 reveal-up">
-                    <div class="flex-1">
-                        <div class="w-20 h-20 rounded-2xl bg-soft-gray dark:bg-white/5 text-tech-blue dark:text-cyan flex items-center justify-center text-3xl mb-6 shadow-inner">
-                            <i class="fas fa-paint-brush"></i>
+                <div id="graphic-design" class="group relative grid md:grid-cols-2 gap-8 md:gap-16 items-center mb-32 reveal-up">
+                    <!-- Connecting Line -->
+                    <div class="absolute left-1/2 top-full h-32 w-px bg-gradient-to-b from-cyan/30 to-transparent hidden md:block -translate-x-1/2"></div>
+
+                    <div class="order-2 md:order-1 relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-tech-blue/20 to-cyan/20 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative bg-white dark:bg-slate-800 p-8 md:p-10 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-white/5">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-tech-blue to-cyan text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-cyan/20 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Graphic Design</h2>
+                            <p class="text-charcoal/70 dark:text-gray-400 mb-8 leading-relaxed">
+                                Visual storytelling is at the heart of brand identity. Our graphic design services ensure your brand stands out with professional, creative, and memorable visuals.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Logo & Brand Identity Design</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Marketing Collateral (Flyers, Brochures)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">UI/UX Design for Web & Mobile</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Packaging & Print Design</span>
+                                </li>
+                            </ul>
                         </div>
-                        <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Professional Graphic Design Services</h2>
-                        <p class="text-lg text-charcoal/70 dark:text-gray-400 mb-6 leading-relaxed">Visual storytelling is at the heart of brand identity. Our graphic design services ensure your brand stands out with professional, creative, and memorable visuals.</p>
-                        <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Logo & Brand Identity Design</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Marketing Collateral (Flyers, Brochures)</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> UI/UX Design for Web & Mobile</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Packaging & Print Design</li>
-                        </ul>
                     </div>
-                    <div class="flex-1 w-full">
-                        <div class="relative group">
-                            <div class="absolute -inset-2.5 bg-gradient-to-r from-tech-blue to-cyan rounded-2xl opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500"></div>
-                            <img src="https://placehold.co/600x400/1F3C88/FFFFFF?text=Graphic+Design" alt="Graphic Design Services" class="relative w-full aspect-video object-cover rounded-2xl shadow-2xl border border-gray-100 dark:border-white/5">
+                    <div class="order-1 md:order-2 relative">
+                        <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700 transform group-hover:rotate-1 transition-transform duration-500">
+                            <img src="https://placehold.co/600x400/1F3C88/FFFFFF?text=Graphic+Design" alt="Graphic Design Services" class="w-full h-auto object-cover" loading="lazy" decoding="async">
+                        </div>
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-gray-100 dark:border-white/5 flex items-center gap-3 animate-bounce-slow z-10">
+                            <div class="w-10 h-10 rounded-full bg-orange/10 text-orange flex items-center justify-center">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-charcoal/60 dark:text-gray-400 font-bold uppercase">Top Rated</p>
+                                <p class="text-sm font-bold text-tech-blue dark:text-white">Creative Design</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Web Design -->
-                <div id="web-design" class="flex flex-col md:flex-row-reverse gap-12 items-center mb-24 reveal-up">
-                    <div class="flex-1">
-                        <div class="w-20 h-20 rounded-2xl bg-soft-gray dark:bg-white/5 text-tech-blue dark:text-cyan flex items-center justify-center text-3xl mb-6 shadow-inner">
-                            <i class="fas fa-laptop-code"></i>
+                <div id="web-design" class="group relative grid md:grid-cols-2 gap-8 md:gap-16 items-center mb-32 reveal-up">
+                    <!-- Connecting Line -->
+                    <div class="absolute left-1/2 top-full h-32 w-px bg-gradient-to-b from-cyan/30 to-transparent hidden md:block -translate-x-1/2"></div>
+
+                    <div class="order-1 relative">
+                        <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700 transform group-hover:-rotate-1 transition-transform duration-500">
+                            <img src="https://placehold.co/600x400/0F172A/FFFFFF?text=Web+Design" alt="Web Design Services" class="w-full h-auto object-cover" loading="lazy" decoding="async">
                         </div>
-                        <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Responsive Web Design Services</h2>
-                        <p class="text-lg text-charcoal/70 dark:text-gray-400 mb-6 leading-relaxed">We craft stunning, user-centric websites that not only look great but also perform flawlessly. Our designs are responsive, accessible, and optimized for conversions.</p>
-                        <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Custom Website Design</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Responsive & Mobile-First Layouts</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Wireframing & Prototyping</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Landing Page Optimization</li>
-                        </ul>
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -right-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-gray-100 dark:border-white/5 flex items-center gap-3 animate-bounce-slow z-10">
+                            <div class="w-10 h-10 rounded-full bg-cyan/10 text-cyan flex items-center justify-center">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-charcoal/60 dark:text-gray-400 font-bold uppercase">Responsive</p>
+                                <p class="text-sm font-bold text-tech-blue dark:text-white">Mobile First</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex-1 w-full">
-                        <div class="relative group">
-                            <div class="absolute -inset-2.5 bg-gradient-to-r from-tech-blue to-cyan rounded-2xl opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500"></div>
-                            <img src="https://placehold.co/600x400/0F172A/FFFFFF?text=Web+Design" alt="Web Design Services" class="relative w-full aspect-video object-cover rounded-2xl shadow-2xl border border-gray-100 dark:border-white/5">
+                    <div class="order-2 relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-cyan/20 to-tech-blue/20 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative bg-white dark:bg-slate-800 p-8 md:p-10 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-white/5">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan to-tech-blue text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-tech-blue/20 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Web Design</h2>
+                            <p class="text-charcoal/70 dark:text-gray-400 mb-8 leading-relaxed">
+                                We craft stunning, user-centric websites that not only look great but also perform flawlessly. Our designs are responsive, accessible, and optimized for conversions.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Custom Website Design</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Responsive & Mobile-First Layouts</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Wireframing & Prototyping</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Landing Page Optimization</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
                 <!-- Web Development -->
-                <div id="web-development" class="flex flex-col md:flex-row gap-12 items-center mb-24 reveal-up">
-                    <div class="flex-1">
-                        <div class="w-20 h-20 rounded-2xl bg-soft-gray dark:bg-white/5 text-tech-blue dark:text-cyan flex items-center justify-center text-3xl mb-6 shadow-inner">
-                            <i class="fas fa-code"></i>
+                <div id="web-development" class="group relative grid md:grid-cols-2 gap-8 md:gap-16 items-center mb-32 reveal-up">
+                    <!-- Connecting Line -->
+                    <div class="absolute left-1/2 top-full h-32 w-px bg-gradient-to-b from-cyan/30 to-transparent hidden md:block -translate-x-1/2"></div>
+
+                    <div class="order-2 md:order-1 relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-tech-blue/20 to-cyan/20 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative bg-white dark:bg-slate-800 p-8 md:p-10 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-white/5">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-tech-blue to-cyan text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-cyan/20 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Web Development</h2>
+                            <p class="text-charcoal/70 dark:text-gray-400 mb-8 leading-relaxed">
+                                Our development team builds robust, scalable, and secure web applications. We use modern technologies to ensure your digital infrastructure is future-proof.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Full-Stack Development (MERN, PHP, Python)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">E-commerce Solutions (Shopify, WooCommerce)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">CMS Development (WordPress, Custom)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">API Integration & Development</span>
+                                </li>
+                            </ul>
                         </div>
-                        <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Custom Web Development Solutions</h2>
-                        <p class="text-lg text-charcoal/70 dark:text-gray-400 mb-6 leading-relaxed">Our development team builds robust, scalable, and secure web applications. We use modern technologies to ensure your digital infrastructure is future-proof.</p>
-                        <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Full-Stack Development (MERN, PHP, Python)</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> E-commerce Solutions (Shopify, WooCommerce)</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> CMS Development (WordPress, Custom)</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> API Integration & Development</li>
-                        </ul>
                     </div>
-                    <div class="flex-1 w-full">
-                        <div class="relative group">
-                            <div class="absolute -inset-2.5 bg-gradient-to-r from-tech-blue to-cyan rounded-2xl opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500"></div>
-                            <img src="https://placehold.co/600x400/1F3C88/FFFFFF?text=Web+Development" alt="Web Development Services" class="relative w-full aspect-video object-cover rounded-2xl shadow-2xl border border-gray-100 dark:border-white/5">
+                    <div class="order-1 md:order-2 relative">
+                        <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700 transform group-hover:rotate-1 transition-transform duration-500">
+                            <img src="https://placehold.co/600x400/1F3C88/FFFFFF?text=Web+Development" alt="Web Development Services" class="w-full h-auto object-cover" loading="lazy" decoding="async">
+                        </div>
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-gray-100 dark:border-white/5 flex items-center gap-3 animate-bounce-slow z-10">
+                            <div class="w-10 h-10 rounded-full bg-tech-blue/10 text-tech-blue flex items-center justify-center">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-charcoal/60 dark:text-gray-400 font-bold uppercase">Robust</p>
+                                <p class="text-sm font-bold text-tech-blue dark:text-white">Scalable Code</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Ads Management -->
-                <div id="ads-management" class="flex flex-col md:flex-row-reverse gap-12 items-center reveal-up">
-                    <div class="flex-1">
-                        <div class="w-20 h-20 rounded-2xl bg-soft-gray dark:bg-white/5 text-tech-blue dark:text-cyan flex items-center justify-center text-3xl mb-6 shadow-inner">
-                            <i class="fas fa-bullhorn"></i>
+                <div id="ads-management" class="group relative grid md:grid-cols-2 gap-8 md:gap-16 items-center mb-32 reveal-up">
+                    <!-- Connecting Line -->
+                    <div class="absolute left-1/2 top-full h-32 w-px bg-gradient-to-b from-cyan/30 to-transparent hidden md:block -translate-x-1/2"></div>
+
+                    <div class="order-1 relative">
+                        <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700 transform group-hover:-rotate-1 transition-transform duration-500">
+                            <img src="https://placehold.co/600x400/F97316/FFFFFF?text=Ads+Management" alt="Ads Management Services" class="w-full h-auto object-cover" loading="lazy" decoding="async">
                         </div>
-                        <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Strategic Ads Management & Digital Marketing</h2>
-                        <p class="text-lg text-charcoal/70 dark:text-gray-400 mb-6 leading-relaxed">Maximize your ROI with data-driven advertising campaigns. We manage your ad spend efficiently to target the right audience and drive conversions.</p>
-                        <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Facebook & Instagram Ads</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Google Ads (Search, Display, Shopping)</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> Campaign Analytics & Reporting</li>
-                            <li class="flex items-center gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan"></i> A/B Testing & Optimization</li>
-                        </ul>
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -right-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-gray-100 dark:border-white/5 flex items-center gap-3 animate-bounce-slow z-10">
+                            <div class="w-10 h-10 rounded-full bg-orange/10 text-orange flex items-center justify-center">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-charcoal/60 dark:text-gray-400 font-bold uppercase">High ROI</p>
+                                <p class="text-sm font-bold text-tech-blue dark:text-white">Targeted Ads</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex-1 w-full">
-                        <div class="relative group">
-                            <div class="absolute -inset-2.5 bg-gradient-to-r from-tech-blue to-cyan rounded-2xl opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500"></div>
-                            <img src="https://placehold.co/600x400/F97316/FFFFFF?text=Ads+Management" alt="Ads Management Services" class="relative w-full aspect-video object-cover rounded-2xl shadow-2xl border border-gray-100 dark:border-white/5">
+                    <div class="order-2 relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-orange/20 to-soft-amber/20 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative bg-white dark:bg-slate-800 p-8 md:p-10 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-white/5">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange to-soft-amber text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-orange/20 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Ads Management</h2>
+                            <p class="text-charcoal/70 dark:text-gray-400 mb-8 leading-relaxed">
+                                Maximize your ROI with data-driven advertising campaigns. We manage your ad spend efficiently to target the right audience and drive conversions.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Facebook & Instagram Ads</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Google Ads (Search, Display, Shopping)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Campaign Analytics & Reporting</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">A/B Testing & Optimization</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Business -->
+                <div id="google-business" class="group relative grid md:grid-cols-2 gap-8 md:gap-16 items-center reveal-up">
+                    <div class="order-2 md:order-1 relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-tech-blue/20 to-cyan/20 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative bg-white dark:bg-slate-800 p-8 md:p-10 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-white/5">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-tech-blue to-cyan text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-cyan/20 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mb-4">Google Business</h2>
+                            <p class="text-charcoal/70 dark:text-gray-400 mb-8 leading-relaxed">
+                                Enhance your local visibility and attract more customers. We optimize your Google Business Profile to ensure you rank higher in local search results and Maps.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Profile Setup & Verification</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Keyword Optimization & SEO</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Review Management & Responses</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xs mt-0.5"><i class="fas fa-check"></i></span>
+                                    <span class="text-charcoal/80 dark:text-gray-300 font-medium">Post Updates & Photo Management</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="order-1 md:order-2 relative">
+                        <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700 transform group-hover:rotate-1 transition-transform duration-500">
+                            <img src="https://placehold.co/600x400/4285F4/FFFFFF?text=Google+Business" alt="Google Business Services" class="w-full h-auto object-cover" loading="lazy" decoding="async">
+                        </div>
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-gray-100 dark:border-white/5 flex items-center gap-3 animate-bounce-slow z-10">
+                            <div class="w-10 h-10 rounded-full bg-tech-blue/10 text-tech-blue flex items-center justify-center">
+                                <i class="fas fa-map-pin"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-charcoal/60 dark:text-gray-400 font-bold uppercase">Local</p>
+                                <p class="text-sm font-bold text-tech-blue dark:text-white">SEO Expert</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -297,74 +445,8 @@
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="bg-charcoal text-white/80 py-12 md:py-20 pb-8 text-sm" data-theme="dark">
-            <div class="container mx-auto px-5 max-w-[1200px]">
-                <div class="flex flex-wrap gap-16 mb-16 flex-col lg:flex-row">
-                    <div class="flex-1 min-w-[280px] max-w-sm">
-                        <a href="index.html" class="flex text-2xl font-bold text-white">
-                            <img src="images/logo.png" alt="Kumtech Gateway" class="h-12 w-auto" width="48" height="48" loading="lazy">
-                        </a>
-                        <p class="my-6 leading-relaxed opacity-80">Empowering businesses with innovative digital solutions. We turn ideas into reality through technology and creativity.</p>
-                        <div class="flex gap-4">
-                            <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="TikTok" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
-                            <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="LinkedIn" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                            <a href="https://wa.me/237679796638" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="WhatsApp" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
-                        </div>
-                    </div>
-                    
-                    <div class="flex-[2] flex justify-between gap-8 flex-wrap flex-col sm:flex-row">
-                        <div class="min-w-[150px]">
-                            <h4 class="text-white text-xl mb-6 relative">Company</h4>
-                            <ul>
-                                <li class="mb-3"><a href="index.html#about" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">About Us</a></li>
-                                <li class="mb-3"><a href="portfolio.html" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Our Work</a></li>
-                                <li class="mb-3"><a href="index.html#contact" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Contact</a></li>
-                                <li class="mb-3"><a href="#" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Careers</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="min-w-[150px]">
-                            <h4 class="text-white text-xl mb-6 relative">Services</h4>
-                            <ul>
-                                <li class="mb-3"><a href="services.html#graphic-design" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Graphic Design</a></li>
-                                <li class="mb-3"><a href="services.html#web-design" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Web Design</a></li>
-                                <li class="mb-3"><a href="services.html#web-development" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Web Development</a></li>
-                                <li class="mb-3"><a href="services.html#ads-management" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Ads Management</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="min-w-[150px]">
-                            <h4 class="text-white text-xl mb-6 relative">Contact</h4>
-                            <ul>
-                                <li class="flex gap-4 mb-4">
-                                    <i class="fas fa-clock text-cyan mt-1"></i>
-                                    <span>Always Open</span>
-                                </li>
-                                <li class="flex gap-4 mb-4">
-                                    <i class="fas fa-envelope text-cyan mt-1"></i>
-                                    <span>kumtechgateway@gmail.com</span>
-                                </li>
-                                <li class="flex gap-4 mb-4">
-                                    <i class="fas fa-phone text-cyan mt-1"></i>
-                                    <span>+237 679 796 638</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="border-t border-white/10 pt-8 flex justify-between items-center flex-wrap gap-5 flex-col sm:flex-row text-center sm:text-left">
-                    <p class="opacity-70 text-sm">&copy; <span id="currentYear"></span> Kumtech Gateway. All rights reserved.</p>
-                    <div class="flex gap-6">
-                        <a href="#" class="text-sm opacity-70 hover:opacity-100 hover:text-cyan">Privacy Policy</a>
-                        <a href="#" class="text-sm opacity-70 hover:opacity-100 hover:text-cyan">Terms of Service</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <!-- Footer Placeholder -->
+        <div id="footer-placeholder"></div>
 
         <!-- Back to Top Button (Desktop) -->
         <button id="backToTop" class="hidden md:flex fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-orange to-soft-amber text-white rounded-full items-center justify-center text-lg shadow-custom cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 hover:bg-tech-blue hover:from-tech-blue hover:to-tech-blue hover:-translate-y-1 z-50" aria-label="Back to top">
@@ -376,7 +458,6 @@
             <i class="fab fa-whatsapp"></i>
         </a>
     </main>
-    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

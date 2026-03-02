@@ -15,7 +15,6 @@
  * @type {Object}
  */
 const AppState = {
-    caseStudies: {},
     filter: {
         currentPage: 1,
         itemsPerPage: 6,
@@ -93,8 +92,36 @@ const I18n = {
     }
 };
 
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Loads shared HTML components like the navbar and footer.
+ * @returns {Promise<void>} A promise that resolves when all components are loaded.
+ */
+async function loadComponents() {
+    const components = [
+        { placeholderId: 'navbar-placeholder', url: 'navbar.html' },
+        { placeholderId: 'footer-placeholder', url: 'footer.html' }
+    ];
+
+    const promises = components.map(async ({ placeholderId, url }) => {
+        const placeholder = document.getElementById(placeholderId);
+        if (placeholder) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const html = await response.text();
+                placeholder.outerHTML = html;
+            } catch (error) {
+                console.error(`Error loading component ${url}:`, error);
+                if(placeholder) placeholder.innerHTML = `<p class="text-red-500 text-center py-4">Error loading component.</p>`;
+            }
+        }
+    });
+
+    await Promise.all(promises);
+}
+
+
+function main() {
     // Initialize Internationalization
     I18n.init();
 
@@ -253,7 +280,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initSkeletons();
 
     // Set current year in footer
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    const currentYearEl = document.getElementById('currentYear');
+    if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
     
     // Get DOM elements
     const navbar = document.getElementById('navbar');
@@ -436,251 +464,253 @@ document.addEventListener('DOMContentLoaded', function() {
     
     revealElements.forEach(el => revealObserver.observe(el));
     
-    // Portfolio Filtering and Search
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const portfolioItems = document.querySelectorAll('.portfolio-card:not(.no-filter)');
-    const searchInput = document.getElementById('portfolioSearch');
-    
-    // Inject Empty State Container
-    const portfolioGrid = document.querySelector('.portfolio-grid');
-    if (portfolioGrid && !document.querySelector('.empty-state')) {
-        const emptyState = document.createElement('div');
-        emptyState.className = 'empty-state';
-        emptyState.innerHTML = `<i class="fas fa-search"></i><h3 class="text-xl font-bold text-charcoal dark:text-white">No items found</h3><p class="text-charcoal/60 dark:text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>`;
-        portfolioGrid.appendChild(emptyState);
-    }
+    // Portfolio Filtering and Search (for portfolio.html which has search and pagination)
+    if (document.getElementById('portfolioSearch')) {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-card:not(.no-filter)');
+        const searchInput = document.getElementById('portfolioSearch');
+        
+        // Inject Empty State Container
+        const portfolioGrid = document.querySelector('.portfolio-grid');
+        if (portfolioGrid && !document.querySelector('.empty-state')) {
+            const emptyState = document.createElement('div');
+            emptyState.className = 'empty-state';
+            emptyState.innerHTML = `<i class="fas fa-search"></i><h3 class="text-xl font-bold text-charcoal dark:text-white">No items found</h3><p class="text-charcoal/60 dark:text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>`;
+            portfolioGrid.appendChild(emptyState);
+        }
 
-    if (filterBtns.length > 0 && portfolioItems.length > 0) {
-        // Use AppState for filter logic
-        const { filter } = AppState;
+        if (filterBtns.length > 0 && portfolioItems.length > 0) {
+            // Use AppState for filter logic
+            const { filter } = AppState;
 
-        const updateFilterUI = (filterName) => {
-            filterBtns.forEach(btn => {
-                if (btn.getAttribute('data-filter') === filterName) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-        };
+            const updateFilterUI = (filterName) => {
+                filterBtns.forEach(btn => {
+                    if (btn.getAttribute('data-filter') === filterName) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            };
 
-        const applyFilterFromHistory = () => {
-            const filterName = filter.history[filter.historyIndex];
-            updateFilterUI(filterName);
-            filter.currentPage = 1;
-            filterItems();
-        };
+            const applyFilterFromHistory = () => {
+                const filterName = filter.history[filter.historyIndex];
+                updateFilterUI(filterName);
+                filter.currentPage = 1;
+                filterItems();
+            };
 
-        const addToHistory = (filterName) => {
-            if (filterName === filter.history[filter.historyIndex]) return;
-            
-            // Remove any forward history if we were in the middle of the stack
-            if (filter.historyIndex < filter.history.length - 1) {
-                filter.history = filter.history.slice(0, filter.historyIndex + 1);
-            }
-            
-            filter.history.push(filterName);
-            filter.historyIndex++;
-        };
-
-        // "Load More" button functionality
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-
-        // Filter function
-        const filterItems = () => {
-            const activeBtn = document.querySelector('.filter-btn.active');
-            const activeFilter = activeBtn ? activeBtn.getAttribute('data-filter').toLowerCase().trim() : 'all';
-            const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
-            
-            // FLIP Animation: Record start positions
-            const startPositions = new Map();
-            portfolioItems.forEach(item => {
-                if (!item.classList.contains('hidden')) {
-                    startPositions.set(item, item.getBoundingClientRect());
-                }
-            });
-
-            let totalMatches = 0;
-            let currentMatchIndex = 0;
-            const endIndex = filter.currentPage * filter.itemsPerPage;
-
-            // Apply filtering
-            portfolioItems.forEach(item => {
-                const categoryAttr = item.getAttribute('data-category');
-                const categories = categoryAttr ? categoryAttr.toLowerCase().split(/[\s,]+/) : [];
-                const title = item.querySelector('.portfolio-title').textContent.toLowerCase();
-                const desc = item.querySelector('.portfolio-description').textContent.toLowerCase();
+            const addToHistory = (filterName) => {
+                if (filterName === filter.history[filter.historyIndex]) return;
                 
-                const matchesFilter = activeFilter === 'all' || categories.includes(activeFilter);
-                const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
+                // Remove any forward history if we were in the middle of the stack
+                if (filter.historyIndex < filter.history.length - 1) {
+                    filter.history = filter.history.slice(0, filter.historyIndex + 1);
+                }
                 
-                if (matchesFilter && matchesSearch) {
-                    totalMatches++;
+                filter.history.push(filterName);
+                filter.historyIndex++;
+            };
+
+            // "Load More" button functionality
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+            // Filter function
+            const filterItems = () => {
+                const activeBtn = document.querySelector('.filter-btn.active');
+                const activeFilter = activeBtn ? activeBtn.getAttribute('data-filter').toLowerCase().trim() : 'all';
+                const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+                
+                // FLIP Animation: Record start positions
+                const startPositions = new Map();
+                portfolioItems.forEach(item => {
+                    if (!item.classList.contains('hidden')) {
+                        startPositions.set(item, item.getBoundingClientRect());
+                    }
+                });
+
+                let totalMatches = 0;
+                let currentMatchIndex = 0;
+                const endIndex = filter.currentPage * filter.itemsPerPage;
+
+                // Apply filtering
+                portfolioItems.forEach(item => {
+                    const categoryAttr = item.getAttribute('data-category');
+                    const categories = categoryAttr ? categoryAttr.toLowerCase().split(/[\s,]+/) : [];
+                    const title = item.querySelector('.portfolio-title').textContent.toLowerCase();
+                    const desc = item.querySelector('.portfolio-description').textContent.toLowerCase();
                     
-                    // Check if item falls within current page slice
-                    if (currentMatchIndex < endIndex) {
-                        item.classList.remove('hidden');
+                    const matchesFilter = activeFilter === 'all' || categories.includes(activeFilter);
+                    const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
+                    
+                    if (matchesFilter && matchesSearch) {
+                        totalMatches++;
+                        
+                        // Check if item falls within current page slice
+                        if (currentMatchIndex < endIndex) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                        currentMatchIndex++;
                     } else {
                         item.classList.add('hidden');
                     }
-                    currentMatchIndex++;
-                } else {
-                    item.classList.add('hidden');
+                });
+                
+                // Empty State Toggle
+                const emptyState = document.querySelector('.empty-state');
+                if (emptyState) {
+                    if (totalMatches === 0) emptyState.classList.add('visible');
+                    else emptyState.classList.remove('visible');
                 }
-            });
-            
-            // Empty State Toggle
-            const emptyState = document.querySelector('.empty-state');
-            if (emptyState) {
-                if (totalMatches === 0) emptyState.classList.add('visible');
-                else emptyState.classList.remove('visible');
-            }
 
-            // Update Load More Button Visibility
-            if (loadMoreBtn) {
-                if (totalMatches > endIndex) {
-                    loadMoreBtn.classList.remove('hidden');
-                } else {
-                    loadMoreBtn.classList.add('hidden');
+                // Update Load More Button Visibility
+                if (loadMoreBtn) {
+                    if (totalMatches > endIndex) {
+                        loadMoreBtn.classList.remove('hidden');
+                    } else {
+                        loadMoreBtn.classList.add('hidden');
+                    }
                 }
-            }
 
-            // FLIP Animation: Apply transforms
-            portfolioItems.forEach(item => {
-                if (item.classList.contains('hidden')) return;
+                // FLIP Animation: Apply transforms
+                portfolioItems.forEach(item => {
+                    if (item.classList.contains('hidden')) return;
 
-                const startRect = startPositions.get(item);
-                const endRect = item.getBoundingClientRect();
+                    const startRect = startPositions.get(item);
+                    const endRect = item.getBoundingClientRect();
 
-                // Item was visible and is still visible (Move)
-                if (startRect) {
-                    const deltaX = startRect.left - endRect.left;
-                    const deltaY = startRect.top - endRect.top;
+                    // Item was visible and is still visible (Move)
+                    if (startRect) {
+                        const deltaX = startRect.left - endRect.left;
+                        const deltaY = startRect.top - endRect.top;
 
-                    if (deltaX !== 0 || deltaY !== 0) {
-                        // Invert
+                        if (deltaX !== 0 || deltaY !== 0) {
+                            // Invert
+                            item.style.transition = 'none';
+                            item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                            
+                            // Play
+                            requestAnimationFrame(() => {
+                                item.getBoundingClientRect(); // Force reflow
+                                item.style.transition = 'transform 0.6s cubic-bezier(0.2, 0, 0.2, 1)';
+                                item.style.transform = '';
+                            });
+                        }
+                    } 
+                    // Item is entering
+                    else {
                         item.style.transition = 'none';
-                        item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.9) translateY(20px)';
                         
-                        // Play
                         requestAnimationFrame(() => {
                             item.getBoundingClientRect(); // Force reflow
-                            item.style.transition = 'transform 0.6s cubic-bezier(0.2, 0, 0.2, 1)';
+                            item.style.transition = 'opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
+                            item.style.opacity = '1';
                             item.style.transform = '';
                         });
                     }
-                } 
-                // Item is entering
-                else {
-                    item.style.transition = 'none';
-                    item.style.opacity = '0';
-                    item.style.transform = 'scale(0.9) translateY(20px)';
-                    
-                    requestAnimationFrame(() => {
-                        item.getBoundingClientRect(); // Force reflow
-                        item.style.transition = 'opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
-                        item.style.opacity = '1';
-                        item.style.transform = '';
-                    });
-                }
-            });
-        };
+                });
+            };
 
-        // Filter button click events
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filter = btn.getAttribute('data-filter');
-                updateFilterUI(filter);
-                addToHistory(filter);
-                filter.currentPage = 1; // Reset to first page on filter change
-                filterItems();
-            });
-        });
-        
-        // Search input event
-        if (searchInput) {
-            searchInput.addEventListener('keyup', debounce(() => {
-                filter.currentPage = 1; // Reset to first page on search
-                filterItems();
-            }, 300));
-        }
-
-		if (loadMoreBtn) {
-			loadMoreBtn.addEventListener('click', () => {
-                loadMoreBtn.classList.add('btn-loading');
-                // Simulate network delay for better UX
-                setTimeout(() => {
-                    filter.currentPage++;
+            // Filter button click events
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.getAttribute('data-filter');
+                    updateFilterUI(filter);
+                    addToHistory(filter);
+                    AppState.filter.currentPage = 1; // Reset to first page on filter change
                     filterItems();
-                    loadMoreBtn.classList.remove('btn-loading');
-                }, 600);
-			});
-		}
-
-        // Initial load
-        filterItems();
-
-        // Search Overlay Logic
-        const searchTrigger = document.getElementById('searchTrigger');
-        const searchOverlay = document.getElementById('searchOverlay');
-        const closeSearchBtn = document.getElementById('closeSearchBtn');
-
-        if (searchTrigger && searchOverlay && closeSearchBtn) {
-            function openSearch() {
-                searchOverlay.classList.remove('hidden');
-                setTimeout(() => {
-                    searchOverlay.classList.remove('opacity-0');
-                    if (searchInput) searchInput.focus();
-                }, 10);
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeSearch() {
-                searchOverlay.classList.add('opacity-0');
-                setTimeout(() => {
-                    searchOverlay.classList.add('hidden');
-                }, 300);
-                document.body.style.overflow = '';
-            }
-
-            searchTrigger.addEventListener('click', openSearch);
-            closeSearchBtn.addEventListener('click', closeSearch);
-            
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !searchOverlay.classList.contains('hidden')) {
-                    closeSearch();
-                }
+                });
             });
-        }
-
-        // Keyboard Shortcuts
-        document.addEventListener('keydown', (e) => {
-            // Search (Press 's')
-            if (e.key.toLowerCase() === 's' && 
-                !['input', 'textarea', 'select'].includes(document.activeElement.tagName.toLowerCase()) &&
-                !e.ctrlKey && !e.metaKey && !e.altKey) {
-                e.preventDefault();
-                if (searchTrigger) searchTrigger.click();
+            
+            // Search input event
+            if (searchInput) {
+                searchInput.addEventListener('keyup', debounce(() => {
+                    AppState.filter.currentPage = 1; // Reset to first page on search
+                    filterItems();
+                }, 300));
             }
 
-            // Undo/Redo (Ctrl+Z / Ctrl+Y)
-            if ((e.ctrlKey || e.metaKey) && !['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
-                if (e.key.toLowerCase() === 'z') {
+    		if (loadMoreBtn) {
+    			loadMoreBtn.addEventListener('click', () => {
+                    loadMoreBtn.classList.add('btn-loading');
+                    // Simulate network delay for better UX
+                    setTimeout(() => {
+                        AppState.filter.currentPage++;
+                        filterItems();
+                        loadMoreBtn.classList.remove('btn-loading');
+                    }, 600);
+    			});
+    		}
+
+            // Initial load
+            filterItems();
+
+            // Search Overlay Logic
+            const searchTrigger = document.getElementById('searchTrigger');
+            const searchOverlay = document.getElementById('searchOverlay');
+            const closeSearchBtn = document.getElementById('closeSearchBtn');
+
+            if (searchTrigger && searchOverlay && closeSearchBtn) {
+                function openSearch() {
+                    searchOverlay.classList.remove('hidden');
+                    setTimeout(() => {
+                        searchOverlay.classList.remove('opacity-0');
+                        if (searchInput) searchInput.focus();
+                    }, 10);
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeSearch() {
+                    searchOverlay.classList.add('opacity-0');
+                    setTimeout(() => {
+                        searchOverlay.classList.add('hidden');
+                    }, 300);
+                    document.body.style.overflow = '';
+                }
+
+                searchTrigger.addEventListener('click', openSearch);
+                closeSearchBtn.addEventListener('click', closeSearch);
+                
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !searchOverlay.classList.contains('hidden')) {
+                        closeSearch();
+                    }
+                });
+            }
+
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Search (Press 's')
+                if (e.key.toLowerCase() === 's' && 
+                    !['input', 'textarea', 'select'].includes(document.activeElement.tagName.toLowerCase()) &&
+                    !e.ctrlKey && !e.metaKey && !e.altKey) {
                     e.preventDefault();
-                    if (e.shiftKey && filter.historyIndex < filter.history.length - 1) {
-                        filter.historyIndex++; // Redo (Ctrl+Shift+Z)
-                        applyFilterFromHistory();
-                    } else if (!e.shiftKey && filter.historyIndex > 0) {
-                        filter.historyIndex--; // Undo (Ctrl+Z)
+                    if (searchTrigger) searchTrigger.click();
+                }
+
+                // Undo/Redo (Ctrl+Z / Ctrl+Y)
+                if ((e.ctrlKey || e.metaKey) && !['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
+                    if (e.key.toLowerCase() === 'z') {
+                        e.preventDefault();
+                        if (e.shiftKey && filter.historyIndex < filter.history.length - 1) {
+                            filter.historyIndex++; // Redo (Ctrl+Shift+Z)
+                            applyFilterFromHistory();
+                        } else if (!e.shiftKey && filter.historyIndex > 0) {
+                            filter.historyIndex--; // Undo (Ctrl+Z)
+                            applyFilterFromHistory();
+                        }
+                    } else if (e.key.toLowerCase() === 'y' && filter.historyIndex < filter.history.length - 1) {
+                        e.preventDefault();
+                        filter.historyIndex++; // Redo (Ctrl+Y)
                         applyFilterFromHistory();
                     }
-                } else if (e.key.toLowerCase() === 'y' && filter.historyIndex < filter.history.length - 1) {
-                    e.preventDefault();
-                    filter.historyIndex++; // Redo (Ctrl+Y)
-                    applyFilterFromHistory();
                 }
-            }
-        });
+            });
+        }
     }
     
     // Testimonial Slider Logic
@@ -764,14 +794,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Kumtech Gateway Portfolio Website loaded successfully.');
     console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316, #FDBA74');
 
-    // Load Case Study Data from the global caseStudyData variable (defined in data.js)
-    if (typeof caseStudyData !== 'undefined') {
-        AppState.caseStudies = caseStudyData;
-    } else {
-        console.error('Error loading case studies: caseStudyData is not defined. Check if data.js is loaded correctly.');
-        Toast.show('Failed to load project data.', 'error');
-    }
-
     /**
      * Injects the Case Study Modal HTML into the DOM.
      * Consolidates duplicate code from HTML files.
@@ -795,7 +817,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="overflow-y-auto custom-scrollbar w-full h-full p-8 md:p-10 block">
                     <!-- Image (Floated) -->
                     <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100">
-                        <img src="" alt="" id="modalImage" class="w-full h-auto object-cover aspect-square" loading="lazy">
+                        <img src="" alt="" id="modalImage" class="w-full h-auto object-cover aspect-square" loading="lazy" decoding="async">
                     </div>
 
                     <!-- Header -->
@@ -874,28 +896,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const body = document.body;
 
     /**
-     * Opens the case study modal with data for the given ID.
-     * @param {string} id - The ID of the case study to display.
+     * Opens the case study modal with data for a given project object.
+     * This function is called by the event listener in portfolio-generator.js
+     * @param {object} project - The project object from portfolioData.
      */
-    function openModal(id) {
-        const study = AppState.caseStudies[id];
-        if (!study) return;
+    function openModalWithData(project) {
+        if (!project || !project.fullData) {
+            console.error('Invalid project data for modal:', project);
+            Toast.show('Could not load project details.', 'error');
+            return;
+        }
+
+        const study = project.fullData;
 
         // Helper to toggle skeleton
         const setSkeleton = (id, value) => {
             const el = document.getElementById(id);
             if(el) {
                 el.classList.add('skeleton-text');
-                el.textContent = 'Loading...'; // Placeholder text to give height
+                el.textContent = 'Loading...';
                 setTimeout(() => {
                     el.textContent = value;
                     el.classList.remove('skeleton-text');
-                }, 300); // Simulate fetch delay
+                }, 300);
             }
         };
 
-        setSkeleton('modalCategory', study.category);
-        setSkeleton('modalTitle', study.title);
+        setSkeleton('modalCategory', project.category);
+        setSkeleton('modalTitle', project.title);
         setSkeleton('modalClient', study.client);
         setSkeleton('modalTimeline', study.timeline);
         setSkeleton('modalServices', study.services);
@@ -907,9 +935,9 @@ document.addEventListener('DOMContentLoaded', function() {
             img.parentElement.classList.add('skeleton');
             img.classList.add('opacity-0');
             
-            const baseUrl = study.image.split('?')[0];
+            const baseUrl = project.image.split('?')[0];
             img.src = `${baseUrl}?q=80&w=800&auto=format`;
-            img.alt = study.title;
+            img.alt = project.title;
             img.srcset = `${baseUrl}?q=80&w=400&auto=format 400w, 
                           ${baseUrl}?q=80&w=800&auto=format 800w, 
                           ${baseUrl}?q=80&w=1200&auto=format 1200w`;
@@ -976,7 +1004,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const imgContainer = document.createElement('div');
                     imgContainer.className = 'rounded-xl overflow-hidden shadow-md border border-gray-100 group h-48 bg-gray-50';
                     const cleanSrc = imgSrc.split('?')[0];
-                    imgContainer.innerHTML = `<img src="${cleanSrc}?q=80&w=600&auto=format" class="w-full h-full object-contain hover:scale-105 transition-transform duration-500 cursor-pointer" loading="lazy" onclick="document.getElementById('modalImage').src = '${cleanSrc}?q=80&w=800&auto=format'">`;
+                    imgContainer.innerHTML = `<img src="${cleanSrc}?q=80&w=600&auto=format" class="w-full h-full object-contain hover:scale-105 transition-transform duration-500 cursor-pointer" loading="lazy" decoding="async" onclick="document.getElementById('modalImage').src = '${cleanSrc}?q=80&w=800&auto=format'">`;
                     galleryContainer.appendChild(imgContainer);
                 });
             }
@@ -986,34 +1014,34 @@ document.addEventListener('DOMContentLoaded', function() {
         const relatedContainer = document.getElementById('modalRelated');
         const relatedGrid = document.getElementById('relatedProjectsGrid');
         
-        if (relatedContainer && relatedGrid) {
+        if (relatedContainer && relatedGrid && typeof portfolioData !== 'undefined') {
             relatedGrid.innerHTML = '';
             
-            // Filter related projects: same category (or partial match), not current project
-            const related = Object.entries(AppState.caseStudies)
-                .filter(([key, data]) => key !== id && (data.category === study.category || study.category.includes(data.category) || data.category.includes(study.category)))
+            // Filter related projects: same category, not current project
+            const related = portfolioData
+                .filter(p => p.id !== project.id && p.category === project.category)
                 .slice(0, 2); // Limit to 2
 
             if (related.length > 0) {
                 relatedContainer.classList.remove('hidden');
-                related.forEach(([key, data]) => {
+                related.forEach(relatedProject => {
                     const div = document.createElement('div');
                     div.className = 'group cursor-pointer border border-tech-blue/10 rounded-xl overflow-hidden hover:shadow-lg transition-all bg-white';
                     div.innerHTML = `
                         <div class="h-40 overflow-hidden relative">
-                            <img src="${data.image.split('?')[0]}?q=80&w=400&auto=format&fit=crop" alt="${data.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <img src="${relatedProject.image.split('?')[0]}?q=80&w=400&auto=format&fit=crop" alt="${relatedProject.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async">
                             <div class="absolute inset-0 bg-tech-blue/0 group-hover:bg-tech-blue/10 transition-colors duration-300"></div>
                         </div>
                         <div class="p-4">
-                            <h4 class="font-bold text-tech-blue mb-1 text-sm group-hover:text-cyan transition-colors line-clamp-1">${data.title}</h4>
-                            <p class="text-xs text-charcoal/60 uppercase tracking-wider">${data.category}</p>
+                            <h4 class="font-bold text-tech-blue mb-1 text-sm group-hover:text-cyan transition-colors line-clamp-1">${relatedProject.title}</h4>
+                            <p class="text-xs text-charcoal/60 uppercase tracking-wider">${relatedProject.category}</p>
                         </div>
                     `;
                     div.addEventListener('click', () => {
                         // Scroll to top of modal content
                         const scrollContainer = document.querySelector('#modalContent .overflow-y-auto');
                         if(scrollContainer) scrollContainer.scrollTop = 0;
-                        openModal(key);
+                        openModalWithData(relatedProject);
                     });
                     relatedGrid.appendChild(div);
                 });
@@ -1034,6 +1062,9 @@ document.addEventListener('DOMContentLoaded', function() {
             body.style.overflow = 'hidden';
         }
     }
+    
+    // Expose function globally for portfolio-generator.js
+    window.openModalWithData = openModalWithData;
 
     /**
      * Closes the case study modal.
@@ -1052,18 +1083,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (modal) {
-        document.addEventListener('click', function(e) {
-            const card = e.target.closest('.portfolio-card');
-            
-            if (card) {
-                const id = card.getAttribute('data-id');
-                if (id) {
-                    e.preventDefault();
-                    openModal(id);
-                }
-            }
-        });
-
         if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
         if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
         
@@ -1113,7 +1132,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         galleryImages.forEach((img, index) => {
             img.style.cursor = 'zoom-in';
-            img.addEventListener('click', () => {
+            img.addEventListener('click', (e) => {
+                // Prevent lightbox if the card is a case study that opens a modal
+                if (img.closest('.portfolio-card[data-id]')) {
+                    return;
+                }
+
                 currentImageIndex = index;
                 lightboxImage.src = img.src;
                 lightboxImage.alt = img.alt;
@@ -1190,6 +1214,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nav = document.getElementById('navbar');
     const darkSections = document.querySelectorAll('[data-theme="dark"]');
 
+
     window.addEventListener('scroll', throttle(() => {
         // Navbar Theme
         if (nav && darkSections.length > 0) {
@@ -1211,6 +1236,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }), { passive: true });
+
 
     // Theme Toggle Logic
     const themeToggle = document.getElementById('themeToggle');
@@ -1445,26 +1471,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 posts.forEach((post, index) => {
                     const delay = index * 100;
                     const html = `
-                        <div class="blog-card bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/5 flex flex-col h-full reveal-up" style="animation-delay: ${delay}ms">
-                            <a href="blog-post.html?id=${post.id}" class="block overflow-hidden h-48 relative group">
-                                <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                                <div class="absolute top-4 left-4 bg-tech-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md">
+                        <div class="blog-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col h-full reveal-up" style="animation-delay: ${delay}ms">
+                            <a href="blog-post.html?id=${post.id}" class="block overflow-hidden h-56 relative">
+                                <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
+                                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div class="absolute top-4 left-4 bg-gradient-to-r from-tech-blue to-cyan text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md">
                                     ${post.category}
                                 </div>
                             </a>
-                            <div class="p-6 flex flex-col flex-1">
+                            <div class="p-6 flex flex-col flex-1 relative">
                                 <div class="flex items-center gap-3 text-xs text-charcoal/60 dark:text-gray-400 mb-3">
-                                    <span><i class="far fa-calendar-alt mr-1"></i> ${post.date}</span>
-                                    <span><i class="far fa-user mr-1"></i> ${post.author}</span>
+                                    <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-cyan"></i> ${post.date}</span>
+                                    <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                                    <span class="flex items-center gap-1"><i class="far fa-user text-cyan"></i> ${post.author}</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-3 leading-tight hover:text-cyan transition-colors">
+                                <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-3 leading-tight group-hover:text-cyan transition-colors">
                                     <a href="blog-post.html?id=${post.id}">${post.title}</a>
                                 </h3>
-                                <p class="text-charcoal/70 dark:text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
+                                <p class="text-charcoal/70 dark:text-gray-400 text-sm mb-6 line-clamp-3 flex-1 leading-relaxed">
                                     ${post.excerpt}
                                 </p>
-                                <a href="blog-post.html?id=${post.id}" class="inline-flex items-center text-tech-blue dark:text-cyan font-bold text-sm hover:underline mt-auto">
-                                    Read Article <i class="fas fa-arrow-right ml-2"></i>
+                                <a href="blog-post.html?id=${post.id}" class="inline-flex items-center text-tech-blue dark:text-cyan font-bold text-sm group/link mt-auto">
+                                    Read Article <i class="fas fa-arrow-right ml-2 transform group-hover/link:translate-x-1 transition-transform"></i>
                                 </a>
                             </div>
                         </div>
@@ -1486,18 +1514,91 @@ document.addEventListener('DOMContentLoaded', function() {
     // 2. Single Blog Post Page (blog-post.html)
     const postContainer = document.getElementById('post-container');
     if (postContainer) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const postId = urlParams.get('id');
+        // Handle clean URLs like /blog/post-id and fallback to ?id=...
+        const path = window.location.pathname; 
+        const pathSegments = path.split('/').filter(segment => segment);
+        let postId = null;
+
+        if (path.startsWith('/blog/')) {
+            postId = pathSegments[pathSegments.length - 1];
+        } else {
+            const urlParams = new URLSearchParams(window.location.search);
+            postId = urlParams.get('id');
+        }
 
         if (postId) {
             fetch('blog.json')
                 .then(res => res.json())
                 .then(posts => {
                     const post = posts.find(p => p.id === postId);
-                    if (post) {
-                        // Update Page Title for SEO (Client-side)
+                    if (post) {                        // ==========================================
+                        // DYNAMIC SEO & METADATA UPDATE
+                        // ==========================================
+                        const currentUrl = window.location.href;
+                        
+                        // 1. Update Title & Description
                         document.title = `${post.title} | Kumtech Gateway Blog`;
-                        document.querySelector('meta[name="description"]').setAttribute('content', post.excerpt);
+                        
+                        const metaDesc = document.querySelector('meta[name="description"]');
+                        if (metaDesc) metaDesc.setAttribute('content', post.excerpt);
+
+                        // 2. Update Canonical URL
+                        const canonical = document.querySelector('link[rel="canonical"]');
+                        if (canonical) canonical.setAttribute('href', currentUrl);
+
+                        // 3. Update Open Graph (Facebook/LinkedIn)
+                        const setMeta = (selector, attr, value) => {
+                            const el = document.querySelector(selector);
+                            if (el) el.setAttribute(attr, value);
+                        };
+
+                        setMeta('meta[property="og:title"]', 'content', post.title);
+                        setMeta('meta[property="og:description"]', 'content', post.excerpt);
+                        setMeta('meta[property="og:image"]', 'content', post.image);
+                        setMeta('meta[property="og:url"]', 'content', currentUrl);
+
+                        // 4. Update Twitter Card
+                        setMeta('meta[name="twitter:title"]', 'content', post.title);
+                        setMeta('meta[name="twitter:description"]', 'content', post.excerpt);
+                        setMeta('meta[name="twitter:image"]', 'content', post.image);
+
+                        // 5. Inject JSON-LD Schema Markup (Google Rich Results)
+                        const schemaData = {
+                            "@context": "https://schema.org",
+                            "@type": "BlogPosting",
+                            "headline": post.title,
+                            "image": [post.image],
+                            "datePublished": new Date(post.date).toISOString(),
+                            "dateModified": new Date(post.date).toISOString(),
+                            "author": [{
+                                "@type": "Person",
+                                "name": post.author,
+                                "url": "https://kumtechgateway.com"
+                            }],
+                            "publisher": {
+                                "@type": "Organization",
+                                "name": "Kumtech Gateway",
+                                "logo": {
+                                    "@type": "ImageObject",
+                                    "url": "https://kumtechgateway.com/images/logo.png"
+                                }
+                            },
+                            "description": post.excerpt,
+                            "mainEntityOfPage": {
+                                "@type": "WebPage",
+                                "@id": currentUrl
+                            }
+                        };
+
+                        // Remove any existing JSON-LD to prevent duplicates on re-renders
+                        const existingSchema = document.getElementById('dynamic-schema');
+                        if (existingSchema) existingSchema.remove();
+
+                        const script = document.createElement('script');
+                        script.id = 'dynamic-schema';
+                        script.type = 'application/ld+json';
+                        script.text = JSON.stringify(schemaData);
+                        document.head.appendChild(script);
 
                         postContainer.innerHTML = `
                             <div class="mb-8">
@@ -1509,7 +1610,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <span>${post.date}</span>
                                 </div>
                             </div>
-                            <img src="${post.image}" alt="${post.title}" class="w-full h-auto rounded-2xl shadow-lg mb-10 object-cover max-h-[500px]">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-auto rounded-2xl shadow-lg mb-10 object-cover max-h-[500px] aspect-[2/1] bg-soft-gray dark:bg-slate-800" width="800" height="400">
                             <div class="prose prose-lg dark:prose-invert max-w-none text-charcoal/80 dark:text-gray-300 leading-relaxed">
                                 ${post.content}
                             </div>
@@ -1530,4 +1631,8 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'blog.html';
         }
     }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadComponents().then(main);
 });

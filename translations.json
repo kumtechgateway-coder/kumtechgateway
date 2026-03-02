@@ -5,11 +5,17 @@
         "nav.services": "Services",
         "nav.portfolio": "Portfolio",
         "nav.gallery": "Gallery",
+        "nav.blog": "Blog",
         "nav.contact": "Contact",
         "hero.title": "Designing the Future of <span class=\"bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-cyan to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block\">Your Business</span>",
         "hero.subtitle": "Elevate your brand with world-class digital solutions. We blend technical expertise and creative strategy to build scalable products that drive measurable business results.",
         "hero.cta": "Start Your Project",
-        "hero.explore": "Explore Our Work"
+        "hero.explore": "Explore Our Work",
+        "footer.service.graphic_design": "Graphic Design",
+        "footer.service.web_design": "Web Design",
+        "footer.service.web_development": "Web Development",
+        "footer.service.ads_management": "Ads Management",
+        "footer.service.google_business": "Google Business"
     },
     "fr": {
         "nav.home": "Accueil",
@@ -17,10 +23,16 @@
         "nav.services": "Services",
         "nav.portfolio": "Portfolio",
         "nav.gallery": "Galerie",
+        "nav.blog": "Blog",
         "nav.contact": "Contact",
         "hero.title": "Concevoir l'avenir de <span class=\"bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-cyan to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block\">votre entreprise</span>",
         "hero.subtitle": "Élevez votre marque avec des solutions numériques de classe mondiale. Nous allions expertise technique et stratégie créative pour créer des produits évolutifs qui génèrent des résultats tangibles.",
         "hero.cta": "Démarrer votre projet",
-        "hero.explore": "Découvrir notre travail"
+        "hero.explore": "Découvrir notre travail",
+        "footer.service.graphic_design": "Design Graphique",
+        "footer.service.web_design": "Conception Web",
+        "footer.service.web_development": "Développement Web",
+        "footer.service.ads_management": "Gestion des publicités",
+        "footer.service.google_business": "Google Business"
     }
 }

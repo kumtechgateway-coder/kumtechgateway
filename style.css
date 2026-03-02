@@ -35,7 +35,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
 
 /* Scroll Progress & Navbar Transitions */
 #navbar { transition: background-color 0.4s ease, box-shadow 0.4s ease; }
-#navbar.navbar-dark { background-color: rgba(15, 23, 42, 0.95); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+#navbar.navbar-dark { background-color: #0F172A; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 #navbar.navbar-dark .nav-link { color: rgba(255,255,255,0.9); }
 #navbar.navbar-dark .nav-link:hover, #navbar.navbar-dark .nav-link.active { color: #00B4D8; }
 #navbar.navbar-dark .nav-link::after { background-color: #00B4D8; }
@@ -72,7 +72,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
 /* Modal Skeleton Overrides */
 .skeleton-text { color: transparent !important; background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; border-radius: 4px; user-select: none; }
 
-#navMenu.active { transform: translateY(0); }
+#navMenu.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
 /* Mobile Menu Link Styling */
 @media (max-width: 767px) {

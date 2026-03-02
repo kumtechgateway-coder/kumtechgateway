@@ -68,39 +68,8 @@
     <div id="cursor-dot" class="hidden md:block"></div>
     <div id="cursor-outline" class="hidden md:block"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm py-2 md:py-4 transition-all duration-300 navbar border-b border-gray-100 dark:bg-charcoal/90 dark:border-white/10" id="navbar">
-        <div class="container mx-auto px-5 flex justify-between items-center max-w-[1200px]">
-            <a href="index.html" class="flex text-2xl font-bold">
-                <img src="images/logo.png" alt="Kumtech Gateway Logo" class="h-auto w-12 md:w-16" loading="lazy">
-            </a>
-            
-            <div class="flex items-center gap-5">
-                <button id="themeToggle" class="w-10 h-10 rounded-full bg-soft-gray dark:bg-white/10 flex items-center justify-center text-charcoal dark:text-white transition-all hover:bg-tech-blue hover:text-white" aria-label="Toggle Dark Mode">
-                    <i class="fas fa-moon dark:hidden"></i>
-                    <i class="fas fa-sun hidden dark:block"></i>
-                </button>
-
-                <ul class="flex gap-10 md:flex-row flex-col absolute md:static top-full left-0 w-full md:w-auto bg-white dark:bg-charcoal md:bg-transparent md:dark:bg-transparent p-5 md:p-0 shadow-lg md:shadow-none transition-all duration-300 -translate-y-[150%] md:translate-y-0 -z-10 md:z-auto open:translate-y-0" id="navMenu">
-                    <li><a href="index.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.home">Home</a></li>
-                    <li><a href="index.html#about" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.about">About</a></li>
-                    <li><a href="portfolio.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.portfolio">Portfolio</a></li>
-                   <li><a href="gallery.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.gallery">Gallery</a></li>
-                   <li><a href="blog.html" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.blog">Blog</a></li>
-                    <li><a href="index.html#contact" class="nav-link font-medium text-base text-charcoal dark:text-white relative py-1 hover:text-cyan transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyan after:transition-all hover:after:w-full open:text-cyan open:after:w-full" data-i18n="nav.contact">Contact</a></li>
-                </ul>
-                
-               <a href="https://wa.me/237679796638" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm cursor-pointer transition-all duration-300 border-2 text-center bg-gradient-to-r from-orange to-soft-amber text-white border-transparent hover:bg-charcoal hover:from-charcoal hover:to-charcoal hover:-translate-y-0.5" aria-label="Chat on WhatsApp">
-                    <i class="fab fa-whatsapp text-base"></i>
-                    <span>WhatsApp Us</span>
-                </a>
-                
-                <button class="md:hidden block bg-none border-none cursor-pointer w-[30px] h-[30px] relative z-50 menu-toggle" id="menuToggle" aria-label="Toggle menu">
-                    <span class="hamburger block w-[25px] h-[2px] bg-tech-blue relative transition-all duration-300 before:content-[''] before:absolute before:w-[25px] before:h-[2px] before:bg-tech-blue before:transition-all before:duration-300 before:-top-[8px] after:content-[''] after:absolute after:w-[25px] after:h-[2px] after:bg-tech-blue after:transition-all after:duration-300 after:top-[8px]"></span>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <!-- Navigation Placeholder -->
+    <header id="navbar-placeholder"></header>
 
     <main>
        <section class="pt-28 md:pt-40 pb-16 md:pb-24 relative dark:bg-charcoal" id="gallery">
@@ -112,67 +81,19 @@
             </div>
 
             <!-- Controls -->
-            <div class="sticky top-[64px] md:top-[96px] z-40 bg-white/90 dark:bg-charcoal/90 backdrop-blur-md py-3 md:py-4 mb-8 md:mb-10 flex justify-center items-center gap-3 reveal-up delay-300 transition-all w-full border-t border-tech-blue/10 dark:border-white/10 shadow-sm">
+            <div class="sticky top-[64px] md:top-[80px] z-40 bg-white/90 dark:bg-charcoal/90 backdrop-blur-md py-3 md:py-4 mb-8 md:mb-10 flex justify-center items-center gap-3 reveal-up delay-300 transition-all w-full border-b border-tech-blue/10 dark:border-white/10 shadow-sm">
                 <div class="flex flex-wrap justify-center gap-2">
-                    <button class="filter-btn px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange active" data-filter="all">All</button>
-                    <button class="filter-btn px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="flyers">Flyers</button>
-                    <button class="filter-btn px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="posters">Posters</button>
-                    <button class="filter-btn px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="social-media">Social Media</button>
-                    <button class="filter-btn px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="banners">Banners</button>
-                    <button class="filter-btn px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="business-cards">Business Cards</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange active" data-filter="all">All</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="flyers">Flyers</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="posters">Posters</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="social-media">Social Media</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="banners">Banners</button>
                 </div>
             </div>
 
             <div class="container mx-auto px-5 max-w-[1200px]">
                 <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 portfolio-grid">
-                    <!-- Item: Poster -->
-                    <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-100 mb-6 break-inside-avoid" data-category="posters">
-                        <div class="w-full relative">
-                            <img src="images/poster1.webp" alt="Poster Design 1" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="hidden portfolio-title">Poster Design 1</div>
-                        <div class="hidden portfolio-description">Creative poster design</div>
-                    </div>
-                    <!-- Item: Poster 2 -->
-                    <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-200 mb-6 break-inside-avoid" data-category="posters">
-                        <div class="w-full relative">
-                            <img src="images/poster2.webp" alt="Poster Design 2" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="hidden portfolio-title">Poster Design 2</div>
-                        <div class="hidden portfolio-description">Creative poster design</div>
-                    </div>
-                    <!-- Item: Poster 3 -->
-                    <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-300 mb-6 break-inside-avoid" data-category="posters">
-                        <div class="w-full relative">
-                            <img src="images/poster3.webp" alt="Poster Design 3" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="hidden portfolio-title">Poster Design 3</div>
-                        <div class="hidden portfolio-description">Creative poster design</div>
-                    </div>
-                    <!-- Item: Poster 4 -->
-                    <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-100 mb-6 break-inside-avoid" data-category="posters">
-                        <div class="w-full relative">
-                            <img src="images/poster4.webp" alt="Poster Design 4" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="hidden portfolio-title">Poster Design 4</div>
-                        <div class="hidden portfolio-description">Creative poster design</div>
-                    </div>
-                    <!-- Item: Banner -->
-                    <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-200 mb-6 break-inside-avoid" data-category="banners">
-                        <div class="w-full relative">
-                            <img src="images/banner1.webp" alt="Banner Design 1" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="hidden portfolio-title">Banner Design 1</div>
-                        <div class="hidden portfolio-description">Creative banner design</div>
-                    </div>
-                    <!-- Item: Social Media -->
-                    <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up delay-300 mb-6 break-inside-avoid" data-category="social-media">
-                        <div class="w-full relative">
-                            <img src="images/socialmedia1.webp" alt="Social Media Design 1" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="hidden portfolio-title">Social Media Design 1</div>
-                        <div class="hidden portfolio-description">Creative social media design</div>
-                    </div>
+                    <!-- Images will be loaded here by the script -->
                 </div>
                 
                 <div class="text-center mt-12">
@@ -190,69 +111,84 @@
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.querySelector('.portfolio-grid');
             const sentinel = document.getElementById('gallery-sentinel');
+            const filterBtns = document.querySelectorAll('.filter-btn');
             
-            if(grid && sentinel) {
-                const uniqueImages = 88;
+            if(grid && sentinel && filterBtns.length > 0) {
+                // Observer for revealing newly loaded items
+                const itemRevealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+                // 1. Define all images based on user specification
+                const allImages = [];
+                // Flyers (1 to 88)
+                for (let i = 1; i <= 88; i++) {
+                    allImages.push({ category: 'flyers', prefix: 'flyer', index: i });
+                }
+                // Banners (1)
+                allImages.push({ category: 'banners', prefix: 'banner', index: 1 });
+                // Posters (1 to 4)
+                for (let i = 1; i <= 4; i++) {
+                    allImages.push({ category: 'posters', prefix: 'poster', index: i });
+                }
+                // Social Media (1)
+                allImages.push({ category: 'social-media', prefix: 'socialmedia', index: 1 });
+
+                let displayImages = []; // This will be the array we render from
                 let loadedCount = 0;
                 const batchSize = 12;
-                
-                // Restore state
-                const savedState = JSON.parse(sessionStorage.getItem('galleryState_v2'));
-                if (savedState) {
-                    loadedCount = savedState.loadedCount || 0;
+
+                // 2. Shuffle function
+                function shuffle(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
                 }
 
                 const renderBatch = (start, end) => {
-                    let html = '';
-                    for(let i = start + 1; i <= end; i++) {
-                        const imgIndex = ((i - 1) % uniqueImages) + 1;
-                        const delay = ['delay-100', 'delay-200', 'delay-300'][(i-1)%3];
-                        html += `
-                        <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up ${delay} mb-6 break-inside-avoid" data-category="flyers">
-                            <div class="w-full relative skeleton">
-                                <img src="images/flyer${imgIndex}.webp" alt="Flyer Design ${imgIndex}" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 opacity-0 transition-opacity duration-500" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=No+Image';this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')" onload="this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')">
-                                <img src="images/flyer${imgIndex}.webp" alt="Flyer Design ${imgIndex}" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 opacity-0 transition-opacity duration-500" loading="lazy" onerror="this.closest('.portfolio-card').style.display='none'" onload="this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')">
+                    const fragment = document.createDocumentFragment();
+                    const batch = displayImages.slice(start, end);
+
+                    batch.forEach((imgData, i) => {
+                        const { category, prefix, index } = imgData;
+                        const delay = ['delay-100', 'delay-200', 'delay-300'][i % 3];
+                        const categoryTitle = category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        const imageName = `${prefix}${index}`;
+                        
+                        const div = document.createElement('div');
+                        div.className = `group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up ${delay} mb-6 break-inside-avoid`;
+                        div.setAttribute('data-category', category);
+                        div.innerHTML = `
+                            <div class="w-full relative skeleton aspect-[3/4]">
+                                <img src="images/${imageName}.webp" alt="${categoryTitle} Design ${index}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-0 transition-opacity duration-500" width="600" height="800" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=Image+Unavailable';this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')" onload="this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')">
                             </div>
-                            <div class="hidden portfolio-title">Flyer Design ${imgIndex}</div>
-                            <div class="hidden portfolio-description">Creative flyer design</div>
-                        </div>`;
-                    }
-                    grid.insertAdjacentHTML('beforeend', html);
-                    
-                    // Re-trigger reveal animations for new items
-                    const newItems = grid.querySelectorAll('.reveal-up:not(.active)');
-                    setTimeout(() => {
-                        newItems.forEach(item => item.classList.add('active'));
-                    }, 100);
+                            <div class="hidden portfolio-title">${categoryTitle} Design ${index}</div>
+                            <div class="hidden portfolio-description">Creative ${categoryTitle.toLowerCase()} design</div>
+                        `;
+                        fragment.appendChild(div);
+                        itemRevealObserver.observe(div);
+                    });
+
+                    grid.appendChild(fragment);
                 };
 
                 const loadNextBatch = () => {
-                    const nextLimit = loadedCount + batchSize;
+                    if (loadedCount >= displayImages.length) {
+                        sentinel.style.display = 'none'; // All images loaded
+                        return;
+                    }
+                    sentinel.style.display = 'flex';
+
+                    const nextLimit = Math.min(loadedCount + batchSize, displayImages.length);
                     renderBatch(loadedCount, nextLimit);
                     loadedCount = nextLimit;
-                    
-                    // Save state
-                    sessionStorage.setItem('galleryState_v2', JSON.stringify({ loadedCount }));
                 };
-
-                // Initial Load / Restoration
-                if (savedState && savedState.loadedCount > 0) {
-                    // Restore all previously loaded items at once
-                    renderBatch(0, savedState.loadedCount);
-                    
-                    // Restore scroll position
-                    const savedScroll = sessionStorage.getItem('galleryScroll');
-                    if(savedScroll) {
-                        setTimeout(() => window.scrollTo(0, parseInt(savedScroll)), 100);
-                    }
-                } else {
-                    loadNextBatch();
-                }
-
-                // Save scroll on unload
-                window.addEventListener('beforeunload', () => {
-                    sessionStorage.setItem('galleryScroll', window.scrollY);
-                });
 
                 // Intersection Observer for Infinite Scroll
                 const observer = new IntersectionObserver((entries) => {
@@ -262,78 +198,39 @@
                     }
                 }, { rootMargin: '200px' });
 
+                function applyFilter(filter) {
+                    grid.innerHTML = '';
+                    loadedCount = 0;
+
+                    if (filter === 'all') {
+                        displayImages = [...allImages];
+                        shuffle(displayImages);
+                    } else {
+                        displayImages = allImages
+                            .filter(img => img.category === filter)
+                            .sort((a, b) => a.index - b.index);
+                    }
+                    loadNextBatch();
+                }
+
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const newFilter = btn.dataset.filter;
+                        applyFilter(newFilter);
+                    });
+                });
+
+                // Initial Load
+                applyFilter('all');
                 observer.observe(sentinel);
             }
         });
     </script>
 
-    <!-- Footer -->
-    <footer class="bg-charcoal text-white/80 py-20 pb-8 text-sm" data-theme="dark">
-        <div class="container mx-auto px-5 max-w-[1200px]">
-            <div class="flex flex-wrap gap-16 mb-16 flex-col lg:flex-row">
-                <div class="flex-1 min-w-[280px] max-w-sm">
-                    <a href="index.html" class="flex text-2xl font-bold text-white">
-                        <img src="images/logo.png" alt="Kumtech Gateway" class="h-12 w-auto" width="48" height="48" loading="lazy">
-                    </a>
-                    <p class="my-6 leading-relaxed opacity-80">Empowering businesses with innovative digital solutions. We turn ideas into reality through technology and creativity.</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="TikTok" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="LinkedIn" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/237679796638" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full text-white transition-all hover:bg-cyan hover:-translate-y-1" aria-label="WhatsApp" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                
-                <div class="flex-[2] flex justify-between gap-8 flex-wrap flex-col sm:flex-row">
-                    <div class="min-w-[150px]">
-                        <h4 class="text-white text-xl mb-6 relative">Company</h4>
-                        <ul>
-                            <li class="mb-3"><a href="index.html#about" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">About Us</a></li>
-                            <li class="mb-3"><a href="portfolio.html" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Our Work</a></li>
-                            <li class="mb-3"><a href="index.html#contact" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Contact</a></li>
-                            <li class="mb-3"><a href="#" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Careers</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="min-w-[150px]">
-                        <h4 class="text-white text-xl mb-6 relative">Services</h4>
-                        <ul>
-                            <li class="mb-3"><a href="index.html#services" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Web Development</a></li>
-                            <li class="mb-3"><a href="index.html#services" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Graphic Design</a></li>
-                            <li class="mb-3"><a href="index.html#services" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Digital Marketing</a></li>
-                            <li class="mb-3"><a href="index.html#services" class="text-white/70 transition-all inline-block hover:text-cyan hover:translate-x-1">Consulting</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="min-w-[150px]">
-                        <h4 class="text-white text-xl mb-6 relative">Contact</h4>
-                        <ul>
-                            <li class="flex gap-4 mb-4">
-                                <i class="fas fa-clock text-cyan mt-1"></i>
-                                <span>Always Open</span>
-                            </li>
-                            <li class="flex gap-4 mb-4">
-                                <i class="fas fa-envelope text-cyan mt-1"></i>
-                                <span>kumtechgateway@gmail.com</span>
-                            </li>
-                            <li class="flex gap-4 mb-4">
-                                <i class="fas fa-phone text-cyan mt-1"></i>
-                                <span>+237 679 796 638</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-white/10 pt-8 flex justify-between items-center flex-wrap gap-5 flex-col sm:flex-row text-center sm:text-left">
-                <p class="opacity-70 text-sm">&copy; <span id="currentYear"></span> Kumtech Gateway. All rights reserved.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-sm opacity-70 hover:opacity-100 hover:text-cyan">Privacy Policy</a>
-                    <a href="#" class="text-sm opacity-70 hover:opacity-100 hover:text-cyan">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
     
     <!-- Back to Top Button (Desktop) -->
     <button id="backToTop" class="hidden md:flex fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-orange to-soft-amber text-white rounded-full items-center justify-center text-lg shadow-custom cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 hover:bg-tech-blue hover:from-tech-blue hover:to-tech-blue hover:-translate-y-1 z-50" aria-label="Back to top">
@@ -359,7 +256,6 @@
         <img id="lightboxImage" src="" alt="Gallery Image" class="max-w-[90vw] max-h-[90vh] object-contain transform scale-95 transition-all duration-300 select-none">
     </div>
 
-    <script src="data.js"></script>
     <script src="script.js"></script>
 
 </body>
