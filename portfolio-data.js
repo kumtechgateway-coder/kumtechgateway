@@ -8,17 +8,17 @@ const portfolioData = [
         category: "Branding",
         title: "Kumtech Gateway Identity",
         description: "Complete brand identity design including logo, color palette, and visual assets for a leading tech agency.",
-        image: "images/kumtechgateway-branding.jpg",
+        image: "images/your-new-thumbnail.jpg",
         fullData: {
             client: "Kumtech Gateway",
-            timeline: "2023",
+            timeline: "2024",
             services: "Logo Design, Brand Strategy, UI/UX",
             challenge: "To create a modern, tech-focused identity that reflects reliability and innovation.",
             solution: "We developed a clean, geometric logo and a vibrant color palette combining Tech Blue and Cyan.",
             results: ["Increased brand recognition", "Consistent visual language", "Modernized digital presence"],
             gallery: [
-                "images/logo.png",
-                "https://placehold.co/800x600/00B4D8/FFFFFF?text=Brand+Guidelines"
+                "images/project-slide-1.jpg",
+                "images/project-slide-2.jpg"
             ]
         }
     },

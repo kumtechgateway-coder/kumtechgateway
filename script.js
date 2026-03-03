@@ -121,11 +121,48 @@ async function loadComponents() {
 }
 
 
-function main() {
-    // Initialize Internationalization
+/**
+ * Initializes all application functionality.
+ */
+function main() {    
     I18n.init();
+    initCustomCursor();
+    initHeroParticles();
+    initNavAndState();
+    initScrollBehaviors();
+    initPortfolioPage();
+    initTestimonialSlider();
+    initFloatingButtons();
+    initModal();
+    initLightbox();
+    initThemeToggle();
+    initContactForm();
+    initBlogPages();
+    initGalleryPage();
+    initGalleryPreview();
+ 
+    // Set current year in footer
+    const currentYearEl = document.getElementById('currentYear');
+    if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
 
-    // Custom Cursor Logic
+    // Global Image Error Handler (Fallback)
+    document.addEventListener('error', function(e) {
+        if (e.target.tagName.toLowerCase() === 'img') {
+            e.target.onerror = null; // Prevent infinite loop
+            e.target.src = 'https://placehold.co/600x400?text=Image+Not+Found';
+            e.target.classList.add('object-contain', 'bg-gray-50');
+        }
+    }, true);
+
+    // Console greeting
+    console.log('Kumtech Gateway Portfolio Website loaded successfully.');
+    console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316, #FDBA74');
+}
+
+/**
+ * Initializes the custom cursor functionality.
+ */
+function initCustomCursor() {
     const cursorDot = document.getElementById('cursor-dot');
     const cursorOutline = document.getElementById('cursor-outline');
     const bodyForCursor = document.body;
@@ -171,8 +208,13 @@ function main() {
                 cursorDot.classList.remove('hover');
             });
         });
-    }
+    }    
+}
 
+/**
+ * Initializes the particle animation in the hero section.
+ */
+function initHeroParticles() {
     // Hero Particle Animation
     const particleContainer = document.getElementById('hero-particle-bg');
     if (particleContainer) {
@@ -189,8 +231,13 @@ function main() {
             particle.style.setProperty('--x-end', (Math.random() - 0.5) * 400);
             particleContainer.appendChild(particle);
         }
-    }
+    }    
+}
 
+/**
+ * Initializes navigation, state restoration, and service worker.
+ */
+function initNavAndState() {
     // Restore State (Scroll + Pagination)
     const stateKey = `appState-${window.location.pathname}`;
     const savedState = JSON.parse(sessionStorage.getItem(stateKey));
@@ -217,8 +264,9 @@ function main() {
             navigator.serviceWorker.register('sw.js')
                 .then(reg => console.log('Service Worker registered'))
                 .catch(err => console.log('Service Worker registration failed: ', err));
-        });
+        });    
     }
+}
 
     /**
      * Throttles a function to limit its execution rate.
@@ -252,37 +300,10 @@ function main() {
         };
     }
 
-    // Global Image Error Handler (Fallback)
-    document.addEventListener('error', function(e) {
-        if (e.target.tagName.toLowerCase() === 'img') {
-            e.target.onerror = null; // Prevent infinite loop
-            e.target.src = 'https://placehold.co/600x400?text=Image+Not+Found';
-            e.target.classList.add('object-contain', 'bg-gray-50');
-        }
-    }, true);
-
-    /**
-     * Initializes skeleton loading states for images.
-     */
-    const initSkeletons = () => {
-        document.querySelectorAll('.portfolio-card img:not(.loaded)').forEach(img => {
-            if (!img.complete) {
-                img.parentElement.classList.add('skeleton');
-                img.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-                img.addEventListener('load', () => {
-                    img.parentElement.classList.remove('skeleton');
-                    img.classList.remove('opacity-0');
-                    img.classList.add('loaded');
-                });
-            }
-        });
-    };
-    initSkeletons();
-
-    // Set current year in footer
-    const currentYearEl = document.getElementById('currentYear');
-    if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
-    
+/**
+ * Initializes scroll-related behaviors like navigation, animations, and parallax.
+ */
+function initScrollBehaviors() {
     // Get DOM elements
     const navbar = document.getElementById('navbar');
     const menuToggle = document.getElementById('menuToggle');
@@ -464,6 +485,9 @@ function main() {
     
     revealElements.forEach(el => revealObserver.observe(el));
     
+}
+
+function initPortfolioPage() {
     // Portfolio Filtering and Search (for portfolio.html which has search and pagination)
     if (document.getElementById('portfolioSearch')) {
         const filterBtns = document.querySelectorAll('.filter-btn');
@@ -712,8 +736,9 @@ function main() {
             });
         }
     }
-    
-    // Testimonial Slider Logic
+}
+
+function initTestimonialSlider() {
     const testimonialContainer = document.getElementById('testimonialTrack')?.parentElement;
     const testimonialTrack = document.getElementById('testimonialTrack');
     const prevTestimonialBtn = document.getElementById('prevTestimonial');
@@ -760,8 +785,10 @@ function main() {
 
         // Start auto-scrolling
         startAutoScroll();
-    }
+    }    
+}
 
+function initFloatingButtons() {
     // Back to Top Button
     const backToTopBtn = document.getElementById('backToTop');
     const whatsappMobileBtn = document.getElementById('whatsappMobileBtn');
@@ -788,13 +815,11 @@ function main() {
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    }
-    
-    // Console greeting (optional, can be removed in production)
-    console.log('Kumtech Gateway Portfolio Website loaded successfully.');
-    console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316, #FDBA74');
+    }    
+}
 
-    /**
+/**
+ * Initializes the case study modal, including injection and event listeners.
      * Injects the Case Study Modal HTML into the DOM.
      * Consolidates duplicate code from HTML files.
      */
@@ -816,8 +841,8 @@ function main() {
                 <!-- Scrollable Content Area -->
                 <div class="overflow-y-auto custom-scrollbar w-full h-full p-8 md:p-10 block">
                     <!-- Image (Floated) -->
-                    <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100">
-                        <img src="" alt="" id="modalImage" class="w-full h-auto object-cover aspect-square" loading="lazy" decoding="async">
+                    <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-soft-gray dark:bg-slate-800 border border-gray-100 dark:border-white/10">
+                        <img src="" alt="" id="modalImage" class="w-full h-auto object-contain aspect-square" loading="lazy" decoding="async">
                     </div>
 
                     <!-- Header -->
@@ -887,6 +912,8 @@ function main() {
 
     // Inject Modal
     injectModalComponent();
+
+function initModal() {
 
     // Modal Logic Variables
     const modal = document.getElementById('caseStudyModal');
@@ -1028,8 +1055,8 @@ function main() {
                     const div = document.createElement('div');
                     div.className = 'group cursor-pointer border border-tech-blue/10 rounded-xl overflow-hidden hover:shadow-lg transition-all bg-white';
                     div.innerHTML = `
-                        <div class="h-40 overflow-hidden relative">
-                            <img src="${relatedProject.image.split('?')[0]}?q=80&w=400&auto=format&fit=crop" alt="${relatedProject.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async">
+                        <div class="h-40 overflow-hidden relative bg-soft-gray dark:bg-slate-700">
+                            <img src="${relatedProject.image.split('?')[0]}?q=80&w=400&auto=format&fit=crop" alt="${relatedProject.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async">
                             <div class="absolute inset-0 bg-tech-blue/0 group-hover:bg-tech-blue/10 transition-colors duration-300"></div>
                         </div>
                         <div class="p-4">
@@ -1097,8 +1124,10 @@ function main() {
         if (modalCta) {
             modalCta.addEventListener('click', closeModal);
         }
-    }
+    }    
+}
 
+function initLightbox() {
     // Gallery Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
@@ -1208,8 +1237,10 @@ function main() {
             if (touchEndX < touchStartX - 50) showImage(currentImageIndex + 1); // Swipe Left -> Next
             if (touchEndX > touchStartX + 50) showImage(currentImageIndex - 1); // Swipe Right -> Prev
         }, { passive: true });
-    }
+    }    
+}
 
+function initThemeToggle() {
     // Navbar Theme Logic
     const nav = document.getElementById('navbar');
     const darkSections = document.querySelectorAll('[data-theme="dark"]');
@@ -1259,8 +1290,10 @@ function main() {
                 localStorage.theme = 'dark';
             }
         });
-    }
+    }    
+}
 
+function initContactForm() {
     // Contact Form Logic
     const contactFormContainer = document.getElementById('contact-form-container');
     if (contactFormContainer) {
@@ -1454,13 +1487,11 @@ function main() {
                 successOverlay.addEventListener('click', resetModal);
             }
         }
-    }
+    }    
+}
 
-    // ==========================================
-    // BLOG FUNCTIONALITY
-    // ==========================================
-    
-    // 1. Blog Listing Page (blog.html)
+function initBlogPages() {
+    // Blog Listing Page (blog.html)
     const blogGrid = document.getElementById('blog-grid');
     if (blogGrid) {
         fetch('blog.json')
@@ -1472,8 +1503,8 @@ function main() {
                     const delay = index * 100;
                     const html = `
                         <div class="blog-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col h-full reveal-up" style="animation-delay: ${delay}ms">
-                            <a href="blog-post.html?id=${post.id}" class="block overflow-hidden h-56 relative">
-                                <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
+                            <a href="blog-post.html?id=${post.id}" class="block overflow-hidden h-56 relative bg-soft-gray dark:bg-slate-700">
+                                <img src="${post.image}" alt="${post.title}" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
                                 <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <div class="absolute top-4 left-4 bg-gradient-to-r from-tech-blue to-cyan text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md">
                                     ${post.category}
@@ -1511,7 +1542,7 @@ function main() {
             });
     }
 
-    // 2. Single Blog Post Page (blog-post.html)
+    // Single Blog Post Page (blog-post.html)
     const postContainer = document.getElementById('post-container');
     if (postContainer) {
         // Handle clean URLs like /blog/post-id and fallback to ?id=...
@@ -1610,7 +1641,7 @@ function main() {
                                     <span>${post.date}</span>
                                 </div>
                             </div>
-                            <img src="${post.image}" alt="${post.title}" class="w-full h-auto rounded-2xl shadow-lg mb-10 object-cover max-h-[500px] aspect-[2/1] bg-soft-gray dark:bg-slate-800" width="800" height="400">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-auto rounded-2xl shadow-lg mb-10 object-contain max-h-[500px] aspect-[2/1] bg-soft-gray dark:bg-slate-800" width="800" height="400">
                             <div class="prose prose-lg dark:prose-invert max-w-none text-charcoal/80 dark:text-gray-300 leading-relaxed">
                                 ${post.content}
                             </div>
@@ -1630,6 +1661,149 @@ function main() {
         } else {
             window.location.href = 'blog.html';
         }
+    }
+}
+
+function initGalleryPreview() {
+    const grid = document.getElementById('gallery-preview-grid');
+    if (grid && typeof galleryData !== 'undefined') {
+        const allImages = [...galleryData.flyers, ...galleryData.banners, ...galleryData.posters, ...galleryData['social-media']];
+        
+        // Shuffle and pick 4
+        const previewImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 4);
+
+        grid.innerHTML = ''; // Clear any placeholders
+
+        previewImages.forEach((img, i) => {
+            const delay = ['delay-100', 'delay-200', 'delay-300', 'delay-400'][i];
+            
+            // Generate responsive image attributes
+            const baseSrc = img.src.replace(/\.webp$/, ''); // e.g., "images/flyer1"
+            const srcset = `${baseSrc}-400w.webp 400w, ${baseSrc}-800w.webp 800w, ${baseSrc}-1200w.webp 1200w`;
+            const sizes = `(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 272px`;
+
+            const cardHTML = `
+            <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card no-filter reveal-up ${delay}">
+                <div class="w-full relative cursor-pointer">
+                    <img src="${img.src}" 
+                         srcset="${srcset}"
+                         sizes="${sizes}"
+                         alt="${img.alt}"
+                         class="w-full h-auto transition-transform duration-700 group-hover:scale-110"
+                         width="600" height="800"
+                         loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=Image+Error'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 pointer-events-none">
+                        <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">${img.alt}</span>
+                    </div>
+                </div>
+            </div>`;
+            grid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        // Re-run reveal observer for these new elements
+        const revealElements = grid.querySelectorAll('.reveal-up');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
+}
+
+function initGalleryPage() {
+    const grid = document.querySelector('#gallery .portfolio-grid');
+    const sentinel = document.getElementById('gallery-sentinel');
+    const filterBtns = document.querySelectorAll('#gallery .filter-btn');
+    
+    if(grid && sentinel && filterBtns.length > 0 && typeof galleryData !== 'undefined') {
+        const allImages = [...galleryData.flyers, ...galleryData.banners, ...galleryData.posters, ...galleryData['social-media']];
+        let displayImages = [];
+        let loadedCount = 0;
+        const batchSize = 12;
+
+        const itemRevealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        const renderBatch = (start, end) => {
+            const fragment = document.createDocumentFragment();
+            const batch = displayImages.slice(start, end);
+
+            batch.forEach((imgData, i) => {
+                const delay = ['delay-100', 'delay-200', 'delay-300'][i % 3];
+                const div = document.createElement('div');
+                div.className = `group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up ${delay} mb-6 break-inside-avoid`;
+                div.setAttribute('data-category', imgData.category);
+
+                // Generate responsive image attributes
+                const baseSrc = imgData.src.replace(/\.webp$/, ''); // e.g., "images/flyer1"
+                const srcset = `${baseSrc}-400w.webp 400w, ${baseSrc}-800w.webp 800w, ${baseSrc}-1200w.webp 1200w`;
+                const sizes = `(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 370px`;
+
+                div.innerHTML = `
+                    <div class="w-full relative skeleton">
+                        <img src="${imgData.src}" 
+                             srcset="${srcset}"
+                             sizes="${sizes}"
+                             alt="${imgData.alt}"
+                             class="w-full h-auto transition-transform duration-700 group-hover:scale-110 opacity-0 transition-opacity duration-500"
+                             width="600" height="800" loading="lazy" decoding="async" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=Image+Unavailable';this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')" onload="this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')">
+                    </div>
+                `;
+                fragment.appendChild(div);
+                itemRevealObserver.observe(div);
+            });
+            grid.appendChild(fragment);
+        };
+
+        const loadNextBatch = () => {
+            if (loadedCount >= displayImages.length) {
+                sentinel.style.display = 'none';
+                return;
+            }
+            sentinel.style.display = 'flex';
+            const nextLimit = Math.min(loadedCount + batchSize, displayImages.length);
+            renderBatch(loadedCount, nextLimit);
+            loadedCount = nextLimit;
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) setTimeout(loadNextBatch, 500);
+        }, { rootMargin: '200px' });
+
+        function applyFilter(filter) {
+            grid.innerHTML = '';
+            loadedCount = 0;
+            displayImages = (filter === 'all') ? [...allImages] : allImages.filter(img => img.category === filter);
+            if (filter === 'all') shuffle(displayImages);
+            loadNextBatch();
+        }
+
+        filterBtns.forEach(btn => btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilter(btn.dataset.filter);
+        }));
+
+        applyFilter('all');
+        observer.observe(sentinel);
     }
 }
 

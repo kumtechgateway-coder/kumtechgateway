@@ -119,7 +119,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
     color: #0F172A; /* charcoal */
     padding-top: 8rem; /* 128px, to clear the fixed navbar */
     padding-bottom: 5rem; /* 80px */
-    min-height: calc(100vh - 80px); /* Example: full height minus navbar/footer */
 }
 
 .dark .main-content {
@@ -453,4 +452,25 @@ body.cursor-active #cursor-outline {
 }
 #successModal.active #successContent {
     transform: scale(1);
+}
+
+/* Founder Page Specifics */
+.founder-page.main-content {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    background-color: #0f172a; /* slate-900 */
+}
+
+#founder-nav .nav-item a.active {
+    background-color: rgba(0, 180, 216, 0.1); /* cyan/10 */
+    color: #00B4D8; /* cyan */
+    font-weight: 600;
+}
+
+#founder-nav .nav-item a.active i {
+    color: #00B4D8; /* cyan */
+}
+
+#founder-content-container {
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 }

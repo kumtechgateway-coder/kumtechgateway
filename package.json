@@ -1,0 +1,27 @@
+{
+  "name": "kumtechgateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gallery-data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumtechgateway-coder/kumtechgateway.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kumtechgateway-coder/kumtechgateway/issues"
+  },
+  "homepage": "https://github.com/kumtechgateway-coder/kumtechgateway#readme",
+  "dependencies": {
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.2.1"
+  }
+}

@@ -106,129 +106,6 @@
         </section>
     </main>
 
-    <!-- Virtual Scroll / Infinite Load Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const grid = document.querySelector('.portfolio-grid');
-            const sentinel = document.getElementById('gallery-sentinel');
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            
-            if(grid && sentinel && filterBtns.length > 0) {
-                // Observer for revealing newly loaded items
-                const itemRevealObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('active');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-                // 1. Define all images based on user specification
-                const allImages = [];
-                // Flyers (1 to 88)
-                for (let i = 1; i <= 88; i++) {
-                    allImages.push({ category: 'flyers', prefix: 'flyer', index: i });
-                }
-                // Banners (1)
-                allImages.push({ category: 'banners', prefix: 'banner', index: 1 });
-                // Posters (1 to 4)
-                for (let i = 1; i <= 4; i++) {
-                    allImages.push({ category: 'posters', prefix: 'poster', index: i });
-                }
-                // Social Media (1)
-                allImages.push({ category: 'social-media', prefix: 'socialmedia', index: 1 });
-
-                let displayImages = []; // This will be the array we render from
-                let loadedCount = 0;
-                const batchSize = 12;
-
-                // 2. Shuffle function
-                function shuffle(array) {
-                    for (let i = array.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [array[i], array[j]] = [array[j], array[i]];
-                    }
-                }
-
-                const renderBatch = (start, end) => {
-                    const fragment = document.createDocumentFragment();
-                    const batch = displayImages.slice(start, end);
-
-                    batch.forEach((imgData, i) => {
-                        const { category, prefix, index } = imgData;
-                        const delay = ['delay-100', 'delay-200', 'delay-300'][i % 3];
-                        const categoryTitle = category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                        const imageName = `${prefix}${index}`;
-                        
-                        const div = document.createElement('div');
-                        div.className = `group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up ${delay} mb-6 break-inside-avoid`;
-                        div.setAttribute('data-category', category);
-                        div.innerHTML = `
-                            <div class="w-full relative skeleton aspect-[3/4]">
-                                <img src="images/${imageName}.webp" alt="${categoryTitle} Design ${index}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-0 transition-opacity duration-500" width="600" height="800" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=Image+Unavailable';this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')" onload="this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')">
-                            </div>
-                            <div class="hidden portfolio-title">${categoryTitle} Design ${index}</div>
-                            <div class="hidden portfolio-description">Creative ${categoryTitle.toLowerCase()} design</div>
-                        `;
-                        fragment.appendChild(div);
-                        itemRevealObserver.observe(div);
-                    });
-
-                    grid.appendChild(fragment);
-                };
-
-                const loadNextBatch = () => {
-                    if (loadedCount >= displayImages.length) {
-                        sentinel.style.display = 'none'; // All images loaded
-                        return;
-                    }
-                    sentinel.style.display = 'flex';
-
-                    const nextLimit = Math.min(loadedCount + batchSize, displayImages.length);
-                    renderBatch(loadedCount, nextLimit);
-                    loadedCount = nextLimit;
-                };
-
-                // Intersection Observer for Infinite Scroll
-                const observer = new IntersectionObserver((entries) => {
-                    if(entries[0].isIntersecting) {
-                        // Small delay to simulate network and show spinner
-                        setTimeout(loadNextBatch, 500);
-                    }
-                }, { rootMargin: '200px' });
-
-                function applyFilter(filter) {
-                    grid.innerHTML = '';
-                    loadedCount = 0;
-
-                    if (filter === 'all') {
-                        displayImages = [...allImages];
-                        shuffle(displayImages);
-                    } else {
-                        displayImages = allImages
-                            .filter(img => img.category === filter)
-                            .sort((a, b) => a.index - b.index);
-                    }
-                    loadNextBatch();
-                }
-
-                filterBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        filterBtns.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        const newFilter = btn.dataset.filter;
-                        applyFilter(newFilter);
-                    });
-                });
-
-                // Initial Load
-                applyFilter('all');
-                observer.observe(sentinel);
-            }
-        });
-    </script>
-
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     
@@ -256,6 +133,7 @@
         <img id="lightboxImage" src="" alt="Gallery Image" class="max-w-[90vw] max-h-[90vh] object-contain transform scale-95 transition-all duration-300 select-none">
     </div>
 
+    <script src="gallery-data.js" defer></script>
     <script src="script.js"></script>
 
 </body>
