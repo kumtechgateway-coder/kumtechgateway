@@ -41,17 +41,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
 #navbar.navbar-dark .nav-link::after { background-color: #00B4D8; }
 #navbar.navbar-dark .menu-toggle i { color: white; }
 
-/* Skeleton Loading */
-.skeleton {
-    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-    background-size: 200% 100%;
-    animation: skeleton-loading 1.5s infinite;
-}
-@keyframes skeleton-loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
 /* Toast Notifications */
 #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
 .toast { background: white; color: #0F172A; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-left: 4px solid #00B4D8; transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); display: flex; align-items: center; gap: 10px; min-width: 250px; pointer-events: auto; }
@@ -68,9 +57,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
 .btn-loading { position: relative; color: transparent !important; pointer-events: none; }
 .btn-loading::after { content: ""; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; border: 2px solid #ffffff; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; transform: translate(-50%, -50%); }
 @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-/* Modal Skeleton Overrides */
-.skeleton-text { color: transparent !important; background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; border-radius: 4px; user-select: none; }
 
 #navMenu.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
@@ -473,4 +459,30 @@ body.cursor-active #cursor-outline {
 
 #founder-content-container {
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.cursor-zoom-in {
+    cursor: zoom-in;
+}
+
+/* Image Blur-Up Effect */
+.img-blur-up {
+    /* Start blurred and slightly zoomed to hide edge artifacts */
+    filter: blur(20px);
+    transform: scale(1.1);
+    /* Animate the un-blurring */
+    transition: filter 0.4s ease-out, transform 0.4s ease-out;
+    will-change: filter, transform;
+}
+.img-blur-up.loaded {
+    filter: blur(0);
+    transform: scale(1);
+}
+
+/* Gallery Filtering Transition */
+.portfolio-grid {
+    transition: opacity 0.25s ease-in-out;
+}
+.portfolio-grid.gallery-fading {
+    opacity: 0;
 }

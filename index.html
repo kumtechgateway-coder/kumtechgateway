@@ -256,7 +256,7 @@
             <div class="flex flex-col lg:flex-row gap-16 items-center">
                 <div class="flex-1 relative w-full reveal-left">
                     <div class="relative">
-                        <img src="images/PSX_20251123_141018.jpg" alt="About Kumtech Team in Yaoundé" class="w-full rounded-xl shadow-custom object-cover h-[auto]" loading="lazy">
+                        <img src="images/PSX_20251123_141018.jpg" alt="About Kumtech Team in Yaoundé" class="w-full rounded-xl shadow-custom h-auto" loading="lazy">
                         <div class="absolute bottom-8 right-5 lg:-right-5 bg-white text-tech-blue p-5 rounded-xl text-center shadow-custom-hover min-w-[140px]">
                             <span class="block text-4xl font-bold leading-none">2</span>
                             <span class="text-sm opacity-90">Years of<br>Excellence</span>
@@ -444,9 +444,9 @@
                 <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Our Web Design & Graphic Design Portfolio</h2>
                 <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">Showcasing our recent projects and successes</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-center portfolio-grid">
+            <div class="columns-1 sm:columns-2 lg:columns-4 gap-6 portfolio-grid">
                 <!-- Loading Indicator -->
-                <div class="col-span-full flex justify-center py-12">
+                <div class="flex justify-center py-12">
                     <div class="w-12 h-12 border-4 border-tech-blue/20 border-t-tech-blue rounded-full animate-spin"></div>
                 </div>
             </div>
@@ -458,14 +458,20 @@
     </section>
 
     <!-- Gallery Section -->
-    <section class="py-16 md:py-24 relative bg-soft-gray dark:bg-slate-900" id="gallery-preview">
-        <div class="container mx-auto px-5 max-w-[1200px]">
+    <section class="py-16 md:py-24 relative bg-soft-gray dark:bg-slate-900 overflow-hidden" id="gallery-preview">
+        <!-- Decorative Background -->
+        <div class="absolute inset-0 pointer-events-none opacity-30 dark:opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-cyan/10 via-transparent to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-tech-blue/10 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
             <div class="text-center mb-16">
                 <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Creative Graphic Design Gallery</h2>
                 <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">A glimpse into our creative design work</p>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 portfolio-grid" id="gallery-preview-grid">
+            <div class="columns-2 md:columns-3 lg:columns-4 gap-4" id="gallery-preview-grid" data-lightbox-container>
             </div>
 
             <div class="text-center mt-12 reveal-up delay-500">

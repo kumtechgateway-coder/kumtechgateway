@@ -57,7 +57,7 @@
             },
             plugins: [
                 function({ addVariant }) {
-                    addVariant('open', '&.active');
+                    addVariant('active', '&.active');
                 }
             ]
         }
@@ -72,22 +72,33 @@
     <header id="navbar-placeholder"></header>
 
     <main>
-       <section class="pt-28 md:pt-40 pb-16 md:pb-24 relative dark:bg-charcoal" id="gallery">
-            <div class="container mx-auto px-5 max-w-[1200px]">
-                <div class="text-center mb-12">
-                   <h1 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-cyan after:rounded-sm reveal-up">Creative Graphic Design Gallery</h1>
-                   <p class="text-lg text-cyan max-w-xl mx-auto reveal-up delay-200">Explore our collection of flyers, posters, and social media designs.</p>
-                </div>
+        <!-- Page Header -->
+        <section class="pt-32 md:pt-48 pb-20 relative overflow-hidden dark:bg-charcoal">
+            <!-- Background elements -->
+            <div class="absolute inset-0 bg-gradient-to-br from-soft-gray to-white dark:from-charcoal dark:to-slate-900 -z-20"></div>
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-tech-blue/5 rounded-full blur-3xl -z-10"></div>
+            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan/5 rounded-full blur-3xl -z-10"></div>
+            
+            <div class="container mx-auto px-5 max-w-[1200px] text-center relative z-10">
+                <span class="inline-block py-1 px-3 rounded-full bg-cyan/10 text-cyan text-sm font-bold tracking-wider uppercase mb-4 reveal-up">Our Gallery</span>
+                <h1 class="font-heading text-4xl md:text-6xl font-bold text-tech-blue dark:text-white mb-6 reveal-up leading-tight">
+                    Creative Graphic <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-tech-blue">Design Showcase</span>
+                </h1>
+                <p class="text-lg md:text-xl text-charcoal/70 dark:text-gray-300 max-w-2xl mx-auto reveal-up delay-200 leading-relaxed">
+                    A curated collection of our flyers, posters, banners, and social media designs that have helped brands stand out.
+                </p>
             </div>
+        </section>
 
+       <section class="pb-16 md:pb-24 relative dark:bg-charcoal -mt-10" id="gallery">
             <!-- Controls -->
-            <div class="sticky top-[64px] md:top-[80px] z-40 bg-white/90 dark:bg-charcoal/90 backdrop-blur-md py-3 md:py-4 mb-8 md:mb-10 flex justify-center items-center gap-3 reveal-up delay-300 transition-all w-full border-b border-tech-blue/10 dark:border-white/10 shadow-sm">
+            <div class="sticky top-[64px] md:top-[80px] z-40 bg-white/90 dark:bg-charcoal/90 backdrop-blur-md py-3 md:py-4 mb-8 md:mb-10 flex justify-center items-center gap-3 transition-all w-full border-b border-tech-blue/10 dark:border-white/10 shadow-sm">
                 <div class="flex flex-wrap justify-center gap-2">
-                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange active" data-filter="all">All</button>
-                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="flyers">Flyers</button>
-                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="posters">Posters</button>
-                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="social-media">Social Media</button>
-                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white open:bg-gradient-to-r open:from-orange open:to-soft-amber open:text-white open:border-orange" data-filter="banners">Banners</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white active:bg-gradient-to-r active:from-orange active:to-soft-amber active:text-white active:border-orange active" data-filter="all">All</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white active:bg-gradient-to-r active:from-orange active:to-soft-amber active:text-white active:border-orange" data-filter="flyer">Flyers</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white active:bg-gradient-to-r active:from-orange active:to-soft-amber active:text-white active:border-orange" data-filter="poster">Posters</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white active:bg-gradient-to-r active:from-orange active:to-soft-amber active:text-white active:border-orange" data-filter="social-media">Social Media</button>
+                    <button class="filter-btn px-4 py-2 md:px-5 md:py-2 text-sm rounded-full border border-tech-blue/30 dark:border-white/20 text-charcoal dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gradient-to-r hover:from-orange hover:to-soft-amber hover:text-white hover:border-orange dark:hover:text-white active:bg-gradient-to-r active:from-orange active:to-soft-amber active:text-white active:border-orange" data-filter="banner">Banners</button>
                 </div>
             </div>
 

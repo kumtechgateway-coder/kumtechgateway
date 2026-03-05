@@ -8,7 +8,7 @@ const portfolioData = [
         category: "Branding",
         title: "Kumtech Gateway Identity",
         description: "Complete brand identity design including logo, color palette, and visual assets for a leading tech agency.",
-        image: "images/your-new-thumbnail.jpg",
+        image: "https://placehold.co/800x600/1F3C88/FFFFFF?text=Kumtech+Identity",
         fullData: {
             client: "Kumtech Gateway",
             timeline: "2024",
@@ -17,8 +17,8 @@ const portfolioData = [
             solution: "We developed a clean, geometric logo and a vibrant color palette combining Tech Blue and Cyan.",
             results: ["Increased brand recognition", "Consistent visual language", "Modernized digital presence"],
             gallery: [
-                "images/project-slide-1.jpg",
-                "images/project-slide-2.jpg"
+                "https://placehold.co/800x600/1F3C88/FFFFFF?text=Brand+Identity",
+                "https://placehold.co/800x600/1F3C88/FFFFFF?text=Visual+Assets"
             ]
         }
     },
@@ -27,7 +27,7 @@ const portfolioData = [
         category: "Web Design",
         title: "Modern E-commerce Platform",
         description: "Sleek and user-friendly e-commerce website with advanced shopping features and mobile-first design.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/e2e8f0/1F3C88?text=Modern+E-commerce",
         fullData: {
             client: "Global Retail Co.",
             timeline: "2024",
@@ -46,7 +46,7 @@ const portfolioData = [
         category: "Marketing",
         title: "Social Media Campaign Boost",
         description: "Increased engagement and followers with targeted social media marketing strategies on Instagram and TikTok.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/F97316/FFFFFF?text=Social+Media+Boost",
         fullData: {
             client: "Lifestyle Influencer",
             timeline: "2024",
@@ -65,7 +65,7 @@ const portfolioData = [
         category: "UI/UX",
         title: "Intuitive Mobile App Design",
         description: "Enhanced user experience with an intuitive and engaging mobile app interface for a health tech startup.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/0F172A/FFFFFF?text=App+Interface",
         fullData: {
             client: "HealthTech Startup",
             timeline: "2023",
@@ -84,7 +84,7 @@ const portfolioData = [
         category: "Development",
         title: "Scalable API Solution",
         description: "Robust and scalable API development for seamless data integration across platforms using Node.js.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/1F3C88/FFFFFF?text=API+Solution",
         fullData: {
             client: "SaaS Provider",
             timeline: "2023",
@@ -103,7 +103,7 @@ const portfolioData = [
         category: "Branding",
         title: "Eco-Friendly Brand Identity",
         description: "Developed a brand focused on sustainability with eco-friendly materials and messaging.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/22C55E/FFFFFF?text=Eco+Branding",
         fullData: {
             client: "Sustainable Goods Co.",
             timeline: "2024",
@@ -122,7 +122,7 @@ const portfolioData = [
         category: "Web Design",
         title: "High-Performance Portfolio",
         description: "Optimized portfolio website with fast loading times and a smooth user experience for a creative photographer.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/333333/FFFFFF?text=Portfolio+Design",
         fullData: {
             client: "Creative Photographer",
             timeline: "2023",
@@ -141,7 +141,7 @@ const portfolioData = [
         category: "Marketing",
         title: "Comprehensive SEO Strategy",
         description: "Data-driven SEO campaign that improved search rankings and organic traffic for a local law firm.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/FDBA74/1F3C88?text=SEO+Campaign",
         fullData: {
             client: "Local Law Firm",
             timeline: "2024",
@@ -160,7 +160,7 @@ const portfolioData = [
         category: "Web Design",
         title: "Real Estate Portal",
         description: "Feature-rich property listing platform with advanced search and map integration.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/00B4D8/FFFFFF?text=Real+Estate+Portal",
         fullData: {
             client: "Property Group",
             timeline: "2023",
@@ -179,7 +179,7 @@ const portfolioData = [
         category: "Development",
         title: "Fitness Tracker App",
         description: "Cross-platform mobile application for tracking workouts and health metrics using React Native.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/EF4444/FFFFFF?text=Fitness+App",
         fullData: {
             client: "Wellness Tech",
             timeline: "2024",
@@ -198,7 +198,7 @@ const portfolioData = [
         category: "Marketing",
         title: "Email Marketing Automation",
         description: "Automated email workflows that increased customer retention and sales for an online retailer.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/F97316/FFFFFF?text=Email+Marketing",
         fullData: {
             client: "Online Retailer",
             timeline: "2023",
@@ -217,7 +217,7 @@ const portfolioData = [
         category: "Branding",
         title: "Travel Agency Branding",
         description: "Vibrant and adventurous brand identity for a modern travel agency targeting thrill-seekers.",
-        image: "images/logo.png",
+        image: "https://placehold.co/800x600/00B4D8/FFFFFF?text=Travel+Branding",
         fullData: {
             client: "Adventure Tours Co.",
             timeline: "2024",

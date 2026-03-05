@@ -125,6 +125,15 @@ async function loadComponents() {
  * Initializes all application functionality.
  */
 function main() {    
+    // Generate portfolio cards. This needs to be available for other scripts.
+    const portfolioSection = document.getElementById('portfolio');
+    if (portfolioSection) {
+        const portfolioGrid = portfolioSection.querySelector('.portfolio-grid');
+        if (portfolioGrid && typeof generatePortfolio === 'function' && typeof portfolioData !== 'undefined') {
+            generatePortfolio(portfolioGrid);
+        }
+    }
+
     I18n.init();
     initCustomCursor();
     initHeroParticles();
@@ -299,6 +308,21 @@ function initNavAndState() {
             timeout = setTimeout(() => func.apply(this, args), wait);
         };
     }
+
+    /**
+     * Generates a srcset attribute string for responsive images.
+     * Assumes resized images exist with '-<width>w.webp' suffix.
+     * @param {string} src - The original image source URL.
+     * @returns {string} The generated srcset string.
+     */
+    function generateSrcset(src) {
+        if (!src || (!src.endsWith('.webp') && !src.endsWith('.png') && !src.endsWith('.jpg') && !src.endsWith('.jpeg'))) return '';
+        const base = src.substring(0, src.lastIndexOf('.'));
+        const sizes = [400, 800, 1200]; // Must match sizes in resize-images.js
+        // The resize script always outputs webp
+        return sizes.map(w => `${base}-${w}w.webp ${w}w`).join(', ');
+    }
+
 
 /**
  * Initializes scroll-related behaviors like navigation, animations, and parallax.
@@ -841,8 +865,8 @@ function initFloatingButtons() {
                 <!-- Scrollable Content Area -->
                 <div class="overflow-y-auto custom-scrollbar w-full h-full p-8 md:p-10 block">
                     <!-- Image (Floated) -->
-                    <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-soft-gray dark:bg-slate-800 border border-gray-100 dark:border-white/10">
-                        <img src="" alt="" id="modalImage" class="w-full h-auto object-contain aspect-square" loading="lazy" decoding="async">
+                    <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-soft-gray dark:bg-slate-800 border border-gray-100 dark:border-white/10 flex items-center justify-center" data-lightbox-container>
+                        <img src="" alt="" id="modalImage" class="max-w-none cursor-zoom-in" loading="lazy" decoding="async">
                     </div>
 
                     <!-- Header -->
@@ -936,73 +960,34 @@ function initModal() {
 
         const study = project.fullData;
 
-        // Helper to toggle skeleton
-        const setSkeleton = (id, value) => {
+        // Helper to set text content directly
+        const setText = (id, value) => {
             const el = document.getElementById(id);
-            if(el) {
-                el.classList.add('skeleton-text');
-                el.textContent = 'Loading...';
-                setTimeout(() => {
-                    el.textContent = value;
-                    el.classList.remove('skeleton-text');
-                }, 300);
-            }
+            if(el) el.textContent = value;
         };
 
-        setSkeleton('modalCategory', project.category);
-        setSkeleton('modalTitle', project.title);
-        setSkeleton('modalClient', study.client);
-        setSkeleton('modalTimeline', study.timeline);
-        setSkeleton('modalServices', study.services);
-        setSkeleton('modalChallenge', study.challenge);
-        setSkeleton('modalSolution', study.solution);
+        setText('modalCategory', project.category);
+        setText('modalTitle', project.title);
+        setText('modalClient', study.client);
+        setText('modalTimeline', study.timeline);
+        setText('modalServices', study.services);
+        setText('modalChallenge', study.challenge);
+        setText('modalSolution', study.solution);
         
         const img = document.getElementById('modalImage');
         if (img) {
-            img.parentElement.classList.add('skeleton');
             img.classList.add('opacity-0');
             
-            const baseUrl = project.image.split('?')[0];
-            img.src = `${baseUrl}?q=80&w=800&auto=format`;
+            img.src = project.image;
             img.alt = project.title;
-            img.srcset = `${baseUrl}?q=80&w=400&auto=format 400w, 
-                          ${baseUrl}?q=80&w=800&auto=format 800w, 
-                          ${baseUrl}?q=80&w=1200&auto=format 1200w`;
-            img.sizes = "(max-width: 768px) 90vw, 450px";
             
             img.onload = () => {
-                img.parentElement.classList.remove('skeleton');
                 img.classList.remove('opacity-0');
             };
             img.onerror = () => {
-                img.parentElement.classList.remove('skeleton');
                 img.src = 'https://placehold.co/800x600?text=Image+Error';
                 img.classList.remove('opacity-0');
                 Toast.show('Failed to load project image', 'error');
-            };
-
-            // Full Screen / Lightbox Logic for Modal Image
-            img.onclick = (e) => {
-                e.stopPropagation();
-                const lightbox = document.getElementById('lightbox');
-                const lightboxImage = document.getElementById('lightboxImage');
-                
-                if (lightbox && lightboxImage) {
-                    lightboxImage.src = img.src;
-                    lightboxImage.alt = img.alt;
-                    
-                    // Hide nav buttons for single image view from modal
-                    if(prevLightboxBtn) prevLightboxBtn.classList.add('hidden');
-                    if(nextLightboxBtn) nextLightboxBtn.classList.add('hidden');
-                    
-                    lightbox.classList.remove('hidden');
-                    requestAnimationFrame(() => {
-                        lightbox.classList.remove('opacity-0');
-                        lightboxImage.classList.remove('scale-95');
-                        lightboxImage.classList.add('scale-100');
-                    });
-                    document.body.style.overflow = 'hidden';
-                }
             };
         }
 
@@ -1024,14 +1009,15 @@ function initModal() {
         if (galleryContainer) {
             galleryContainer.innerHTML = '';
             galleryContainer.classList.add('hidden');
+            galleryContainer.removeAttribute('data-lightbox-container');
             
             if (study.gallery && Array.isArray(study.gallery) && study.gallery.length > 0) {
                 galleryContainer.classList.remove('hidden');
+                galleryContainer.setAttribute('data-lightbox-container', '');
                 study.gallery.forEach(imgSrc => {
                     const imgContainer = document.createElement('div');
-                    imgContainer.className = 'rounded-xl overflow-hidden shadow-md border border-gray-100 group h-48 bg-gray-50';
-                    const cleanSrc = imgSrc.split('?')[0];
-                    imgContainer.innerHTML = `<img src="${cleanSrc}?q=80&w=600&auto=format" class="w-full h-full object-contain hover:scale-105 transition-transform duration-500 cursor-pointer" loading="lazy" decoding="async" onclick="document.getElementById('modalImage').src = '${cleanSrc}?q=80&w=800&auto=format'">`;
+                    imgContainer.className = 'rounded-xl overflow-hidden shadow-md border border-gray-100 group bg-gray-50';
+                    imgContainer.innerHTML = `<img src="${imgSrc}" class="max-w-none hover:scale-105 transition-transform duration-500 cursor-zoom-in" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found'">`;
                     galleryContainer.appendChild(imgContainer);
                 });
             }
@@ -1052,19 +1038,22 @@ function initModal() {
             if (related.length > 0) {
                 relatedContainer.classList.remove('hidden');
                 related.forEach(relatedProject => {
+                    const srcset = generateSrcset(relatedProject.image);
                     const div = document.createElement('div');
-                    div.className = 'group cursor-pointer border border-tech-blue/10 rounded-xl overflow-hidden hover:shadow-lg transition-all bg-white';
+                    div.className = 'border border-tech-blue/10 rounded-xl overflow-hidden hover:shadow-lg transition-all bg-white';
                     div.innerHTML = `
-                        <div class="h-40 overflow-hidden relative bg-soft-gray dark:bg-slate-700">
-                            <img src="${relatedProject.image.split('?')[0]}?q=80&w=400&auto=format&fit=crop" alt="${relatedProject.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async">
+                        <button class="group w-full text-left cursor-pointer">
+                            <div class="overflow-hidden relative bg-soft-gray dark:bg-slate-700">
+                                <img src="${relatedProject.image}" srcset="${srcset}" sizes="(max-width: 640px) 100vw, 50vw" alt="${relatedProject.title}" class="max-w-none transition-transform duration-500" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/400x300?text=Image+Not+Found'">
                             <div class="absolute inset-0 bg-tech-blue/0 group-hover:bg-tech-blue/10 transition-colors duration-300"></div>
                         </div>
                         <div class="p-4">
-                            <h4 class="font-bold text-tech-blue mb-1 text-sm group-hover:text-cyan transition-colors line-clamp-1">${relatedProject.title}</h4>
+                            <h4 class="font-bold check how text-tech-blue mb-1 text-sm group-hover:text-cyan transition-colors line-clamp-1">${relatedProject.title}</h4>
                             <p class="text-xs text-charcoal/60 uppercase tracking-wider">${relatedProject.category}</p>
                         </div>
+                        </button>
                     `;
-                    div.addEventListener('click', () => {
+                    div.querySelector('button').addEventListener('click', () => {
                         // Scroll to top of modal content
                         const scrollContainer = document.querySelector('#modalContent .overflow-y-auto');
                         if(scrollContainer) scrollContainer.scrollTop = 0;
@@ -1128,94 +1117,78 @@ function initModal() {
 }
 
 function initLightbox() {
-    // Gallery Lightbox
+    // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
     const closeLightboxBtn = document.getElementById('closeLightbox');
     const prevLightboxBtn = document.getElementById('prevLightboxBtn');
     const nextLightboxBtn = document.getElementById('nextLightboxBtn');
     
-    if (lightbox && lightboxImage) {
-        // Select images specifically within portfolio cards to avoid selecting logos/icons
-        const galleryImages = document.querySelectorAll('.portfolio-card img');
-        let currentImageIndex = 0;
+    if (!lightbox || !lightboxImage || !closeLightboxBtn || !prevLightboxBtn || !nextLightboxBtn) return;
 
-        const showImage = (index) => {
-            if (index < 0) index = galleryImages.length - 1;
-            if (index >= galleryImages.length) index = 0;
-            currentImageIndex = index;
-            
-            const img = galleryImages[currentImageIndex];
-            
-            // Fade effect for transition
-            lightboxImage.style.opacity = '0.5';
-            lightboxImage.style.transform = 'scale(0.98)';
-            
-            setTimeout(() => {
-                lightboxImage.src = img.src;
-                lightboxImage.alt = img.alt;
-                lightboxImage.style.opacity = '1';
-                lightboxImage.style.transform = 'scale(1)';
-            }, 150);
-        };
+    let currentImages = [];
+    let currentImageIndex = 0;
+
+    const showImage = (index) => {
+        if (currentImages.length === 0) return;
+        if (index < 0) index = currentImages.length - 1;
+        if (index >= currentImages.length) index = 0;
+        currentImageIndex = index;
         
-        galleryImages.forEach((img, index) => {
-            img.style.cursor = 'zoom-in';
-            img.addEventListener('click', (e) => {
-                // Prevent lightbox if the card is a case study that opens a modal
-                if (img.closest('.portfolio-card[data-id]')) {
-                    return;
-                }
+        const imgData = currentImages[currentImageIndex];
+        
+        lightboxImage.style.opacity = '0.5';
+        lightboxImage.style.transform = 'scale(0.98)';
+        
+        setTimeout(() => {
+            lightboxImage.src = imgData.highResSrc;
+            lightboxImage.alt = imgData.alt;
+            lightboxImage.style.opacity = '1';
+            lightboxImage.style.transform = 'scale(1)';
+        }, 150);
+    };
 
-                currentImageIndex = index;
-                lightboxImage.src = img.src;
-                lightboxImage.alt = img.alt;
-                lightbox.classList.remove('hidden');
-                // Small delay to allow display:block to apply before opacity transition
-                requestAnimationFrame(() => {
-                    lightbox.classList.remove('opacity-0');
-                    lightboxImage.classList.remove('scale-95');
-                    lightboxImage.classList.add('scale-100');
-                });
-                document.body.style.overflow = 'hidden';
-            });
+    const openLightbox = (images, startIndex) => {
+        currentImages = images;
+        currentImageIndex = startIndex;
+        
+        const imgData = currentImages[currentImageIndex];
+        lightboxImage.src = imgData.highResSrc;
+        lightboxImage.alt = imgData.alt;
+
+        lightbox.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            lightbox.classList.remove('opacity-0');
+            lightboxImage.classList.remove('scale-95');
+            lightboxImage.classList.add('scale-100');
         });
+        document.body.style.overflow = 'hidden';
         
-        const closeLightbox = () => {
-            lightbox.classList.add('opacity-0');
-            lightboxImage.classList.remove('scale-100');
-            lightboxImage.classList.add('scale-95');
-            setTimeout(() => {
-                lightbox.classList.add('hidden');
-                lightboxImage.src = '';
-                
-                // Restore nav buttons in case they were hidden by modal view
-                if(prevLightboxBtn) prevLightboxBtn.classList.remove('hidden');
-                if(nextLightboxBtn) nextLightboxBtn.classList.remove('hidden');
-            }, 300);
-            document.body.style.overflow = '';
-        };
-        
-        if (closeLightboxBtn) closeLightboxBtn.addEventListener('click', closeLightbox);
-        
-        if (prevLightboxBtn) {
-            prevLightboxBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                showImage(currentImageIndex - 1);
-            });
+        if (currentImages.length > 1) {
+            prevLightboxBtn.classList.remove('hidden');
+            nextLightboxBtn.classList.remove('hidden');
+        } else {
+            prevLightboxBtn.classList.add('hidden');
+            nextLightboxBtn.classList.add('hidden');
         }
-
-        if (nextLightboxBtn) {
-            nextLightboxBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                showImage(currentImageIndex + 1);
-            });
-        }
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-        
+    };
+    
+    const closeLightbox = () => {
+        lightbox.classList.add('opacity-0');
+        lightboxImage.classList.remove('scale-100');
+        lightboxImage.classList.add('scale-95');
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            lightboxImage.src = '';
+        }, 300);
+        document.body.style.overflow = '';
+    };
+    
+    closeLightboxBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    prevLightboxBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); });
+    nextLightboxBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
+    
         document.addEventListener('keydown', (e) => {
             if (lightbox.classList.contains('hidden')) return;
             
@@ -1224,20 +1197,48 @@ function initLightbox() {
             if (e.key === 'ArrowRight') showImage(currentImageIndex + 1);
         });
 
-        // Swipe Gesture Support
-        let touchStartX = 0;
-        let touchEndX = 0;
+    // Swipe Gesture Support
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 50) showImage(currentImageIndex + 1);
+        if (touchEndX > touchStartX + 50) showImage(currentImageIndex - 1);
+    }, { passive: true });
+
+    // Event Delegation for opening the lightbox
+    document.body.addEventListener('click', (e) => {
+        const clickedImg = e.target;
+        const lightboxContainer = clickedImg.closest('[data-lightbox-container]');
+
+        // Check if an image inside a lightbox-enabled container was clicked
+        if (!clickedImg.matches('img') || !lightboxContainer) {
+            return;
+        }
         
-        lightbox.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-        
-        lightbox.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            if (touchEndX < touchStartX - 50) showImage(currentImageIndex + 1); // Swipe Left -> Next
-            if (touchEndX > touchStartX + 50) showImage(currentImageIndex - 1); // Swipe Right -> Prev
-        }, { passive: true });
-    }    
+        // Prevent lightbox on portfolio cards that open a modal
+        if (clickedImg.closest('.portfolio-card[data-id]')) {
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Gather all images within this specific container
+        const allImagesInContainer = Array.from(lightboxContainer.querySelectorAll('img'));
+        const clickedIndex = allImagesInContainer.findIndex(img => img === clickedImg);
+
+        if (clickedIndex === -1) return;
+
+        // Create the dataset for the lightbox
+        const imageDataSet = allImagesInContainer.map(img => ({
+            src: img.src,
+            alt: img.alt,
+            highResSrc: img.src
+        }));
+
+        openLightbox(imageDataSet, clickedIndex);
+    });
 }
 
 function initThemeToggle() {
@@ -1494,7 +1495,7 @@ function initBlogPages() {
     // Blog Listing Page (blog.html)
     const blogGrid = document.getElementById('blog-grid');
     if (blogGrid) {
-        fetch('blog.json')
+        fetch('/blog.json')
             .then(response => response.json())
             .then(posts => {
                 blogGrid.innerHTML = ''; // Clear loading spinner
@@ -1502,9 +1503,9 @@ function initBlogPages() {
                 posts.forEach((post, index) => {
                     const delay = index * 100;
                     const html = `
-                        <div class="blog-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col h-full reveal-up" style="animation-delay: ${delay}ms">
-                            <a href="blog-post.html?id=${post.id}" class="block overflow-hidden h-56 relative bg-soft-gray dark:bg-slate-700">
-                                <img src="${post.image}" alt="${post.title}" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
+                        <div class="blog-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col reveal-up mb-8 break-inside-avoid" style="animation-delay: ${delay}ms">
+                            <a href="blog-post.html?id=${post.id}" class="block overflow-hidden relative bg-soft-gray dark:bg-slate-700">
+                                <img src="${post.image}" alt="${post.title}" class="w-full h-auto transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
                                 <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <div class="absolute top-4 left-4 bg-gradient-to-r from-tech-blue to-cyan text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md">
                                     ${post.category}
@@ -1558,7 +1559,7 @@ function initBlogPages() {
         }
 
         if (postId) {
-            fetch('blog.json')
+            fetch('/blog.json')
                 .then(res => res.json())
                 .then(posts => {
                     const post = posts.find(p => p.id === postId);
@@ -1641,7 +1642,7 @@ function initBlogPages() {
                                     <span>${post.date}</span>
                                 </div>
                             </div>
-                            <img src="${post.image}" alt="${post.title}" class="w-full h-auto rounded-2xl shadow-lg mb-10 object-contain max-h-[500px] aspect-[2/1] bg-soft-gray dark:bg-slate-800" width="800" height="400">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-auto rounded-2xl shadow-lg mb-10 max-h-[500px]" width="800" height="400">
                             <div class="prose prose-lg dark:prose-invert max-w-none text-charcoal/80 dark:text-gray-300 leading-relaxed">
                                 ${post.content}
                             </div>
@@ -1655,7 +1656,14 @@ function initBlogPages() {
                             </div>
                         `;
                     } else {
-                        postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Post Not Found</h2><a href="blog.html" class="text-tech-blue hover:underline">Return to Blog</a></div>';
+                        // Set 404 status for prerenderers
+                        const meta = document.createElement('meta');
+                        meta.name = "prerender-status-code";
+                        meta.content = "404";
+                        document.head.appendChild(meta);
+                        
+                        document.title = "404 - Post Not Found | Kumtech Gateway";
+                        postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Post Not Found</h2><p class="text-charcoal/60 mb-6">The article you are looking for does not exist or has been moved.</p><a href="blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Blog</a></div>';
                     }
                 });
         } else {
@@ -1669,32 +1677,29 @@ function initGalleryPreview() {
     if (grid && typeof galleryData !== 'undefined') {
         const allImages = [...galleryData.flyers, ...galleryData.banners, ...galleryData.posters, ...galleryData['social-media']];
         
-        // Shuffle and pick 4
-        const previewImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 4);
+        // Shuffle and pick 8 for a denser display
+        const previewImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 8);
 
         grid.innerHTML = ''; // Clear any placeholders
 
         previewImages.forEach((img, i) => {
-            const delay = ['delay-100', 'delay-200', 'delay-300', 'delay-400'][i];
+            const srcset = generateSrcset(img.src);
+            const delay = ['delay-100', 'delay-200', 'delay-300', 'delay-400'][i % 4];
             
-            // Generate responsive image attributes
-            const baseSrc = img.src.replace(/\.webp$/, ''); // e.g., "images/flyer1"
-            const srcset = `${baseSrc}-400w.webp 400w, ${baseSrc}-800w.webp 800w, ${baseSrc}-1200w.webp 1200w`;
-            const sizes = `(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 272px`;
-
             const cardHTML = `
-            <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card no-filter reveal-up ${delay}">
-                <div class="w-full relative cursor-pointer">
-                    <img src="${img.src}" 
-                         srcset="${srcset}"
-                         sizes="${sizes}"
-                         alt="${img.alt}"
-                         class="w-full h-auto transition-transform duration-700 group-hover:scale-110"
-                         width="600" height="800"
-                         loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=Image+Error'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 pointer-events-none">
-                        <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">${img.alt}</span>
-                    </div>
+            <div class="mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-800">
+                <img src="${img.src}" srcset="${srcset}"
+                     sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                     alt="${img.alt}"
+                     width="${img.width || 600}"
+                     height="${img.height || 800}"
+                     class="w-full h-auto rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-500 group-hover:scale-105 cursor-zoom-in"
+                     loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/${img.width || 600}x${img.height || 800}?text=Image+Error'">
+                
+                <!-- Hover Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                    <span class="inline-block px-3 py-1 bg-cyan/90 text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${img.category ? img.category.replace('-', ' ') : 'Design'}</span>
+                    <p class="text-white text-sm font-medium opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75"><i class="fas fa-search-plus mr-2"></i>View Full Size</p>
                 </div>
             </div>`;
             grid.insertAdjacentHTML('beforeend', cardHTML);
@@ -1718,12 +1723,19 @@ function initGalleryPage() {
     const grid = document.querySelector('#gallery .portfolio-grid');
     const sentinel = document.getElementById('gallery-sentinel');
     const filterBtns = document.querySelectorAll('#gallery .filter-btn');
-    
-    if(grid && sentinel && filterBtns.length > 0 && typeof galleryData !== 'undefined') {
+
+    if (grid && sentinel && filterBtns.length > 0 && typeof galleryData !== 'undefined') {
+        grid.setAttribute('data-lightbox-container', '');
         const allImages = [...galleryData.flyers, ...galleryData.banners, ...galleryData.posters, ...galleryData['social-media']];
         let displayImages = [];
         let loadedCount = 0;
         const batchSize = 12;
+
+        const emptyStateHTML = `<div class="empty-state text-center py-16 reveal-up active" style="column-span: all;">
+                                    <i class="fas fa-camera-retro text-4xl text-cyan mb-4"></i>
+                                    <h3 class="text-xl font-bold text-charcoal dark:text-white">No Images Found</h3>
+                                    <p class="text-charcoal/60 dark:text-gray-400">There are no images in this category yet. Try another one!</p>
+                                </div>`;
 
         const itemRevealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -1734,6 +1746,31 @@ function initGalleryPage() {
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
+        const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const highResSrc = img.dataset.src;
+                    const highResSrcset = img.dataset.srcset;
+                    if (!highResSrc) return;
+
+                    const tempImg = new Image();
+                    tempImg.src = highResSrc;
+                    if (highResSrcset) tempImg.srcset = highResSrcset;
+
+                    tempImg.onload = () => {
+                        img.src = highResSrc;
+                        if (highResSrcset) img.srcset = highResSrcset;
+                        img.classList.add('loaded');
+                    };
+                    tempImg.onerror = () => {
+                        img.onerror();
+                    };
+                    observer.unobserve(img);
+                }
+            });
+        }, { rootMargin: '200px' });
+
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -1741,36 +1778,49 @@ function initGalleryPage() {
             }
         }
 
-        const renderBatch = (start, end) => {
+        const renderBatch = () => {
             const fragment = document.createDocumentFragment();
-            const batch = displayImages.slice(start, end);
+            const nextLimit = Math.min(loadedCount + batchSize, displayImages.length);
+            const batch = displayImages.slice(loadedCount, nextLimit);
 
             batch.forEach((imgData, i) => {
-                const delay = ['delay-100', 'delay-200', 'delay-300'][i % 3];
+                const srcset = generateSrcset(imgData.src);
+                const isEager = loadedCount === 0 && i < 6;
+                const delay = isEager ? '' : ['delay-100', 'delay-200', 'delay-300'][i % 3];
+                const placeholderSrc = imgData.placeholder || `https://placehold.co/30x40?text=+`;
+
                 const div = document.createElement('div');
-                div.className = `group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card reveal-up ${delay} mb-6 break-inside-avoid`;
+                div.className = `mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1`;
                 div.setAttribute('data-category', imgData.category);
+                div.style.aspectRatio = `${imgData.width || 600} / ${imgData.height || 800}`;
 
-                // Generate responsive image attributes
-                const baseSrc = imgData.src.replace(/\.webp$/, ''); // e.g., "images/flyer1"
-                const srcset = `${baseSrc}-400w.webp 400w, ${baseSrc}-800w.webp 800w, ${baseSrc}-1200w.webp 1200w`;
-                const sizes = `(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 370px`;
+                const imgHTML = `
+                    <img src="${isEager ? imgData.src : placeholderSrc}"
+                         ${isEager ? `srcset="${srcset}"` : `data-src="${imgData.src}" data-srcset="${srcset}"`}
+                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                         alt="${imgData.alt}"
+                         width="${imgData.width || 600}"
+                         height="${imgData.height || 800}"
+                         class="w-full h-full object-cover cursor-zoom-in group-hover:scale-105 transition-transform duration-500 ${!isEager ? 'img-blur-up' : ''}"
+                         ${isEager ? 'loading="eager" fetchPriority="high"' : 'loading="lazy"'}
+                         decoding="async"
+                         onerror="this.onerror=null; this.src='https://placehold.co/${imgData.width || 600}x${imgData.height || 800}?text=Image+Error'; this.classList.add('loaded');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                    <span class="inline-block px-3 py-1 bg-cyan/90 text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${imgData.category ? imgData.category.replace('-', ' ') : 'Design'}</span>
+                    <p class="text-white text-sm font-medium opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75"><i class="fas fa-search-plus mr-2"></i>View Full Size</p>
+                    </div>`;
 
-                div.innerHTML = `
-                    <div class="w-full relative skeleton">
-                        <img src="${imgData.src}" 
-                             srcset="${srcset}"
-                             sizes="${sizes}"
-                             alt="${imgData.alt}"
-                             class="w-full h-auto transition-transform duration-700 group-hover:scale-110 opacity-0 transition-opacity duration-500"
-                             width="600" height="800" loading="lazy" decoding="async" 
-                             onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=Image+Unavailable';this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')" onload="this.parentElement.classList.remove('skeleton');this.classList.remove('opacity-0')">
-                    </div>
-                `;
+                div.innerHTML = imgHTML;
                 fragment.appendChild(div);
+
+                const imgEl = div.querySelector('img');
+                if (!isEager) {
+                    lazyLoadObserver.observe(imgEl);
+                }
                 itemRevealObserver.observe(div);
             });
             grid.appendChild(fragment);
+            loadedCount = nextLimit;
         };
 
         const loadNextBatch = () => {
@@ -1779,21 +1829,38 @@ function initGalleryPage() {
                 return;
             }
             sentinel.style.display = 'flex';
-            const nextLimit = Math.min(loadedCount + batchSize, displayImages.length);
-            renderBatch(loadedCount, nextLimit);
-            loadedCount = nextLimit;
+            renderBatch();
         };
 
         const observer = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) setTimeout(loadNextBatch, 500);
+            if (entries[0].isIntersecting) setTimeout(loadNextBatch, 300);
         }, { rootMargin: '200px' });
 
         function applyFilter(filter) {
-            grid.innerHTML = '';
-            loadedCount = 0;
-            displayImages = (filter === 'all') ? [...allImages] : allImages.filter(img => img.category === filter);
-            if (filter === 'all') shuffle(displayImages);
-            loadNextBatch();
+            grid.classList.add('gallery-fading');
+
+            setTimeout(() => {
+                grid.innerHTML = '';
+                loadedCount = 0;
+                displayImages = (filter === 'all') ? [...allImages] : allImages.filter(img => img.category === filter);
+
+                if (filter === 'all') {
+                    shuffle(displayImages);
+                }
+
+                if (displayImages.length > 0) {
+                    observer.observe(sentinel);
+                    loadNextBatch();
+                } else {
+                    grid.innerHTML = emptyStateHTML;
+                    sentinel.style.display = 'none';
+                    observer.unobserve(sentinel);
+                }
+
+                requestAnimationFrame(() => {
+                    grid.classList.remove('gallery-fading');
+                });
+            }, 250);
         }
 
         filterBtns.forEach(btn => btn.addEventListener('click', () => {
