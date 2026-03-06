@@ -53,10 +53,17 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-overflow-scrol
 .empty-state.visible { display: block; animation: fadeIn 0.5s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Load More Loading */
-.btn-loading { position: relative; color: transparent !important; pointer-events: none; }
-.btn-loading::after { content: ""; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; border: 2px solid #ffffff; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; transform: translate(-50%, -50%); }
-@keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+/* Filter button active state */
+.filter-btn.active {
+    background-color: #1F3C88; /* tech-blue */
+    color: white;
+    border-color: #1F3C88;
+}
+.dark .filter-btn.active {
+    background-color: #00B4D8; /* cyan */
+    color: #0F172A; /* charcoal */
+    border-color: #00B4D8;
+}
 
 #navMenu.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
@@ -362,19 +369,16 @@ body.cursor-active #cursor-outline {
 }
 
 /* Portfolio Card Glare Effect */
-.portfolio-card .w-full.relative {
-    overflow: hidden;
-}
-.portfolio-card:hover .w-full.relative::after {
+.portfolio-card:hover .relative.overflow-hidden::after {
     content: '';
     position: absolute;
     top: 0;
     left: -150%;
     width: 75%;
     height: 100%;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%);
     transform: skewX(-25deg);
-    animation: glare 1.5s ease-in-out 0.2s;
+    animation: glare 1.2s ease-in-out;
 }
 
 @keyframes glare {

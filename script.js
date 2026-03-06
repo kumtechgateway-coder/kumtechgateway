@@ -17,7 +17,7 @@
 const AppState = {
     filter: {
         currentPage: 1,
-        itemsPerPage: 6,
+        itemsPerPage: 12, // Changed to 12 for a 4-column layout
         history: ['all'],
         historyIndex: 0,
         activeCategory: 'all'
@@ -125,15 +125,7 @@ async function loadComponents() {
  * Initializes all application functionality.
  */
 function main() {    
-    // Generate portfolio cards. This needs to be available for other scripts.
-    const portfolioSection = document.getElementById('portfolio');
-    if (portfolioSection) {
-        const portfolioGrid = portfolioSection.querySelector('.portfolio-grid');
-        if (portfolioGrid && typeof generatePortfolio === 'function' && typeof portfolioData !== 'undefined') {
-            generatePortfolio(portfolioGrid);
-        }
-    }
-
+    // Portfolio generation is now handled within initPortfolioPage()
     I18n.init();
     initCustomCursor();
     initHeroParticles();
@@ -511,21 +503,51 @@ function initScrollBehaviors() {
     
 }
 
+/**
+ * Generates filter buttons dynamically from portfolio data categories.
+ */
+function generateFilterButtons() {
+    const container = document.getElementById('filter-buttons');
+    if (!container || typeof portfolioData === 'undefined') return;
+
+    const categories = ['all', ...new Set(portfolioData.map(p => p.category.toLowerCase()))];
+    
+    container.innerHTML = categories.map(cat => {
+        const catName = cat.charAt(0).toUpperCase() + cat.slice(1).replace('-', ' ');
+        return `<button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-cyan hover:text-tech-blue dark:hover:text-cyan" data-filter="${cat}">${catName}</button>`;
+    }).join('');
+}
+
 function initPortfolioPage() {
-    // Portfolio Filtering and Search (for portfolio.html which has search and pagination)
-    if (document.getElementById('portfolioSearch')) {
+    // This function now handles BOTH homepage portfolio preview AND the full portfolio page.
+    const portfolioGrid = document.querySelector('#portfolio .portfolio-grid');
+    if (!portfolioGrid) return;
+
+    // Step 1: Generate the portfolio cards. 
+    // The generatePortfolio function is smart enough to know whether to render
+    // a partial list (homepage) or a full list (portfolio page).
+    if (typeof generatePortfolio === 'function' && typeof portfolioData !== 'undefined') {
+        generatePortfolio(portfolioGrid);
+    }
+
+    // Step 2: If we are on the full portfolio page, initialize the filtering and infinite scroll logic.
+    // We can detect this by looking for an element unique to portfolio.html, like the search input.
+    const searchInput = document.getElementById('portfolioSearch');
+    if (searchInput) {
+        // This is the portfolio page, so run the filtering logic.
+        generateFilterButtons();
+
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-card:not(.no-filter)');
-        const searchInput = document.getElementById('portfolioSearch');
+        const sentinel = document.getElementById('portfolio-sentinel');
         
         // Inject Empty State Container
-        const portfolioGrid = document.querySelector('.portfolio-grid');
         if (portfolioGrid && !document.querySelector('.empty-state')) {
             const emptyState = document.createElement('div');
             emptyState.className = 'empty-state';
             emptyState.innerHTML = `<i class="fas fa-search"></i><h3 class="text-xl font-bold text-charcoal dark:text-white">No items found</h3><p class="text-charcoal/60 dark:text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>`;
             portfolioGrid.appendChild(emptyState);
         }
+        const portfolioItems = document.querySelectorAll('.portfolio-card:not(.no-filter)');
 
         if (filterBtns.length > 0 && portfolioItems.length > 0) {
             // Use AppState for filter logic
@@ -544,7 +566,7 @@ function initPortfolioPage() {
             const applyFilterFromHistory = () => {
                 const filterName = filter.history[filter.historyIndex];
                 updateFilterUI(filterName);
-                filter.currentPage = 1;
+                resetAndFilter();
                 filterItems();
             };
 
@@ -560,107 +582,70 @@ function initPortfolioPage() {
                 filter.historyIndex++;
             };
 
-            // "Load More" button functionality
-            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            let displayedItems = [];
 
-            // Filter function
-            const filterItems = () => {
+            const applyFilterAndSearch = () => {
                 const activeBtn = document.querySelector('.filter-btn.active');
                 const activeFilter = activeBtn ? activeBtn.getAttribute('data-filter').toLowerCase().trim() : 'all';
                 const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
-                
-                // FLIP Animation: Record start positions
-                const startPositions = new Map();
-                portfolioItems.forEach(item => {
-                    if (!item.classList.contains('hidden')) {
-                        startPositions.set(item, item.getBoundingClientRect());
-                    }
-                });
 
-                let totalMatches = 0;
-                let currentMatchIndex = 0;
-                const endIndex = filter.currentPage * filter.itemsPerPage;
-
-                // Apply filtering
+                displayedItems = [];
                 portfolioItems.forEach(item => {
                     const categoryAttr = item.getAttribute('data-category');
                     const categories = categoryAttr ? categoryAttr.toLowerCase().split(/[\s,]+/) : [];
                     const title = item.querySelector('.portfolio-title').textContent.toLowerCase();
                     const desc = item.querySelector('.portfolio-description').textContent.toLowerCase();
-                    
+
                     const matchesFilter = activeFilter === 'all' || categories.includes(activeFilter);
                     const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
-                    
+
                     if (matchesFilter && matchesSearch) {
-                        totalMatches++;
-                        
-                        // Check if item falls within current page slice
-                        if (currentMatchIndex < endIndex) {
-                            item.classList.remove('hidden');
-                        } else {
-                            item.classList.add('hidden');
-                        }
-                        currentMatchIndex++;
-                    } else {
-                        item.classList.add('hidden');
+                        displayedItems.push(item);
                     }
                 });
-                
+            };
+
+            const renderBatch = () => {
+                const startIndex = (filter.currentPage - 1) * filter.itemsPerPage;
+                const endIndex = startIndex + filter.itemsPerPage;
+                const batch = displayedItems.slice(startIndex, endIndex);
+
+                batch.forEach(item => {
+                    item.classList.remove('hidden');
+                    // Trigger animation
+                    requestAnimationFrame(() => {
+                        item.classList.add('active');
+                    });
+                });
+
+                // Update sentinel visibility
+                if (sentinel) {
+                    if (endIndex >= displayedItems.length) {
+                        sentinel.style.display = 'none';
+                    } else {
+                        sentinel.style.display = 'flex';
+                    }
+                }
+
                 // Empty State Toggle
                 const emptyState = document.querySelector('.empty-state');
                 if (emptyState) {
-                    if (totalMatches === 0) emptyState.classList.add('visible');
+                    if (displayedItems.length === 0) emptyState.classList.add('visible');
                     else emptyState.classList.remove('visible');
                 }
+            };
 
-                // Update Load More Button Visibility
-                if (loadMoreBtn) {
-                    if (totalMatches > endIndex) {
-                        loadMoreBtn.classList.remove('hidden');
-                    } else {
-                        loadMoreBtn.classList.add('hidden');
-                    }
-                }
+            const resetAndFilter = () => {
+                filter.currentPage = 1;
+                applyFilterAndSearch();
 
-                // FLIP Animation: Apply transforms
+                // Hide all items before rendering the new batch
                 portfolioItems.forEach(item => {
-                    if (item.classList.contains('hidden')) return;
-
-                    const startRect = startPositions.get(item);
-                    const endRect = item.getBoundingClientRect();
-
-                    // Item was visible and is still visible (Move)
-                    if (startRect) {
-                        const deltaX = startRect.left - endRect.left;
-                        const deltaY = startRect.top - endRect.top;
-
-                        if (deltaX !== 0 || deltaY !== 0) {
-                            // Invert
-                            item.style.transition = 'none';
-                            item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-                            
-                            // Play
-                            requestAnimationFrame(() => {
-                                item.getBoundingClientRect(); // Force reflow
-                                item.style.transition = 'transform 0.6s cubic-bezier(0.2, 0, 0.2, 1)';
-                                item.style.transform = '';
-                            });
-                        }
-                    } 
-                    // Item is entering
-                    else {
-                        item.style.transition = 'none';
-                        item.style.opacity = '0';
-                        item.style.transform = 'scale(0.9) translateY(20px)';
-                        
-                        requestAnimationFrame(() => {
-                            item.getBoundingClientRect(); // Force reflow
-                            item.style.transition = 'opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
-                            item.style.opacity = '1';
-                            item.style.transform = '';
-                        });
-                    }
+                    item.classList.add('hidden');
+                    item.classList.remove('active');
                 });
+
+                renderBatch();
             };
 
             // Filter button click events
@@ -669,77 +654,39 @@ function initPortfolioPage() {
                     const filter = btn.getAttribute('data-filter');
                     updateFilterUI(filter);
                     addToHistory(filter);
-                    AppState.filter.currentPage = 1; // Reset to first page on filter change
-                    filterItems();
+                    resetAndFilter();
                 });
             });
             
             // Search input event
             if (searchInput) {
-                searchInput.addEventListener('keyup', debounce(() => {
-                    AppState.filter.currentPage = 1; // Reset to first page on search
-                    filterItems();
-                }, 300));
+                searchInput.addEventListener('keyup', debounce(resetAndFilter, 300));
             }
 
-    		if (loadMoreBtn) {
-    			loadMoreBtn.addEventListener('click', () => {
-                    loadMoreBtn.classList.add('btn-loading');
-                    // Simulate network delay for better UX
-                    setTimeout(() => {
-                        AppState.filter.currentPage++;
-                        filterItems();
-                        loadMoreBtn.classList.remove('btn-loading');
-                    }, 600);
-    			});
-    		}
+            // Infinite Scroll with Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    filter.currentPage++;
+                    renderBatch();
+                }
+            }, { rootMargin: '400px' });
+
+            if (sentinel) {
+                observer.observe(sentinel);
+            }
 
             // Initial load
-            filterItems();
+            // Hide all cards initially, then run the filter
+            portfolioItems.forEach(item => item.classList.add('hidden'));
+            // Set the first filter button as active
+            const firstButton = document.querySelector('.filter-btn[data-filter="all"]');
+            if(firstButton) firstButton.classList.add('active');
 
-            // Search Overlay Logic
-            const searchTrigger = document.getElementById('searchTrigger');
-            const searchOverlay = document.getElementById('searchOverlay');
-            const closeSearchBtn = document.getElementById('closeSearchBtn');
+            resetAndFilter();
 
-            if (searchTrigger && searchOverlay && closeSearchBtn) {
-                function openSearch() {
-                    searchOverlay.classList.remove('hidden');
-                    setTimeout(() => {
-                        searchOverlay.classList.remove('opacity-0');
-                        if (searchInput) searchInput.focus();
-                    }, 10);
-                    document.body.style.overflow = 'hidden';
-                }
-
-                function closeSearch() {
-                    searchOverlay.classList.add('opacity-0');
-                    setTimeout(() => {
-                        searchOverlay.classList.add('hidden');
-                    }, 300);
-                    document.body.style.overflow = '';
-                }
-
-                searchTrigger.addEventListener('click', openSearch);
-                closeSearchBtn.addEventListener('click', closeSearch);
-                
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && !searchOverlay.classList.contains('hidden')) {
-                        closeSearch();
-                    }
-                });
-            }
 
             // Keyboard Shortcuts
             document.addEventListener('keydown', (e) => {
-                // Search (Press 's')
-                if (e.key.toLowerCase() === 's' && 
-                    !['input', 'textarea', 'select'].includes(document.activeElement.tagName.toLowerCase()) &&
-                    !e.ctrlKey && !e.metaKey && !e.altKey) {
-                    e.preventDefault();
-                    if (searchTrigger) searchTrigger.click();
-                }
-
                 // Undo/Redo (Ctrl+Z / Ctrl+Y)
                 if ((e.ctrlKey || e.metaKey) && !['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
                     if (e.key.toLowerCase() === 'z') {
@@ -851,79 +798,98 @@ function initFloatingButtons() {
         if (document.getElementById('caseStudyModal')) return;
 
         const modalHTML = `
-        <div id="caseStudyModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center" aria-hidden="true">
+        <div id="caseStudyModal" class="fixed inset-0 z-[100] hidden items-center justify-center" aria-hidden="true">
             <!-- Overlay -->
-            <div class="absolute inset-0 bg-charcoal/90 backdrop-blur-sm transition-opacity opacity-0" id="modalOverlay"></div>
+            <div class="absolute inset-0 bg-charcoal/80 dark:bg-charcoal/90 backdrop-blur-md transition-opacity opacity-0" id="modalOverlay"></div>
             
             <!-- Modal Content -->
-            <div class="relative w-full max-w-5xl max-h-[90vh] mx-5 bg-white rounded-2xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300 flex flex-col" id="modalContent">
-                <!-- Close Button -->
-                <button class="absolute top-4 right-4 z-20 w-10 h-10 bg-black/5 hover:bg-black/10 text-charcoal rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer" id="closeModalBtn">
-                    <i class="fas fa-times text-xl"></i>
+            <div class="relative flex flex-col w-full h-full overflow-hidden transition-all duration-300 transform scale-95 bg-white shadow-2xl opacity-0 dark:bg-slate-900 md:max-w-6xl md:max-h-[90vh] md:mx-4 md:rounded-2xl md:flex-row" id="modalContent">
+                
+                <!-- Global Close Button -->
+                <button class="absolute top-4 right-4 z-50 flex items-center justify-center w-10 h-10 transition-all duration-300 rounded-full cursor-pointer bg-black/20 hover:bg-black/40 text-white" id="closeModalBtn">
+                    <i class="text-xl fas fa-times"></i>
                 </button>
-
-                <!-- Scrollable Content Area -->
-                <div class="overflow-y-auto custom-scrollbar w-full h-full p-8 md:p-10 block">
-                    <!-- Image (Floated) -->
-                    <div class="w-full md:w-[40%] md:float-left md:mr-10 mb-8 rounded-2xl shadow-xl overflow-hidden bg-soft-gray dark:bg-slate-800 border border-gray-100 dark:border-white/10 flex items-center justify-center" data-lightbox-container>
-                        <img src="" alt="" id="modalImage" class="max-w-none cursor-zoom-in" loading="lazy" decoding="async">
+                
+                <!-- Left Pane: Image Slider -->
+                <div class="relative w-full h-56 md:h-auto md:w-1/2 bg-soft-gray dark:bg-charcoal group overflow-hidden">
+                    <div id="modalSliderTrack" class="flex h-full transition-transform duration-500 ease-out w-full" data-lightbox-container>
+                        <!-- Slides injected here -->
                     </div>
+                    
+                    <button id="modalPrevBtn" class="absolute top-1/2 z-10 flex items-center justify-center w-10 h-10 text-white transition-all -translate-y-1/2 rounded-full cursor-pointer opacity-0 left-4 bg-black/30 hover:bg-black/50 backdrop-blur-sm group-hover:opacity-100">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="modalNextBtn" class="absolute top-1/2 z-10 flex items-center justify-center w-10 h-10 text-white transition-all -translate-y-1/2 rounded-full cursor-pointer opacity-0 right-4 bg-black/30 hover:bg-black/50 backdrop-blur-sm group-hover:opacity-100">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
 
-                    <!-- Header -->
-                    <div class="mb-8">
-                        <span id="modalCategory" class="inline-block py-1 px-3 rounded-full bg-cyan/10 text-cyan text-xs font-semibold tracking-wider uppercase mb-3"></span>
-                        <h2 id="modalTitle" class="text-3xl md:text-4xl font-heading font-bold text-tech-blue leading-tight"></h2>
+                    <div id="modalSliderDots" class="absolute z-10 flex gap-2 bottom-4 left-1/2 -translate-x-1/2"></div>
+                </div>
+
+                <!-- Right Pane: Details (Scrollable) -->
+                <div class="relative flex flex-col w-full flex-1 overflow-hidden md:w-1/2">
+
+                    <!-- Scrollable Content Area -->
+                    <div id="modal-scroll-content" class="flex-1 p-6 overflow-y-auto custom-scrollbar md:p-10">
+                        <!-- Header -->
+                        <div class="mb-6">
+                            <span id="modalCategory" class="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-cyan uppercase rounded-full bg-cyan/10"></span>
+                            <h2 id="modalTitle" class="text-3xl font-bold leading-tight md:text-4xl font-heading text-tech-blue dark:text-white"></h2>
+                        </div>
+
+                        <!-- Meta Info -->
+                        <div class="grid grid-cols-2 gap-6 py-6 my-6 border-t border-b md:grid-cols-3 border-gray-100 dark:border-white/10">
+                            <div>
+                                <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Client</span>
+                                <span id="modalClient" class="font-medium text-tech-blue dark:text-gray-200"></span>
+                            </div>
+                            <div>
+                                <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Timeline</span>
+                                <span id="modalTimeline" class="font-medium text-tech-blue dark:text-gray-200"></span>
+                            </div>
+                            <div>
+                                <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Services</span>
+                                <span id="modalServices" class="font-medium text-tech-blue dark:text-gray-200"></span>
+                            </div>
+                        </div>
+
+                        <!-- Body Content -->
+                        <div class="max-w-none prose-lg prose dark:prose-invert text-charcoal/80 dark:text-gray-300 space-y-8">
+                            <div>
+                                <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-cyan">
+                                    <i class="w-5 text-center fas fa-mountain text-cyan"></i> The Challenge
+                                </h3>
+                                <p id="modalChallenge" class="leading-relaxed"></p>
+                            </div>
+                            <div>
+                                <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-cyan">
+                                    <i class="w-5 text-center fas fa-lightbulb text-cyan"></i> The Solution
+                                </h3>
+                                <p id="modalSolution" class="leading-relaxed"></p>
+                            </div>
+                        </div>
                         
-                        <div class="flex flex-wrap gap-6 mt-6 border-b border-tech-blue/10 pb-6">
-                            <div>
-                                <span class="block text-xs text-cyan font-bold uppercase tracking-wide mb-1">Client</span>
-                                <span id="modalClient" class="text-tech-blue font-medium"></span>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-cyan font-bold uppercase tracking-wide mb-1">Timeline</span>
-                                <span id="modalTimeline" class="text-tech-blue font-medium"></span>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-cyan font-bold uppercase tracking-wide mb-1">Services</span>
-                                <span id="modalServices" class="text-tech-blue font-medium"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Body Content -->
-                    <div class="space-y-8">
-                        <div>
-                            <h3 class="text-lg font-bold text-tech-blue mb-3 flex items-center gap-2">
-                                <i class="fas fa-mountain text-cyan"></i> The Challenge
-                            </h3>
-                            <p id="modalChallenge" class="text-charcoal/80 leading-relaxed"></p>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-tech-blue mb-3 flex items-center gap-2">
-                                <i class="fas fa-lightbulb text-cyan"></i> The Solution
-                            </h3>
-                            <p id="modalSolution" class="text-charcoal/80 leading-relaxed"></p>
-                        </div>
-                        <div class="bg-soft-gray p-6 rounded-xl border border-tech-blue/10">
-                            <h3 class="text-lg font-bold text-tech-blue mb-4 flex items-center gap-2">
-                                <i class="fas fa-chart-line text-cyan"></i> Key Results
+                        <!-- Key Results -->
+                        <div class="p-6 my-6 border rounded-xl bg-soft-gray dark:bg-white/5 border-tech-blue/10 dark:border-white/10">
+                            <h3 class="flex items-center gap-3 mb-4 text-lg font-bold text-tech-blue dark:text-cyan">
+                                <i class="w-5 text-center fas fa-chart-line text-cyan"></i> Key Results
                             </h3>
                             <ul id="modalResults" class="space-y-3"></ul>
                         </div>
-                    </div>
 
-                    <!-- Gallery Grid -->
-                    <div id="modalGallery" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 clear-both hidden"></div>
-                    
-                    <!-- Related Projects -->
-                    <div id="modalRelated" class="mt-10 pt-8 border-t border-tech-blue/10 hidden">
-                        <h3 class="text-xl font-bold text-tech-blue mb-6">Related Projects</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="relatedProjectsGrid"></div>
+                        <!-- Gallery Grid -->
+                        <div id="modalGallery" class="hidden grid-cols-2 gap-4 mt-8" data-lightbox-container></div>
+                        
+                        <!-- Related Projects -->
+                        <div id="modalRelated" class="hidden pt-8 mt-10 border-t border-gray-100 dark:border-white/10">
+                            <h3 class="mb-6 text-xl font-bold text-tech-blue dark:text-white">Related Projects</h3>
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2" id="relatedProjectsGrid"></div>
+                        </div>
                     </div>
                     
-                    <!-- CTA -->
-                    <div class="mt-10 pt-6 border-t border-tech-blue/10">
-                         <a href="index.html#contact" class="inline-flex items-center justify-center w-full py-4 bg-tech-blue text-white rounded-xl font-medium hover:bg-cyan transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all">
+                    <!-- Sticky CTA Footer -->
+                    <div class="p-6 mt-auto bg-white border-t border-gray-100 dark:bg-slate-900 dark:border-white/10">
+                         <a href="index.html#contact" class="inline-flex items-center justify-center w-full py-3.5 font-bold text-white transition-colors transform rounded-xl bg-tech-blue hover:bg-cyan shadow-lg hover:shadow-cyan/30 hover:-translate-y-0.5">
                             Start a Project Like This
                          </a>
                     </div>
@@ -945,6 +911,7 @@ function initModal() {
     const closeModalBtn = document.getElementById('closeModalBtn');
     const modalContent = document.getElementById('modalContent');
     const body = document.body;
+    let previouslyFocusedElement = null;
 
     /**
      * Opens the case study modal with data for a given project object.
@@ -974,20 +941,67 @@ function initModal() {
         setText('modalChallenge', study.challenge);
         setText('modalSolution', study.solution);
         
-        const img = document.getElementById('modalImage');
-        if (img) {
-            img.classList.add('opacity-0');
+        // --- Image Slider Logic ---
+        const sliderTrack = document.getElementById('modalSliderTrack');
+        const prevBtn = document.getElementById('modalPrevBtn');
+        const nextBtn = document.getElementById('modalNextBtn');
+        const dotsContainer = document.getElementById('modalSliderDots');
+
+        // Combine main image and gallery images
+        const images = [project.image];
+        if (study.gallery && Array.isArray(study.gallery)) {
+            images.push(...study.gallery);
+        }
+
+        let currentIndex = 0;
+
+        // Render Slides
+        if (sliderTrack) {
+            sliderTrack.style.transform = 'translateX(0)';
+            sliderTrack.innerHTML = images.map((img, idx) => `
+                <div class="min-w-full h-full flex items-center justify-center bg-gray-100 dark:bg-slate-800 relative">
+                    <img src="${img}" class="w-full h-full object-cover cursor-zoom-in" alt="${project.title} ${idx + 1}" loading="${idx === 0 ? 'eager' : 'lazy'}">
+                </div>
+            `).join('');
+        }
+
+        // Update Dots & Navigation
+        const updateSliderUI = () => {
+            if (sliderTrack) sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
             
-            img.src = project.image;
-            img.alt = project.title;
-            
-            img.onload = () => {
-                img.classList.remove('opacity-0');
+            if (dotsContainer) {
+                dotsContainer.innerHTML = images.map((_, idx) => `
+                    <button class="transition-all duration-300 rounded-full ${idx === currentIndex ? 'w-8 bg-white' : 'w-2 bg-white/50 hover:bg-white/80'} h-2" data-index="${idx}"></button>
+                `).join('');
+            }
+        };
+        updateSliderUI();
+
+        // Event Listeners for Slider
+        if (prevBtn) {
+            prevBtn.style.display = images.length > 1 ? 'flex' : 'none';
+            prevBtn.onclick = (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+                updateSliderUI();
             };
-            img.onerror = () => {
-                img.src = 'https://placehold.co/800x600?text=Image+Error';
-                img.classList.remove('opacity-0');
-                Toast.show('Failed to load project image', 'error');
+        }
+        if (nextBtn) {
+            nextBtn.style.display = images.length > 1 ? 'flex' : 'none';
+            nextBtn.onclick = (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+                updateSliderUI();
+            };
+        }
+        if (dotsContainer) {
+            dotsContainer.style.display = images.length > 1 ? 'flex' : 'none';
+            dotsContainer.onclick = (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    e.stopPropagation();
+                    currentIndex = parseInt(e.target.dataset.index);
+                    updateSliderUI();
+                }
             };
         }
 
@@ -997,30 +1011,17 @@ function initModal() {
             if (study.results && study.results.length > 0) {
                 study.results.forEach(result => {
                     const li = document.createElement('li');
-                    li.className = 'flex items-start gap-3 text-charcoal/80';
+                    li.className = 'flex items-start gap-3 text-charcoal/80 dark:text-gray-300';
                     li.innerHTML = `<i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${result}</span>`;
                     resultsList.appendChild(li);
                 });
             }
         }
 
-        // Gallery Logic
+        // Hide old Gallery Grid (since images are now in slider)
         const galleryContainer = document.getElementById('modalGallery');
         if (galleryContainer) {
-            galleryContainer.innerHTML = '';
             galleryContainer.classList.add('hidden');
-            galleryContainer.removeAttribute('data-lightbox-container');
-            
-            if (study.gallery && Array.isArray(study.gallery) && study.gallery.length > 0) {
-                galleryContainer.classList.remove('hidden');
-                galleryContainer.setAttribute('data-lightbox-container', '');
-                study.gallery.forEach(imgSrc => {
-                    const imgContainer = document.createElement('div');
-                    imgContainer.className = 'rounded-xl overflow-hidden shadow-md border border-gray-100 group bg-gray-50';
-                    imgContainer.innerHTML = `<img src="${imgSrc}" class="max-w-none hover:scale-105 transition-transform duration-500 cursor-zoom-in" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found'">`;
-                    galleryContainer.appendChild(imgContainer);
-                });
-            }
         }
 
         // Related Projects Logic
@@ -1040,23 +1041,21 @@ function initModal() {
                 related.forEach(relatedProject => {
                     const srcset = generateSrcset(relatedProject.image);
                     const div = document.createElement('div');
-                    div.className = 'border border-tech-blue/10 rounded-xl overflow-hidden hover:shadow-lg transition-all bg-white';
                     div.innerHTML = `
-                        <button class="group w-full text-left cursor-pointer">
-                            <div class="overflow-hidden relative bg-soft-gray dark:bg-slate-700">
-                                <img src="${relatedProject.image}" srcset="${srcset}" sizes="(max-width: 640px) 100vw, 50vw" alt="${relatedProject.title}" class="max-w-none transition-transform duration-500" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/400x300?text=Image+Not+Found'">
-                            <div class="absolute inset-0 bg-tech-blue/0 group-hover:bg-tech-blue/10 transition-colors duration-300"></div>
-                        </div>
-                        <div class="p-4">
-                            <h4 class="font-bold check how text-tech-blue mb-1 text-sm group-hover:text-cyan transition-colors line-clamp-1">${relatedProject.title}</h4>
-                            <p class="text-xs text-charcoal/60 uppercase tracking-wider">${relatedProject.category}</p>
-                        </div>
+                        <button class="group w-full text-left cursor-pointer bg-soft-gray dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 rounded-lg p-3 transition-colors duration-300 flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-md overflow-hidden shrink-0">
+                                <img src="${relatedProject.image}" srcset="${srcset}" sizes="5vw" alt="${relatedProject.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Img'">
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-tech-blue dark:text-white mb-1 text-sm line-clamp-1">${relatedProject.title}</h4>
+                                <p class="text-xs text-charcoal/60 dark:text-gray-400 uppercase tracking-wider">${relatedProject.category}</p>
+                            </div>
                         </button>
                     `;
                     div.querySelector('button').addEventListener('click', () => {
                         // Scroll to top of modal content
-                        const scrollContainer = document.querySelector('#modalContent .overflow-y-auto');
-                        if(scrollContainer) scrollContainer.scrollTop = 0;
+                        const scrollContainer = document.getElementById('modal-scroll-content');
+                        if (scrollContainer) scrollContainer.scrollTop = 0;
                         openModalWithData(relatedProject);
                     });
                     relatedGrid.appendChild(div);
@@ -1067,13 +1066,18 @@ function initModal() {
         }
 
         if (modal) {
+            previouslyFocusedElement = document.activeElement;
             modal.classList.remove('hidden');
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('flex'); // Use flex for centering
             setTimeout(() => {
                 if (modalOverlay) modalOverlay.classList.remove('opacity-0');
                 if (modalContent) {
                     modalContent.classList.remove('opacity-0', 'scale-95');
                     modalContent.classList.add('scale-100');
                 }
+                // Focus the close button for accessibility
+                if(closeModalBtn) closeModalBtn.focus();
             }, 10);
             body.style.overflow = 'hidden';
         }
@@ -1093,8 +1097,16 @@ function initModal() {
         }
         
         setTimeout(() => {
-            if (modal) modal.classList.add('hidden');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.setAttribute('aria-hidden', 'true');
+                modal.classList.remove('flex');
+            }
             body.style.overflow = '';
+            // Restore focus to the element that opened the modal
+            if (previouslyFocusedElement) {
+                previouslyFocusedElement.focus();
+            }
         }, 300);
     }
 
@@ -1725,6 +1737,10 @@ function initGalleryPage() {
     const filterBtns = document.querySelectorAll('#gallery .filter-btn');
 
     if (grid && sentinel && filterBtns.length > 0 && typeof galleryData !== 'undefined') {
+        // Enforce 4-column layout for gallery
+        grid.classList.remove('lg:columns-3');
+        grid.classList.add('columns-1', 'sm:columns-2', 'lg:columns-4', 'gap-4');
+
         grid.setAttribute('data-lightbox-container', '');
         const allImages = [...galleryData.flyers, ...galleryData.banners, ...galleryData.posters, ...galleryData['social-media']];
         let displayImages = [];
@@ -1790,7 +1806,7 @@ function initGalleryPage() {
                 const placeholderSrc = imgData.placeholder || `https://placehold.co/30x40?text=+`;
 
                 const div = document.createElement('div');
-                div.className = `mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1`;
+                div.className = `mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-[10px] overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1`;
                 div.setAttribute('data-category', imgData.category);
                 div.style.aspectRatio = `${imgData.width || 600} / ${imgData.height || 800}`;
 

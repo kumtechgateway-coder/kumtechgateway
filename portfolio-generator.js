@@ -43,7 +43,7 @@ function generatePortfolio(gridElement) {
 
 function createPortfolioCard(project, index, isPortfolioPage) {
     const div = document.createElement('div');
-    div.className = 'group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-tech-blue/10 dark:border-white/5 shadow-md hover:shadow-2xl hover:shadow-tech-blue/10 transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card cursor-pointer reveal-up mb-6 break-inside-avoid';
+    div.className = 'group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-lg hover:shadow-2xl hover:shadow-tech-blue/20 dark:hover:shadow-cyan/20 transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card cursor-pointer reveal-up h-full';
     div.setAttribute('data-id', project.id);
     div.setAttribute('data-category', project.category);
     
@@ -56,35 +56,35 @@ function createPortfolioCard(project, index, isPortfolioPage) {
     const fetchPriority = isEager ? 'fetchpriority="high"' : '';
 
     div.innerHTML = `
-        <div class="w-full relative overflow-hidden bg-soft-gray dark:bg-slate-700 aspect-[4/3]">
+        <div class="w-full relative overflow-hidden bg-soft-gray dark:bg-slate-700">
             <img src="${project.image}" 
                  srcset="${srcset}" 
                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" 
                  alt="${project.title}" 
-                 class="w-full h-full object-cover transition-transform duration-700" 
+                 class="w-full h-40 object-cover transition-transform duration-700 group-hover:scale-105" 
                  loading="${loadingMode}" 
                  decoding="async" 
                  ${fetchPriority}
                  onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found'">
-            <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-                <span class="text-cyan text-xs font-bold uppercase tracking-wider mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">${project.category}</span>
-                <h3 class="text-white font-bold text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">${project.title}</h3>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
+                <h3 class="text-white font-bold text-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">${project.title}</h3>
             </div>
         </div>
-        <div class="p-6 flex flex-col flex-1">
-            <h3 class="font-heading text-lg font-bold text-tech-blue dark:text-white mb-2 portfolio-title">${project.title}</h3>
-            <p class="text-charcoal/70 dark:text-gray-400 text-sm line-clamp-2 portfolio-description mb-4 flex-1">${project.description}</p>
-            <div class="pt-4 border-t border-gray-100 dark:border-white/10 mt-auto">
-                <button class="text-sm font-bold text-tech-blue dark:text-cyan group-hover:underline flex items-center gap-2">View Case Study <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i></button>
+        <div class="p-4 flex flex-col flex-1">
+            <span class="inline-block py-1 px-3 rounded-full bg-cyan/10 text-cyan text-xs font-semibold tracking-wider uppercase mb-2 w-max">${project.category}</span>
+            <h3 class="font-heading text-lg font-bold text-tech-blue dark:text-white mb-1 portfolio-title">${project.title}</h3>
+            <p class="text-charcoal/70 dark:text-gray-400 text-sm line-clamp-3 portfolio-description mb-3 flex-1">${project.description}</p>
+            <div class="pt-4 border-t border-gray-200 dark:border-white/10 mt-auto flex justify-end">
+                <button class="group text-xs font-bold text-tech-blue dark:text-cyan rounded-full border border-tech-blue/40 dark:border-cyan/40 px-3 py-1.5 flex items-center gap-2 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:bg-tech-blue dark:hover:bg-cyan hover:text-white dark:hover:text-charcoal">View Detail <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i></button>
             </div>
         </div>
     `;
 
     // Attach click event to open modal
     div.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Dispatch a custom event that the main script can listen for
-        div.dispatchEvent(new CustomEvent('open-case-study', { detail: { project }, bubbles: true }));
+        if (typeof window.openModalWithData === 'function') {
+            window.openModalWithData(project);
+        }
     });
 
     return div;

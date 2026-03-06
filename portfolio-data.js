@@ -8,7 +8,7 @@ const portfolioData = [
         category: "Branding",
         title: "Kumtech Gateway Identity",
         description: "Complete brand identity design including logo, color palette, and visual assets for a leading tech agency.",
-        image: "https://placehold.co/800x600/1F3C88/FFFFFF?text=Kumtech+Identity",
+        image: "images/poster1.webp",
         fullData: {
             client: "Kumtech Gateway",
             timeline: "2024",

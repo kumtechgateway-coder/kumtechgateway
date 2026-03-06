@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v17'; // Cache version updated
+const CACHE_NAME = 'kumtech-cache-v28'; // Cache version updated
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -31,8 +31,9 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         return cache.addAll(ASSETS_TO_CACHE);
-      })
+      }),
   );
+  self.skipWaiting();
 });
 
 // Fetch Assets
@@ -54,7 +55,7 @@ self.addEventListener('activate', (event) => {
             return caches.delete(cacheName);
           }
         })
-      );
-    })
+      ).then(() => self.clients.claim());
+    }),
   );
 });

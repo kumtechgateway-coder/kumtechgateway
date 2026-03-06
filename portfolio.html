@@ -119,41 +119,32 @@
 
     <main>
     <!-- Portfolio Section -->
-    <section class="pt-28 md:pt-40 pb-16 md:pb-24 relative dark:bg-charcoal" id="portfolio">
-            <!-- Page Header -->
-            <div class="container mx-auto px-5 max-w-[1200px] text-center mb-10 reveal-up">
-                <h1 class="font-heading text-4xl md:text-5xl font-bold text-tech-blue dark:text-white mb-4">Our Portfolio & Case Studies</h1>
-                <p class="text-lg text-charcoal/70 dark:text-gray-400 max-w-2xl mx-auto">Explore our diverse range of projects, from branding to full-stack development.</p>
-            </div>
-
+    <section class="pb-16 md:pb-24 relative dark:bg-charcoal" id="portfolio">
             <!-- Controls -->
-            <div class="sticky top-[64px] md:top-[96px] z-40 bg-white/80 dark:bg-charcoal/80 backdrop-blur-lg py-4 md:py-5 mb-8 md:mb-10 flex justify-center items-center gap-3 reveal-up delay-300 transition-all w-full border-b border-gray-100 dark:border-white/10 shadow-sm">
-                
-                <div class="flex flex-wrap justify-center gap-2" id="filter-buttons">
-                    <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-50 dark:hover:bg-white/5 hover:border-tech-blue/50 hover:text-tech-blue dark:hover:text-cyan" data-filter="all">All</button>
-                    <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-50 dark:hover:bg-white/5 hover:border-tech-blue/50 hover:text-tech-blue dark:hover:text-cyan" data-filter="branding">Branding</button>
-                    <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-50 dark:hover:bg-white/5 hover:border-tech-blue/50 hover:text-tech-blue dark:hover:text-cyan" data-filter="web-design">Web Design</button>
-                    <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-50 dark:hover:bg-white/5 hover:border-tech-blue/50 hover:text-tech-blue dark:hover:text-cyan" data-filter="development">Development</button>
-                    <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-50 dark:hover:bg-white/5 hover:border-tech-blue/50 hover:text-tech-blue dark:hover:text-cyan" data-filter="ui-ux">UI/UX</button>
-                    <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-50 dark:hover:bg-white/5 hover:border-tech-blue/50 hover:text-tech-blue dark:hover:text-cyan" data-filter="marketing">Marketing</button>
+            <div class="sticky top-[64px] md:top-[80px] z-40 bg-white dark:bg-charcoal backdrop-blur-lg py-4 md:py-5 reveal-up transition-all w-full border-b border-gray-100 dark:border-white/10 shadow-sm">
+                <div class="container mx-auto px-5 max-w-[1200px] flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-2 flex-wrap justify-center" id="filter-controls">
+                        <span class="text-sm font-medium text-charcoal/70 dark:text-gray-400 hidden lg:block">Filter by:</span>
+                        <div class="flex flex-wrap justify-center gap-2" id="filter-buttons">
+                            <!-- Filter buttons will be injected here by script.js -->
+                        </div>
+                    </div>
+                    <div class="relative w-full md:w-auto">
+                        <input type="text" id="portfolioSearch" class="w-full md:w-64 pl-10 pr-4 py-2 text-sm border border-gray-200 dark:border-white/20 rounded-full bg-soft-gray/50 dark:bg-white/5 focus:ring-2 focus:ring-cyan focus:border-cyan outline-none transition-all" placeholder="Search projects...">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40 dark:text-gray-500"></i>
+                    </div>
                 </div>
-
-                <button id="searchTrigger" class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-soft-gray dark:bg-white/10 text-tech-blue dark:text-cyan hover:bg-tech-blue hover:text-white flex items-center justify-center transition-all shadow-sm" aria-label="Open Search">
-                    <i class="fas fa-search text-sm"></i>
-                </button>
             </div>
 
-            <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="container mx-auto px-5 max-w-[1200px] mt-36 md:mt-20">
             <!-- Grid -->
-            <div class="columns-1 sm:columns-2 lg:columns-4 gap-6 portfolio-grid">
-                <!-- Loading Indicator -->
-                <div class="flex justify-center py-12">
-                    <div class="w-12 h-12 border-4 border-tech-blue/20 border-t-tech-blue rounded-full animate-spin"></div>
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 portfolio-grid">
+                <!-- Portfolio cards are dynamically injected here -->
             </div>
 		
-		<div class="text-center mt-8">
-            <button id="loadMoreBtn" class="px-6 py-3 rounded-full bg-tech-blue text-white hover:bg-cyan transition-colors font-medium">Load More</button>
+        <!-- Sentinel for infinite scroll -->
+        <div id="portfolio-sentinel" class="h-20 flex items-center justify-center" style="display: none;">
+            <div class="w-8 h-8 border-4 border-tech-blue/20 border-t-tech-blue rounded-full animate-spin"></div>
         </div>
     </section>
     </main>
@@ -179,21 +170,6 @@
     <a href="https://wa.me/237679796638" id="whatsappMobileBtn" target="_blank" rel="noopener noreferrer" class="md:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-orange to-soft-amber text-white rounded-full flex items-center justify-center text-2xl shadow-lg cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 hover:bg-tech-blue hover:from-tech-blue hover:to-tech-blue hover:-translate-y-1 z-50" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
-
-    <!-- Search Overlay -->
-    <div id="searchOverlay" class="fixed inset-0 z-[110] bg-white/95 backdrop-blur-md hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
-        <button id="closeSearchBtn" class="absolute top-6 right-6 text-3xl text-charcoal hover:text-orange transition-colors cursor-pointer">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="w-full max-w-2xl px-5 text-center">
-            <h3 class="text-2xl font-heading font-bold text-tech-blue mb-6">Search Portfolio</h3>
-            <div class="relative">
-                <input type="text" id="portfolioSearch" class="w-full py-4 px-6 text-xl border-b-2 border-tech-blue/20 bg-transparent outline-none text-charcoal placeholder-charcoal/40 focus:border-cyan transition-colors text-center" placeholder="Type to search projects..." autocomplete="off">
-                <i class="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-tech-blue/50 text-xl"></i>
-            </div>
-            <p class="mt-4 text-charcoal/60 text-sm">Press ESC to close</p>
-        </div>
-    </div>
 
     <!-- Lightbox -->
     <div id="lightbox" class="fixed inset-0 z-[120] bg-black/90 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
