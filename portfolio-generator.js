@@ -46,21 +46,39 @@ function createPortfolioCard(project, index, isPortfolioPage) {
     cardLink.href = `project-detail.html?id=${project.id}`;
     cardLink.className = 'group bg-white dark:bg-slate-800 rounded-xl shadow-md p-4 portfolio-card reveal-up flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-slate-200 dark:border-slate-700 no-underline';
     cardLink.setAttribute('data-id', project.id);
-    cardLink.setAttribute('data-category', project.category);
-    
-    const srcset = getSrcset(project.image);
 
+    // Combine category and services for comprehensive filtering
+    const filterTerms = new Set();
+    const normalize = term => term.trim().toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+
+    if (project.category) {
+        project.category.split('&').forEach(cat => filterTerms.add(normalize(cat)));
+    }
+    if (project.fullData && project.fullData.services) {
+        project.fullData.services.split(',').forEach(service => filterTerms.add(normalize(service)));
+    }
+    cardLink.setAttribute('data-category', [...filterTerms].join(' '));
+    
     const isEager = (isPortfolioPage && index < 4) || (!isPortfolioPage && index < 2);
     const loadingMode = isEager ? 'eager' : 'lazy';
     const fetchPriority = isEager ? 'fetchpriority="high"' : '';
+
+    // Generate Tech Stack HTML
+    let techStackHTML = '';
+    if (project.fullData && project.fullData.technologies && Array.isArray(project.fullData.technologies)) {
+        const techs = project.fullData.technologies.slice(0, 3);
+        techStackHTML = `
+            <div class="flex flex-wrap gap-2 mt-3">
+                ${techs.map(tech => `<span class="text-[10px] font-medium px-2 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded">${tech}</span>`).join('')}
+            </div>
+        `;
+    }
 
     // New HTML structure for the card content.
     cardLink.innerHTML = `
         <!-- Image -->
         <div class="rounded-xl overflow-hidden">
             <img src="${project.image}" 
-                 srcset="${srcset}" 
-                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" 
                  alt="${project.title}" 
                  class="w-full h-[170px] object-cover transition-transform duration-500 group-hover:scale-105" 
                  loading="${loadingMode}" 
@@ -86,6 +104,9 @@ function createPortfolioCard(project, index, isPortfolioPage) {
             <p class="text-gray-500 dark:text-gray-400 text-sm mt-2 leading-relaxed line-clamp-3 portfolio-description flex-1">
                 ${project.description}
             </p>
+
+            <!-- Technologies -->
+            ${techStackHTML}
 
             <!-- Button -->
             <div class="flex justify-end mt-4">

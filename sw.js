@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v48'; // Cache version updated
+const CACHE_NAME = 'kumtech-cache-v64'; // Cache version updated
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

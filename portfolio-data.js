@@ -3,6 +3,8 @@
  * Single source of truth for all project content.
  */
 const portfolioData = [
+
+    /*kumtechgateway*/
     {
         id: "kumtech-branding",
         category: "Branding",
@@ -20,86 +22,121 @@ const portfolioData = [
                 "images/kumtechcolor.webp",
                 "images/kumtechmockup.webp", 
                 "images/kumtechmodel.webp",
-            ]
+            ],
+            technologies: ["Figma", "Illustrator", "Photoshop"]
         }
     },
+
+    /*rmdigitalvillage*/
     {
-        id: "modern-ecom",
-        category: "Web Design",
-        title: "Modern E-commerce Platform",
-        description: "Sleek and user-friendly e-commerce website with advanced shopping features and mobile-first design.",
-        image: "https://placehold.co/800x600/e2e8f0/1F3C88?text=Modern+E-commerce",
+        id: "rm-digital-village",
+        category: "Branding & Identity",
+        title: "RM Digital Village Visual Identity",
+        description: "A comprehensive brand identity system for a digital-first organization, featuring a tech-forward color palette and professional stationery mockups.",
+        image: "images/rmlogo.webp",
         fullData: {
-            client: "Global Retail Co.",
+            client: "RM Digital Village",
             timeline: "2024",
-            services: "Web Design, Development, UX Research",
-            challenge: "Client needed a fast, responsive, and visually appealing e-commerce site to increase online sales and improve user engagement.",
-            solution: "We designed and developed a custom Shopify theme with a focus on a mobile-first experience, a streamlined checkout process, and high-quality product visuals.",
-            results: ["30% increase in conversion rate", "50% faster page load times", "Enhanced mobile shopping experience"],
-            gallery: [
-                "https://placehold.co/800x600/e2e8f0/1F3C88?text=Product+Page",
-                "https://placehold.co/800x600/e2e8f0/1F3C88?text=Checkout+Flow"
+            services: "Brand Strategy, Logo Design, Visual Identity, Brand Guidelines",
+            challenge: "The client needed a modern, cohesive brand identity that communicated reliability and technological innovation ('Your Digital Paddy') across both digital and physical touchpoints.",
+            solution: "We developed a 'Universal Digital Brand' palette using high-contrast tech blues (#1F3C88) and vibrant oranges (#F97316). The logo combines sharp typography with a dynamic 'RM' monogram, supported by a full suite of brand assets including corporate stationery, apparel, and digital guidelines.",
+            results: [
+                "Unified brand presence across digital and print media",
+                "Established a professional 'Tech-Blue' visual language",
+                "Delivered comprehensive brand guidelines for scalable growth"
             ],
+            gallery: [
+                "images/rmcolor.webp",
+                "images/rmmockup.webp",
+                "images/rmmodel.webp"
+            ],
+            technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
             liveUrl: "https://kumtechgateway.com/"
         }
     },
+
+    /*goldenaura*/ 
     {
-        id: "social-media-boost",
-        category: "Marketing",
-        title: "Social Media Campaign Boost",
-        description: "Increased engagement and followers with targeted social media marketing strategies on Instagram and TikTok.",
-        image: "https://placehold.co/800x600/F97316/FFFFFF?text=Social+Media+Boost",
+        id: "golden-aura",
+        category: "Branding & Identity",
+        title: "Golden Aura Luxury Branding",
+        description: "A sophisticated and elegant brand identity designed for a high-end wellness or lifestyle brand, utilizing a warm, premium palette.",
+        image: "images/goldenlogo.webp",
         fullData: {
-            client: "Lifestyle Influencer",
+            client: "Golden Aura",
             timeline: "2024",
-            services: "Ads Management, Content Creation, Analytics",
-            challenge: "To grow the client's audience on Instagram and TikTok and increase engagement on their posts.",
-            solution: "We ran targeted ad campaigns, created a content calendar with viral-potential videos, and engaged with the community to build a loyal following.",
-            results: ["Follower count grew by 150% in 3 months", "Engagement rate doubled", "Secured two major brand partnerships"],
+            services: "Visual Identity, Premium Packaging Design, Brand Typography",
+            challenge: "The brand required a visual language that felt both luxurious and personal, targeting a demographic that values wellness and exclusivity.",
+            solution: "We curated a 'Brand Color Palette' featuring Gold (#E2BE6C) and Aura Pink (#F4909E) against a Deep Black (#0A0A0A) background. The logo features a delicate, floral-inspired emblem that communicates growth and serenity.",
+            results: [
+                "Achieved a premium, high-end market positioning",
+                "Seamless brand application from digital apps to physical luxury packaging",
+                "Strong emotional resonance through warm, inviting color theory"
+            ],
             gallery: [
-                "https://placehold.co/800x600/F97316/FFFFFF?text=Instagram+Story",
-                "https://placehold.co/800x600/F97316/FFFFFF?text=Analytics+Dashboard"
-            ]
+                "images/goldencolor.webp",
+                "images/goldenmockup.webp",
+                "images/goldenmodel.webp"
+            ],
+            technologies: ["Adobe Illustrator", "Adobe Photoshop", "InDesign"],
+            liveUrl: "https://kumtechgateway.com/"
         }
     },
+
+    /* rapha maria */
     {
-        id: "intuitive-app-design",
-        category: "UI/UX",
-        title: "Intuitive Mobile App Design",
-        description: "Enhanced user experience with an intuitive and engaging mobile app interface for a health tech startup.",
-        image: "https://placehold.co/800x600/0F172A/FFFFFF?text=App+Interface",
+        id: "rapha-maria-residence",
+        category: "Branding & Identity",
+        title: "Rapha Maria Residence Visual Identity",
+        description: "An elegant and welcoming brand identity for a premium residential property, featuring a soft pastel palette.",
+        image: "images/raphalogo.webp",
         fullData: {
-            client: "HealthTech Startup",
-            timeline: "2023",
-            services: "UI/UX Design, Prototyping, User Testing",
-            challenge: "The startup had a complex health tracking app that users found confusing and difficult to navigate.",
-            solution: "We conducted user research to identify pain points and redesigned the entire user flow. We created a clean, intuitive interface with a clear information hierarchy and interactive prototypes for testing.",
-            results: ["User satisfaction score increased by 40%", "Task completion time reduced by 60%", "Positive reviews in the app store surged"],
+            client: "Rapha Maria Residence",
+            timeline: "2024",
+            services: "Identity Design, Real Estate Branding, Merchandising",
+            challenge: "The client needed an identity that balanced professional real estate reliability with a warm, 'home-like' feel.",
+            solution: "We developed an 'Elegant Pastel Color Palette' using Navy Blue (#1E2A44) for authority, softened by Blush Pink (#E7C9D0) and Ivory (#FFFFF4). The house icon integrates these tones to symbolize safety and comfort.",
+            results: [
+                "Created a unique visual niche in the real estate market",
+                "Developed a versatile logo that scales perfectly from business cards to signage",
+                "Established a cohesive brand feel for both staff apparel and digital presence"
+            ],
             gallery: [
-                "https://placehold.co/800x600/0F172A/FFFFFF?text=Mobile+App+Screens",
-                "https://placehold.co/800x600/0F172A/FFFFFF?text=User+Flow+Diagram"
-            ]
-        },
-    },
-    {
-        id: "scalable-api-solution",
-        category: "Development",
-        title: "Scalable API Solution",
-        description: "Robust and scalable API development for seamless data integration across platforms using Node.js.",
-        image: "https://placehold.co/800x600/1F3C88/FFFFFF?text=API+Solution",
-        fullData: {
-            client: "SaaS Provider",
-            timeline: "2023",
-            services: "Backend Development, API Design, DevOps",
-            challenge: "The client's existing API was struggling to handle increasing traffic, leading to performance bottlenecks and downtime.",
-            solution: "We architected and built a new microservices-based API using Node.js and deployed it on a scalable cloud infrastructure. This ensured high availability and low latency.",
-            results: ["99.99% uptime achieved", "API response time reduced by 80%", "Enabled seamless integration for new partners"],
-            gallery: [
-                "https://placehold.co/800x600/1F3C88/FFFFFF?text=System+Architecture",
-                "https://placehold.co/800x600/1F3C88/FFFFFF?text=API+Documentation"
-            ]
+                "images/raphacolor.webp",
+                "images/raphamodel.webp"
+            ],
+            technologies: ["Adobe Illustrator", "Figma", "Photoshop"],
+            liveUrl: "https://kumtechgateway.com/"
         }
     },
+
+    /*faithconstruction */
+    {
+        id: "faith-construction",
+        category: "Web Development",
+        title: "Faith Construction Corporate Site",
+        description: "A high-performance, dynamic corporate website for Cameroon’s premier builder, featuring a modern dark-mode aesthetic and real-time project statistics.",
+        image: "images/faithconstruction.webp",
+        fullData: {
+            client: "Faith Construction",
+            timeline: "2024",
+            services: "Web Design, Frontend Development, UI/UX Optimization",
+            challenge: "The client required a professional digital presence to showcase their 200+ completed projects and 15+ years of experience while facilitating direct client consultations.",
+            solution: "We built a responsive, dynamic landing page using a dark-theme UI to emphasize luxury and stability. The site features a 'Request a Quote' lead generation system, integrated WhatsApp support, and a data-driven statistics counter section.",
+            results: [
+                "100% responsive design across all mobile and desktop devices",
+                "Streamlined lead generation via integrated consultation triggers",
+                "Optimized performance using Tailwind CSS for rapid load times"
+            ],
+            gallery: [
+                "images/faithconstruction.webp"
+            ],
+            technologies: ["HTML5", "TailwindCSS", "JavaScript", "JSON"],
+            liveUrl: "https://kumtechgateway.com/"
+        }
+    },
+
+    
     {
         id: "eco-friendly-brand",
         category: "Branding",
@@ -116,7 +153,8 @@ const portfolioData = [
             gallery: [
                 "https://placehold.co/800x600/22C55E/FFFFFF?text=Eco+Packaging",
                 "https://placehold.co/800x600/22C55E/FFFFFF?text=Sustainable+Logo"
-            ]
+            ],
+            technologies: ["Illustrator", "Figma", "Shopify"]
         }
     },
     {
@@ -135,7 +173,8 @@ const portfolioData = [
             gallery: [
                 "https://placehold.co/800x600/333333/FFFFFF?text=Portfolio+Grid",
                 "https://placehold.co/800x600/333333/FFFFFF?text=Project+Detail"
-            ]
+            ],
+            technologies: ["HTML5", "CSS3", "JavaScript", "Eleventy", "Netlify"]
         }
     },
     {
@@ -154,7 +193,8 @@ const portfolioData = [
             gallery: [
                 "https://placehold.co/800x600/FDBA74/1F3C88?text=Keyword+Ranking",
                 "https://placehold.co/800x600/FDBA74/1F3C88?text=Traffic+Growth"
-            ]
+            ],
+            technologies: ["Ahrefs", "SEMrush", "Google Analytics", "Google Search Console"]
         }
     },
     {
@@ -173,7 +213,8 @@ const portfolioData = [
             gallery: [
                 "https://placehold.co/800x600/00B4D8/FFFFFF?text=Property+Map",
                 "https://placehold.co/800x600/00B4D8/FFFFFF?text=Listing+Details"
-            ]
+            ],
+            technologies: ["React", "Node.js", "Mapbox", "PostgreSQL"]
         }
     },
     {
@@ -192,7 +233,8 @@ const portfolioData = [
             gallery: [
                 "https://placehold.co/800x600/EF4444/FFFFFF?text=Workout+Stats",
                 "https://placehold.co/800x600/EF4444/FFFFFF?text=Activity+Graph"
-            ]
+            ],
+            technologies: ["React Native", "Firebase", "Node.js"]
         }
     },
     {
@@ -211,7 +253,8 @@ const portfolioData = [
             gallery: [
                 "https://placehold.co/800x600/F97316/FFFFFF?text=Newsletter+Template",
                 "https://placehold.co/800x600/F97316/FFFFFF?text=Campaign+Results"
-            ]
+            ],
+            technologies: ["Mailchimp", "Klaviyo", "HTML Email"]
         }
     },
     {
@@ -230,7 +273,8 @@ const portfolioData = [
             gallery: [
                 "https://placehold.co/800x600/00B4D8/FFFFFF?text=Travel+Brochure",
                 "https://placehold.co/800x600/00B4D8/FFFFFF?text=Adventure+Logo"
-            ]
+            ],
+            technologies: ["Figma", "Webflow", "Illustrator"]
         }
     }
 ];

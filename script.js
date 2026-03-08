@@ -147,6 +147,7 @@ function main() {
     initHeroParticles();
     initNavAndState();
     initScrollBehaviors();
+    initCounters();
     initPortfolioPage();
     initTestimonialSlider();
     initFloatingButtons();
@@ -520,24 +521,93 @@ function initScrollBehaviors() {
 }
 
 /**
+ * Initializes animated counters that count up when in view.
+ */
+function initCounters() {
+    const counters = document.querySelectorAll('[data-target]');
+    if (counters.length === 0) return;
+
+    const animateCounter = (counter) => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 1500; // Animation duration in ms (was 2000)
+        let startTimestamp = null;
+
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const currentValue = Math.floor(progress * target);
+            counter.innerText = currentValue;
+
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Check if it has already been animated
+                if (!entry.target.dataset.animated) {
+                    animateCounter(entry.target);
+                    entry.target.dataset.animated = 'true';
+                }
+                // Unobserve after animation to save resources
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.5 // Trigger when 50% of the element is visible
+    });
+
+    counters.forEach(counter => observer.observe(counter));
+}
+
+/**
  * Generates filter buttons dynamically from portfolio data categories.
  */
 function generateFilterButtons() {
     const container = document.getElementById('filter-buttons');
     if (!container || typeof portfolioData === 'undefined') return;
 
-    const categories = ['all', ...new Set(portfolioData.map(p => p.category.toLowerCase()))];
-    
-    container.innerHTML = categories.map(cat => {
-        const catName = cat.charAt(0).toUpperCase() + cat.slice(1).replace('-', ' ');
-        return `<button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-cyan hover:text-tech-blue dark:hover:text-cyan" data-filter="${cat}">${catName}</button>`;
+    // Get all unique categories from portfolio data for a cleaner filter UI
+    const allFilters = new Set();
+    portfolioData.forEach(project => {
+        // Add the main category (and its parts, e.g., "Branding & Identity")
+        if (project.category) {
+            project.category.split('&').forEach(catPart => {
+                allFilters.add(catPart.trim());
+            });
+        }
+    });
+
+    // Sort filters alphabetically
+    const sortedFilters = [...allFilters].sort();
+
+    // Generate HTML for buttons
+    const buttonsHTML = sortedFilters.map(filter => {
+        // Normalize filter name for the data-filter attribute
+        const filterValue = filter.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+        return `<button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-cyan hover:text-tech-blue dark:hover:text-cyan" data-filter="${filterValue}">${filter}</button>`;
     }).join('');
+
+    // Add the 'All' button at the beginning
+    container.innerHTML = `
+        <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-cyan hover:text-tech-blue dark:hover:text-cyan" data-filter="all">All</button>
+        ${buttonsHTML}
+    `;
 }
 
 function initPortfolioPage() {
     // This function now handles BOTH homepage portfolio preview AND the full portfolio page.
     const portfolioGrid = document.querySelector('#portfolio .portfolio-grid');
     if (!portfolioGrid) return;
+
+    // Enforce a standard grid layout instead of masonry (pinterest-style)
+    // This ensures all cards in a row have the same height.
+    portfolioGrid.classList.remove('columns-1', 'sm:columns-2', 'lg:columns-4');
+    portfolioGrid.classList.add('grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4');
 
     // Step 1: Generate the portfolio cards. 
     // The generatePortfolio function is smart enough to know whether to render
@@ -1770,10 +1840,37 @@ function initGalleryPreview() {
     }
 }
 
+/**
+ * Generates gallery filter buttons dynamically from gallery data.
+ */
+function generateGalleryFilters() {
+    const container = document.getElementById('gallery-filters');
+    if (!container || typeof galleryData === 'undefined') return;
+
+    const categories = ['all', ...Object.keys(galleryData)];
+    
+    container.innerHTML = categories.map(cat => {
+        const catName = cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        
+        // Calculate count
+        let count = 0;
+        if (cat === 'all') {
+            Object.values(galleryData).forEach(arr => count += arr.length);
+        } else {
+            count = galleryData[cat] ? galleryData[cat].length : 0;
+        }
+
+        return `<button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-cyan hover:text-tech-blue dark:hover:text-cyan ${cat === 'all' ? 'active' : ''}" data-filter="${cat}">
+            ${catName} <span class="text-[10px] opacity-60 ml-1">(${count})</span>
+        </button>`;
+    }).join('');
+}
+
 function initGalleryPage() {
+    generateGalleryFilters();
     const grid = document.querySelector('#gallery .portfolio-grid');
     const sentinel = document.getElementById('gallery-sentinel');
-    const filterBtns = document.querySelectorAll('#gallery .filter-btn');
+    const filterBtns = document.querySelectorAll('#gallery .filter-btn, #gallery-filters .filter-btn');
 
     if (grid && sentinel && filterBtns.length > 0 && typeof galleryData !== 'undefined') {
         // Enforce 4-column layout for gallery
@@ -2141,9 +2238,41 @@ function initProjectDetailPage() {
         return;
     }
     
-    // --- Populate Page Data ---
-    document.title = `${project.title} | Kumtech Gateway Project`;
+    // ==========================================
+    // DYNAMIC SEO & METADATA UPDATE
+    // ==========================================
+    const currentUrl = window.location.href;
+    const pageTitle = `${project.title} | Kumtech Gateway Project`;
+    const pageDescription = project.description;
+    // Ensure we have a full URL for the image
+    const pageImage = project.image.startsWith('http') ? project.image : `https://kumtechgateway.com/${project.image}`;
+
+    // 1. Update Title & Description
+    document.title = pageTitle;
     
+    const setMeta = (selector, attr, value) => {
+        const el = document.querySelector(selector);
+        if (el) el.setAttribute(attr, value);
+    };
+
+    setMeta('meta[name="description"]', 'content', pageDescription);
+
+    // 2. Update Canonical URL
+    setMeta('link[rel="canonical"]', 'href', currentUrl);
+
+    // 3. Update Open Graph (Facebook/LinkedIn)
+    setMeta('meta[property="og:title"]', 'content', pageTitle);
+    setMeta('meta[property="og:description"]', 'content', pageDescription);
+    setMeta('meta[property="og:image"]', 'content', pageImage);
+    setMeta('meta[property="og:url"]', 'content', currentUrl);
+
+    // 4. Update Twitter Card
+    setMeta('meta[property="twitter:title"]', 'content', pageTitle);
+    setMeta('meta[property="twitter:description"]', 'content', pageDescription);
+    setMeta('meta[property="twitter:image"]', 'content', pageImage);
+    setMeta('meta[property="twitter:url"]', 'content', currentUrl);
+
+    // --- Populate Page Data ---
     const mainImage = document.getElementById('project-main-image');
     const thumbnailsContainer = document.getElementById('project-thumbnails');
     const categoryEl = document.getElementById('project-category');
@@ -2151,10 +2280,12 @@ function initProjectDetailPage() {
     const descriptionEl = document.getElementById('project-description');
     
     // Info Box elements
-    const clientInfoEl = document.getElementById('project-client-info');
-    const timelineInfoEl = document.getElementById('project-timeline-info');
-    const servicesInfoEl = document.getElementById('project-services-info');
+    const clientEl = document.getElementById('project-client');
+    const timelineEl = document.getElementById('project-timeline');
+    const servicesEl = document.getElementById('project-services');
     const liveSiteLink = document.getElementById('live-site-link');
+    const techStackCard = document.getElementById('tech-stack-card');
+    const techStackList = document.getElementById('tech-stack-list');
     
     const challengeEl = document.getElementById('project-challenge');
     const solutionEl = document.getElementById('project-solution');
@@ -2171,30 +2302,9 @@ function initProjectDetailPage() {
     if (solutionEl) solutionEl.textContent = project.fullData.solution;
     
     // Info Box
-    if (clientInfoEl) {
-        clientInfoEl.innerHTML = `
-            <i class="fas fa-user-tie text-cyan w-5 text-center mt-1 shrink-0"></i>
-            <div>
-                <span class="block text-xs font-bold tracking-wide text-cyan uppercase">Client</span>
-                <span class="font-medium text-tech-blue dark:text-gray-200">${project.fullData.client}</span>
-            </div>`;
-    }
-    if (timelineInfoEl) {
-        timelineInfoEl.innerHTML = `
-            <i class="fas fa-calendar-alt text-cyan w-5 text-center mt-1 shrink-0"></i>
-            <div>
-                <span class="block text-xs font-bold tracking-wide text-cyan uppercase">Timeline</span>
-                <span class="font-medium text-tech-blue dark:text-gray-200">${project.fullData.timeline}</span>
-            </div>`;
-    }
-    if (servicesInfoEl) {
-        servicesInfoEl.innerHTML = `
-            <i class="fas fa-cogs text-cyan w-5 text-center mt-1 shrink-0"></i>
-            <div>
-                <span class="block text-xs font-bold tracking-wide text-cyan uppercase">Services</span>
-                <span class="font-medium text-tech-blue dark:text-gray-200">${project.fullData.services}</span>
-            </div>`;
-    }
+    if (clientEl) clientEl.textContent = project.fullData.client;
+    if (timelineEl) timelineEl.textContent = project.fullData.timeline;
+    if (servicesEl) servicesEl.textContent = project.fullData.services;
     
     // Live Site Link
     if (liveSiteLink && project.fullData.liveUrl) {
@@ -2209,6 +2319,16 @@ function initProjectDetailPage() {
         ).join('');
     } else if (resultsContainer) {
         resultsContainer.classList.add('hidden');
+    }
+    
+    // Tech Stack
+    if (techStackCard && techStackList && project.fullData.technologies && project.fullData.technologies.length > 0) {
+        techStackList.innerHTML = project.fullData.technologies.map(tech =>
+            `<span class="px-3 py-1.5 bg-gray-100 dark:bg-dark-800 text-gray-700 dark:text-gray-300 text-sm rounded-lg">${escapeHtml(tech)}</span>`
+        ).join('');
+        techStackCard.classList.remove('hidden');
+    } else if (techStackCard) {
+        techStackCard.classList.add('hidden');
     }
     
     // Image Gallery
