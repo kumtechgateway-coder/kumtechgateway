@@ -42,50 +42,61 @@ function generatePortfolio(gridElement) {
 }
 
 function createPortfolioCard(project, index, isPortfolioPage) {
-    const div = document.createElement('div');
-    div.className = 'group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-lg hover:shadow-2xl hover:shadow-tech-blue/20 dark:hover:shadow-cyan/20 transition-all duration-500 hover:-translate-y-2 flex flex-col portfolio-card cursor-pointer reveal-up h-full';
-    div.setAttribute('data-id', project.id);
-    div.setAttribute('data-category', project.category);
+    const cardLink = document.createElement('a');
+    cardLink.href = `project-detail.html?id=${project.id}`;
+    cardLink.className = 'group bg-white dark:bg-slate-800 rounded-xl shadow-md p-4 portfolio-card reveal-up flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-slate-200 dark:border-slate-700 no-underline';
+    cardLink.setAttribute('data-id', project.id);
+    cardLink.setAttribute('data-category', project.category);
     
     const srcset = getSrcset(project.image);
 
-    // Optimization: Eager load the first few images to improve LCP
-    // On homepage (index 0,1), on portfolio page (index 0,1,2,3)
     const isEager = (isPortfolioPage && index < 4) || (!isPortfolioPage && index < 2);
     const loadingMode = isEager ? 'eager' : 'lazy';
     const fetchPriority = isEager ? 'fetchpriority="high"' : '';
 
-    div.innerHTML = `
-        <div class="w-full relative overflow-hidden bg-soft-gray dark:bg-slate-700">
+    // New HTML structure for the card content.
+    cardLink.innerHTML = `
+        <!-- Image -->
+        <div class="rounded-xl overflow-hidden">
             <img src="${project.image}" 
                  srcset="${srcset}" 
                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" 
                  alt="${project.title}" 
-                 class="w-full h-40 object-cover transition-transform duration-700 group-hover:scale-105" 
+                 class="w-full h-[170px] object-cover transition-transform duration-500 group-hover:scale-105" 
                  loading="${loadingMode}" 
                  decoding="async" 
                  ${fetchPriority}
                  onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found'">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
-                <h3 class="text-white font-bold text-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">${project.title}</h3>
-            </div>
         </div>
-        <div class="p-4 flex flex-col flex-1">
-            <span class="inline-block py-1 px-3 rounded-full bg-cyan/10 text-cyan text-xs font-semibold tracking-wider uppercase mb-2 w-max">${project.category}</span>
-            <h3 class="font-heading text-lg font-bold text-tech-blue dark:text-white mb-1 portfolio-title">${project.title}</h3>
-            <p class="text-charcoal/70 dark:text-gray-400 text-sm line-clamp-3 portfolio-description mb-3 flex-1">${project.description}</p>
-            <div class="pt-4 border-t border-gray-200 dark:border-white/10 mt-auto flex justify-end">
-                <button class="group text-xs font-bold text-tech-blue dark:text-cyan rounded-full border border-tech-blue/40 dark:border-cyan/40 px-3 py-1.5 flex items-center gap-2 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:bg-tech-blue dark:hover:bg-cyan hover:text-white dark:hover:text-charcoal">View Detail <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i></button>
+
+        <!-- Content -->
+        <div class="mt-4 flex flex-col flex-1">
+
+            <!-- Tag -->
+            <span class="bg-tech-blue/10 text-tech-blue dark:bg-cyan/20 dark:text-cyan-300 text-xs font-semibold px-3 py-1 rounded-full self-start uppercase">
+                ${project.category}
+            </span>
+
+            <!-- Title -->
+            <h3 class="mt-3 text-tech-blue dark:text-white font-bold leading-tight text-base portfolio-title transition-colors duration-300 group-hover:text-cyan">
+                ${project.title}
+            </h3>
+
+            <!-- Description -->
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-2 leading-relaxed line-clamp-3 portfolio-description flex-1">
+                ${project.description}
+            </p>
+
+            <!-- Button -->
+            <div class="flex justify-end mt-4">
+                <span class="portfolio-card-btn group/btn flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm border border-gray-300 dark:border-gray-600 px-3 py-1 rounded-full transition-all duration-300 group-hover:bg-tech-blue group-hover:text-white group-hover:border-tech-blue dark:group-hover:bg-cyan dark:group-hover:text-charcoal dark:group-hover:border-cyan">
+                    View Details
+                    <span class="text-lg leading-none -mt-px transition-transform duration-300 group-hover/btn:translate-x-1">&raquo;</span>
+                </span>
             </div>
+
         </div>
     `;
 
-    // Attach click event to open modal
-    div.addEventListener('click', (e) => {
-        if (typeof window.openModalWithData === 'function') {
-            window.openModalWithData(project);
-        }
-    });
-
-    return div;
+    return cardLink;
 }

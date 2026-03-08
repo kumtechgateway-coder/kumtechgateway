@@ -1,9 +1,10 @@
-const CACHE_NAME = 'kumtech-cache-v28'; // Cache version updated
+const CACHE_NAME = 'kumtech-cache-v48'; // Cache version updated
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './portfolio.html',
   './gallery.html',
+  './project-detail.html',
   './services.html',
   './blog.html',
   './blog-post.html',
@@ -15,7 +16,7 @@ const ASSETS_TO_CACHE = [
   './portfolio-data.js',
   './portfolio-generator.js',
   './gallery-data.js',
-  './blog.json',
+  './blog.json', 
   './translations.json',
   './images/logo.png',
   './images/hero.png',
@@ -38,10 +39,26 @@ self.addEventListener('install', (event) => {
 
 // Fetch Assets
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => response || fetch(event.request))
-  );
+  const requestUrl = new URL(event.request.url);
+
+  // --- Strategy 1: Ignore cross-origin requests ---
+  // If the request is for a resource on a different origin (e.g., Google Fonts, Firebase API),
+  // don't handle it in the service worker. Let the browser fetch it directly.
+  // This is the safest way to avoid interfering with third-party services.
+  if (requestUrl.origin !== self.location.origin) {
+    return; // Let the browser handle it.
+  }
+
+  // --- Strategy 2: Handle same-origin GET requests with a cache-first approach ---
+  // For GET requests to our own domain, try the cache first.
+  if (event.request.method === 'GET') {
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        // If we find a match in the cache, return it. Otherwise, fetch from the network.
+        return cachedResponse || fetch(event.request);
+      })
+    );
+  }
 });
 
 // Activate Service Worker & Clean Up Old Caches

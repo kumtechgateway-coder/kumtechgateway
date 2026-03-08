@@ -27,7 +27,6 @@
     <meta property="twitter:image" content="https://kumtechgateway.com/images/hero.png">
 
     <link rel="preload" as="image" href="images/hero.png">
-    <link rel="preload" as="image" href="images/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,10 +83,24 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
-        "reviewCount": "50",
+        "reviewCount": "51",
         "bestRating": "5",
         "worstRating": "1"
       },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "John Doe"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5"
+          },
+          "reviewBody": "Kumtech Gateway built our website perfectly."
+        }
+      ],
       "hasMap": "https://www.google.com/maps/search/?api=1&query=3.8480,11.5021",
       "sameAs": [
         "https://www.facebook.com/profile.php?id=61586900516807",
@@ -426,7 +439,7 @@
     </section>
 
     <!-- CTA Banner -->
-    <section class="py-20 relative bg-fixed bg-cover bg-center overflow-hidden animated-gradient-bg" style="--bg-image: url('https://placehold.co/1920x1080/0F172A/FFFFFF?text=Ready+To+Elevate');" data-theme="dark">
+    <section class="py-20 relative bg-fixed bg-cover bg-center overflow-hidden animated-gradient-bg" style="--bg-image: url('');" data-theme="dark">
         <div class="container mx-auto px-5 max-w-[1200px] text-center relative z-10">
             <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-6 leading-tight reveal-up">Ready to Elevate Your Digital Presence?</h2>
             <p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 reveal-up delay-200">Join hundreds of successful businesses who have transformed their brand with our expert solutions.</p>
@@ -652,6 +665,12 @@
                     <h3 class="text-3xl font-semibold text-tech-blue dark:text-white mb-4">Client Testimonials</h3>
                     <p class="text-charcoal/70 dark:text-gray-400 max-w-2xl mx-auto">See what our partners say about our collaboration.</p>
                 </div>
+
+                <!-- Review Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mb-10">
+                    <a href="https://g.page/r/CTyT8y4hhe89EAI/review" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-slate-800 text-charcoal dark:text-white border border-gray-200 dark:border-white/10 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 font-medium group"><i class="fab fa-google text-red-500 text-lg group-hover:scale-110 transition-transform"></i> Leave a Google Review</a>
+                    <button id="openReviewForm" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-tech-blue text-white shadow-md hover:shadow-lg hover:bg-cyan hover:-translate-y-1 transition-all duration-300 font-medium"><i class="fas fa-pen text-sm"></i> Leave a Website Review</button>
+                </div>
                 
                 <div class="relative px-2 md:px-4">
                     <!-- Navigation Buttons -->
@@ -663,42 +682,6 @@
                     </button>
 
                     <div id="testimonialTrack" class="flex overflow-x-auto gap-8 snap-x snap-mandatory hide-scrollbar pb-4" style="scroll-behavior: smooth;">
-                    <!-- Card 1 -->
-                        <div class="min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg shadow-gray-100 dark:shadow-none border border-gray-50 dark:border-white/5 relative hover:-translate-y-2 transition-transform duration-300">
-                        <div class="text-4xl text-cyan/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-cyan text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">YA</div>
-                            <div>
-                                <h4 class="font-bold text-tech-blue dark:text-white">Yannick Abanda</h4>
-                                <p class="text-xs text-cyan uppercase tracking-wider font-semibold">Client</p>
-                            </div>
-                        </div>
-                        <p class="text-charcoal/80 dark:text-gray-300 italic leading-relaxed relative z-10">"Kumtech Gateway transformed our online presence completely. Their team is professional, creative, and incredibly skilled."</p>
-                    </div>
-                    <!-- Card 2 -->
-                        <div class="min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg shadow-gray-100 dark:shadow-none border border-gray-50 dark:border-white/5 relative hover:-translate-y-2 transition-transform duration-300">
-                        <div class="text-4xl text-cyan/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-cyan text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">FB</div>
-                            <div>
-                                <h4 class="font-bold text-tech-blue dark:text-white">Fatima Biloa</h4>
-                                <p class="text-xs text-cyan uppercase tracking-wider font-semibold">Client</p>
-                            </div>
-                        </div>
-                        <p class="text-charcoal/80 dark:text-gray-300 italic leading-relaxed relative z-10">"The attention to detail and commitment to quality was outstanding. Highly recommend their web development services."</p>
-                    </div>
-                    <!-- Card 3 -->
-                        <div class="min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg shadow-gray-100 dark:shadow-none border border-gray-50 dark:border-white/5 relative hover:-translate-y-2 transition-transform duration-300">
-                        <div class="text-4xl text-cyan/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-cyan text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">OM</div>
-                            <div>
-                                <h4 class="font-bold text-tech-blue dark:text-white">Olivier Mvondo</h4>
-                                <p class="text-xs text-cyan uppercase tracking-wider font-semibold">Client</p>
-                            </div>
-                        </div>
-                        <p class="text-charcoal/80 dark:text-gray-300 italic leading-relaxed relative z-10">"Excellent communication and results. Our ad campaigns have never performed better since working with Kumtech."</p>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -709,15 +692,95 @@
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
-    <!-- Back to Top Button (Desktop) -->
-    <button id="backToTop" class="hidden md:flex fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-orange to-soft-amber text-white rounded-full items-center justify-center text-lg shadow-custom cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 hover:bg-tech-blue hover:from-tech-blue hover:to-tech-blue hover:-translate-y-1 z-50" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <!-- WhatsApp Button with popup -->
+    <div id="whatsapp-container" class="fixed bottom-8 right-8 z-50 opacity-0 invisible translate-y-5 transition-all duration-300">
+        <!-- Chat Widget Popup -->
+        <div id="whatsapp-popup" class="absolute bottom-full right-0 mb-4 w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden origin-bottom-right transition-all duration-300 opacity-0 scale-90 pointer-events-none border border-gray-100 dark:border-slate-700">
+            <div class="bg-tech-blue p-4 flex items-center gap-3 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-tech-blue to-cyan opacity-90"></div>
+                <div class="relative z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white shrink-0">
+                    <i class="fas fa-headset"></i>
+                    <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-tech-blue rounded-full"></div>
+                </div>
+                <div class="relative z-10 flex-1">
+                    <h4 class="text-white font-bold text-sm leading-tight">Support Team</h4>
+                    <p class="text-white/80 text-xs">Typically replies instantly</p>
+                </div>
+                <button id="close-whatsapp-popup" class="relative z-10 text-white/70 hover:text-white transition-colors p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-4 bg-gray-50 dark:bg-slate-900/50">
+                <div class="bg-white dark:bg-slate-700 p-3.5 rounded-2xl rounded-tl-none shadow-sm text-sm text-charcoal dark:text-gray-200 leading-relaxed border border-gray-100 dark:border-slate-600">
+                    Hi there! 👋 How can we help you grow your business today?
+                </div>
+                <div class="text-[10px] text-gray-400 mt-2 text-right font-medium">Just now</div>
+            </div>
+        </div>
+        
+        <a href="https://wa.me/237679796638" id="whatsappMobileBtn" target="_blank" rel="noopener noreferrer" class="group relative w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center text-3xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-green-500/30">
+            <i class="fab fa-whatsapp"></i>
+            <!-- Red Live Dot -->
+            <span class="absolute top-0 right-0 flex h-3.5 w-3.5 -mt-1 -mr-1">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white dark:border-slate-900"></span>
+            </span>
+        </a>
+    </div>
 
-    <!-- WhatsApp Button (Mobile) -->
-    <a href="https://wa.me/237679796638" id="whatsappMobileBtn" target="_blank" rel="noopener noreferrer" class="md:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-orange to-soft-amber text-white rounded-full flex items-center justify-center text-2xl shadow-lg cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 hover:bg-tech-blue hover:from-tech-blue hover:to-tech-blue hover:-translate-y-1 z-50" aria-label="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Review Modal -->
+    <div id="reviewModal" class="fixed inset-0 z-[110] hidden items-center justify-center px-5" aria-hidden="true">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0" id="reviewOverlay"></div>
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl relative z-10 max-w-lg w-full transform scale-95 opacity-0 transition-all duration-300" id="reviewContent">
+            <button id="closeReviewBtn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-charcoal dark:text-white hover:bg-red-100 hover:text-red-500 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-tech-blue dark:text-white mb-2">Write a Review</h3>
+                <p class="text-charcoal/60 dark:text-gray-400 text-sm">Share your experience with Kumtech Gateway</p>
+            </div>
+
+            <form id="reviewForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-charcoal/70 dark:text-gray-400 uppercase tracking-wider mb-1">Full Name</label>
+                    <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-charcoal dark:text-white" placeholder="John Doe">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-charcoal/70 dark:text-gray-400 uppercase tracking-wider mb-1">Company (Optional)</label>
+                    <input type="text" name="company" class="w-full px-4 py-3 rounded-xl bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-charcoal dark:text-white" placeholder="TechHub">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-charcoal/70 dark:text-gray-400 uppercase tracking-wider mb-1">Rating</label>
+                    <div class="relative">
+                        <select name="rating" required class="w-full px-4 py-3 rounded-xl bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-charcoal dark:text-white appearance-none cursor-pointer">
+                            <option value="" disabled selected>Select a rating</option>
+                            <option value="5">★★★★★ (Excellent)</option>
+                            <option value="4">★★★★ (Good)</option>
+                            <option value="3">★★★ (Average)</option>
+                            <option value="2">★★ (Poor)</option>
+                            <option value="1">★ (Terrible)</option>
+                        </select>
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-charcoal/50 dark:text-gray-400">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-charcoal/70 dark:text-gray-400 uppercase tracking-wider mb-1">Review</label>
+                    <textarea name="review" rows="3" required class="w-full px-4 py-3 rounded-xl bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all resize-none text-charcoal dark:text-white" placeholder="Tell us about your experience..."></textarea>
+                </div>
+
+                <!-- Honeypot -->
+                <input type="text" name="website_check" hidden autocomplete="off">
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-tech-blue to-cyan text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">Submit Review</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Success Modal (Global Fixed) -->
     <div id="successModal" class="fixed inset-0 z-[100] flex items-center justify-center px-5 opacity-0 invisible transition-all duration-500">
@@ -757,7 +820,7 @@
     <script src="gallery-data.js" defer></script>
     <script src="portfolio-data.js"></script>
     <script src="portfolio-generator.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>

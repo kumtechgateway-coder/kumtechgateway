@@ -8,7 +8,7 @@ const portfolioData = [
         category: "Branding",
         title: "Kumtech Gateway Identity",
         description: "Complete brand identity design including logo, color palette, and visual assets for a leading tech agency.",
-        image: "images/poster1.webp",
+        image: "images/kumtechlogo.webp",
         fullData: {
             client: "Kumtech Gateway",
             timeline: "2024",
@@ -17,8 +17,9 @@ const portfolioData = [
             solution: "We developed a clean, geometric logo and a vibrant color palette combining Tech Blue and Cyan.",
             results: ["Increased brand recognition", "Consistent visual language", "Modernized digital presence"],
             gallery: [
-                "https://placehold.co/800x600/1F3C88/FFFFFF?text=Brand+Identity",
-                "https://placehold.co/800x600/1F3C88/FFFFFF?text=Visual+Assets"
+                "images/kumtechcolor.webp",
+                "images/kumtechmockup.webp", 
+                "images/kumtechmodel.webp",
             ]
         }
     },
@@ -38,7 +39,8 @@ const portfolioData = [
             gallery: [
                 "https://placehold.co/800x600/e2e8f0/1F3C88?text=Product+Page",
                 "https://placehold.co/800x600/e2e8f0/1F3C88?text=Checkout+Flow"
-            ]
+            ],
+            liveUrl: "https://kumtechgateway.com/"
         }
     },
     {

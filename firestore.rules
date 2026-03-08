@@ -1,0 +1,18 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // This rule allows anyone to create and read documents in the 'reviews' collection,
+    // but denies them the ability to update or delete any documents. This is a secure
+    // way to accept public submissions like reviews or contact form messages.
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+
+    // All other collections are locked down by default.
+    // Add rules for other collections here if you have them.
+  }
+}

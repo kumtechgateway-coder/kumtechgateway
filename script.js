@@ -1,3 +1,19 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDK-VZPOkgebi-Obl-JG7Z-283cJmiUDm4",
+  authDomain: "kumtechgateway-237.firebaseapp.com",
+  projectId: "kumtechgateway-237",
+  storageBucket: "kumtechgateway-237.firebasestorage.app",
+  messagingSenderId: "909947059277",
+  appId: "1:909947059277:web:40b0e5ddad2eef0991f004",
+  measurementId: "G-30MVBTWFKJ"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+ 
 /**
  * Kumtech Gateway Portfolio Website
  * JavaScript for interactive functionality
@@ -140,7 +156,9 @@ function main() {
     initContactForm();
     initBlogPages();
     initGalleryPage();
+    initProjectDetailPage();
     initGalleryPreview();
+    initReviews();
  
     // Set current year in footer
     const currentYearEl = document.getElementById('currentYear');
@@ -183,10 +201,8 @@ function initCustomCursor() {
                 bodyForCursor.classList.remove('cursor-active');
             }
 
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: 'forwards' });
+            cursorOutline.style.left = `${posX}px`;
+            cursorOutline.style.top = `${posY}px`;
         });
 
         bodyForCursor.addEventListener('mouseenter', () => {
@@ -528,6 +544,9 @@ function initPortfolioPage() {
     // a partial list (homepage) or a full list (portfolio page).
     if (typeof generatePortfolio === 'function' && typeof portfolioData !== 'undefined') {
         generatePortfolio(portfolioGrid);
+    } else {
+        // Safety: Clear the loading spinner if data is missing or generator fails
+        if (portfolioGrid) portfolioGrid.innerHTML = '';
     }
 
     // Step 2: If we are on the full portfolio page, initialize the filtering and infinite scroll logic.
@@ -637,14 +656,14 @@ function initPortfolioPage() {
 
             const resetAndFilter = () => {
                 filter.currentPage = 1;
-                applyFilterAndSearch();
-
-                // Hide all items before rendering the new batch
+                // First, hide all items to clear the current view.
                 portfolioItems.forEach(item => {
                     item.classList.add('hidden');
                     item.classList.remove('active');
                 });
 
+                // Then, calculate the new view and render the first page.
+                applyFilterAndSearch();
                 renderBatch();
             };
 
@@ -676,15 +695,12 @@ function initPortfolioPage() {
             }
 
             // Initial load
-            // Hide all cards initially, then run the filter
-            portfolioItems.forEach(item => item.classList.add('hidden'));
             // Set the first filter button as active
             const firstButton = document.querySelector('.filter-btn[data-filter="all"]');
             if(firstButton) firstButton.classList.add('active');
 
             resetAndFilter();
-
-
+            
             // Keyboard Shortcuts
             document.addEventListener('keydown', (e) => {
                 // Undo/Redo (Ctrl+Z / Ctrl+Y)
@@ -760,33 +776,56 @@ function initTestimonialSlider() {
 }
 
 function initFloatingButtons() {
-    // Back to Top Button
-    const backToTopBtn = document.getElementById('backToTop');
-    const whatsappMobileBtn = document.getElementById('whatsappMobileBtn');
-    
-    const scrollableButtons = [backToTopBtn, whatsappMobileBtn].filter(Boolean);
+    // WhatsApp Button & Popup
+    const whatsappContainer = document.getElementById('whatsapp-container');
+    if (whatsappContainer) {
+        const whatsappPopup = document.getElementById('whatsapp-popup');
+        const closePopupBtn = document.getElementById('close-whatsapp-popup');
 
-    if (scrollableButtons.length > 0) {
-        window.addEventListener('scroll', throttle(() => {
-            if (window.scrollY > 300) {
-                scrollableButtons.forEach(btn => {
-                    btn.classList.remove('opacity-0', 'invisible', 'translate-y-5');
-                    btn.classList.add('opacity-100', 'visible', 'translate-y-0');
-                });
-            } else {
-                scrollableButtons.forEach(btn => {
-                    btn.classList.add('opacity-0', 'invisible', 'translate-y-5');
-                    btn.classList.remove('opacity-100', 'visible', 'translate-y-0');
-                });
+        // Add the requested message to the popup
+        if (whatsappPopup) {
+            const messageElement = whatsappPopup.querySelector('p');
+            if (messageElement) {
+                messageElement.innerHTML += '<br>Contact us on WhatsApp for a quick response!';
             }
-        }), { passive: true });
+        }
+
+        const handleScroll = () => {
+            if (window.scrollY > 300) {
+                whatsappContainer.classList.remove('opacity-0', 'invisible', 'translate-y-5');
+                whatsappContainer.classList.add('opacity-100', 'visible', 'translate-y-0');
+
+                if (whatsappPopup && !sessionStorage.getItem('whatsappPopupClosed')) {
+                    if (whatsappPopup.classList.contains('opacity-0')) {
+                        setTimeout(() => {
+                            whatsappPopup.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+                            whatsappPopup.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                        }, 500);
+                    }
+                }
+            } else {
+                whatsappContainer.classList.add('opacity-0', 'invisible', 'translate-y-5');
+                whatsappContainer.classList.remove('opacity-100', 'visible', 'translate-y-0');
+            }
+        };
+
+        // Initial check
+        handleScroll();
+        
+        // Show/hide based on scroll
+        window.addEventListener('scroll', throttle(handleScroll), { passive: true });
+
+        // Handle Close Button
+        if (closePopupBtn && whatsappPopup) {
+            closePopupBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                whatsappPopup.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+                whatsappPopup.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                sessionStorage.setItem('whatsappPopupClosed', 'true');
+            });
+        }
     }
-    
-    if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }    
 }
 
 /**
@@ -1887,6 +1926,346 @@ function initGalleryPage() {
 
         applyFilter('all');
         observer.observe(sentinel);
+    }
+}
+
+/**
+ * Initializes the Review System
+ */
+function initReviews() {
+    const reviewModal = document.getElementById('reviewModal');
+    const openBtn = document.getElementById('openReviewForm');
+    const closeBtn = document.getElementById('closeReviewBtn');
+    const overlay = document.getElementById('reviewOverlay');
+    const content = document.getElementById('reviewContent');
+    const form = document.getElementById('reviewForm');
+
+    // 1. Load Reviews
+    loadReviews();
+
+    // 2. Modal Logic
+    if (reviewModal && openBtn) {
+        const openModal = () => {
+            reviewModal.classList.remove('hidden');
+            reviewModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            // Animation
+            requestAnimationFrame(() => {
+                overlay.classList.remove('opacity-0');
+                content.classList.remove('opacity-0', 'scale-95');
+                content.classList.add('scale-100');
+            });
+        };
+
+        const closeModal = () => {
+            overlay.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                reviewModal.classList.add('hidden');
+                reviewModal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300);
+        };
+
+        openBtn.addEventListener('click', openModal);
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (overlay) overlay.addEventListener('click', closeModal);
+    }
+
+    // 3. Handle Submission
+    if (form) {
+        form.addEventListener('submit', handleReviewSubmission);
+    }
+}
+
+async function loadReviews() {
+    const prevBtn = document.getElementById('prevTestimonial');
+    const nextBtn = document.getElementById('nextTestimonial');
+    
+    const hideSliderButtons = () => {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+    };
+    
+    try {
+        // Fetch reviews ordered by newest first, limited to 20
+        const q = query(collection(db, "reviews"), orderBy("createdAt", "desc"), limit(20));
+        const querySnapshot = await getDocs(q);
+        const reviews = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            reviews.push(data);
+        });
+
+        if (reviews.length > 0) {
+            renderReviews(reviews);
+        } else {
+            hideSliderButtons();
+        }
+    } catch (error) {
+        console.error("Error loading reviews:", error);
+        hideSliderButtons();
+    }
+}
+
+/**
+ * Escapes HTML characters to prevent XSS attacks.
+ * @param {string} str - The string to escape.
+ * @returns {string} - The escaped string.
+ */
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
+}
+
+function renderReviews(reviews) {
+    const track = document.getElementById('testimonialTrack');
+    if (!track) return;
+    track.innerHTML = ''; // Clear existing reviews before rendering new ones
+
+    reviews.forEach(review => {
+        // Generate Initials
+        const initials = review.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        
+        // Generate Stars
+        const starsHTML = Array(5).fill(0).map((_, i) => 
+            `<i class="fas fa-star ${i < review.rating ? '' : 'text-gray-300'}"></i>`
+        ).join('');
+
+        const card = document.createElement('div');
+        card.className = 'min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg shadow-gray-100 dark:shadow-none border border-gray-50 dark:border-white/5 relative hover:-translate-y-2 transition-transform duration-300';
+        
+        card.innerHTML = `
+            <div class="text-4xl text-cyan/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-cyan text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">${initials}</div>
+                <div>
+                    <h4 class="font-bold text-tech-blue dark:text-white">${escapeHtml(review.name)}</h4>
+                    <p class="text-xs text-cyan uppercase tracking-wider font-semibold">${escapeHtml(review.company || 'Client')}</p>
+                </div>
+            </div>
+            <div class="flex gap-1 text-orange text-xs mb-4">
+                ${starsHTML}
+            </div>
+            <p class="text-charcoal/80 dark:text-gray-300 italic leading-relaxed relative z-10">"${escapeHtml(review.review)}"</p>
+        `;
+
+        track.appendChild(card);
+    });
+}
+
+async function handleReviewSubmission(e) {
+    e.preventDefault();
+    const form = e.target;
+    
+    if (form.website_check.value) return;
+
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerText;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+    const showSuccessAndReset = (title, text) => {
+        const reviewModal = document.getElementById('reviewModal');
+        const overlay = document.getElementById('reviewOverlay');
+        const content = document.getElementById('reviewContent');
+        if (!overlay || !content) return;
+
+        // The success message is now configurable.
+        overlay.classList.add('opacity-0');
+        content.classList.remove('scale-100');
+        content.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            reviewModal.classList.add('hidden');
+            reviewModal.classList.remove('flex');
+            document.body.style.overflow = '';
+            
+            const successModal = document.getElementById('successModal');
+            const successTitleEl = document.getElementById('successTitle');
+            const successTextEl = document.getElementById('successText');
+            if (successModal) {
+                if(successTitleEl) successTitleEl.textContent = title;
+                if(successTextEl) successTextEl.textContent = text;
+                successModal.classList.add('active');
+                if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#00B4D8', '#F97316'] });
+            }
+            form.reset();
+            btn.disabled = false;
+            btn.innerText = originalText;
+        }, 300);
+    };
+
+    const name = form.querySelector('[name="name"]').value;
+    const company = form.querySelector('[name="company"]').value;
+    const rating = parseInt(form.querySelector('[name="rating"]').value, 10);
+    const review = form.querySelector('[name="review"]').value;
+
+    try {
+        await addDoc(collection(db, "reviews"), {
+            name: name,
+            company: company,
+            rating: rating,
+            review: review,
+            createdAt: serverTimestamp()
+        });
+
+        showSuccessAndReset(
+            'Review Submitted!',
+            'Thank you for your feedback. It will be visible after moderation.'
+        );
+        loadReviews(); // Refresh the reviews list to show the new submission
+    } catch (error) {
+        console.error('Submission Error:', error);
+        Toast.show('Sorry, there was an error submitting your review.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+
+
+function initProjectDetailPage() {
+    const container = document.getElementById('project-detail-container');
+    if (!container) return;
+    
+    const loader = document.getElementById('project-loader');
+    const content = document.getElementById('project-content');
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id');
+    const project = portfolioData.find(p => p.id === projectId);
+    
+    if (!project || !project.fullData) {
+        container.innerHTML = `<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Project Not Found</h2><p class="text-charcoal/60 mb-6">The project you are looking for does not exist or has been moved.</p><a href="portfolio.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Portfolio</a></div>`;
+        document.title = "404 - Project Not Found | Kumtech Gateway";
+        return;
+    }
+    
+    // --- Populate Page Data ---
+    document.title = `${project.title} | Kumtech Gateway Project`;
+    
+    const mainImage = document.getElementById('project-main-image');
+    const thumbnailsContainer = document.getElementById('project-thumbnails');
+    const categoryEl = document.getElementById('project-category');
+    const titleEl = document.getElementById('project-title');
+    const descriptionEl = document.getElementById('project-description');
+    
+    // Info Box elements
+    const clientInfoEl = document.getElementById('project-client-info');
+    const timelineInfoEl = document.getElementById('project-timeline-info');
+    const servicesInfoEl = document.getElementById('project-services-info');
+    const liveSiteLink = document.getElementById('live-site-link');
+    
+    const challengeEl = document.getElementById('project-challenge');
+    const solutionEl = document.getElementById('project-solution');
+    const resultsContainer = document.getElementById('project-results-container');
+    const resultsEl = document.getElementById('project-results');
+    const relatedGrid = document.getElementById('related-projects-grid');
+    const relatedSection = document.getElementById('related-projects-section');
+    
+    // Basic Info
+    if (categoryEl) categoryEl.textContent = project.category;
+    if (titleEl) titleEl.textContent = project.title;
+    if (descriptionEl) descriptionEl.textContent = project.description;
+    if (challengeEl) challengeEl.textContent = project.fullData.challenge;
+    if (solutionEl) solutionEl.textContent = project.fullData.solution;
+    
+    // Info Box
+    if (clientInfoEl) {
+        clientInfoEl.innerHTML = `
+            <i class="fas fa-user-tie text-cyan w-5 text-center mt-1 shrink-0"></i>
+            <div>
+                <span class="block text-xs font-bold tracking-wide text-cyan uppercase">Client</span>
+                <span class="font-medium text-tech-blue dark:text-gray-200">${project.fullData.client}</span>
+            </div>`;
+    }
+    if (timelineInfoEl) {
+        timelineInfoEl.innerHTML = `
+            <i class="fas fa-calendar-alt text-cyan w-5 text-center mt-1 shrink-0"></i>
+            <div>
+                <span class="block text-xs font-bold tracking-wide text-cyan uppercase">Timeline</span>
+                <span class="font-medium text-tech-blue dark:text-gray-200">${project.fullData.timeline}</span>
+            </div>`;
+    }
+    if (servicesInfoEl) {
+        servicesInfoEl.innerHTML = `
+            <i class="fas fa-cogs text-cyan w-5 text-center mt-1 shrink-0"></i>
+            <div>
+                <span class="block text-xs font-bold tracking-wide text-cyan uppercase">Services</span>
+                <span class="font-medium text-tech-blue dark:text-gray-200">${project.fullData.services}</span>
+            </div>`;
+    }
+    
+    // Live Site Link
+    if (liveSiteLink && project.fullData.liveUrl) {
+        liveSiteLink.href = project.fullData.liveUrl;
+        liveSiteLink.classList.remove('hidden');
+    }
+    
+    // Key Results
+    if (resultsEl && project.fullData.results && project.fullData.results.length > 0) {
+        resultsEl.innerHTML = project.fullData.results.map(r =>
+            `<li class="flex items-start gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${r}</span></li>`
+        ).join('');
+    } else if (resultsContainer) {
+        resultsContainer.classList.add('hidden');
+    }
+    
+    // Image Gallery
+    const images = [project.image, ...(project.fullData.gallery || [])];
+    if (mainImage) mainImage.src = images[0]; // Set initial image
+    if (thumbnailsContainer) {
+        thumbnailsContainer.innerHTML = images.map((imgSrc, index) =>
+            `<img src="${imgSrc}" alt="${project.title} thumbnail ${index + 1}" class="w-28 h-16 object-cover rounded-lg shadow-md cursor-pointer border-2 ${index === 0 ? 'border-cyan scale-105 opacity-100' : 'border-transparent opacity-60'} hover:opacity-100 hover:scale-105 transition-all" data-src="${imgSrc}">`
+        ).join('');
+        
+        thumbnailsContainer.addEventListener('click', e => {
+            if (e.target.tagName === 'IMG') {
+                // Add a fade effect for the main image
+                if (mainImage) {
+                    mainImage.style.opacity = 0;
+                    setTimeout(() => {
+                        mainImage.src = e.target.dataset.src;
+                        mainImage.style.opacity = 1;
+                    }, 200);
+                }
+                thumbnailsContainer.querySelectorAll('img').forEach(img => {
+                    img.classList.remove('border-cyan', 'scale-105', 'opacity-100');
+                    img.classList.add('border-transparent', 'opacity-60');
+                });
+                e.target.classList.remove('border-transparent', 'opacity-60');
+                e.target.classList.add('border-cyan', 'scale-105', 'opacity-100');
+            }
+        });
+    }
+    
+    // Related Projects
+    if (relatedGrid && relatedSection) {
+        const related = portfolioData
+            .filter(p => p.id !== project.id && p.category === project.category)
+            .slice(0, 3);
+        
+        if (related.length > 0) {
+            relatedGrid.innerHTML = related.map(rp => `
+                <a href="project-detail.html?id=${rp.id}" class="group block bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-200 dark:border-slate-700 hover:-translate-y-1">
+                    <div class="aspect-video bg-slate-100 dark:bg-slate-700">
+                        <img src="${rp.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="${rp.title}">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-heading font-bold text-tech-blue dark:text-white line-clamp-2 mb-1">${rp.title}</h3>
+                        <p class="text-xs text-cyan uppercase font-semibold">${rp.category}</p>
+                    </div>
+                </a>
+            `).join('');
+        } else {
+            relatedSection.classList.add('hidden');
+        }
+    }
+    
+    // Show content and hide loader
+    if (loader && content) {
+        loader.style.display = 'none';
+        content.classList.remove('hidden');
     }
 }
 
