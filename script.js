@@ -569,21 +569,16 @@ function initCounters() {
  */
 function generateFilterButtons() {
     const container = document.getElementById('filter-buttons');
-    if (!container || typeof portfolioData === 'undefined') return;
+    if (!container) return;
 
-    // Get all unique categories from portfolio data for a cleaner filter UI
-    const allFilters = new Set();
-    portfolioData.forEach(project => {
-        // Add the main category (and its parts, e.g., "Branding & Identity")
-        if (project.category) {
-            project.category.split('&').forEach(catPart => {
-                allFilters.add(catPart.trim());
-            });
-        }
-    });
-
-    // Sort filters alphabetically
-    const sortedFilters = [...allFilters].sort();
+    // Specific filters requested
+    const sortedFilters = [
+        'Web Design',
+        'Graphic Design',
+        'Web Development',
+        'Ads Management',
+        'Google Business'
+    ];
 
     // Generate HTML for buttons
     const buttonsHTML = sortedFilters.map(filter => {
@@ -1478,10 +1473,17 @@ function initContactForm() {
                 const inputs = emailForm.querySelectorAll('input:not(.honeypot), select, textarea');
                 let isValid = true;
                 
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
                 inputs.forEach(input => {
+                    const isEmailField = input.type === 'email';
                     if (!input.value.trim()) {
                         isValid = false;
                         input.classList.add('border-red-500');
+                    } else if (isEmailField && !emailRegex.test(input.value)) {
+                        isValid = false;
+                        input.classList.add('border-red-500');
+                        Toast.show('Please enter a valid email address', 'error');
                     } else {
                         input.classList.remove('border-red-500');
                     }

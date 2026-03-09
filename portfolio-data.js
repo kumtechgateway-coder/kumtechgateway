@@ -7,7 +7,7 @@ const portfolioData = [
     /*kumtechgateway*/
     {
         id: "kumtech-branding",
-        category: "Branding",
+        category: "Graphic Design",
         title: "Kumtech Gateway Identity",
         description: "Complete brand identity design including logo, color palette, and visual assets for a leading tech agency.",
         image: "images/kumtechlogo.webp",
@@ -23,14 +23,15 @@ const portfolioData = [
                 "images/kumtechmockup.webp", 
                 "images/kumtechmodel.webp",
             ],
-            technologies: ["Figma", "Illustrator", "Photoshop"]
+            technologies: ["Figma", "Illustrator", "Photoshop"],
+            liveUrl: "#"
         }
     },
 
     /*rmdigitalvillage*/
     {
         id: "rm-digital-village",
-        category: "Branding & Identity",
+        category: "Graphic Design",
         title: "RM Digital Village Visual Identity",
         description: "A comprehensive brand identity system for a digital-first organization, featuring a tech-forward color palette and professional stationery mockups.",
         image: "images/rmlogo.webp",
@@ -51,14 +52,14 @@ const portfolioData = [
                 "images/rmmodel.webp"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
-            liveUrl: "https://kumtechgateway.com/"
+            liveUrl: "#"
         }
     },
 
     /*goldenaura*/ 
     {
         id: "golden-aura",
-        category: "Branding & Identity",
+        category: "Graphic Design",
         title: "Golden Aura Luxury Branding",
         description: "A sophisticated and elegant brand identity designed for a high-end wellness or lifestyle brand, utilizing a warm, premium palette.",
         image: "images/goldenlogo.webp",
@@ -79,14 +80,14 @@ const portfolioData = [
                 "images/goldenmodel.webp"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "InDesign"],
-            liveUrl: "https://kumtechgateway.com/"
+            liveUrl: "#"
         }
     },
 
     /* rapha maria */
     {
         id: "rapha-maria-residence",
-        category: "Branding & Identity",
+        category: "Graphic Design",
         title: "Rapha Maria Residence Visual Identity",
         description: "An elegant and welcoming brand identity for a premium residential property, featuring a soft pastel palette.",
         image: "images/raphalogo.webp",
@@ -106,7 +107,7 @@ const portfolioData = [
                 "images/raphamodel.webp"
             ],
             technologies: ["Adobe Illustrator", "Figma", "Photoshop"],
-            liveUrl: "https://kumtechgateway.com/"
+            liveUrl: "#"
         }
     },
 
@@ -139,7 +140,7 @@ const portfolioData = [
     
     {
         id: "eco-friendly-brand",
-        category: "Branding",
+        category: "Graphic Design",
         title: "Eco-Friendly Brand Identity",
         description: "Developed a brand focused on sustainability with eco-friendly materials and messaging.",
         image: "https://placehold.co/800x600/22C55E/FFFFFF?text=Eco+Branding",
@@ -154,7 +155,8 @@ const portfolioData = [
                 "https://placehold.co/800x600/22C55E/FFFFFF?text=Eco+Packaging",
                 "https://placehold.co/800x600/22C55E/FFFFFF?text=Sustainable+Logo"
             ],
-            technologies: ["Illustrator", "Figma", "Shopify"]
+            technologies: ["Illustrator", "Figma", "Shopify"],
+            liveUrl: "#"
         }
     },
     {
@@ -179,7 +181,7 @@ const portfolioData = [
     },
     {
         id: "seo-strategy",
-        category: "Marketing",
+        category: "Google Business",
         title: "Comprehensive SEO Strategy",
         description: "Data-driven SEO campaign that improved search rankings and organic traffic for a local law firm.",
         image: "https://placehold.co/800x600/FDBA74/1F3C88?text=SEO+Campaign",
@@ -194,7 +196,8 @@ const portfolioData = [
                 "https://placehold.co/800x600/FDBA74/1F3C88?text=Keyword+Ranking",
                 "https://placehold.co/800x600/FDBA74/1F3C88?text=Traffic+Growth"
             ],
-            technologies: ["Ahrefs", "SEMrush", "Google Analytics", "Google Search Console"]
+            technologies: ["Ahrefs", "SEMrush", "Google Analytics", "Google Search Console"],
+            liveUrl: "#"
         }
     },
     {
@@ -219,7 +222,7 @@ const portfolioData = [
     },
     {
         id: "fitness-tracker",
-        category: "Development",
+        category: "App Development",
         title: "Fitness Tracker App",
         description: "Cross-platform mobile application for tracking workouts and health metrics using React Native.",
         image: "https://placehold.co/800x600/EF4444/FFFFFF?text=Fitness+App",
@@ -239,7 +242,7 @@ const portfolioData = [
     },
     {
         id: "email-marketing",
-        category: "Marketing",
+        category: "Ads Management",
         title: "Email Marketing Automation",
         description: "Automated email workflows that increased customer retention and sales for an online retailer.",
         image: "https://placehold.co/800x600/F97316/FFFFFF?text=Email+Marketing",
@@ -254,12 +257,13 @@ const portfolioData = [
                 "https://placehold.co/800x600/F97316/FFFFFF?text=Newsletter+Template",
                 "https://placehold.co/800x600/F97316/FFFFFF?text=Campaign+Results"
             ],
-            technologies: ["Mailchimp", "Klaviyo", "HTML Email"]
+            technologies: ["Mailchimp", "Klaviyo", "HTML Email"],
+            liveUrl: "#"
         }
     },
     {
         id: "travel-branding",
-        category: "Branding",
+        category: "Graphic Design",
         title: "Travel Agency Branding",
         description: "Vibrant and adventurous brand identity for a modern travel agency targeting thrill-seekers.",
         image: "https://placehold.co/800x600/00B4D8/FFFFFF?text=Travel+Branding",
@@ -274,7 +278,8 @@ const portfolioData = [
                 "https://placehold.co/800x600/00B4D8/FFFFFF?text=Travel+Brochure",
                 "https://placehold.co/800x600/00B4D8/FFFFFF?text=Adventure+Logo"
             ],
-            technologies: ["Figma", "Webflow", "Illustrator"]
+            technologies: ["Figma", "Webflow", "Illustrator"],
+            liveUrl: "#"
         }
     }
 ];

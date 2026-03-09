@@ -52,7 +52,7 @@ function createPortfolioCard(project, index, isPortfolioPage) {
     const normalize = term => term.trim().toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
 
     if (project.category) {
-        project.category.split('&').forEach(cat => filterTerms.add(normalize(cat)));
+        filterTerms.add(normalize(project.category));
     }
     if (project.fullData && project.fullData.services) {
         project.fullData.services.split(',').forEach(service => filterTerms.add(normalize(service)));

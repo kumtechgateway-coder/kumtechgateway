@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v64'; // Cache version updated
+const CACHE_NAME = 'kumtech-cache-v74'; // Cache version updated
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -20,7 +20,7 @@ const ASSETS_TO_CACHE = [
   './translations.json',
   './images/logo.png',
   './images/hero.png',
-  './images/PSX_20251123_141018.jpg', // About section image
+  './images/about-me-profile.jpg', // About section image
   './sounds/success.mp3' // Contact form success sound
   // Note: CDN assets like FontAwesome and Tailwind are intentionally excluded.
   // Caching them directly can cause CORS issues. The browser's HTTP cache is sufficient.
