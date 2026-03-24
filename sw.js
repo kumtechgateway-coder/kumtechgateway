@@ -1,7 +1,8 @@
-const CACHE_NAME = 'kumtech-cache-v76';
+const CACHE_NAME = 'kumtech-cache-v77';
 const PRECACHE_URLS = [
   './',
   './index.html',
+  './pricing.html',
   './portfolio.html',
   './gallery.html',
   './project-detail.html',
@@ -16,6 +17,7 @@ const PRECACHE_URLS = [
   './assets/js/portfolio-generator.js',
   './assets/data/portfolio-data.js',
   './assets/data/gallery-data.js',
+  './assets/data/pricing-data.js',
   './assets/data/blog.json',
   './assets/data/translations.json',
   './images/logo.png',
