@@ -244,17 +244,85 @@ function renderPricingPlan(plan) {
     `;
 }
 
+function renderPricingServicePreview(service) {
+    const tones = getPricingToneClasses(service.tone, false);
+    const highlights = (service.highlights || []).map((item) => `
+        <li class="flex items-start gap-3 text-sm text-charcoal/75 dark:text-gray-300">
+            <span class="mt-0.5 w-5 h-5 rounded-full ${tones.subtle} flex items-center justify-center text-[10px] shrink-0">
+                <i class="fas fa-check"></i>
+            </span>
+            <span>${escapeHtml(item)}</span>
+        </li>
+    `).join('');
+
+    return `
+        <article class="rounded-[2rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-800 p-8 shadow-[0_18px_50px_-22px_rgba(15,23,42,0.28)] ${tones.ring}">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase ${tones.badge}">${escapeHtml(service.eyebrow)}</span>
+            <h3 class="font-heading text-2xl font-bold text-tech-blue dark:text-white mt-5">${escapeHtml(service.name)}</h3>
+            <p class="mt-4 text-charcoal/70 dark:text-gray-400 leading-relaxed min-h-[96px]">${escapeHtml(service.summary)}</p>
+            <div class="mt-7">
+                <div class="flex items-end gap-3 flex-wrap">
+                    <span class="font-heading text-4xl font-bold text-charcoal dark:text-white">${escapeHtml(service.startingPrice)}</span>
+                    <span class="text-sm uppercase tracking-[0.18em] text-charcoal/45 dark:text-gray-500 pb-1">${escapeHtml(service.pricingNote)}</span>
+                </div>
+            </div>
+            <ul class="space-y-3 my-8">
+                ${highlights}
+            </ul>
+            <a href="${escapeHtml(service.ctaHref)}" class="inline-flex items-center justify-center w-full px-6 py-3.5 rounded-full font-bold text-white bg-gradient-to-r ${tones.accent} hover:-translate-y-0.5 transition-all duration-300 shadow-lg">
+                ${escapeHtml(service.ctaLabel)}
+            </a>
+        </article>
+    `;
+}
+
+function renderPricingServiceSection(service) {
+    const plans = Array.isArray(service.plans) ? service.plans : [];
+
+    return `
+        <section id="service-${escapeHtml(service.id)}" class="rounded-[2.25rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-6 md:p-8 xl:p-10 shadow-[0_24px_70px_-34px_rgba(15,23,42,0.38)]">
+            <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-6 mb-10">
+                <div class="max-w-3xl">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase ${getPricingToneClasses(service.tone, false).badge}">${escapeHtml(service.eyebrow)}</span>
+                    <h3 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue dark:text-white mt-4">${escapeHtml(service.name)}</h3>
+                    <p class="mt-4 text-lg text-charcoal/70 dark:text-gray-400 leading-relaxed">${escapeHtml(service.summary)}</p>
+                </div>
+                <div class="xl:text-right">
+                    <div class="text-sm uppercase tracking-[0.2em] text-charcoal/45 dark:text-gray-500">${escapeHtml(service.pricingNote)}</div>
+                    <div class="font-heading text-3xl md:text-4xl font-bold text-charcoal dark:text-white mt-2">${escapeHtml(service.startingPrice)}</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                ${plans.map(renderPricingPlan).join('')}
+            </div>
+        </section>
+    `;
+}
+
 function initPricingSections() {
     const pricingSource = window.pricingData;
-    if (!pricingSource || !Array.isArray(pricingSource.plans)) return;
+    if (!pricingSource || !Array.isArray(pricingSource.services)) return;
+
+    const services = pricingSource.services;
 
     document.querySelectorAll('[data-pricing-grid]').forEach((grid) => {
         const variant = grid.getAttribute('data-pricing-variant') || 'full';
-        const plans = variant === 'preview'
-            ? pricingSource.plans.slice(0, 3)
-            : pricingSource.plans;
+        const limit = Number(grid.getAttribute('data-pricing-limit')) || 3;
 
-        grid.innerHTML = plans.map(renderPricingPlan).join('');
+        if (variant === 'preview') {
+            grid.innerHTML = services.slice(0, limit).map(renderPricingServicePreview).join('');
+            return;
+        }
+
+        grid.innerHTML = services.map(renderPricingServiceSection).join('');
+    });
+
+    document.querySelectorAll('[data-pricing-nav]').forEach((navContainer) => {
+        navContainer.innerHTML = services.map((service) => `
+            <a href="#service-${escapeHtml(service.id)}" class="inline-flex items-center justify-center px-5 py-3 rounded-full border border-tech-blue/15 dark:border-white/10 bg-white/80 dark:bg-slate-800 text-tech-blue dark:text-white font-semibold hover:bg-tech-blue hover:text-white dark:hover:bg-cyan dark:hover:text-charcoal transition-all duration-300">
+                ${escapeHtml(service.name)}
+            </a>
+        `).join('');
     });
 
     document.querySelectorAll('[data-pricing-faq]').forEach((faqContainer) => {
