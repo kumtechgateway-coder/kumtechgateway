@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, serverTimestamp, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDK-VZPOkgebi-Obl-JG7Z-283cJmiUDm4",
@@ -344,37 +344,34 @@ function initScrollBehaviors() {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section');
     
+    const setMenuState = (isOpen) => {
+        if (!menuToggle || !navMenu) return;
+
+        navMenu.classList.toggle('active', isOpen);
+        menuToggle.classList.toggle('active', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        navMenu.setAttribute('aria-hidden', String(!isOpen));
+
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('fa-bars', !isOpen);
+            icon.classList.toggle('fa-times', isOpen);
+        }
+
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    };
+
     // Mobile menu toggle
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-            
-            // Toggle Icon
-            const icon = menuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-times');
-            }
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            setMenuState(!navMenu.classList.contains('active'));
         });
     }
     
     // Close mobile menu when clicking a link
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            if (navMenu && menuToggle) {
-                navMenu.classList.remove('active');
-                menuToggle.classList.remove('active');
-                
-                // Reset Icon
-                const icon = menuToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
-                }
-                document.body.style.overflow = '';
-            }
+            setMenuState(false);
         });
     });
     
@@ -385,17 +382,15 @@ function initScrollBehaviors() {
             const isClickOnToggle = menuToggle.contains(event.target);
             
             if (navMenu.classList.contains('active') && !isClickInsideMenu && !isClickOnToggle) {
-                navMenu.classList.remove('active');
-                menuToggle.classList.remove('active');
-                
-                // Reset Icon
-                const icon = menuToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
-                }
-                document.body.style.overflow = '';
+                setMenuState(false);
             }
+        }
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+            setMenuState(false);
+            menuToggle.focus();
         }
     });
     
@@ -2038,6 +2033,7 @@ function initReviews() {
     const overlay = document.getElementById('reviewOverlay');
     const content = document.getElementById('reviewContent');
     const form = document.getElementById('reviewForm');
+    let previouslyFocusedElement = null;
 
     // 1. Load Reviews
     loadReviews();
@@ -2045,14 +2041,17 @@ function initReviews() {
     // 2. Modal Logic
     if (reviewModal && openBtn) {
         const openModal = () => {
+            previouslyFocusedElement = document.activeElement;
             reviewModal.classList.remove('hidden');
             reviewModal.classList.add('flex');
+            reviewModal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
             // Animation
             requestAnimationFrame(() => {
                 overlay.classList.remove('opacity-0');
                 content.classList.remove('opacity-0', 'scale-95');
                 content.classList.add('scale-100');
+                if (closeBtn) closeBtn.focus();
             });
         };
 
@@ -2063,13 +2062,22 @@ function initReviews() {
             setTimeout(() => {
                 reviewModal.classList.add('hidden');
                 reviewModal.classList.remove('flex');
+                reviewModal.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
+                if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
+                    previouslyFocusedElement.focus();
+                }
             }, 300);
         };
 
         openBtn.addEventListener('click', openModal);
         if (closeBtn) closeBtn.addEventListener('click', closeModal);
         if (overlay) overlay.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !reviewModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
     }
 
     // 3. Handle Submission
@@ -2088,8 +2096,13 @@ async function loadReviews() {
     };
     
     try {
-        // Fetch reviews ordered by newest first, limited to 20
-        const q = query(collection(db, "reviews"), orderBy("createdAt", "desc"), limit(20));
+        // Fetch approved reviews ordered by newest first, limited to 20
+        const q = query(
+            collection(db, "reviews"),
+            where("approved", "==", true),
+            orderBy("createdAt", "desc"),
+            limit(20)
+        );
         const querySnapshot = await getDocs(q);
         const reviews = [];
         querySnapshot.forEach((doc) => {
@@ -2206,6 +2219,7 @@ async function handleReviewSubmission(e) {
             company: company,
             rating: rating,
             review: review,
+            approved: false,
             createdAt: serverTimestamp()
         });
 

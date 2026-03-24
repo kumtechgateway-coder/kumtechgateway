@@ -2,13 +2,33 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isValidReviewSubmission() {
+      return request.resource.data.keys().hasOnly([
+        "name",
+        "company",
+        "rating",
+        "review",
+        "approved",
+        "createdAt"
+      ]) &&
+      request.resource.data.name is string &&
+      request.resource.data.name.size() >= 2 &&
+      request.resource.data.name.size() <= 80 &&
+      request.resource.data.company is string &&
+      request.resource.data.company.size() <= 80 &&
+      request.resource.data.review is string &&
+      request.resource.data.review.size() >= 10 &&
+      request.resource.data.review.size() <= 1000 &&
+      request.resource.data.rating is int &&
+      request.resource.data.rating >= 1 &&
+      request.resource.data.rating <= 5 &&
+      request.resource.data.approved == false &&
+      request.resource.data.createdAt == request.time;
+    }
 
-    // This rule allows anyone to create and read documents in the 'reviews' collection,
-    // but denies them the ability to update or delete any documents. This is a secure
-    // way to accept public submissions like reviews or contact form messages.
     match /reviews/{reviewId} {
-      allow read: if true;
-      allow create: if true;
+      allow read: if resource.data.approved == true;
+      allow create: if isValidReviewSubmission();
       allow update, delete: if false;
     }
 

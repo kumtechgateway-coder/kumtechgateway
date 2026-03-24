@@ -1,5 +1,5 @@
-const CACHE_NAME = 'kumtech-cache-v74'; // Cache version updated
-const ASSETS_TO_CACHE = [
+const CACHE_NAME = 'kumtech-cache-v75';
+const PRECACHE_URLS = [
   './',
   './index.html',
   './portfolio.html',
@@ -16,63 +16,82 @@ const ASSETS_TO_CACHE = [
   './portfolio-data.js',
   './portfolio-generator.js',
   './gallery-data.js',
-  './blog.json', 
+  './blog.json',
   './translations.json',
   './images/logo.png',
   './images/hero.png',
-  './images/about-me-profile.jpg', // About section image
-  './sounds/success.mp3' // Contact form success sound
-  // Note: CDN assets like FontAwesome and Tailwind are intentionally excluded.
-  // Caching them directly can cause CORS issues. The browser's HTTP cache is sufficient.
+  './sounds/success.mp3'
 ];
 
-// Install Service Worker
+async function cacheResponse(request, response) {
+  if (!response || response.status !== 200 || response.type !== 'basic') {
+    return response;
+  }
+
+  const cache = await caches.open(CACHE_NAME);
+  await cache.put(request, response.clone());
+  return response;
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        return cache.addAll(ASSETS_TO_CACHE);
-      }),
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.all(
+        PRECACHE_URLS.map((asset) =>
+          cache.add(asset).catch(() => undefined)
+        )
+      )
+    )
   );
   self.skipWaiting();
 });
 
-// Fetch Assets
 self.addEventListener('fetch', (event) => {
-  const requestUrl = new URL(event.request.url);
+  const { request } = event;
 
-  // --- Strategy 1: Ignore cross-origin requests ---
-  // If the request is for a resource on a different origin (e.g., Google Fonts, Firebase API),
-  // don't handle it in the service worker. Let the browser fetch it directly.
-  // This is the safest way to avoid interfering with third-party services.
+  if (request.method !== 'GET') {
+    return;
+  }
+
+  const requestUrl = new URL(request.url);
   if (requestUrl.origin !== self.location.origin) {
-    return; // Let the browser handle it.
+    return;
   }
 
-  // --- Strategy 2: Handle same-origin GET requests with a cache-first approach ---
-  // For GET requests to our own domain, try the cache first.
-  if (event.request.method === 'GET') {
+  if (request.mode === 'navigate') {
     event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        // If we find a match in the cache, return it. Otherwise, fetch from the network.
-        return cachedResponse || fetch(event.request);
-      })
+      fetch(request)
+        .then((response) => cacheResponse(request, response))
+        .catch(async () => {
+          const cachedPage = await caches.match(request);
+          return cachedPage || caches.match('./index.html');
+        })
     );
+    return;
   }
+
+  event.respondWith(
+    caches.match(request).then((cachedResponse) => {
+      const networkFetch = fetch(request)
+        .then((response) => cacheResponse(request, response))
+        .catch(() => cachedResponse);
+
+      return cachedResponse || networkFetch;
+    })
+  );
 });
 
-// Activate Service Worker & Clean Up Old Caches
 self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (cacheName !== CACHE_NAME) {
             return caches.delete(cacheName);
           }
+          return undefined;
         })
-      ).then(() => self.clients.claim());
-    }),
+      )
+    ).then(() => self.clients.claim())
   );
 });
