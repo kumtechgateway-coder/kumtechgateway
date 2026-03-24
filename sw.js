@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v75';
+const CACHE_NAME = 'kumtech-cache-v76';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -8,19 +8,19 @@ const PRECACHE_URLS = [
   './services.html',
   './blog.html',
   './blog-post.html',
-  './navbar.html',
-  './footer.html',
+  './components/navbar.html',
+  './components/footer.html',
   './404.html',
-  './style.css',
-  './script.js',
-  './portfolio-data.js',
-  './portfolio-generator.js',
-  './gallery-data.js',
-  './blog.json',
-  './translations.json',
+  './assets/css/style.css',
+  './assets/js/app.js',
+  './assets/js/portfolio-generator.js',
+  './assets/data/portfolio-data.js',
+  './assets/data/gallery-data.js',
+  './assets/data/blog.json',
+  './assets/data/translations.json',
   './images/logo.png',
   './images/hero.png',
-  './sounds/success.mp3'
+  './assets/audio/success.mp3'
 ];
 
 async function cacheResponse(request, response) {

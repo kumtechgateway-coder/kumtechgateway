@@ -1,9 +1,10 @@
 {
   "name": "kumtechgateway",
   "version": "1.0.0",
-  "description": "",
-  "main": "gallery-data.js",
+  "description": "Static marketing site for Kumtech Gateway",
+  "main": "scripts/resize-images.js",
   "scripts": {
+    "generate:gallery": "node scripts/resize-images.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

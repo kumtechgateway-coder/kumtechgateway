@@ -13,10 +13,11 @@ try {
 
 const sharp = require('sharp');
 
-const imagesDir = path.join(__dirname, 'images');
+const rootDir = path.resolve(__dirname, '..');
+const imagesDir = path.join(rootDir, 'images');
 const responsiveSizes = [400, 800, 1200];
 const placeholderWidth = 30;
-const galleryDataPath = path.join(__dirname, 'gallery-data.js');
+const galleryDataPath = path.join(rootDir, 'assets', 'data', 'gallery-data.js');
 
 // Ensure images directory exists
 if (!fs.existsSync(imagesDir)) {

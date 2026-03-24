@@ -4,8 +4,15 @@
     "public": ".",
     "ignore": [
       "firebase.json",
+      "firebase-debug.log",
+      ".firebaserc",
+      ".gitignore",
+      ".hintrc",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "package.json",
+      "package-lock.json",
+      "scripts/**"
     ],
     "rewrites": [
       {
