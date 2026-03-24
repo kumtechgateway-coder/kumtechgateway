@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v77';
+const CACHE_NAME = 'kumtech-cache-v78';
 const PRECACHE_URLS = [
   './',
   './index.html',

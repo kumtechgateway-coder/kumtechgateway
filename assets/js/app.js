@@ -2339,6 +2339,19 @@ function initProjectDetailPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
     const project = portfolioData.find(p => p.id === projectId);
+    const normalizeLiveUrl = (value) => {
+        if (typeof value !== 'string') return '';
+
+        const trimmedValue = value.trim();
+        if (!trimmedValue || trimmedValue === '#') return '';
+
+        try {
+            const parsedUrl = new URL(trimmedValue, window.location.origin);
+            return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:' ? parsedUrl.href : '';
+        } catch (error) {
+            return '';
+        }
+    };
     
     if (!project || !project.fullData) {
         container.innerHTML = `<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Project Not Found</h2><p class="text-charcoal/60 mb-6">The project you are looking for does not exist or has been moved.</p><a href="portfolio.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Portfolio</a></div>`;
@@ -2415,9 +2428,41 @@ function initProjectDetailPage() {
     if (servicesEl) servicesEl.textContent = project.fullData.services;
     
     // Live Site Link
-    if (liveSiteLink && project.fullData.liveUrl) {
-        liveSiteLink.href = project.fullData.liveUrl;
+    if (liveSiteLink) {
+        const liveSiteUrl = normalizeLiveUrl(project.fullData.liveUrl);
+        const liveSiteLabel = liveSiteLink.querySelector('span');
+        const activeLinkClasses = ['bg-primary-600', 'hover:bg-primary-700', 'text-white', 'shadow-lg', 'shadow-primary-500/20', 'hover:-translate-y-0.5'];
+        const disabledLinkClasses = ['pointer-events-none', 'cursor-not-allowed', 'opacity-50', 'bg-slate-300', 'text-slate-600', 'shadow-none', 'dark:bg-slate-700', 'dark:text-slate-300'];
+
         liveSiteLink.classList.remove('hidden');
+
+        if (liveSiteUrl) {
+            liveSiteLink.href = liveSiteUrl;
+            liveSiteLink.target = '_blank';
+            liveSiteLink.rel = 'noopener noreferrer';
+            liveSiteLink.removeAttribute('aria-disabled');
+            liveSiteLink.removeAttribute('tabindex');
+            liveSiteLink.removeAttribute('title');
+            liveSiteLink.classList.remove(...disabledLinkClasses);
+            liveSiteLink.classList.add(...activeLinkClasses);
+
+            if (liveSiteLabel) {
+                liveSiteLabel.textContent = 'Live Demo';
+            }
+        } else {
+            liveSiteLink.removeAttribute('href');
+            liveSiteLink.removeAttribute('target');
+            liveSiteLink.removeAttribute('rel');
+            liveSiteLink.setAttribute('aria-disabled', 'true');
+            liveSiteLink.setAttribute('tabindex', '-1');
+            liveSiteLink.setAttribute('title', 'Live demo is not available for this project yet.');
+            liveSiteLink.classList.remove(...activeLinkClasses);
+            liveSiteLink.classList.add(...disabledLinkClasses);
+
+            if (liveSiteLabel) {
+                liveSiteLabel.textContent = 'Live Demo Unavailable';
+            }
+        }
     }
     
     // Key Results
