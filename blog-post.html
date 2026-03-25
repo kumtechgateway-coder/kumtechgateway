@@ -13,9 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumtech Gateway | Blog Post</title>
     <meta name="description" content="Read our latest insights on digital technology and business growth.">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, follow">
     
-    <link rel="canonical" href="https://kumtechgateway.com/blog-post.html">
+    <link rel="canonical" href="https://kumtechgateway.com/blog.html">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -36,40 +36,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'cyan': '#00B4D8',
-                        'tech-blue': '#1F3C88',
-                        'charcoal': '#0F172A',
-                        'soft-gray': '#F1F5F9',
-                        'orange': '#F97316',
-                        'soft-amber': '#FDBA74',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Poppins', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'custom': '0 5px 15px rgba(39, 17, 9, 0.08)',
-                        'custom-hover': '0 15px 30px rgba(39, 17, 9, 0.15)',
-                    }
-                }
-            },
-            plugins: [
-                function({ addVariant }) {
-                    addVariant('open', '&.active');
-                },
-                // Add typography plugin for blog content if available, or rely on custom CSS
-            ]
-        }
-    </script>
 </head>
 <body class="font-sans text-charcoal bg-white overflow-x-hidden leading-relaxed dark:bg-charcoal dark:text-white transition-colors duration-300">
     <!-- Custom Cursor -->

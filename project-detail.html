@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H55QGC66WN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-H55QGC66WN');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project | Kumtech Gateway</title>
     <meta name="description" content="Explore the details of a featured project by Kumtech Gateway, a leading digital agency in Cameroon.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://kumtechgateway.com/project-detail.html">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://kumtechgateway.com/portfolio.html">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://kumtechgateway.com/project-detail.html">
+    <meta property="og:url" content="https://kumtechgateway.com/portfolio.html">
     <meta property="og:title" content="Project | Kumtech Gateway">
     <meta property="og:description" content="Explore the details of a featured project by Kumtech Gateway.">
     <meta property="og:image" content="https://kumtechgateway.com/images/logo.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://kumtechgateway.com/project-detail.html">
+    <meta property="twitter:url" content="https://kumtechgateway.com/portfolio.html">
     <meta property="twitter:title" content="Project | Kumtech Gateway">
     <meta property="twitter:description" content="Explore the details of a featured project by Kumtech Gateway.">
     <meta property="twitter:image" content="https://kumtechgateway.com/images/logo.png">
@@ -30,74 +38,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'cyan': '#00B4D8',
-                        'tech-blue': '#1F3C88',
-                        'charcoal': '#0F172A',
-                        'soft-gray': '#F1F5F9',
-                        'orange': '#F97316',
-                        'soft-amber': '#FDBA74',
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                        accent: {
-                            500: '#f97316',
-                            600: '#ea580c',
-                        },
-                        dark: {
-                            800: '#1e293b',
-                            900: '#0f172a',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Space Grotesk', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-up': 'fadeUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards',
-                        'fade-in': 'fadeIn 0.8s ease forwards',
-                        'scale-in': 'scaleIn 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        fadeUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        scaleIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.95)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        },
-                    },
-                }
-            }
-        }
-    </script>
-    
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="icon" type="image/png" href="images/logo.png">
 </head>
-<body class="font-sans antialiased bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100">
+<body class="project-detail-page font-sans antialiased bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100">
 
     <!-- Navigation placeholder -->
     <div id="navbar-placeholder" class="h-16 bg-white dark:bg-dark-800 border-b border-gray-100 dark:border-gray-800"></div>

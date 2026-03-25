@@ -18,6 +18,10 @@
       {
         "source": "/blog/**",
         "destination": "/blog-post.html"
+      },
+      {
+        "source": "/projects/**",
+        "destination": "/project-detail.html"
       }
     ]
   },

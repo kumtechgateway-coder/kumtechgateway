@@ -43,7 +43,7 @@ function generatePortfolio(gridElement) {
 
 function createPortfolioCard(project, index, isPortfolioPage) {
     const cardLink = document.createElement('a');
-    cardLink.href = `project-detail.html?id=${project.id}`;
+    cardLink.href = `/projects/${encodeURIComponent(project.id)}/`;
     cardLink.className = 'group bg-white dark:bg-slate-800 rounded-xl shadow-md p-4 portfolio-card reveal-up flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-slate-200 dark:border-slate-700 no-underline';
     cardLink.setAttribute('data-id', project.id);
 

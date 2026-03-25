@@ -40,6 +40,60 @@ const AppState = {
     }
 };
 
+function trackEvent(eventName, params = {}) {
+    if (typeof window === 'undefined' || typeof window.gtag !== 'function' || !eventName) {
+        return;
+    }
+
+    window.gtag('event', eventName, {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        ...params
+    });
+}
+
+function initConversionTracking() {
+    const resolveTrackLabel = (element, fallbackLabel) => {
+        if (!element) return fallbackLabel || 'unknown';
+
+        const explicitLabel = element.getAttribute('data-track-label');
+        if (explicitLabel) return explicitLabel;
+
+        const ariaLabel = element.getAttribute('aria-label');
+        if (ariaLabel) return ariaLabel.trim();
+
+        const text = element.textContent ? element.textContent.replace(/\s+/g, ' ').trim() : '';
+        return text || fallbackLabel || 'unknown';
+    };
+
+    document.addEventListener('click', (event) => {
+        const trackableElement = event.target.closest('[data-track-event]');
+        if (trackableElement) {
+            trackEvent(trackableElement.getAttribute('data-track-event'), {
+                category: trackableElement.getAttribute('data-track-category') || 'cta',
+                label: resolveTrackLabel(trackableElement, 'tracked_cta')
+            });
+        }
+
+        const whatsappLink = event.target.closest('a[href^="https://wa.me/"]');
+        if (whatsappLink) {
+            trackEvent('contact_whatsapp_click', {
+                category: 'contact',
+                label: resolveTrackLabel(whatsappLink, 'whatsapp_link')
+            });
+        }
+
+        const phoneLink = event.target.closest('a[href^="tel:"]');
+        if (phoneLink) {
+            trackEvent('contact_phone_click', {
+                category: 'contact',
+                label: resolveTrackLabel(phoneLink, 'phone_link')
+            });
+        }
+    });
+}
+
 /**
  * Toast Notification System
  */
@@ -143,6 +197,7 @@ async function loadComponents() {
 function main() {    
     // Portfolio generation is now handled within initPortfolioPage()
     I18n.init();
+    initConversionTracking();
     initCustomCursor();
     initHeroParticles();
     initNavAndState();
@@ -556,17 +611,28 @@ function initScrollBehaviors() {
     
     // Navigation Highlighting Logic
     const path = window.location.pathname;
-    const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+    const normalizedPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+    const currentPage = normalizedPath.substring(normalizedPath.lastIndexOf('/') + 1) || 'index.html';
+    const resolvedPage = normalizedPath.startsWith('/blog/') ? 'blog.html'
+        : normalizedPath.startsWith('/projects/') ? 'portfolio.html'
+        : currentPage;
+    const normalizeNavHref = (value) => {
+        if (!value) return '';
 
-    if (currentPage !== 'index.html') {
+        let normalizedValue = value.trim();
+        if (normalizedValue.startsWith('/')) normalizedValue = normalizedValue.slice(1);
+        if (!normalizedValue || normalizedValue === '#') return 'index.html';
+        if (normalizedValue.startsWith('#')) return 'index.html';
+
+        return normalizedValue.split('#')[0] || 'index.html';
+    };
+
+    if (resolvedPage !== 'index.html') {
         // Logic for non-homepage pages
         navLinks.forEach(link => {
-            const linkPage = link.getAttribute('href').split('#')[0];
-            const isBlogPostPage = currentPage === 'blog-post.html';
-            const isBlogLink = linkPage === 'blog.html';
+            const linkPage = normalizeNavHref(link.getAttribute('href'));
 
-            // Activate link if it's the current page, or if we're on a blog post and it's the blog link
-            if (linkPage === currentPage || (isBlogPostPage && isBlogLink)) {
+            if (linkPage === resolvedPage) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -587,8 +653,9 @@ function initScrollBehaviors() {
                     
                     let activeLink = null;
                     navLinks.forEach(link => {
-                        const linkHref = link.getAttribute('href');
-                        const linkSection = linkHref.includes('#') ? linkHref.split('#')[1] : (linkHref === 'index.html' ? 'home' : '');
+                        const linkHref = link.getAttribute('href') || '';
+                        const normalizedHref = linkHref.startsWith('/') ? linkHref.slice(1) : linkHref;
+                        const linkSection = normalizedHref.includes('#') ? normalizedHref.split('#')[1] : (normalizedHref === 'index.html' || normalizedHref === '' ? 'home' : '');
                         if (linkSection === id) activeLink = link;
                     });
 
@@ -1148,7 +1215,7 @@ function initFloatingButtons() {
                     
                     <!-- Sticky CTA Footer -->
                     <div class="p-6 mt-auto bg-white border-t border-gray-100 dark:bg-slate-900 dark:border-white/10">
-                         <a href="index.html#contact" class="inline-flex items-center justify-center w-full py-3.5 font-bold text-white transition-colors transform rounded-xl bg-tech-blue hover:bg-cyan shadow-lg hover:shadow-cyan/30 hover:-translate-y-0.5">
+                         <a href="/#contact" class="inline-flex items-center justify-center w-full py-3.5 font-bold text-white transition-colors transform rounded-xl bg-tech-blue hover:bg-cyan shadow-lg hover:shadow-cyan/30 hover:-translate-y-0.5">
                             Start a Project Like This
                          </a>
                     </div>
@@ -1587,6 +1654,10 @@ function initContactForm() {
                 btn.classList.add('active');
                 
                 const method = btn.getAttribute('data-method');
+                trackEvent('contact_method_select', {
+                    category: 'contact',
+                    label: method || 'unknown'
+                });
                 
                 // Hide all views
                 Object.values(views).forEach(el => {
@@ -1660,6 +1731,10 @@ function initContactForm() {
 
                 emailjs.sendForm(serviceID, templateID, emailForm)
                     .then(() => {
+                    trackEvent('contact_form_submit_success', {
+                        category: 'lead',
+                        label: 'email_contact_form'
+                    });
                     // Success Animation
                     const iconRect = sendIcon.getBoundingClientRect();
                     const flyIcon = document.createElement('div');
@@ -1736,6 +1811,10 @@ function initContactForm() {
                 })
                 .catch((err) => {
                     console.error('EmailJS Error:', err);
+                    trackEvent('contact_form_submit_error', {
+                        category: 'lead',
+                        label: 'email_contact_form'
+                    });
                     sendBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
                     sendBtn.disabled = false;
                     emailForm.classList.add('shake');
@@ -1780,28 +1859,35 @@ function initBlogPages() {
                 
                 posts.forEach((post, index) => {
                     const delay = index * 100;
+                    const postUrl = getBlogPostUrl(post.id);
+                    const imageUrl = sanitizeContentUrl(post.image);
+                    const safeTitle = escapeHtml(post.title);
+                    const safeCategory = escapeHtml(post.category);
+                    const safeDate = escapeHtml(post.date);
+                    const safeAuthor = escapeHtml(post.author);
+                    const safeExcerpt = escapeHtml(post.excerpt);
                     const html = `
                         <div class="blog-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col reveal-up mb-8 break-inside-avoid" style="animation-delay: ${delay}ms">
-                            <a href="blog-post.html?id=${post.id}" class="block overflow-hidden relative bg-soft-gray dark:bg-slate-700">
-                                <img src="${post.image}" alt="${post.title}" class="w-full h-auto transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
+                            <a href="${postUrl}" class="block overflow-hidden relative bg-soft-gray dark:bg-slate-700">
+                                <img src="${imageUrl}" alt="${safeTitle}" class="w-full h-auto transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
                                 <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <div class="absolute top-4 left-4 bg-gradient-to-r from-tech-blue to-cyan text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md">
-                                    ${post.category}
+                                    ${safeCategory}
                                 </div>
                             </a>
                             <div class="p-6 flex flex-col flex-1 relative">
                                 <div class="flex items-center gap-3 text-xs text-charcoal/60 dark:text-gray-400 mb-3">
-                                    <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-cyan"></i> ${post.date}</span>
+                                    <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-cyan"></i> ${safeDate}</span>
                                     <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                                    <span class="flex items-center gap-1"><i class="far fa-user text-cyan"></i> ${post.author}</span>
+                                    <span class="flex items-center gap-1"><i class="far fa-user text-cyan"></i> ${safeAuthor}</span>
                                 </div>
                                 <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-3 leading-tight group-hover:text-cyan transition-colors">
-                                    <a href="blog-post.html?id=${post.id}">${post.title}</a>
+                                    <a href="${postUrl}">${safeTitle}</a>
                                 </h3>
                                 <p class="text-charcoal/70 dark:text-gray-400 text-sm mb-6 line-clamp-3 flex-1 leading-relaxed">
-                                    ${post.excerpt}
+                                    ${safeExcerpt}
                                 </p>
-                                <a href="blog-post.html?id=${post.id}" class="inline-flex items-center text-tech-blue dark:text-cyan font-bold text-sm group/link mt-auto">
+                                <a href="${postUrl}" class="inline-flex items-center text-tech-blue dark:text-cyan font-bold text-sm group/link mt-auto">
                                     Read Article <i class="fas fa-arrow-right ml-2 transform group-hover/link:translate-x-1 transition-transform"></i>
                                 </a>
                             </div>
@@ -1830,7 +1916,7 @@ function initBlogPages() {
         let postId = null;
 
         if (path.startsWith('/blog/')) {
-            postId = pathSegments[pathSegments.length - 1];
+            postId = decodeURIComponent(pathSegments[pathSegments.length - 1] || '');
         } else {
             const urlParams = new URLSearchParams(window.location.search);
             postId = urlParams.get('id');
@@ -1845,6 +1931,14 @@ function initBlogPages() {
                         // DYNAMIC SEO & METADATA UPDATE
                         // ==========================================
                         const currentUrl = window.location.href;
+                        const safeTitle = escapeHtml(post.title);
+                        const safeCategory = escapeHtml(post.category);
+                        const safeDate = escapeHtml(post.date);
+                        const safeAuthor = escapeHtml(post.author);
+                        const safeImageUrl = sanitizeContentUrl(post.image);
+                        const safePostContent = sanitizeRichHtml(post.content);
+                        const authorInitial = getAuthorInitial(post.author);
+                        const metaImageUrl = safeImageUrl || 'https://kumtechgateway.com/images/logo.png';
                         
                         // 1. Update Title & Description
                         document.title = `${post.title} | Kumtech Gateway Blog`;
@@ -1864,20 +1958,20 @@ function initBlogPages() {
 
                         setMeta('meta[property="og:title"]', 'content', post.title);
                         setMeta('meta[property="og:description"]', 'content', post.excerpt);
-                        setMeta('meta[property="og:image"]', 'content', post.image);
+                        setMeta('meta[property="og:image"]', 'content', metaImageUrl);
                         setMeta('meta[property="og:url"]', 'content', currentUrl);
 
                         // 4. Update Twitter Card
                         setMeta('meta[name="twitter:title"]', 'content', post.title);
                         setMeta('meta[name="twitter:description"]', 'content', post.excerpt);
-                        setMeta('meta[name="twitter:image"]', 'content', post.image);
+                        setMeta('meta[name="twitter:image"]', 'content', metaImageUrl);
 
                         // 5. Inject JSON-LD Schema Markup (Google Rich Results)
                         const schemaData = {
                             "@context": "https://schema.org",
                             "@type": "BlogPosting",
                             "headline": post.title,
-                            "image": [post.image],
+                            "image": [metaImageUrl],
                             "datePublished": new Date(post.date).toISOString(),
                             "dateModified": new Date(post.date).toISOString(),
                             "author": [{
@@ -1912,24 +2006,24 @@ function initBlogPages() {
 
                         postContainer.innerHTML = `
                             <div class="mb-8">
-                                <span class="text-cyan font-bold tracking-wider uppercase text-sm mb-2 block">${post.category}</span>
-                                <h1 class="text-3xl md:text-5xl font-heading font-bold text-tech-blue dark:text-white mb-6 leading-tight">${post.title}</h1>
+                                <span class="text-cyan font-bold tracking-wider uppercase text-sm mb-2 block">${safeCategory}</span>
+                                <h1 class="text-3xl md:text-5xl font-heading font-bold text-tech-blue dark:text-white mb-6 leading-tight">${safeTitle}</h1>
                                 <div class="post-meta flex items-center gap-4 text-charcoal/60 dark:text-gray-400 text-sm border-b border-gray-200 dark:border-white/10 pb-6">
-                                    <span class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-charcoal">${post.author.charAt(0)}</div> ${post.author}</span>
+                                    <span class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-charcoal">${authorInitial}</div> ${safeAuthor}</span>
                                     <span>&bull;</span>
-                                    <span>${post.date}</span>
+                                    <span>${safeDate}</span>
                                 </div>
                             </div>
-                            <img src="${post.image}" alt="${post.title}" class="w-full h-auto rounded-2xl shadow-lg mb-10 max-h-[500px]" width="800" height="400">
+                            <img src="${safeImageUrl}" alt="${safeTitle}" class="w-full h-auto rounded-2xl shadow-lg mb-10 max-h-[500px]" width="800" height="400">
                             <div class="prose prose-lg dark:prose-invert max-w-none text-charcoal/80 dark:text-gray-300 leading-relaxed">
-                                ${post.content}
+                                ${safePostContent}
                             </div>
                             <div class="share-buttons mt-12 pt-8 border-t border-gray-200 dark:border-white/10">
                                 <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-4">Share this article</h3>
                                 <div class="flex gap-4">
-                                    <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' ' + window.location.href)}" target="_blank" class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-whatsapp"></i></a>
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-twitter"></i></a>
+                                    <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' ' + window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-twitter"></i></a>
                                 </div>
                             </div>
                         `;
@@ -1941,11 +2035,11 @@ function initBlogPages() {
                         document.head.appendChild(meta);
                         
                         document.title = "404 - Post Not Found | Kumtech Gateway";
-                        postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Post Not Found</h2><p class="text-charcoal/60 mb-6">The article you are looking for does not exist or has been moved.</p><a href="blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Blog</a></div>';
+                        postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Post Not Found</h2><p class="text-charcoal/60 mb-6">The article you are looking for does not exist or has been moved.</p><a href="/blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Blog</a></div>';
                     }
                 });
         } else {
-            window.location.href = 'blog.html';
+            window.location.href = '/blog.html';
         }
     }
 }
@@ -2291,6 +2385,66 @@ function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
 }
 
+function sanitizeContentUrl(value) {
+    if (typeof value !== 'string') return '';
+
+    const trimmedValue = value.trim();
+    if (!trimmedValue) return '';
+
+    try {
+        const parsedUrl = new URL(trimmedValue, window.location.origin);
+        if (parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:') {
+            return parsedUrl.href;
+        }
+    } catch (error) {
+        return '';
+    }
+
+    return '';
+}
+
+function getBlogPostUrl(postId) {
+    return `/blog/${encodeURIComponent(String(postId || '').trim())}/`;
+}
+
+function getProjectDetailUrl(projectId) {
+    return `/projects/${encodeURIComponent(String(projectId || '').trim())}/`;
+}
+
+function getAuthorInitial(authorName) {
+    const safeName = typeof authorName === 'string' ? authorName.trim() : '';
+    return safeName ? escapeHtml(safeName.charAt(0).toUpperCase()) : '?';
+}
+
+function sanitizeRichHtml(html) {
+    if (typeof html !== 'string' || !html.trim()) return '';
+
+    const template = document.createElement('template');
+    template.innerHTML = html;
+
+    template.content.querySelectorAll('script, style, iframe, object, embed, link, meta').forEach((node) => {
+        node.remove();
+    });
+
+    template.content.querySelectorAll('*').forEach((element) => {
+        [...element.attributes].forEach((attribute) => {
+            const attrName = attribute.name.toLowerCase();
+            const attrValue = attribute.value.trim();
+
+            if (attrName.startsWith('on')) {
+                element.removeAttribute(attribute.name);
+                return;
+            }
+
+            if ((attrName === 'href' || attrName === 'src') && /^javascript:/i.test(attrValue)) {
+                element.removeAttribute(attribute.name);
+            }
+        });
+    });
+
+    return template.innerHTML;
+}
+
 function renderReviews(reviews) {
     const track = document.getElementById('testimonialTrack');
     if (!track) return;
@@ -2387,9 +2541,17 @@ async function handleReviewSubmission(e) {
             'Review Submitted!',
             'Thank you for your feedback. It will be visible after moderation.'
         );
+        trackEvent('review_submit_success', {
+            category: 'engagement',
+            label: 'website_review_form'
+        });
         loadReviews(); // Refresh the reviews list to show the new submission
     } catch (error) {
         console.error('Submission Error:', error);
+        trackEvent('review_submit_error', {
+            category: 'engagement',
+            label: 'website_review_form'
+        });
         Toast.show('Sorry, there was an error submitting your review.', 'error');
         btn.disabled = false;
         btn.innerHTML = originalText;
@@ -2404,8 +2566,12 @@ function initProjectDetailPage() {
     const loader = document.getElementById('project-loader');
     const content = document.getElementById('project-content');
     
+    const path = window.location.pathname;
+    const pathSegments = path.split('/').filter(segment => segment);
     const urlParams = new URLSearchParams(window.location.search);
-    const projectId = urlParams.get('id');
+    const projectId = path.startsWith('/projects/')
+        ? decodeURIComponent(pathSegments[pathSegments.length - 1] || '')
+        : urlParams.get('id');
     const project = portfolioData.find(p => p.id === projectId);
     const normalizeLiveUrl = (value) => {
         if (typeof value !== 'string') return '';
@@ -2422,7 +2588,7 @@ function initProjectDetailPage() {
     };
     
     if (!project || !project.fullData) {
-        container.innerHTML = `<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Project Not Found</h2><p class="text-charcoal/60 mb-6">The project you are looking for does not exist or has been moved.</p><a href="portfolio.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Portfolio</a></div>`;
+        container.innerHTML = `<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Project Not Found</h2><p class="text-charcoal/60 mb-6">The project you are looking for does not exist or has been moved.</p><a href="/portfolio.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Portfolio</a></div>`;
         document.title = "404 - Project Not Found | Kumtech Gateway";
         return;
     }
@@ -2588,7 +2754,7 @@ function initProjectDetailPage() {
         
         if (related.length > 0) {
             relatedGrid.innerHTML = related.map(rp => `
-                <a href="project-detail.html?id=${rp.id}" class="group block bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-200 dark:border-slate-700 hover:-translate-y-1">
+                <a href="${getProjectDetailUrl(rp.id)}" class="group block bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-200 dark:border-slate-700 hover:-translate-y-1">
                     <div class="aspect-video bg-slate-100 dark:bg-slate-700">
                         <img src="${rp.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="${rp.title}">
                     </div>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v79';
+const CACHE_NAME = 'kumtech-cache-v80';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -35,6 +35,27 @@ async function cacheResponse(request, response) {
   return response;
 }
 
+function getNavigationFallback(pathname) {
+  const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
+  const routeFallbacks = {
+    '/': './index.html',
+    '/index.html': './index.html',
+    '/pricing.html': './pricing.html',
+    '/portfolio.html': './portfolio.html',
+    '/gallery.html': './gallery.html',
+    '/project-detail.html': './project-detail.html',
+    '/services.html': './services.html',
+    '/blog.html': './blog.html',
+    '/blog-post.html': './blog-post.html'
+  };
+
+  if (normalizedPath.startsWith('/blog/')) {
+    return './blog-post.html';
+  }
+
+  return routeFallbacks[normalizedPath] || './404.html';
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) =>
@@ -66,7 +87,8 @@ self.addEventListener('fetch', (event) => {
         .then((response) => cacheResponse(request, response))
         .catch(async () => {
           const cachedPage = await caches.match(request);
-          return cachedPage || caches.match('./index.html');
+          const routeFallback = getNavigationFallback(requestUrl.pathname);
+          return cachedPage || caches.match(routeFallback) || caches.match('./index.html');
         })
     );
     return;

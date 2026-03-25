@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H55QGC66WN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-H55QGC66WN');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumtech Gateway | Graphic Design Gallery - Flyers, Posters & Banners</title>
-    <meta name="description" content="Explore our graphic design portfolio featuring flyers, posters, social media graphics, and banners created for businesses in Cameroon.">
+    <meta name="description" content="Explore Kumtech Gateway graphic design work including flyers, posters, banners, and social media creatives for businesses in Cameroon and beyond.">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kumtechgateway.com/gallery.html">
     <link rel="alternate" hreflang="en" href="https://kumtechgateway.com/gallery.html" />
     <link rel="alternate" hreflang="x-default" href="https://kumtechgateway.com/gallery.html" />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -30,36 +39,6 @@
         "item": "https://kumtechgateway.com/gallery.html"
       }]
     }
-    </script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'cyan': '#00B4D8',
-                        'tech-blue': '#1F3C88',
-                        'charcoal': '#0F172A',
-                        'soft-gray': '#F1F5F9',
-                        'orange': '#F97316',
-                        'soft-amber': '#FDBA74',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Poppins', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'custom': '0 5px 15px rgba(39, 17, 9, 0.08)',
-                        'custom-hover': '0 15px 30px rgba(39, 17, 9, 0.15)',
-                    }
-                }
-            },
-            plugins: [
-                function({ addVariant }) {
-                    addVariant('active', '&.active');
-                }
-            ]
-        }
     </script>
 </head>
 <body class="font-sans text-charcoal bg-white overflow-x-hidden leading-relaxed dark:bg-charcoal dark:text-white transition-colors duration-300">
@@ -84,6 +63,11 @@
             </div>
 
             <div class="container mx-auto px-5 max-w-[1200px] mt-36 md:mt-24">
+                <div class="max-w-3xl mb-12 md:mb-16">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.18em] uppercase bg-cyan/10 text-cyan mb-4">Graphic Design</span>
+                    <h1 class="font-heading text-4xl md:text-5xl font-bold text-tech-blue dark:text-white leading-tight">Design assets that help brands look credible across every touchpoint</h1>
+                    <p class="mt-5 text-lg text-charcoal/70 dark:text-gray-400 leading-relaxed">Browse flyers, posters, banners, and social creatives created to help businesses present themselves clearly, professionally, and consistently.</p>
+                </div>
                 <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 portfolio-grid">
                     <!-- Images will be loaded here by the script -->
                 </div>

@@ -8,6 +8,15 @@ html {
     scroll-padding-top: 100px;
 }
 
+:root {
+    --font-sans: 'Inter';
+    --font-heading: 'Poppins';
+}
+
+body.project-detail-page {
+    --font-heading: 'Space Grotesk';
+}
+
 /* Box sizing */
 *,
 *::before,
@@ -123,6 +132,68 @@ h1, h2, h3, h4, h5, h6 {
 /* Loader animation */
 @keyframes spin {
     to { transform: rotate(360deg); }
+}
+
+@keyframes float-img {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scale-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-float-img {
+    animation: float-img 6s ease-in-out infinite;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.animate-fade-up {
+    animation: fade-up 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+    animation: scale-in 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 2.6s ease-in-out infinite;
 }
 
 /* =========================================
