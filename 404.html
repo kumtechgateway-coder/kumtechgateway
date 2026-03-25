@@ -1,237 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kumtech Gateway | Page Not Found</title>
-    <meta name="robots" content="noindex, follow">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            color-scheme: light;
-            --tech-blue: #1e3a8a;
-            --cyan: #06b6d4;
-            --orange: #f97316;
-            --charcoal: #0f172a;
-        }
+    <title>Page Not Found</title>
 
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-            color: var(--charcoal);
-            background:
-                radial-gradient(circle at top right, rgba(6, 182, 212, 0.16), transparent 30%),
-                radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.16), transparent 34%),
-                linear-gradient(135deg, #f8fbff 0%, #ffffff 48%, #eef7ff 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 32px 20px;
-        }
-
-        .shell {
-            width: min(100%, 980px);
-            display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
-            gap: 24px;
-            align-items: center;
-        }
-
-        .card,
-        .panel {
-            border-radius: 32px;
-            background: rgba(255, 255, 255, 0.82);
-            border: 1px solid rgba(148, 163, 184, 0.16);
-            box-shadow: 0 30px 70px -45px rgba(15, 23, 42, 0.35);
-            backdrop-filter: blur(14px);
-        }
-
-        .card {
-            padding: clamp(28px, 5vw, 52px);
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.94);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--tech-blue);
-        }
-
-        .eyebrow::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--tech-blue), var(--cyan));
-            box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.12);
-        }
-
-        h1,
-        h2 {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-        }
-
-        h1 {
-            margin-top: 22px;
-            font-size: clamp(2.2rem, 5vw, 4.6rem);
-            line-height: 0.98;
-            letter-spacing: -0.05em;
-            color: var(--tech-blue);
-        }
-
-        p {
-            margin: 0;
-            line-height: 1.7;
-        }
-
-        .lede {
-            margin-top: 22px;
-            font-size: clamp(1rem, 1.7vw, 1.12rem);
-            color: rgba(15, 23, 42, 0.72);
-            max-width: 44ch;
-        }
-
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 28px;
-        }
-
-        .button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 52px;
-            padding: 0 24px;
-            border-radius: 999px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-        }
-
-        .button:hover {
-            transform: translateY(-2px);
-        }
-
-        .button-primary {
-            color: #fff;
-            background: linear-gradient(135deg, var(--orange), #fbbf24);
-            box-shadow: 0 18px 30px -18px rgba(249, 115, 22, 0.55);
-        }
-
-        .button-secondary {
-            color: var(--tech-blue);
-            border: 2px solid rgba(30, 58, 138, 0.16);
-            background: rgba(255, 255, 255, 0.74);
-        }
-
-        .panel {
-            padding: 24px;
-        }
-
-        .panel h2 {
-            font-size: 1.45rem;
-            color: var(--tech-blue);
-        }
-
-        .meta-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 20px;
-        }
-
-        .meta-item {
-            padding: 16px;
-            border-radius: 20px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.7));
-            border: 1px solid rgba(148, 163, 184, 0.14);
-        }
-
-        .meta-label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: rgba(15, 23, 42, 0.45);
-        }
-
-        .meta-value {
-            margin-top: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--charcoal);
-        }
-
-        .panel-note {
-            margin-top: 18px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(148, 163, 184, 0.16);
-            color: rgba(15, 23, 42, 0.68);
-            font-size: 0.96rem;
-        }
-
-        @media (max-width: 840px) {
-            .shell {
-                grid-template-columns: 1fr;
-            }
-
-            .meta-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
     </style>
-</head>
-<body>
-    <main class="shell">
-        <section class="card">
-            <span class="eyebrow">404 Error</span>
-            <h1>That page stepped out of the flow.</h1>
-            <p class="lede">The link may be outdated, the address may be mistyped, or the page may have moved. The rest of the site is still available and easy to get back to.</p>
-            <div class="actions">
-                <a class="button button-primary" href="/">Back to Home</a>
-                <a class="button button-secondary" href="/services.html">Explore Services</a>
-            </div>
-        </section>
-        <aside class="panel" aria-label="Helpful next steps">
-            <h2>Quick recovery</h2>
-            <div class="meta-grid">
-                <div class="meta-item">
-                    <div class="meta-label">Start Here</div>
-                    <div class="meta-value">Home or Services</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Need Proof?</div>
-                    <div class="meta-value">View Portfolio</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Compare</div>
-                    <div class="meta-value">Pricing Plans</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Reach Us</div>
-                    <div class="meta-value">Contact the team</div>
-                </div>
-            </div>
-            <p class="panel-note">If you followed a broken internal link, the quickest reset is to return to the homepage and continue from the main navigation.</p>
-        </aside>
-    </main>
-</body>
+  </head>
+  <body>
+    <div id="message">
+      <h2>404</h2>
+      <h1>Page Not Found</h1>
+      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+      <h3>Why am I seeing this?</h3>
+      <p>This page was generated by the Firebase Command-Line Interface. To modify it, edit the <code>404.html</code> file in your project's configured <code>public</code> directory.</p>
+    </div>
+  </body>
 </html>
