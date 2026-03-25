@@ -11,10 +11,6 @@ html {
 :root {
     --font-sans: 'Inter';
     --font-heading: 'Poppins';
-    --type-cap-2xl: 1.25rem;
-    --type-cap-3xl: 1.375rem;
-    --type-cap-4xl: 1.5rem;
-    --type-cap-max: 1.625rem;
 }
 
 body.project-detail-page {
@@ -57,7 +53,7 @@ strong {
 }
 
 .font-bold {
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .font-extrabold {
@@ -65,319 +61,148 @@ strong {
 }
 
 .font-heading.text-2xl,
-.page-hero-title.text-2xl,
 h1.text-2xl,
 h2.text-2xl,
 h3.text-2xl,
 h4.text-2xl,
 h5.text-2xl,
 h6.text-2xl {
-    font-size: var(--type-cap-2xl);
+    font-size: 1.375rem;
     line-height: 1.28;
 }
 
 .font-heading.text-3xl,
-.page-hero-title.text-3xl,
-h1.text-3xl,
-h2.text-3xl,
-h3.text-3xl,
-h4.text-3xl,
-h5.text-3xl,
-h6.text-3xl {
-    font-size: var(--type-cap-3xl);
-    line-height: 1.22;
-    letter-spacing: -0.02em;
-}
-
 .font-heading.text-4xl,
-.page-hero-title.text-4xl,
-h1.text-4xl,
-h2.text-4xl,
-h3.text-4xl,
-h4.text-4xl,
-h5.text-4xl,
-h6.text-4xl {
-    font-size: var(--type-cap-4xl);
-    line-height: 1.16;
-    letter-spacing: -0.025em;
-}
-
 .font-heading.text-5xl,
 .font-heading.text-6xl,
-.page-hero-title.text-5xl,
-.page-hero-title.text-6xl,
+h1.text-3xl,
+h1.text-4xl,
 h1.text-5xl,
 h1.text-6xl,
+h2.text-3xl,
+h2.text-4xl,
 h2.text-5xl,
 h2.text-6xl,
+h3.text-3xl,
+h3.text-4xl,
 h3.text-5xl,
 h3.text-6xl,
+h4.text-3xl,
+h4.text-4xl,
 h4.text-5xl,
 h4.text-6xl,
+h5.text-3xl,
+h5.text-4xl,
 h5.text-5xl,
 h5.text-6xl,
+h6.text-3xl,
+h6.text-4xl,
 h6.text-5xl,
 h6.text-6xl {
-    font-size: var(--type-cap-max);
-    line-height: 1.1;
+    font-size: 1.625rem;
+    line-height: 1.14;
     letter-spacing: -0.02em;
-}
-
-:is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).text-2xl {
-    font-size: var(--type-cap-2xl);
-    line-height: 1.3;
-}
-
-:is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).text-3xl {
-    font-size: var(--type-cap-3xl);
-    line-height: 1.24;
-}
-
-:is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).text-4xl {
-    font-size: var(--type-cap-4xl);
-    line-height: 1.18;
-}
-
-:is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).text-5xl,
-:is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).text-6xl {
-    font-size: var(--type-cap-max);
-    line-height: 1.12;
 }
 
 @media (min-width: 640px) {
-    .font-heading.sm\:text-2xl,
-    .page-hero-title.sm\:text-2xl,
-    h1.sm\:text-2xl,
-    h2.sm\:text-2xl,
-    h3.sm\:text-2xl,
-    h4.sm\:text-2xl,
-    h5.sm\:text-2xl,
-    h6.sm\:text-2xl {
-        font-size: var(--type-cap-2xl);
-        line-height: 1.28;
-    }
-
     .font-heading.sm\:text-3xl,
-    .page-hero-title.sm\:text-3xl,
-    h1.sm\:text-3xl,
-    h2.sm\:text-3xl,
-    h3.sm\:text-3xl,
-    h4.sm\:text-3xl,
-    h5.sm\:text-3xl,
-    h6.sm\:text-3xl {
-        font-size: var(--type-cap-3xl);
-        line-height: 1.22;
-    }
-
     .font-heading.sm\:text-4xl,
-    .page-hero-title.sm\:text-4xl,
-    h1.sm\:text-4xl,
-    h2.sm\:text-4xl,
-    h3.sm\:text-4xl,
-    h4.sm\:text-4xl,
-    h5.sm\:text-4xl,
-    h6.sm\:text-4xl {
-        font-size: var(--type-cap-4xl);
-        line-height: 1.16;
-    }
-
     .font-heading.sm\:text-5xl,
     .font-heading.sm\:text-6xl,
-    .page-hero-title.sm\:text-5xl,
-    .page-hero-title.sm\:text-6xl,
+    h1.sm\:text-3xl,
+    h1.sm\:text-4xl,
     h1.sm\:text-5xl,
     h1.sm\:text-6xl,
+    h2.sm\:text-3xl,
+    h2.sm\:text-4xl,
     h2.sm\:text-5xl,
     h2.sm\:text-6xl,
+    h3.sm\:text-3xl,
+    h3.sm\:text-4xl,
     h3.sm\:text-5xl,
     h3.sm\:text-6xl,
+    h4.sm\:text-3xl,
+    h4.sm\:text-4xl,
     h4.sm\:text-5xl,
     h4.sm\:text-6xl,
+    h5.sm\:text-3xl,
+    h5.sm\:text-4xl,
     h5.sm\:text-5xl,
     h5.sm\:text-6xl,
+    h6.sm\:text-3xl,
+    h6.sm\:text-4xl,
     h6.sm\:text-5xl,
     h6.sm\:text-6xl {
-        font-size: var(--type-cap-max);
-        line-height: 1.1;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).sm\:text-2xl {
-        font-size: var(--type-cap-2xl);
-        line-height: 1.3;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).sm\:text-3xl {
-        font-size: var(--type-cap-3xl);
-        line-height: 1.24;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).sm\:text-4xl {
-        font-size: var(--type-cap-4xl);
-        line-height: 1.18;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).sm\:text-5xl,
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).sm\:text-6xl {
-        font-size: var(--type-cap-max);
-        line-height: 1.12;
+        font-size: 1.625rem;
+        line-height: 1.14;
     }
 }
 
 @media (min-width: 768px) {
-    .font-heading.md\:text-2xl,
-    .page-hero-title.md\:text-2xl,
-    h1.md\:text-2xl,
-    h2.md\:text-2xl,
-    h3.md\:text-2xl,
-    h4.md\:text-2xl,
-    h5.md\:text-2xl,
-    h6.md\:text-2xl {
-        font-size: var(--type-cap-2xl);
-        line-height: 1.28;
-    }
-
     .font-heading.md\:text-3xl,
-    .page-hero-title.md\:text-3xl,
-    h1.md\:text-3xl,
-    h2.md\:text-3xl,
-    h3.md\:text-3xl,
-    h4.md\:text-3xl,
-    h5.md\:text-3xl,
-    h6.md\:text-3xl {
-        font-size: var(--type-cap-3xl);
-        line-height: 1.22;
-    }
-
     .font-heading.md\:text-4xl,
-    .page-hero-title.md\:text-4xl,
-    h1.md\:text-4xl,
-    h2.md\:text-4xl,
-    h3.md\:text-4xl,
-    h4.md\:text-4xl,
-    h5.md\:text-4xl,
-    h6.md\:text-4xl {
-        font-size: var(--type-cap-4xl);
-        line-height: 1.16;
-    }
-
     .font-heading.md\:text-5xl,
     .font-heading.md\:text-6xl,
-    .page-hero-title.md\:text-5xl,
-    .page-hero-title.md\:text-6xl,
+    h1.md\:text-3xl,
+    h1.md\:text-4xl,
     h1.md\:text-5xl,
     h1.md\:text-6xl,
+    h2.md\:text-3xl,
+    h2.md\:text-4xl,
     h2.md\:text-5xl,
     h2.md\:text-6xl,
+    h3.md\:text-3xl,
+    h3.md\:text-4xl,
     h3.md\:text-5xl,
     h3.md\:text-6xl,
+    h4.md\:text-3xl,
+    h4.md\:text-4xl,
     h4.md\:text-5xl,
     h4.md\:text-6xl,
+    h5.md\:text-3xl,
+    h5.md\:text-4xl,
     h5.md\:text-5xl,
     h5.md\:text-6xl,
+    h6.md\:text-3xl,
+    h6.md\:text-4xl,
     h6.md\:text-5xl,
     h6.md\:text-6xl {
-        font-size: var(--type-cap-max);
-        line-height: 1.1;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).md\:text-2xl {
-        font-size: var(--type-cap-2xl);
-        line-height: 1.3;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).md\:text-3xl {
-        font-size: var(--type-cap-3xl);
-        line-height: 1.24;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).md\:text-4xl {
-        font-size: var(--type-cap-4xl);
-        line-height: 1.18;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).md\:text-5xl,
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).md\:text-6xl {
-        font-size: var(--type-cap-max);
-        line-height: 1.12;
+        font-size: 1.625rem;
+        line-height: 1.14;
     }
 }
 
 @media (min-width: 1024px) {
-    .font-heading.lg\:text-2xl,
-    .page-hero-title.lg\:text-2xl,
-    h1.lg\:text-2xl,
-    h2.lg\:text-2xl,
-    h3.lg\:text-2xl,
-    h4.lg\:text-2xl,
-    h5.lg\:text-2xl,
-    h6.lg\:text-2xl {
-        font-size: var(--type-cap-2xl);
-        line-height: 1.28;
-    }
-
     .font-heading.lg\:text-3xl,
-    .page-hero-title.lg\:text-3xl,
-    h1.lg\:text-3xl,
-    h2.lg\:text-3xl,
-    h3.lg\:text-3xl,
-    h4.lg\:text-3xl,
-    h5.lg\:text-3xl,
-    h6.lg\:text-3xl {
-        font-size: var(--type-cap-3xl);
-        line-height: 1.22;
-    }
-
     .font-heading.lg\:text-4xl,
-    .page-hero-title.lg\:text-4xl,
-    h1.lg\:text-4xl,
-    h2.lg\:text-4xl,
-    h3.lg\:text-4xl,
-    h4.lg\:text-4xl,
-    h5.lg\:text-4xl,
-    h6.lg\:text-4xl {
-        font-size: var(--type-cap-4xl);
-        line-height: 1.16;
-    }
-
     .font-heading.lg\:text-5xl,
     .font-heading.lg\:text-6xl,
-    .page-hero-title.lg\:text-5xl,
-    .page-hero-title.lg\:text-6xl,
+    h1.lg\:text-3xl,
+    h1.lg\:text-4xl,
     h1.lg\:text-5xl,
     h1.lg\:text-6xl,
+    h2.lg\:text-3xl,
+    h2.lg\:text-4xl,
     h2.lg\:text-5xl,
     h2.lg\:text-6xl,
+    h3.lg\:text-3xl,
+    h3.lg\:text-4xl,
     h3.lg\:text-5xl,
     h3.lg\:text-6xl,
+    h4.lg\:text-3xl,
+    h4.lg\:text-4xl,
     h4.lg\:text-5xl,
     h4.lg\:text-6xl,
+    h5.lg\:text-3xl,
+    h5.lg\:text-4xl,
     h5.lg\:text-5xl,
     h5.lg\:text-6xl,
+    h6.lg\:text-3xl,
+    h6.lg\:text-4xl,
     h6.lg\:text-5xl,
     h6.lg\:text-6xl {
-        font-size: var(--type-cap-max);
-        line-height: 1.1;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).lg\:text-2xl {
-        font-size: var(--type-cap-2xl);
-        line-height: 1.3;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).lg\:text-3xl {
-        font-size: var(--type-cap-3xl);
-        line-height: 1.24;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).lg\:text-4xl {
-        font-size: var(--type-cap-4xl);
-        line-height: 1.18;
-    }
-
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).lg\:text-5xl,
-    :is(p, span, a, li, summary, button, strong, b, label, small, figcaption, dt, dd).lg\:text-6xl {
-        font-size: var(--type-cap-max);
-        line-height: 1.12;
+        font-size: 1.625rem;
+        line-height: 1.14;
     }
 }
 
@@ -696,11 +521,6 @@ h6.text-6xl {
     isolation: isolate;
 }
 
-.page-hero--cool {
-    --hero-accent-start: rgba(2, 132, 199, 0.18);
-    --hero-accent-end: rgba(56, 189, 248, 0.14);
-}
-
 .page-hero--warm {
     --hero-accent-start: rgba(249, 115, 22, 0.18);
     --hero-accent-end: rgba(251, 191, 36, 0.12);
@@ -809,7 +629,7 @@ h6.text-6xl {
 }
 
 .page-hero-panel {
-    margin: 0;
+    margin: clamp(1rem, 2vw, 1.5rem);
     padding: clamp(1.4rem, 2.2vw, 1.8rem);
     border-radius: 1.75rem;
     background: var(--hero-surface);
