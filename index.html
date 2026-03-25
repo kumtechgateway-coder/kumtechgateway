@@ -160,14 +160,16 @@
 
     <main>
     <!-- Home/Hero Section -->
-    <section class="relative flex items-center min-h-screen lg:h-screen bg-gradient-to-br from-soft-gray/80 to-white dark:from-charcoal dark:to-slate-900 overflow-hidden pt-28 lg:pt-24 pb-12" id="home">
+    <section class="page-hero page-hero--cool relative flex items-center min-h-screen lg:h-screen bg-gradient-to-br from-soft-gray/80 to-white dark:from-charcoal dark:to-slate-900 overflow-hidden pt-28 lg:pt-24 pb-12" id="home">
         <!-- Particle Background Moved to Section Level -->
         <div class="absolute inset-0 z-0 pointer-events-none" id="hero-particle-bg"></div>
 
-        <div class="container mx-auto px-5 max-w-[1200px] flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 relative z-10">
-            <div class="flex-1 text-center lg:text-left">
-                <h1 class="font-heading text-3xl sm:text-4xl font-extrabold text-tech-blue dark:text-white mb-4 leading-tight tracking-tight reveal-up drop-shadow-sm">Web Design, Branding & <span class="bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-cyan to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block">Digital Growth Systems for Ambitious Businesses</span></h1>
-                <p class="text-lg text-charcoal dark:text-gray-300 mb-6 lg:mb-8 max-w-xl mx-auto lg:mx-0 reveal-up delay-200">Kumtech Gateway is a Cameroon-based digital agency helping businesses nationwide and worldwide launch stronger brands, better websites, and lead-focused growth campaigns.</p>
+        <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
+            <div class="page-hero-shell home-hero-shell">
+            <div class="page-hero-copy flex-1 text-center lg:text-left">
+                <span class="page-hero-badge text-[11px] font-bold tracking-[0.22em] uppercase text-tech-blue dark:text-cyan reveal-up">Digital Agency System</span>
+                <h1 class="page-hero-title font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-tech-blue dark:text-white mt-5 mb-4 leading-tight reveal-up drop-shadow-sm">Web Design, Branding & <span class="bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-cyan to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block">Digital Growth Systems for Ambitious Businesses</span></h1>
+                <p class="page-hero-text text-lg text-charcoal dark:text-gray-300 mb-6 lg:mb-8 mx-auto lg:mx-0 reveal-up delay-200">Kumtech Gateway is a Cameroon-based digital agency helping businesses nationwide and worldwide launch stronger brands, better websites, and lead-focused growth campaigns.</p>
                 <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start reveal-up delay-400">
                     <a href="#contact" class="inline-block px-7 py-3 rounded-full font-bold text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white shadow-lg shadow-orange/20 hover:shadow-xl hover:shadow-orange/30 hover:-translate-y-1" data-i18n="hero.cta">Start Your Project</a>
                     <a href="#portfolio" class="inline-block px-7 py-3 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal dark:text-white border-tech-blue dark:border-white hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover" data-i18n="hero.explore">Explore Our Work</a>
@@ -191,12 +193,30 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-1 relative w-full flex justify-center lg:justify-end reveal-zoom delay-200 mt-8 lg:mt-0">
-                <div class="relative w-full max-w-md">
+            <div class="page-hero-visual flex-1 relative w-full flex flex-col justify-center lg:justify-end reveal-zoom delay-200 mt-8 lg:mt-0">
+                <div class="relative w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
                     <!-- Decorative Blur Behind Image -->
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-tech-blue/20 to-cyan/20 rounded-full blur-3xl -z-10"></div>
-                    <img src="images/hero.png" alt="Digital Growth" class="relative z-10 drop-shadow-2xl w-full h-auto object-contain animate-float-img" width="600" height="600" fetchpriority="high" decoding="async">
+                    <div class="page-hero-visual-card p-5 md:p-7">
+                        <img src="images/hero.png" alt="Digital Growth" class="relative z-10 drop-shadow-2xl w-full h-auto object-contain animate-float-img" width="600" height="600" fetchpriority="high" decoding="async">
+                    </div>
                 </div>
+                <aside class="page-hero-panel home-hero-panel reveal-up delay-300" aria-label="Why businesses choose Kumtech Gateway">
+                    <p class="text-xs font-bold tracking-[0.22em] uppercase text-tech-blue dark:text-cyan">Why it feels stronger</p>
+                    <h2 class="font-heading text-2xl font-bold text-tech-blue dark:text-white mt-3">A cleaner digital foundation for launch and growth</h2>
+                    <div class="page-hero-panel-grid">
+                        <div class="page-hero-stat">
+                            <p class="text-xs font-bold uppercase tracking-[0.16em] text-charcoal/45 dark:text-gray-500">Offer</p>
+                            <p class="mt-2 text-base font-semibold text-charcoal dark:text-white">Web, branding, SEO, ads</p>
+                        </div>
+                        <div class="page-hero-stat">
+                            <p class="text-xs font-bold uppercase tracking-[0.16em] text-charcoal/45 dark:text-gray-500">Workflow</p>
+                            <p class="mt-2 text-base font-semibold text-charcoal dark:text-white">Remote-ready delivery</p>
+                        </div>
+                    </div>
+                    <p class="page-hero-note text-sm text-charcoal/70 dark:text-gray-400">Built for businesses that need a more credible first impression before they scale visibility.</p>
+                </aside>
+            </div>
             </div>
         </div>
     </section>

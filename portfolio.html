@@ -96,6 +96,33 @@
     <header id="navbar-placeholder"></header>
 
     <main>
+    <section class="page-hero page-hero--cool pt-32 md:pt-40 pb-12 relative overflow-hidden bg-gradient-to-br from-soft-gray via-white to-cyan/10 dark:from-slate-950 dark:via-charcoal dark:to-slate-900">
+        <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
+            <div class="page-hero-shell">
+                <div class="page-hero-copy">
+                    <span class="page-hero-badge text-[11px] font-bold tracking-[0.18em] uppercase text-cyan">Case Studies</span>
+                    <h1 class="page-hero-title font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-tech-blue dark:text-white mt-5">Portfolio work built to win trust, visibility, and better results</h1>
+                    <p class="page-hero-text mt-5 text-lg text-charcoal/70 dark:text-gray-400 leading-relaxed">Explore branding, website, SEO, and digital growth projects designed for businesses in Cameroon and for remote clients who need stronger online performance.</p>
+                </div>
+                <aside class="page-hero-panel reveal-zoom delay-200" aria-label="Portfolio overview">
+                    <p class="text-xs font-bold tracking-[0.22em] uppercase text-tech-blue dark:text-cyan">How to browse</p>
+                    <h2 class="font-heading text-2xl font-bold text-tech-blue dark:text-white mt-3">Search, filter, and scan work by business need</h2>
+                    <div class="page-hero-panel-grid">
+                        <div class="page-hero-stat">
+                            <p class="text-xs font-bold uppercase tracking-[0.16em] text-charcoal/45 dark:text-gray-500">Filter</p>
+                            <p class="mt-2 text-base font-semibold text-charcoal dark:text-white">By service type</p>
+                        </div>
+                        <div class="page-hero-stat">
+                            <p class="text-xs font-bold uppercase tracking-[0.16em] text-charcoal/45 dark:text-gray-500">Goal</p>
+                            <p class="mt-2 text-base font-semibold text-charcoal dark:text-white">Find similar outcomes</p>
+                        </div>
+                    </div>
+                    <p class="page-hero-note text-sm text-charcoal/70 dark:text-gray-400">Each project is meant to show how design, structure, and delivery decisions support real business credibility.</p>
+                </aside>
+            </div>
+        </div>
+    </section>
+
     <!-- Portfolio Section -->
     <section class="pb-16 md:pb-24 relative dark:bg-charcoal" id="portfolio">
             <!-- Controls -->
@@ -114,21 +141,17 @@
                 </div>
             </div>
 
-            <div class="container mx-auto px-5 max-w-[1200px] mt-16 md:mt-24">
-            <div class="max-w-3xl mb-12 md:mb-16">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.18em] uppercase bg-cyan/10 text-cyan mb-4">Case Studies</span>
-                <h1 class="font-heading text-4xl md:text-5xl font-bold text-tech-blue dark:text-white leading-tight">Portfolio work built to win trust, visibility, and better results</h1>
-                <p class="mt-5 text-lg text-charcoal/70 dark:text-gray-400 leading-relaxed">Explore branding, website, SEO, and digital growth projects designed for businesses in Cameroon and for remote clients who need stronger online performance.</p>
+            <div class="container mx-auto px-5 max-w-[1200px] mt-12 md:mt-16">
+                <!-- Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 portfolio-grid">
+                    <!-- Portfolio cards are dynamically injected here -->
+                </div>
+
+                <!-- Sentinel for infinite scroll -->
+                <div id="portfolio-sentinel" class="h-20 flex items-center justify-center" style="display: none;">
+                    <div class="w-8 h-8 border-4 border-tech-blue/20 border-t-tech-blue rounded-full animate-spin"></div>
+                </div>
             </div>
-            <!-- Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 portfolio-grid">
-                <!-- Portfolio cards are dynamically injected here -->
-            </div>
-		
-        <!-- Sentinel for infinite scroll -->
-        <div id="portfolio-sentinel" class="h-20 flex items-center justify-center" style="display: none;">
-            <div class="w-8 h-8 border-4 border-tech-blue/20 border-t-tech-blue rounded-full animate-spin"></div>
-        </div>
     </section>
     </main>
 
