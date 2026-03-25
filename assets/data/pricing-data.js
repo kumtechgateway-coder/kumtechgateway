@@ -51,7 +51,7 @@ window.pricingData = {
             "Custom page structure",
             "Lead-focused contact flow",
             "Speed optimization",
-            "Google Business support",
+            "Google Business Profile support",
             "1 month post-launch support"
           ]
         },
@@ -79,7 +79,7 @@ window.pricingData = {
     {
       id: "branding",
       eyebrow: "Branding",
-      name: "Brand Identity & Graphic Design",
+      name: "Branding & Graphic Design",
       summary: "Logo systems, social graphics, and brand direction for businesses that need to look consistent and professional across every touchpoint.",
       startingPrice: "80,000 FCFA",
       pricingNote: "starting from",
@@ -152,7 +152,7 @@ window.pricingData = {
     {
       id: "growth",
       eyebrow: "Growth",
-      name: "SEO, Google Business & Ads",
+      name: "SEO, Google Business Profile & Ads",
       summary: "Visibility-focused packages for businesses that want more discovery, stronger positioning, and better lead generation.",
       startingPrice: "100,000 FCFA",
       pricingNote: "starting from",
@@ -160,14 +160,14 @@ window.pricingData = {
       ctaLabel: "See Growth Plans",
       ctaHref: "pricing.html#service-growth",
       highlights: [
-        "Google Business optimization",
+        "Google Business Profile optimization",
         "SEO improvements and content direction",
         "Ads setup with performance tracking"
       ],
       plans: [
         {
           id: "growth-google-business",
-          name: "Google Business Setup",
+          name: "Google Business Profile Setup",
           price: "100,000 FCFA",
           period: "one-time",
           description: "Ideal for local businesses that want to appear more professionally in local search and map results.",
@@ -286,7 +286,7 @@ window.pricingData = {
     },
     {
       question: "Can I combine services like branding and website development?",
-      answer: "Yes. Many clients combine services. We can bundle branding, website, SEO, ads, or Google Business support into one proposal."
+      answer: "Yes. Many clients combine services. We can bundle branding, website, SEO, ads, or Google Business Profile support into one proposal."
     },
     {
       question: "Do you work with clients outside Cameroon?",
