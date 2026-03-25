@@ -614,8 +614,16 @@ function initScrollBehaviors() {
     const path = window.location.pathname;
     const normalizedPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
     const currentPage = normalizedPath.substring(normalizedPath.lastIndexOf('/') + 1) || 'index.html';
+    const serviceLandingPages = new Set([
+        'web-design-services.html',
+        'branding-services.html',
+        'seo-services.html',
+        'google-business-services.html',
+        'ads-management-services.html'
+    ]);
     const resolvedPage = normalizedPath.startsWith('/blog/') ? 'blog.html'
         : normalizedPath.startsWith('/projects/') ? 'portfolio.html'
+        : serviceLandingPages.has(currentPage) ? 'services.html'
         : currentPage;
     const normalizeNavHref = (value) => {
         if (!value) return '';
