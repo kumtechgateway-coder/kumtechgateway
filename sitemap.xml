@@ -56,6 +56,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://kumtechgateway.com/privacy-policy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kumtechgateway.com/terms-of-service.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kumtechgateway.com/project-terms-refund-policy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://kumtechgateway.com/blog/why-business-needs-website-cameroon/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
