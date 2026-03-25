@@ -21,6 +21,7 @@ const db = getFirestore(app);
  * Features:
  * - Smooth scrolling navigation
  * - Active section highlighting
+ * 
  * - Mobile menu toggle
  * - Sticky navbar
  * - Current year in footer
