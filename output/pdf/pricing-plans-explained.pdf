@@ -1,0 +1,109 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+6 0 obj
+<< /Length 3320 >>
+stream
+0.18 0.23 0.34 rg
+54 760 504 1 re f
+0.95 0.97 0.99 rg
+54 54 504 684 re S
+0 0 0 rg
+BT /F2 22 Tf 1 0 0 1 54 738 Tm (How Kumtech Gateway Pricing Plans Are Made) Tj ET
+BT /F1 10 Tf 1 0 0 1 54 706 Tm (Generated from live project data on 2026-03-26) Tj ET
+BT /F2 15 Tf 1 0 0 1 54 680 Tm (1. Overview) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 660 Tm (Pricing is data-driven. The plans are defined in assets/data/pricing-data.js, then) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 645 Tm (rendered into the pricing page and selected service pages by shared JavaScript in) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 630 Tm (assets/js/app.js.) Tj ET
+BT /F2 15 Tf 1 0 0 1 54 610 Tm (2. Main Source Of Truth) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 590 Tm (Each service lives inside window.pricingData.services. That means prices, labels,) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 575 Tm (package notes, CTA text, and plan details can be edited in one file without manually) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 560 Tm (rewriting every page.) Tj ET
+BT /F3 10 Tf 1 0 0 1 54 540 Tm (Important file: assets/data/pricing-data.js) Tj ET
+BT /F2 15 Tf 1 0 0 1 54 521 Tm (3. Service Structure) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 501 Tm (- id: used to match a service block on a page, for example branding.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 481 Tm (- startingPrice and pricingNote: used for high-level service summaries.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 461 Tm (- plans: each package under the service, such as Logo Starter or Brand Identity Kit.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 441 Tm (- highlights: short value tags used in pricing summaries and previews.) Tj ET
+BT /F2 15 Tf 1 0 0 1 54 421 Tm (4. Plan Structure) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 401 Tm (- name and price: the visible package label and amount.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 381 Tm (- period: one-time, monthly, starting from, or tailored.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 361 Tm (- description: used in the full pricing cards on pricing.html.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 341 Tm (- servicePageNote: a shorter explanation used on the branding service page) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 326 Tm (  starting-points card.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 306 Tm (- badge, tone, featured, ctaLabel, ctaHref, and features: shape the appearance and call) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 291 Tm (  to action.) Tj ET
+BT /F2 15 Tf 1 0 0 1 54 271 Tm (5. How The Pages Are Built) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 251 Tm (The shared renderer in assets/js/app.js uses initPricingSections\(\),) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 236 Tm (renderPricingServiceSection\(\), and renderPricingPlan\(\) to build the main pricing page) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 221 Tm (from the data object.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 201 Tm (For branding-services.html, the page now uses data-service-starting-points="branding".) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 186 Tm (The helper initServiceStartingPointCards\(\) finds the branding service, reads its plans,) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 171 Tm (and injects the package rows dynamically.) Tj ET
+BT /F3 10 Tf 1 0 0 1 54 151 Tm (Important file: assets/js/app.js) Tj ET
+BT /F2 15 Tf 1 0 0 1 54 132 Tm (6. Current Branding Plans) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 112 Tm (- Logo Starter - 80,000 FCFA) Tj ET
+BT /F1 10 Tf 1 0 0 1 70 92 Tm (Best for businesses that need a clean first impression.) Tj ET
+BT /F1 9 Tf 1 0 0 1 54 34 Tm (Page 1 of 2) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 1314 >>
+stream
+0.18 0.23 0.34 rg
+54 760 504 1 re f
+0.95 0.97 0.99 rg
+54 54 504 684 re S
+0 0 0 rg
+BT /F1 11 Tf 1 0 0 1 54 738 Tm (- Brand Identity Kit - 180,000 FCFA) Tj ET
+BT /F1 10 Tf 1 0 0 1 70 718 Tm (For stronger consistency across print and digital touchpoints.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 700 Tm (- Content Design Pack - 120,000 FCFA) Tj ET
+BT /F1 10 Tf 1 0 0 1 70 680 Tm (Built for recurring campaign graphics and branded social assets.) Tj ET
+BT /F2 15 Tf 1 0 0 1 54 662 Tm (7. Editing Workflow) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 642 Tm (1. Open assets/data/pricing-data.js.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 622 Tm (2. Edit the branding service plans, especially price, period, and servicePageNote.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 602 Tm (3. Save the file and reload the page.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 582 Tm (4. The branding page and the main pricing page will reflect the same source data.) Tj ET
+BT /F2 15 Tf 1 0 0 1 54 562 Tm (8. Practical Rule) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 542 Tm (If you want easier edits, change the data first and let the page renderer do the rest.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 527 Tm (Avoid hardcoding prices directly into service-page HTML unless the value is) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 512 Tm (intentionally unique to that page.) Tj ET
+BT /F1 9 Tf 1 0 0 1 54 34 Tm (Page 2 of 2) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000266 00000 n 
+0000000334 00000 n 
+0000003706 00000 n 
+0000003852 00000 n 
+0000005218 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+5364
+%%EOF
