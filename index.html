@@ -33,7 +33,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="icon" type="image/webp" href="/images/logo-400w.webp">
     <link rel="stylesheet" href="/assets/css/tailwind.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     
@@ -43,7 +43,7 @@
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Kumtech Gateway",
-      "image": "https://kumtechgateway.com/images/logo.png",
+      "image": "https://kumtechgateway.com/images/logo-400w.webp",
       "@id": "https://kumtechgateway.com",
       "url": "https://kumtechgateway.com",
       "telephone": "+237679796638",
@@ -228,7 +228,13 @@
             <div class="flex flex-col lg:flex-row gap-16 items-center">
                 <div class="flex-1 relative w-full reveal-left">
                     <div class="relative">
-                        <img src="images/PSX_20251123_141018.jpg" alt="About Kumtech team in Yaounde" class="w-full rounded-xl shadow-custom h-auto" loading="lazy">
+                        <picture>
+                            <source
+                                type="image/webp"
+                                srcset="/images/PSX_20251123_141018-400w.webp 400w, /images/PSX_20251123_141018-800w.webp 800w, /images/PSX_20251123_141018-1200w.webp 1200w"
+                                sizes="(max-width: 1024px) 100vw, 520px">
+                            <img src="/images/PSX_20251123_141018-800w.webp" alt="About Kumtech team in Yaounde" class="w-full rounded-xl shadow-custom h-auto" loading="lazy" decoding="async" width="800" height="600">
+                        </picture>
                     <div class="absolute bottom-8 right-5 lg:-right-5 bg-white/80 dark:bg-slate-800/70 backdrop-blur-md text-tech-blue dark:text-white p-5 rounded-2xl text-center shadow-2xl min-w-[150px] border border-white/20 dark:border-slate-700/50 transition-all duration-300 hover:scale-105 hover:shadow-cyan/20">
                         <div class="flex items-baseline justify-center gap-1">
                             <span data-target="2" class="block text-5xl font-bold leading-none text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-cyan">2</span>

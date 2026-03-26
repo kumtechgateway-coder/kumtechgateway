@@ -329,31 +329,67 @@ const I18n = {
 };
 
 /**
+ * Loads a shared HTML component into a placeholder.
+ * @param {string} placeholderId
+ * @param {string} url
+ * @param {Function} [onLoad]
+ * @returns {Promise<void>}
+ */
+async function loadComponent(placeholderId, url, onLoad) {
+    const placeholder = document.getElementById(placeholderId);
+    if (!placeholder || placeholder.dataset.loaded === 'true') return;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const html = await response.text();
+        placeholder.outerHTML = html;
+        placeholder.dataset.loaded = 'true';
+        if (typeof onLoad === 'function') onLoad();
+    } catch (error) {
+        console.error(`Error loading component ${url}:`, error);
+        placeholder.innerHTML = `<p class="text-red-500 text-center py-4">Error loading component.</p>`;
+    }
+}
+
+function setCurrentYear() {
+    const currentYearEl = document.getElementById('currentYear');
+    if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
+}
+
+/**
  * Loads shared HTML components like the navbar and footer.
- * @returns {Promise<void>} A promise that resolves when all components are loaded.
+ * @returns {Promise<void>} A promise that resolves when critical components are loaded.
  */
 async function loadComponents() {
-    const components = [
-        { placeholderId: 'navbar-placeholder', url: '/components/navbar.html' },
-        { placeholderId: 'footer-placeholder', url: '/components/footer.html' }
-    ];
+    await loadComponent('navbar-placeholder', '/components/navbar.html');
 
-    const promises = components.map(async ({ placeholderId, url }) => {
-        const placeholder = document.getElementById(placeholderId);
-        if (placeholder) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const html = await response.text();
-                placeholder.outerHTML = html;
-            } catch (error) {
-                console.error(`Error loading component ${url}:`, error);
-                if(placeholder) placeholder.innerHTML = `<p class="text-red-500 text-center py-4">Error loading component.</p>`;
+    const footerPlaceholder = document.getElementById('footer-placeholder');
+    if (!footerPlaceholder) return;
+
+    let hasRequestedFooter = false;
+    const loadFooter = () => {
+        if (hasRequestedFooter) return;
+        hasRequestedFooter = true;
+        loadComponent('footer-placeholder', '/components/footer.html', setCurrentYear);
+    };
+
+    footerPlaceholder.style.minHeight = '1px';
+
+    if ('IntersectionObserver' in window) {
+        const footerObserver = new IntersectionObserver((entries, observer) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+                observer.disconnect();
+                loadFooter();
             }
-        }
-    });
+        }, { rootMargin: '600px 0px' });
 
-    await Promise.all(promises);
+        footerObserver.observe(footerPlaceholder);
+    } else {
+        window.addEventListener('load', () => {
+            window.setTimeout(loadFooter, 2500);
+        }, { once: true });
+    }
 }
 
 
@@ -402,15 +438,13 @@ function main() {
         }
     }, 1200);
  
-    // Set current year in footer
-    const currentYearEl = document.getElementById('currentYear');
-    if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
+    setCurrentYear();
 
     // Global Image Error Handler (Fallback)
     document.addEventListener('error', function(e) {
         if (e.target.tagName.toLowerCase() === 'img') {
             e.target.onerror = null; // Prevent infinite loop
-            e.target.src = '/images/logo.png';
+            e.target.src = '/images/logo-400w.webp';
             e.target.classList.add('object-contain', 'bg-gray-50');
         }
     }, true);
@@ -973,8 +1007,9 @@ function initScrollBehaviors() {
     }
 
     // Scroll Spinner Logic
+    const shouldUseScrollEffects = !shouldReduceNonEssentialEffects() && window.innerWidth >= 1024;
     const spinner = document.getElementById('scroll-spinner');
-    if (spinner) {
+    if (spinner && shouldUseScrollEffects) {
         window.addEventListener('scroll', throttle(() => {
             const rotation = window.scrollY / 2;
             spinner.style.transform = `rotate(${rotation}deg)`;
@@ -983,7 +1018,7 @@ function initScrollBehaviors() {
 
     // About Section Parallax
     const aboutParallax = document.getElementById('about-parallax');
-    if (aboutParallax) {
+    if (aboutParallax && shouldUseScrollEffects) {
         window.addEventListener('scroll', throttle(() => {
             const scrollY = window.scrollY;
             const section = document.getElementById('about');
