@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumtech Gateway Blog | Web Design, Branding, SEO & Growth Insights</title>
-    <meta name="description" content="Read practical articles on web design, branding, SEO, Google Business, and digital growth for businesses in Cameroon and remote markets.">
+    <meta name="description" content="Read practical articles on website systems, branding, SEO, Google Business, and growth campaigns for businesses that want to grow online with more clarity.">
     <meta name="keywords" content="web design blog cameroon, SEO tips cameroon, branding insights, digital marketing articles, google business tips, remote business growth">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://kumtechgateway.com/blog.html">
@@ -24,14 +24,14 @@
     <meta property="og:url" content="https://kumtechgateway.com/blog.html">
     <meta property="og:site_name" content="Kumtech Gateway">
     <meta property="og:title" content="Kumtech Gateway Blog | Web Design, Branding, SEO & Growth Insights">
-    <meta property="og:description" content="Read practical articles on web design, branding, SEO, Google Business, and digital growth for businesses in Cameroon and remote markets.">
+    <meta property="og:description" content="Practical articles on website systems, branding, SEO, Google Business, and growth campaigns for businesses that want stronger online results.">
     <meta property="og:image" content="https://kumtechgateway.com/images/logo.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://kumtechgateway.com/blog.html">
     <meta property="twitter:title" content="Kumtech Gateway Blog | Web Design, Branding, SEO & Growth Insights">
-    <meta property="twitter:description" content="Read practical articles on web design, branding, SEO, Google Business, and digital growth for businesses in Cameroon and remote markets.">
+    <meta property="twitter:description" content="Practical articles on website systems, branding, SEO, Google Business, and growth campaigns for businesses that want stronger online results.">
     <meta property="twitter:image" content="https://kumtechgateway.com/images/logo.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -47,7 +47,7 @@
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "Kumtech Gateway Blog",
-      "description": "Articles on web design, branding, SEO, digital marketing, and online growth for businesses in Cameroon and beyond.",
+      "description": "Articles on website systems, branding, SEO, Google Business, and online growth for businesses in Cameroon and beyond.",
       "url": "https://kumtechgateway.com/blog.html",
       "about": [
         "Web design",
@@ -98,12 +98,12 @@
             <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan/5 rounded-full blur-3xl -z-10"></div>
             
             <div class="container mx-auto px-5 max-w-[1200px] text-center relative z-10">
-                <span class="inline-block py-1 px-3 rounded-full bg-orange/10 text-orange text-sm font-bold tracking-wider uppercase mb-4 reveal-up">Our Blog</span>
+                <span class="inline-block py-1 px-3 rounded-full bg-orange/10 text-orange text-sm font-bold tracking-wider uppercase mb-4 reveal-up">Insights</span>
                 <h1 class="font-heading text-4xl md:text-6xl font-bold text-tech-blue dark:text-white mb-6 reveal-up leading-tight">
-                    Latest <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-tech-blue">Digital Insights</span>
+                    Practical <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-tech-blue">Growth Insights</span>
                 </h1>
                 <p class="text-lg md:text-xl text-charcoal/70 dark:text-gray-300 max-w-2xl mx-auto reveal-up delay-200 leading-relaxed">
-                    News, trends, and expert advice on web development, design, and marketing. Stay ahead of the curve.
+                    Clear articles on websites, branding, SEO, local visibility, and demand generation for businesses that want better online results.
                 </p>
             </div>
         </section>
@@ -111,7 +111,38 @@
         <!-- Blog Grid -->
         <section class="pb-20 relative dark:bg-charcoal">
             <div class="container mx-auto px-5 max-w-[1200px]">
-                <div id="blog-grid" class="columns-1 md:columns-2 lg:columns-3 gap-8">
+                <div id="blog-featured" class="mb-10">
+                    <div class="rounded-[2rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-800 p-8 md:p-10 shadow-lg">
+                        <div class="text-center py-12">
+                            <i class="fas fa-spinner fa-spin text-3xl text-tech-blue"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-[2rem] border border-gray-100 dark:border-white/10 bg-soft-gray dark:bg-slate-900 p-6 md:p-8 mb-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-6 items-start">
+                        <label class="block">
+                            <span class="text-[11px] font-bold tracking-[0.2em] uppercase text-cyan">Search Articles</span>
+                            <div class="mt-3 relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40 dark:text-gray-500">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input id="blog-search" type="search" placeholder="Search by topic, title, or keyword" class="w-full rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-slate-800 pl-11 pr-4 py-3 text-sm text-charcoal dark:text-white placeholder:text-charcoal/40 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan/40">
+                            </div>
+                        </label>
+                        <div class="lg:text-right">
+                            <p id="blog-results-count" class="text-sm text-charcoal/70 dark:text-gray-400 mt-6 lg:mt-8" aria-live="polite">Loading articles...</p>
+                        </div>
+                    </div>
+                    <div id="blog-filters" class="flex flex-wrap gap-3 mt-6"></div>
+                </div>
+
+                <div id="blog-empty" class="hidden rounded-[2rem] border border-dashed border-gray-200 dark:border-white/10 bg-white dark:bg-slate-800 px-6 py-12 text-center mb-10">
+                    <h2 class="font-heading text-2xl font-bold text-tech-blue dark:text-white">No articles match that search yet</h2>
+                    <p class="mt-4 text-charcoal/70 dark:text-gray-400">Try another keyword or switch to a different topic filter.</p>
+                </div>
+
+                <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                     <!-- Blog items injected by script.js -->
                     <div class="text-center py-20">
                         <i class="fas fa-spinner fa-spin text-4xl text-tech-blue"></i>

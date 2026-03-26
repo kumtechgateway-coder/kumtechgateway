@@ -1901,70 +1901,221 @@ function initContactForm() {
 }
 
 function initBlogPages() {
+    const parseBlogDate = (dateString) => {
+        const timestamp = Date.parse(typeof dateString === 'string' ? dateString : '');
+        return Number.isNaN(timestamp) ? 0 : timestamp;
+    };
+
+    const getBlogPlainText = (html) => {
+        const template = document.createElement('template');
+        template.innerHTML = typeof html === 'string' ? html : '';
+        return (template.content.textContent || '').replace(/\s+/g, ' ').trim();
+    };
+
+    const getReadingTimeLabel = (content) => {
+        const words = getBlogPlainText(content).split(/\s+/).filter(Boolean).length;
+        const minutes = Math.max(1, Math.ceil(words / 220));
+        return `${minutes} min read`;
+    };
+
+    const renderBlogCard = (post, index = 0) => {
+        const postUrl = getBlogPostUrl(post.id);
+        const imageUrl = sanitizeContentUrl(post.image);
+        const safeTitle = escapeHtml(post.title);
+        const safeCategory = escapeHtml(post.category);
+        const safeDate = escapeHtml(post.date);
+        const safeAuthor = escapeHtml(post.author);
+        const safeExcerpt = escapeHtml(post.excerpt);
+        const safeReadingTime = escapeHtml(getReadingTimeLabel(post.content));
+        const delay = Math.min(index * 80, 320);
+
+        return `
+            <article class="blog-card group bg-white dark:bg-slate-800 rounded-[1.75rem] overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col reveal-up" style="animation-delay: ${delay}ms">
+                <a href="${postUrl}" class="block overflow-hidden relative bg-soft-gray dark:bg-slate-700">
+                    <img src="${imageUrl}" alt="${safeTitle}" class="w-full aspect-[16/10] object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute top-4 left-4 bg-gradient-to-r from-tech-blue to-cyan text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-[0.18em] shadow-md">
+                        ${safeCategory}
+                    </div>
+                </a>
+                <div class="p-6 flex flex-col flex-1">
+                    <div class="flex flex-wrap items-center gap-3 text-xs text-charcoal/60 dark:text-gray-400 mb-3">
+                        <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-cyan"></i> ${safeDate}</span>
+                        <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                        <span class="flex items-center gap-1"><i class="far fa-user text-cyan"></i> ${safeAuthor}</span>
+                        <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                        <span class="flex items-center gap-1"><i class="far fa-clock text-cyan"></i> ${safeReadingTime}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-3 leading-tight group-hover:text-cyan transition-colors">
+                        <a href="${postUrl}">${safeTitle}</a>
+                    </h3>
+                    <p class="text-charcoal/70 dark:text-gray-400 text-sm mb-6 line-clamp-3 flex-1 leading-relaxed">
+                        ${safeExcerpt}
+                    </p>
+                    <a href="${postUrl}" class="inline-flex items-center text-tech-blue dark:text-cyan font-bold text-sm group/link mt-auto">
+                        Read Article <i class="fas fa-arrow-right ml-2 transform group-hover/link:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </article>
+        `;
+    };
+
+    const renderFeaturedBlog = (post) => {
+        const postUrl = getBlogPostUrl(post.id);
+        const imageUrl = sanitizeContentUrl(post.image);
+        const safeTitle = escapeHtml(post.title);
+        const safeCategory = escapeHtml(post.category);
+        const safeDate = escapeHtml(post.date);
+        const safeAuthor = escapeHtml(post.author);
+        const safeExcerpt = escapeHtml(post.excerpt);
+        const safeReadingTime = escapeHtml(getReadingTimeLabel(post.content));
+
+        return `
+            <article class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] gap-8 items-center rounded-[2rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-800 p-8 md:p-10 shadow-lg">
+                <a href="${postUrl}" class="group block rounded-[1.75rem] overflow-hidden bg-soft-gray dark:bg-slate-700">
+                    <img src="${imageUrl}" alt="${safeTitle}" class="w-full aspect-[16/11] object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                </a>
+                <div>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase bg-cyan/10 text-cyan">Featured Article</span>
+                    <p class="mt-5 text-[11px] uppercase tracking-[0.18em] text-orange font-bold">${safeCategory}</p>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue dark:text-white mt-4 leading-tight">
+                        <a href="${postUrl}" class="hover:text-cyan transition-colors">${safeTitle}</a>
+                    </h2>
+                    <div class="flex flex-wrap items-center gap-3 text-xs text-charcoal/60 dark:text-gray-400 mt-5">
+                        <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-cyan"></i> ${safeDate}</span>
+                        <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                        <span class="flex items-center gap-1"><i class="far fa-user text-cyan"></i> ${safeAuthor}</span>
+                        <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                        <span class="flex items-center gap-1"><i class="far fa-clock text-cyan"></i> ${safeReadingTime}</span>
+                    </div>
+                    <p class="mt-5 text-charcoal/70 dark:text-gray-400 leading-relaxed">${safeExcerpt}</p>
+                    <a href="${postUrl}" class="inline-flex items-center mt-8 px-6 py-3 rounded-full bg-gradient-to-r from-tech-blue to-cyan text-white font-bold hover:-translate-y-1 transition-all duration-300">
+                        Read Featured Article
+                    </a>
+                </div>
+            </article>
+        `;
+    };
+
+    const renderInlineBlogCard = (post) => {
+        const postUrl = getBlogPostUrl(post.id);
+        const imageUrl = sanitizeContentUrl(post.image);
+        const safeTitle = escapeHtml(post.title);
+        const safeCategory = escapeHtml(post.category);
+        const safeExcerpt = escapeHtml(post.excerpt);
+
+        return `
+            <a href="${postUrl}" class="group block rounded-[1.75rem] border border-gray-100 dark:border-white/10 bg-soft-gray dark:bg-slate-800 p-6 hover:-translate-y-1 transition-all duration-300">
+                <div class="overflow-hidden rounded-2xl bg-white/60 dark:bg-slate-700">
+                    <img src="${imageUrl}" alt="${safeTitle}" class="w-full aspect-[16/10] object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+                </div>
+                <p class="mt-5 text-[11px] uppercase tracking-[0.18em] text-cyan font-bold">${safeCategory}</p>
+                <h3 class="font-heading text-2xl font-bold text-tech-blue dark:text-white mt-3 leading-tight group-hover:text-cyan transition-colors">${safeTitle}</h3>
+                <p class="mt-4 text-sm text-charcoal/70 dark:text-gray-400 line-clamp-3">${safeExcerpt}</p>
+            </a>
+        `;
+    };
+
+    const formatResultSummary = (count, category, searchTerm) => {
+        const articleLabel = `${count} article${count === 1 ? '' : 's'}`;
+        if (!count) return 'No articles found for your current search.';
+        if (searchTerm && category !== 'all') return `Showing ${articleLabel} for "${searchTerm}" in ${category}.`;
+        if (searchTerm) return `Showing ${articleLabel} for "${searchTerm}".`;
+        if (category !== 'all') return `Showing ${articleLabel} in ${category}.`;
+        return `Showing all ${articleLabel}.`;
+    };
+
     // Blog Listing Page (blog.html)
     const blogGrid = document.getElementById('blog-grid');
     if (blogGrid) {
-        fetch('/assets/data/blog.json')
-            .then(response => response.json())
-            .then(posts => {
-                blogGrid.innerHTML = ''; // Clear loading spinner
-                
-                posts.forEach((post, index) => {
-                    const delay = index * 100;
-                    const postUrl = getBlogPostUrl(post.id);
-                    const imageUrl = sanitizeContentUrl(post.image);
-                    const safeTitle = escapeHtml(post.title);
-                    const safeCategory = escapeHtml(post.category);
-                    const safeDate = escapeHtml(post.date);
-                    const safeAuthor = escapeHtml(post.author);
-                    const safeExcerpt = escapeHtml(post.excerpt);
-                    const html = `
-                        <div class="blog-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col reveal-up mb-8 break-inside-avoid" style="animation-delay: ${delay}ms">
-                            <a href="${postUrl}" class="block overflow-hidden relative bg-soft-gray dark:bg-slate-700">
-                                <img src="${imageUrl}" alt="${safeTitle}" class="w-full h-auto transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                <div class="absolute top-4 left-4 bg-gradient-to-r from-tech-blue to-cyan text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md">
-                                    ${safeCategory}
-                                </div>
-                            </a>
-                            <div class="p-6 flex flex-col flex-1 relative">
-                                <div class="flex items-center gap-3 text-xs text-charcoal/60 dark:text-gray-400 mb-3">
-                                    <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-cyan"></i> ${safeDate}</span>
-                                    <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                                    <span class="flex items-center gap-1"><i class="far fa-user text-cyan"></i> ${safeAuthor}</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-3 leading-tight group-hover:text-cyan transition-colors">
-                                    <a href="${postUrl}">${safeTitle}</a>
-                                </h3>
-                                <p class="text-charcoal/70 dark:text-gray-400 text-sm mb-6 line-clamp-3 flex-1 leading-relaxed">
-                                    ${safeExcerpt}
-                                </p>
-                                <a href="${postUrl}" class="inline-flex items-center text-tech-blue dark:text-cyan font-bold text-sm group/link mt-auto">
-                                    Read Article <i class="fas fa-arrow-right ml-2 transform group-hover/link:translate-x-1 transition-transform"></i>
-                                </a>
-                            </div>
-                        </div>
-                    `;
-                    blogGrid.insertAdjacentHTML('beforeend', html);
-                });
+        const featuredContainer = document.getElementById('blog-featured');
+        const filtersContainer = document.getElementById('blog-filters');
+        const searchInput = document.getElementById('blog-search');
+        const resultsCount = document.getElementById('blog-results-count');
+        const emptyState = document.getElementById('blog-empty');
 
-                // Trigger animations
-                setTimeout(() => {
-                    document.querySelectorAll('.reveal-up').forEach(el => el.classList.add('active'));
-                }, 100);
+        fetch('/assets/data/blog.json')
+            .then((response) => response.json())
+            .then((posts) => {
+                const sortedPosts = [...posts].sort((a, b) => parseBlogDate(b.date) - parseBlogDate(a.date));
+                const categories = ['all', ...new Set(sortedPosts.map((post) => post.category).filter(Boolean))];
+                let activeCategory = 'all';
+                let searchTerm = '';
+
+                const renderFilters = () => {
+                    if (!filtersContainer) return;
+
+                    filtersContainer.innerHTML = categories.map((category) => {
+                        const isActive = category === activeCategory;
+                        return `<button type="button" class="px-4 py-2 rounded-full text-xs font-bold tracking-[0.16em] uppercase transition-all duration-300 ${isActive ? 'bg-tech-blue text-white border border-tech-blue shadow-md' : 'bg-white dark:bg-slate-800 text-charcoal/70 dark:text-gray-300 border border-gray-200 dark:border-white/10 hover:border-cyan/40 hover:text-tech-blue dark:hover:text-cyan'}" data-blog-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`;
+                    }).join('');
+                };
+
+                const renderListing = () => {
+                    const normalizedSearch = searchTerm.trim().toLowerCase();
+                    const matchingPosts = sortedPosts.filter((post) => {
+                        const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
+                        const haystack = `${post.title} ${post.excerpt} ${post.category} ${getBlogPlainText(post.content)}`.toLowerCase();
+                        return matchesCategory && (!normalizedSearch || haystack.includes(normalizedSearch));
+                    });
+
+                    renderFilters();
+                    if (resultsCount) resultsCount.textContent = formatResultSummary(matchingPosts.length, activeCategory, searchTerm.trim());
+
+                    if (!matchingPosts.length) {
+                        if (featuredContainer) {
+                            featuredContainer.innerHTML = '';
+                            featuredContainer.classList.add('hidden');
+                        }
+                        blogGrid.innerHTML = '';
+                        if (emptyState) emptyState.classList.remove('hidden');
+                        return;
+                    }
+
+                    if (emptyState) emptyState.classList.add('hidden');
+
+                    const [featuredPost, ...remainingPosts] = matchingPosts;
+                    if (featuredContainer) {
+                        featuredContainer.classList.remove('hidden');
+                        featuredContainer.innerHTML = renderFeaturedBlog(featuredPost);
+                    }
+
+                    blogGrid.innerHTML = remainingPosts.map((post, index) => renderBlogCard(post, index)).join('');
+
+                    setTimeout(() => {
+                        document.querySelectorAll('.reveal-up').forEach((element) => element.classList.add('active'));
+                    }, 60);
+                };
+
+                if (filtersContainer) {
+                    filtersContainer.addEventListener('click', (event) => {
+                        const filterButton = event.target.closest('[data-blog-category]');
+                        if (!filterButton) return;
+                        activeCategory = filterButton.getAttribute('data-blog-category') || 'all';
+                        renderListing();
+                    });
+                }
+
+                if (searchInput) {
+                    searchInput.addEventListener('input', debounce((event) => {
+                        searchTerm = event.target.value || '';
+                        renderListing();
+                    }, 120));
+                }
+
+                renderListing();
             })
-            .catch(err => {
+            .catch((err) => {
                 console.error('Error loading blog posts:', err);
-                blogGrid.innerHTML = '<p class="text-center col-span-full text-red-500">Failed to load blog posts.</p>';
+                blogGrid.innerHTML = '<p class="text-center md:col-span-2 xl:col-span-3 text-red-500">Failed to load blog posts.</p>';
             });
     }
 
     // Single Blog Post Page (blog-post.html)
     const postContainer = document.getElementById('post-container');
     if (postContainer) {
-        // Handle clean URLs like /blog/post-id and fallback to ?id=...
-        const path = window.location.pathname; 
-        const pathSegments = path.split('/').filter(segment => segment);
+        const path = window.location.pathname;
+        const pathSegments = path.split('/').filter((segment) => segment);
         let postId = null;
 
         if (path.startsWith('/blog/')) {
@@ -1976,12 +2127,12 @@ function initBlogPages() {
 
         if (postId) {
             fetch('/assets/data/blog.json')
-                .then(res => res.json())
-                .then(posts => {
-                    const post = posts.find(p => p.id === postId);
-                    if (post) {                        // ==========================================
-                        // DYNAMIC SEO & METADATA UPDATE
-                        // ==========================================
+                .then((res) => res.json())
+                .then((posts) => {
+                    const sortedPosts = [...posts].sort((a, b) => parseBlogDate(b.date) - parseBlogDate(a.date));
+                    const post = sortedPosts.find((entry) => entry.id === postId);
+
+                    if (post) {
                         const currentUrl = window.location.href;
                         const safeTitle = escapeHtml(post.title);
                         const safeCategory = escapeHtml(post.category);
@@ -1989,20 +2140,25 @@ function initBlogPages() {
                         const safeAuthor = escapeHtml(post.author);
                         const safeImageUrl = sanitizeContentUrl(post.image);
                         const safePostContent = sanitizeRichHtml(post.content);
+                        const safeExcerpt = escapeHtml(post.excerpt);
                         const authorInitial = getAuthorInitial(post.author);
+                        const readingTime = getReadingTimeLabel(post.content);
+                        const safeReadingTime = escapeHtml(readingTime);
                         const metaImageUrl = safeImageUrl || 'https://kumtechgateway.com/images/logo.png';
-                        
-                        // 1. Update Title & Description
+                        const publishedIso = parseBlogDate(post.date) ? new Date(parseBlogDate(post.date)).toISOString() : new Date().toISOString();
+                        const relatedPosts = sortedPosts.filter((entry) => entry.id !== post.id && entry.category === post.category).slice(0, 2);
+
                         document.title = `${post.title} | Kumtech Gateway Blog`;
-                        
+
                         const metaDesc = document.querySelector('meta[name="description"]');
                         if (metaDesc) metaDesc.setAttribute('content', post.excerpt);
 
-                        // 2. Update Canonical URL
+                        const robotsMeta = document.querySelector('meta[name="robots"]');
+                        if (robotsMeta) robotsMeta.setAttribute('content', 'index, follow');
+
                         const canonical = document.querySelector('link[rel="canonical"]');
                         if (canonical) canonical.setAttribute('href', currentUrl);
 
-                        // 3. Update Open Graph (Facebook/LinkedIn)
                         const setMeta = (selector, attr, value) => {
                             const el = document.querySelector(selector);
                             if (el) el.setAttribute(attr, value);
@@ -2012,20 +2168,17 @@ function initBlogPages() {
                         setMeta('meta[property="og:description"]', 'content', post.excerpt);
                         setMeta('meta[property="og:image"]', 'content', metaImageUrl);
                         setMeta('meta[property="og:url"]', 'content', currentUrl);
-
-                        // 4. Update Twitter Card
                         setMeta('meta[name="twitter:title"]', 'content', post.title);
                         setMeta('meta[name="twitter:description"]', 'content', post.excerpt);
                         setMeta('meta[name="twitter:image"]', 'content', metaImageUrl);
 
-                        // 5. Inject JSON-LD Schema Markup (Google Rich Results)
                         const schemaData = {
                             "@context": "https://schema.org",
                             "@type": "BlogPosting",
                             "headline": post.title,
                             "image": [metaImageUrl],
-                            "datePublished": new Date(post.date).toISOString(),
-                            "dateModified": new Date(post.date).toISOString(),
+                            "datePublished": publishedIso,
+                            "dateModified": publishedIso,
                             "author": [{
                                 "@type": "Person",
                                 "name": post.author,
@@ -2046,7 +2199,6 @@ function initBlogPages() {
                             }
                         };
 
-                        // Remove any existing JSON-LD to prevent duplicates on re-renders
                         const existingSchema = document.getElementById('dynamic-schema');
                         if (existingSchema) existingSchema.remove();
 
@@ -2057,38 +2209,67 @@ function initBlogPages() {
                         document.head.appendChild(script);
 
                         postContainer.innerHTML = `
-                            <div class="mb-8">
-                                <span class="text-cyan font-bold tracking-wider uppercase text-sm mb-2 block">${safeCategory}</span>
-                                <h1 class="text-3xl md:text-5xl font-heading font-bold text-tech-blue dark:text-white mb-6 leading-tight">${safeTitle}</h1>
-                                <div class="post-meta flex items-center gap-4 text-charcoal/60 dark:text-gray-400 text-sm border-b border-gray-200 dark:border-white/10 pb-6">
-                                    <span class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-charcoal">${authorInitial}</div> ${safeAuthor}</span>
-                                    <span>&bull;</span>
-                                    <span>${safeDate}</span>
+                            <article>
+                                <a href="/blog.html" class="inline-flex items-center gap-2 text-sm font-bold text-tech-blue dark:text-cyan hover:text-orange transition-colors">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Back to Blog
+                                </a>
+                                <header class="mt-8 mb-10">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase bg-cyan/10 text-cyan">${safeCategory}</span>
+                                    <h1 class="text-3xl md:text-5xl font-heading font-bold text-tech-blue dark:text-white mt-5 leading-tight">${safeTitle}</h1>
+                                    <p class="mt-5 text-lg text-charcoal/70 dark:text-gray-400 leading-relaxed">${safeExcerpt}</p>
+                                    <div class="flex flex-wrap items-center gap-4 text-charcoal/60 dark:text-gray-400 text-sm border-b border-gray-200 dark:border-white/10 pb-6 mt-6">
+                                        <span class="flex items-center gap-2"><span class="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-charcoal dark:text-white">${authorInitial}</span> ${safeAuthor}</span>
+                                        <span>&bull;</span>
+                                        <span>${safeDate}</span>
+                                        <span>&bull;</span>
+                                        <span>${safeReadingTime}</span>
+                                    </div>
+                                </header>
+                                <img src="${safeImageUrl}" alt="${safeTitle}" class="w-full h-auto rounded-[2rem] shadow-lg mb-10 max-h-[500px] object-cover" width="800" height="400">
+                                <div class="prose prose-lg dark:prose-invert max-w-none text-charcoal/80 dark:text-gray-300 leading-relaxed">
+                                    ${safePostContent}
                                 </div>
-                            </div>
-                            <img src="${safeImageUrl}" alt="${safeTitle}" class="w-full h-auto rounded-2xl shadow-lg mb-10 max-h-[500px]" width="800" height="400">
-                            <div class="prose prose-lg dark:prose-invert max-w-none text-charcoal/80 dark:text-gray-300 leading-relaxed">
-                                ${safePostContent}
-                            </div>
-                            <div class="share-buttons mt-12 pt-8 border-t border-gray-200 dark:border-white/10">
-                                <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-4">Share this article</h3>
-                                <div class="flex gap-4">
-                                    <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' ' + window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-whatsapp"></i></a>
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-twitter"></i></a>
+                                <div class="share-buttons mt-12 pt-8 border-t border-gray-200 dark:border-white/10">
+                                    <h2 class="text-xl font-bold text-tech-blue dark:text-white mb-4">Share this article</h2>
+                                    <div class="flex gap-4">
+                                        <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' ' + window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-whatsapp"></i></a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:-translate-y-1 transition-transform"><i class="fab fa-twitter"></i></a>
+                                    </div>
                                 </div>
-                            </div>
+                                ${relatedPosts.length ? `
+                                    <section class="mt-16 pt-10 border-t border-gray-200 dark:border-white/10">
+                                        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+                                            <div>
+                                                <p class="text-[11px] uppercase tracking-[0.18em] text-orange font-bold">Keep Reading</p>
+                                                <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mt-3">Related insights</h2>
+                                            </div>
+                                            <a href="/blog.html" class="text-tech-blue dark:text-cyan font-bold hover:text-orange transition-colors">Explore all articles</a>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            ${relatedPosts.map(renderInlineBlogCard).join('')}
+                                        </div>
+                                    </section>
+                                ` : ''}
+                            </article>
                         `;
                     } else {
-                        // Set 404 status for prerenderers
                         const meta = document.createElement('meta');
-                        meta.name = "prerender-status-code";
-                        meta.content = "404";
+                        meta.name = 'prerender-status-code';
+                        meta.content = '404';
                         document.head.appendChild(meta);
-                        
-                        document.title = "404 - Post Not Found | Kumtech Gateway";
+
+                        const robotsMeta = document.querySelector('meta[name="robots"]');
+                        if (robotsMeta) robotsMeta.setAttribute('content', 'noindex, nofollow');
+
+                        document.title = '404 - Post Not Found | Kumtech Gateway';
                         postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Post Not Found</h2><p class="text-charcoal/60 mb-6">The article you are looking for does not exist or has been moved.</p><a href="/blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Blog</a></div>';
                     }
+                })
+                .catch((error) => {
+                    console.error('Error loading blog post:', error);
+                    postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Unable to load article</h2><p class="text-charcoal/60 mb-6">Something went wrong while loading this post.</p><a href="/blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Blog</a></div>';
                 });
         } else {
             window.location.href = '/blog.html';
