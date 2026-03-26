@@ -12,6 +12,16 @@ let reviewServicesPromise = null;
 let emailJsPromise = null;
 let confettiPromise = null;
 
+function shouldReduceNonEssentialEffects() {
+    if (typeof window === 'undefined') return true;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const hasLowCoreCount = typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 4;
+
+    return prefersReducedMotion || Boolean(connection && connection.saveData) || hasLowCoreCount;
+}
+
 async function getReviewServices() {
     if (!reviewServicesPromise) {
         reviewServicesPromise = Promise.all([
@@ -550,29 +560,36 @@ function initCustomCursor() {
     const cursorOutline = document.getElementById('cursor-outline');
     const bodyForCursor = document.body;
     const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shouldUseCustomCursor = window.innerWidth >= 1024 && !shouldReduceNonEssentialEffects();
 
-    if (cursorDot && cursorOutline && supportsFinePointer && !prefersReducedMotion) {
+    if (cursorDot && cursorOutline && supportsFinePointer && shouldUseCustomCursor) {
+        let lastX = 0;
+        let lastY = 0;
+        let rafId = null;
+
+        const syncCursorPosition = () => {
+            cursorDot.style.left = `${lastX}px`;
+            cursorDot.style.top = `${lastY}px`;
+            cursorOutline.style.left = `${lastX}px`;
+            cursorOutline.style.top = `${lastY}px`;
+            rafId = null;
+        };
+
         window.addEventListener('mousemove', function(e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
+            lastX = e.clientX;
+            lastY = e.clientY;
 
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Ensure cursor is visible on move
-            if (window.innerWidth > 768) {
-                if (!bodyForCursor.classList.contains('cursor-active')) bodyForCursor.classList.add('cursor-active');
-            } else {
-                bodyForCursor.classList.remove('cursor-active');
+            if (!bodyForCursor.classList.contains('cursor-active')) {
+                bodyForCursor.classList.add('cursor-active');
             }
 
-            cursorOutline.style.left = `${posX}px`;
-            cursorOutline.style.top = `${posY}px`;
-        });
+            if (rafId === null) {
+                rafId = window.requestAnimationFrame(syncCursorPosition);
+            }
+        }, { passive: true });
 
         bodyForCursor.addEventListener('mouseenter', () => {
-            if (window.innerWidth > 768) { // Only show on desktop
+            if (window.innerWidth >= 1024) {
                 bodyForCursor.classList.add('cursor-active');
             }
         });
@@ -605,10 +622,10 @@ function initCustomCursor() {
 function initHeroParticles() {
     // Hero Particle Animation
     const particleContainer = document.getElementById('hero-particle-bg');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shouldSkipParticles = shouldReduceNonEssentialEffects() || window.innerWidth < 768;
 
-    if (particleContainer && !prefersReducedMotion) {
-        const numParticles = window.innerWidth < 768 ? 10 : 16;
+    if (particleContainer && !shouldSkipParticles) {
+        const numParticles = window.innerWidth < 1280 ? 8 : 10;
         for (let i = 0; i < numParticles; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -1337,128 +1354,173 @@ function initFloatingButtons() {
 }
 
 /**
- * Initializes the case study modal, including injection and event listeners.
-     * Injects the Case Study Modal HTML into the DOM.
-     * Consolidates duplicate code from HTML files.
-     */
-    function injectModalComponent() {
-        if (document.getElementById('caseStudyModal')) return;
+ * Initializes the case study modal on demand so the homepage does not pay for
+ * a large hidden DOM tree until the feature is actually used.
+ */
+function injectModalComponent() {
+    if (document.getElementById('caseStudyModal')) return;
 
-        const modalHTML = `
-        <div id="caseStudyModal" class="fixed inset-0 z-[100] hidden items-center justify-center" aria-hidden="true">
-            <!-- Overlay -->
-            <div class="absolute inset-0 bg-charcoal/80 dark:bg-charcoal/90 backdrop-blur-md transition-opacity opacity-0" id="modalOverlay"></div>
+    const modalHTML = `
+    <div id="caseStudyModal" class="fixed inset-0 z-[100] hidden items-center justify-center" aria-hidden="true">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-charcoal/80 dark:bg-charcoal/90 backdrop-blur-md transition-opacity opacity-0" id="modalOverlay"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative flex flex-col w-full h-full overflow-hidden transition-all duration-300 transform scale-95 bg-white shadow-2xl opacity-0 dark:bg-slate-900 md:max-w-6xl md:max-h-[90vh] md:mx-4 md:rounded-2xl md:flex-row" id="modalContent">
             
-            <!-- Modal Content -->
-            <div class="relative flex flex-col w-full h-full overflow-hidden transition-all duration-300 transform scale-95 bg-white shadow-2xl opacity-0 dark:bg-slate-900 md:max-w-6xl md:max-h-[90vh] md:mx-4 md:rounded-2xl md:flex-row" id="modalContent">
-                
-                <!-- Global Close Button -->
-                <button class="absolute top-4 right-4 z-50 flex items-center justify-center w-10 h-10 transition-all duration-300 rounded-full cursor-pointer bg-black/20 hover:bg-black/40 text-white" id="closeModalBtn">
-                    <i class="text-xl fas fa-times"></i>
-                </button>
-                
-                <!-- Left Pane: Image Slider -->
-                <div class="relative w-full h-56 md:h-auto md:w-1/2 bg-soft-gray dark:bg-charcoal group overflow-hidden">
-                    <div id="modalSliderTrack" class="flex h-full transition-transform duration-500 ease-out w-full" data-lightbox-container>
-                        <!-- Slides injected here -->
-                    </div>
-                    
-                    <button id="modalPrevBtn" class="absolute top-1/2 z-10 flex items-center justify-center w-10 h-10 text-white transition-all -translate-y-1/2 rounded-full cursor-pointer opacity-0 left-4 bg-black/30 hover:bg-black/50 backdrop-blur-sm group-hover:opacity-100">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button id="modalNextBtn" class="absolute top-1/2 z-10 flex items-center justify-center w-10 h-10 text-white transition-all -translate-y-1/2 rounded-full cursor-pointer opacity-0 right-4 bg-black/30 hover:bg-black/50 backdrop-blur-sm group-hover:opacity-100">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-
-                    <div id="modalSliderDots" class="absolute z-10 flex gap-2 bottom-4 left-1/2 -translate-x-1/2"></div>
+            <!-- Global Close Button -->
+            <button class="absolute top-4 right-4 z-50 flex items-center justify-center w-10 h-10 transition-all duration-300 rounded-full cursor-pointer bg-black/20 hover:bg-black/40 text-white" id="closeModalBtn">
+                <i class="text-xl fas fa-times"></i>
+            </button>
+            
+            <!-- Left Pane: Image Slider -->
+            <div class="relative w-full h-56 md:h-auto md:w-1/2 bg-soft-gray dark:bg-charcoal group overflow-hidden">
+                <div id="modalSliderTrack" class="flex h-full transition-transform duration-500 ease-out w-full" data-lightbox-container>
+                    <!-- Slides injected here -->
                 </div>
+                
+                <button id="modalPrevBtn" class="absolute top-1/2 z-10 flex items-center justify-center w-10 h-10 text-white transition-all -translate-y-1/2 rounded-full cursor-pointer opacity-0 left-4 bg-black/30 hover:bg-black/50 backdrop-blur-sm group-hover:opacity-100">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="modalNextBtn" class="absolute top-1/2 z-10 flex items-center justify-center w-10 h-10 text-white transition-all -translate-y-1/2 rounded-full cursor-pointer opacity-0 right-4 bg-black/30 hover:bg-black/50 backdrop-blur-sm group-hover:opacity-100">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
 
-                <!-- Right Pane: Details (Scrollable) -->
-                <div class="relative flex flex-col w-full flex-1 overflow-hidden md:w-1/2">
+                <div id="modalSliderDots" class="absolute z-10 flex gap-2 bottom-4 left-1/2 -translate-x-1/2"></div>
+            </div>
 
-                    <!-- Scrollable Content Area -->
-                    <div id="modal-scroll-content" class="flex-1 p-6 overflow-y-auto custom-scrollbar md:p-10">
-                        <!-- Header -->
-                        <div class="mb-6">
-                            <span id="modalCategory" class="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-cyan uppercase rounded-full bg-cyan/10"></span>
-                            <h2 id="modalTitle" class="text-3xl font-bold leading-tight md:text-4xl font-heading text-tech-blue dark:text-white"></h2>
+            <!-- Right Pane: Details (Scrollable) -->
+            <div class="relative flex flex-col w-full flex-1 overflow-hidden md:w-1/2">
+
+                <!-- Scrollable Content Area -->
+                <div id="modal-scroll-content" class="flex-1 p-6 overflow-y-auto custom-scrollbar md:p-10">
+                    <!-- Header -->
+                    <div class="mb-6">
+                        <span id="modalCategory" class="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-cyan uppercase rounded-full bg-cyan/10"></span>
+                        <h2 id="modalTitle" class="text-3xl font-bold leading-tight md:text-4xl font-heading text-tech-blue dark:text-white"></h2>
+                    </div>
+
+                    <!-- Meta Info -->
+                    <div class="grid grid-cols-2 gap-6 py-6 my-6 border-t border-b md:grid-cols-3 border-gray-100 dark:border-white/10">
+                        <div>
+                            <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Client</span>
+                            <span id="modalClient" class="font-medium text-tech-blue dark:text-gray-200"></span>
                         </div>
-
-                        <!-- Meta Info -->
-                        <div class="grid grid-cols-2 gap-6 py-6 my-6 border-t border-b md:grid-cols-3 border-gray-100 dark:border-white/10">
-                            <div>
-                                <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Client</span>
-                                <span id="modalClient" class="font-medium text-tech-blue dark:text-gray-200"></span>
-                            </div>
-                            <div>
-                                <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Timeline</span>
-                                <span id="modalTimeline" class="font-medium text-tech-blue dark:text-gray-200"></span>
-                            </div>
-                            <div>
-                                <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Services</span>
-                                <span id="modalServices" class="font-medium text-tech-blue dark:text-gray-200"></span>
-                            </div>
+                        <div>
+                            <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Timeline</span>
+                            <span id="modalTimeline" class="font-medium text-tech-blue dark:text-gray-200"></span>
                         </div>
-
-                        <!-- Body Content -->
-                        <div class="max-w-none prose-lg prose dark:prose-invert text-charcoal/80 dark:text-gray-300 space-y-8">
-                            <div>
-                                <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-cyan">
-                                    <i class="w-5 text-center fas fa-mountain text-cyan"></i> The Challenge
-                                </h3>
-                                <p id="modalChallenge" class="leading-relaxed"></p>
-                            </div>
-                            <div>
-                                <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-cyan">
-                                    <i class="w-5 text-center fas fa-lightbulb text-cyan"></i> The Solution
-                                </h3>
-                                <p id="modalSolution" class="leading-relaxed"></p>
-                            </div>
+                        <div>
+                            <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Services</span>
+                            <span id="modalServices" class="font-medium text-tech-blue dark:text-gray-200"></span>
                         </div>
-                        
-                        <!-- Key Results -->
-                        <div class="p-6 my-6 border rounded-xl bg-soft-gray dark:bg-white/5 border-tech-blue/10 dark:border-white/10">
-                            <h3 class="flex items-center gap-3 mb-4 text-lg font-bold text-tech-blue dark:text-cyan">
-                                <i class="w-5 text-center fas fa-chart-line text-cyan"></i> Key Results
+                    </div>
+
+                    <!-- Body Content -->
+                    <div class="max-w-none prose-lg prose dark:prose-invert text-charcoal/80 dark:text-gray-300 space-y-8">
+                        <div>
+                            <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-cyan">
+                                <i class="w-5 text-center fas fa-mountain text-cyan"></i> The Challenge
                             </h3>
-                            <ul id="modalResults" class="space-y-3"></ul>
+                            <p id="modalChallenge" class="leading-relaxed"></p>
                         </div>
-
-                        <!-- Gallery Grid -->
-                        <div id="modalGallery" class="hidden grid-cols-2 gap-4 mt-8" data-lightbox-container></div>
-                        
-                        <!-- Related Projects -->
-                        <div id="modalRelated" class="hidden pt-8 mt-10 border-t border-gray-100 dark:border-white/10">
-                            <h3 class="mb-6 text-xl font-bold text-tech-blue dark:text-white">Related Projects</h3>
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2" id="relatedProjectsGrid"></div>
+                        <div>
+                            <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-cyan">
+                                <i class="w-5 text-center fas fa-lightbulb text-cyan"></i> The Solution
+                            </h3>
+                            <p id="modalSolution" class="leading-relaxed"></p>
                         </div>
                     </div>
                     
-                    <!-- Sticky CTA Footer -->
-                    <div class="p-6 mt-auto bg-white border-t border-gray-100 dark:bg-slate-900 dark:border-white/10">
-                         <a href="/#contact" class="inline-flex items-center justify-center w-full py-3.5 font-bold text-white transition-colors transform rounded-xl bg-tech-blue hover:bg-cyan shadow-lg hover:shadow-cyan/30 hover:-translate-y-0.5">
-                            Start a Project Like This
-                         </a>
+                    <!-- Key Results -->
+                    <div class="p-6 my-6 border rounded-xl bg-soft-gray dark:bg-white/5 border-tech-blue/10 dark:border-white/10">
+                        <h3 class="flex items-center gap-3 mb-4 text-lg font-bold text-tech-blue dark:text-cyan">
+                            <i class="w-5 text-center fas fa-chart-line text-cyan"></i> Key Results
+                        </h3>
+                        <ul id="modalResults" class="space-y-3"></ul>
                     </div>
+
+                    <!-- Gallery Grid -->
+                    <div id="modalGallery" class="hidden grid-cols-2 gap-4 mt-8" data-lightbox-container></div>
+                    
+                    <!-- Related Projects -->
+                    <div id="modalRelated" class="hidden pt-8 mt-10 border-t border-gray-100 dark:border-white/10">
+                        <h3 class="mb-6 text-xl font-bold text-tech-blue dark:text-white">Related Projects</h3>
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2" id="relatedProjectsGrid"></div>
+                    </div>
+                </div>
+                
+                <!-- Sticky CTA Footer -->
+                <div class="p-6 mt-auto bg-white border-t border-gray-100 dark:bg-slate-900 dark:border-white/10">
+                     <a href="/#contact" class="inline-flex items-center justify-center w-full py-3.5 font-bold text-white transition-colors transform rounded-xl bg-tech-blue hover:bg-cyan shadow-lg hover:shadow-cyan/30 hover:-translate-y-0.5">
+                        Start a Project Like This
+                     </a>
                 </div>
             </div>
-        </div>`;
+        </div>
+    </div>`;
 
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
-    }
-
-    // Inject Modal
-    injectModalComponent();
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
 
 function initModal() {
-
-    // Modal Logic Variables
-    const modal = document.getElementById('caseStudyModal');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const modalContent = document.getElementById('modalContent');
     const body = document.body;
     let previouslyFocusedElement = null;
+
+    const getModalElements = () => ({
+        modal: document.getElementById('caseStudyModal'),
+        modalOverlay: document.getElementById('modalOverlay'),
+        closeModalBtn: document.getElementById('closeModalBtn'),
+        modalContent: document.getElementById('modalContent')
+    });
+
+    function closeModal() {
+        const { modal, modalOverlay, modalContent } = getModalElements();
+
+        if (modalOverlay) modalOverlay.classList.add('opacity-0');
+        if (modalContent) {
+            modalContent.classList.add('opacity-0', 'scale-95');
+            modalContent.classList.remove('scale-100');
+        }
+
+        window.setTimeout(() => {
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.setAttribute('aria-hidden', 'true');
+                modal.classList.remove('flex');
+            }
+
+            body.style.overflow = '';
+            if (previouslyFocusedElement) {
+                previouslyFocusedElement.focus();
+            }
+        }, 300);
+    }
+
+    function ensureModalReady() {
+        injectModalComponent();
+        const elements = getModalElements();
+
+        if (elements.modal && elements.modal.dataset.initialized !== 'true') {
+            if (elements.closeModalBtn) elements.closeModalBtn.addEventListener('click', closeModal);
+            if (elements.modalOverlay) elements.modalOverlay.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && elements.modal && !elements.modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+
+            const modalCta = elements.modal.querySelector('a[href*="contact"]');
+            if (modalCta) {
+                modalCta.addEventListener('click', closeModal);
+            }
+
+            elements.modal.dataset.initialized = 'true';
+        }
+
+        return elements;
+    }
 
     /**
      * Opens the case study modal with data for a given project object.
@@ -1472,6 +1534,7 @@ function initModal() {
             return;
         }
 
+        const { modal, modalOverlay, closeModalBtn, modalContent } = ensureModalReady();
         const study = project.fullData;
 
         // Helper to set text content directly
@@ -1632,47 +1695,6 @@ function initModal() {
     
     // Expose function globally for portfolio-generator.js
     window.openModalWithData = openModalWithData;
-
-    /**
-     * Closes the case study modal.
-     */
-    function closeModal() {
-        if (modalOverlay) modalOverlay.classList.add('opacity-0');
-        if (modalContent) {
-            modalContent.classList.add('opacity-0', 'scale-95');
-            modalContent.classList.remove('scale-100');
-        }
-        
-        setTimeout(() => {
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.setAttribute('aria-hidden', 'true');
-                modal.classList.remove('flex');
-            }
-            body.style.overflow = '';
-            // Restore focus to the element that opened the modal
-            if (previouslyFocusedElement) {
-                previouslyFocusedElement.focus();
-            }
-        }, 300);
-    }
-
-    if (modal) {
-        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-        if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
-        
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-                closeModal();
-            }
-        });
-
-        // Close modal when clicking the CTA button inside it
-        const modalCta = modal.querySelector('a[href*="contact"]');
-        if (modalCta) {
-            modalCta.addEventListener('click', closeModal);
-        }
-    }    
 }
 
 function initLightbox() {
@@ -2491,21 +2513,21 @@ function initGalleryPreview() {
     if (grid && typeof galleryData !== 'undefined') {
         const allImages = Object.values(galleryData).flat();
         
-        // Shuffle and pick 8 for a denser display
-        const previewImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 8);
+        // Shuffle and pick a smaller set to reduce homepage image work.
+        const previewImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 6);
 
-        grid.innerHTML = ''; // Clear any placeholders
-
-        previewImages.forEach((img, i) => {
+        grid.innerHTML = previewImages.map((img, i) => {
             const encodedSrc = encodeAssetUrl(img.src);
             const srcset = generateSrcset(img.src);
             const delay = ['delay-100', 'delay-200', 'delay-300', 'delay-400'][i % 4];
+            const safeAlt = escapeHtml(img.alt || 'Portfolio image');
+            const safeCategory = escapeHtml(img.category ? img.category.replace('-', ' ') : 'Design');
             
-            const cardHTML = `
+            return `
             <div class="mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-800">
                 <img src="${encodedSrc}" srcset="${srcset}"
                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                     alt="${img.alt}"
+                     alt="${safeAlt}"
                      width="${img.width || 600}"
                      height="${img.height || 800}"
                      class="w-full h-auto rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-500 group-hover:scale-105 cursor-zoom-in"
@@ -2513,12 +2535,11 @@ function initGalleryPreview() {
                 
                 <!-- Hover Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
-                    <span class="inline-block px-3 py-1 bg-cyan/90 text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${img.category ? img.category.replace('-', ' ') : 'Design'}</span>
+                    <span class="inline-block px-3 py-1 bg-cyan/90 text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${safeCategory}</span>
                     <p class="text-white text-sm font-medium opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75"><i class="fas fa-search-plus mr-2"></i>View Full Size</p>
                 </div>
             </div>`;
-            grid.insertAdjacentHTML('beforeend', cardHTML);
-        });
+        }).join('');
 
         // Re-run reveal observer for these new elements
         const revealElements = grid.querySelectorAll('.reveal-up');
