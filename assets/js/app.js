@@ -2291,7 +2291,7 @@ function initBlogPages() {
 function initGalleryPreview() {
     const grid = document.getElementById('gallery-preview-grid');
     if (grid && typeof galleryData !== 'undefined') {
-        const allImages = [...galleryData.flyers, ...galleryData.banners, ...galleryData.posters, ...galleryData['social-media']];
+        const allImages = Object.values(galleryData).flat();
         
         // Shuffle and pick 8 for a denser display
         const previewImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 8);
@@ -2373,7 +2373,7 @@ function initGalleryPage() {
         grid.classList.add('columns-1', 'sm:columns-2', 'lg:columns-4', 'gap-4');
 
         grid.setAttribute('data-lightbox-container', '');
-        const allImages = [...galleryData.flyers, ...galleryData.banners, ...galleryData.posters, ...galleryData['social-media']];
+        const allImages = Object.values(galleryData).flat();
         let displayImages = [];
         let loadedCount = 0;
         const batchSize = 12;

@@ -37,7 +37,21 @@ fs.readdir(imagesDir, async (err, files) => {
         flyers: [],
         banners: [],
         posters: [],
-        'social-media': []
+        'social-media': [],
+        'brand-assets': []
+    };
+
+    const curatedGalleryEntries = {
+        'bold logo': { bucket: 'brand-assets', category: 'brand-assets', alt: 'BOLD logo presentation' },
+        '3d bold logo': { bucket: 'brand-assets', category: 'brand-assets', alt: 'BOLD 3D logo render' },
+        'logo (2)': { bucket: 'brand-assets', category: 'brand-assets', alt: 'Demaco Real Estate logo presentation' },
+        'blu logo2': { bucket: 'brand-assets', category: 'brand-assets', alt: 'Bluebells Empire logo presentation' },
+        'ChatGPT Image Mar 23, 2026, 08_17_22 AM': { bucket: 'brand-assets', category: 'brand-assets', alt: 'Bluebells Empire 3D logo render' },
+        'mockup1': { bucket: 'brand-assets', category: 'brand-assets', alt: 'RichWil Beauty Spa brand mockup set' },
+        '3d': { bucket: 'brand-assets', category: 'brand-assets', alt: 'RichWil Beauty Spa 3D logo render' },
+        'color palette': { bucket: 'brand-assets', category: 'brand-assets', alt: 'RichWil Beauty Spa color palette board' },
+        'marketing portfolio-01': { bucket: 'flyers', category: 'flyer', alt: 'Market Basket campaign creative 1' },
+        'marketing portfolio-02': { bucket: 'flyers', category: 'flyer', alt: 'Market Basket campaign creative 2' }
     };
 
     const sourceRank = { '.png': 4, '.jpg': 3, '.jpeg': 3, '.webp': 2 };
@@ -81,8 +95,20 @@ fs.readdir(imagesDir, async (err, files) => {
 
             // 3. Add to gallery data object
             // Make regex less strict: match keyword anywhere in the filename
+            const curatedEntry = curatedGalleryEntries[name];
             const categoryMatch = name.match(/(flyer|banner|poster|socialmedia)/i);
-            if (categoryMatch) {
+
+            if (curatedEntry && galleryData.hasOwnProperty(curatedEntry.bucket)) {
+                galleryData[curatedEntry.bucket].push({
+                    id: name,
+                    src: `images/${file}`,
+                    placeholder: `images/${placeholderFilename}`,
+                    alt: curatedEntry.alt,
+                    category: curatedEntry.category,
+                    width: metadata.width,
+                    height: metadata.height
+                });
+            } else if (categoryMatch) {
                 const keyword = categoryMatch[0].toLowerCase();
                 const singularCategory = keyword === 'socialmedia' ? 'social-media' : keyword;
                 const pluralCategoryKey = { 'flyer': 'flyers', 'banner': 'banners', 'poster': 'posters', 'socialmedia': 'social-media' }[keyword];

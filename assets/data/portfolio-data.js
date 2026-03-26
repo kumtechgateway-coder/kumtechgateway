@@ -181,11 +181,7 @@ const portfolioData = [
             gallery: [
                 "images/mockup1.png",
                 "images/3d.png",
-                "images/color palette.png",
-                "images/flyer.png",
-                "images/flyer0.png",
-                "images/flyer2.png",
-                "images/flyer4.png"
+                "images/color palette.png"
             ],
             technologies: ["Adobe Photoshop", "Adobe Illustrator", "Figma"],
             liveUrl: "#"
@@ -245,30 +241,4 @@ const portfolioData = [
         }
     },
 
-    
-    {
-        id: "market-basket-campaigns",
-        category: "Ads Management",
-        title: "Market Basket Campaign Creatives",
-        description: "Offer-led promotional creatives designed to make Market Basket's services and marketplace positioning easier to understand at a glance.",
-        image: "images/marketing portfolio-01.png",
-        fullData: {
-            client: "Market Basket",
-            timeline: "2026",
-            services: "Campaign Creative, Offer Positioning, Promotional Design, Ads Support",
-            challenge: "The campaign needed to explain multiple value propositions quickly while staying bold enough for attention-driven ad and promotional placement.",
-            solution: "We designed high-contrast campaign creatives that present the offer, pricing context, audience benefit, and contact path in a single visual flow, making the campaigns easier to scan and easier to act on.",
-            results: [
-                "Made campaign messaging clearer for fast-scroll promotional contexts",
-                "Improved the visual structure of offer-led marketing communication",
-                "Created reusable creative directions for future promotional pushes"
-            ],
-            gallery: [
-                "images/marketing portfolio-02.png"
-            ],
-            technologies: ["Adobe Photoshop", "Illustrator", "Creative Strategy"],
-            liveUrl: "#"
-        }
-    },
-    
 ];
