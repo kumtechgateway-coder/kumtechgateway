@@ -26,6 +26,13 @@ const iso = (value) => {
     const parsed = new Date(value);
     return Number.isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
 };
+const lastmod = (file) => {
+    try {
+        return fs.statSync(path.join(root, file)).mtime.toISOString().split('T')[0];
+    } catch {
+        return new Date().toISOString().split('T')[0];
+    }
+};
 
 function loadPortfolio() {
     const context = { module: { exports: null }, exports: {}, console };
@@ -191,17 +198,38 @@ ${relatedMarkup}`);
 }
 
 function sitemap(blog, portfolio) {
-    const pages = [
-        ['/', 'weekly', '1.0'],
-        ['/services.html', 'weekly', '0.9'],
-        ['/pricing.html', 'weekly', '0.9'],
-        ['/portfolio.html', 'weekly', '0.8'],
-        ['/gallery.html', 'weekly', '0.7'],
-        ['/blog.html', 'weekly', '0.8'],
-        ...blog.map((post) => [`/blog/${encodeURIComponent(post.id)}/`, 'monthly', '0.7']),
-        ...portfolio.filter((project) => project && project.id && project.fullData).map((project) => [`/projects/${encodeURIComponent(project.id)}/`, 'monthly', '0.7'])
+    const staticPages = [
+        ['index.html', '/', 'weekly', '1.0'],
+        ['services.html', '/services.html', 'weekly', '0.95'],
+        ['branding-services.html', '/branding-services.html', 'monthly', '0.9'],
+        ['web-design-services.html', '/web-design-services.html', 'monthly', '0.9'],
+        ['seo-services.html', '/seo-services.html', 'monthly', '0.9'],
+        ['google-business-services.html', '/google-business-services.html', 'monthly', '0.85'],
+        ['ads-management-services.html', '/ads-management-services.html', 'monthly', '0.85'],
+        ['pricing.html', '/pricing.html', 'weekly', '0.8'],
+        ['portfolio.html', '/portfolio.html', 'weekly', '0.8'],
+        ['gallery.html', '/gallery.html', 'monthly', '0.7'],
+        ['blog.html', '/blog.html', 'weekly', '0.8'],
+        ['privacy-policy.html', '/privacy-policy.html', 'yearly', '0.2'],
+        ['terms-of-service.html', '/terms-of-service.html', 'yearly', '0.2'],
+        ['project-terms-refund-policy.html', '/project-terms-refund-policy.html', 'yearly', '0.2']
     ];
-    return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(([loc, changefreq, priority]) => `  <url>\n    <loc>${esc(`${site}${loc}`)}</loc>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`).join('\n')}\n</urlset>\n`;
+    const pages = [
+        ...staticPages.map(([file, loc, changefreq, priority]) => ({ loc, changefreq, priority, lastmod: lastmod(file) })),
+        ...blog.map((post) => ({
+            loc: `/blog/${encodeURIComponent(post.id)}/`,
+            changefreq: 'monthly',
+            priority: '0.7',
+            lastmod: lastmod(`blog/${post.id}/index.html`)
+        })),
+        ...portfolio.filter((project) => project && project.id && project.fullData).map((project) => ({
+            loc: `/projects/${encodeURIComponent(project.id)}/`,
+            changefreq: 'monthly',
+            priority: '0.7',
+            lastmod: lastmod(`projects/${project.id}/index.html`)
+        }))
+    ];
+    return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((page) => `  <url>\n    <loc>${esc(`${site}${page.loc}`)}</loc>\n    <lastmod>${page.lastmod}</lastmod>\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>`).join('\n')}\n</urlset>\n`;
 }
 
 function main() {
