@@ -2049,7 +2049,7 @@ function initBlogPages() {
                 const sortedPosts = [...posts].sort((a, b) => parseBlogDate(b.date) - parseBlogDate(a.date));
                 const categories = ['all', ...new Set(sortedPosts.map((post) => post.category).filter(Boolean))];
                 let activeCategory = 'all';
-                let searchTerm = '';
+                let searchTerm = searchInput ? searchInput.value || '' : '';
 
                 const renderFilters = () => {
                     if (!filtersContainer) return;
@@ -2105,10 +2105,13 @@ function initBlogPages() {
                 }
 
                 if (searchInput) {
-                    searchInput.addEventListener('input', debounce((event) => {
-                        searchTerm = event.target.value || '';
+                    const updateBlogSearch = debounce(() => {
+                        searchTerm = searchInput.value || '';
                         renderListing();
-                    }, 120));
+                    }, 120);
+
+                    searchInput.addEventListener('input', updateBlogSearch);
+                    searchInput.addEventListener('search', updateBlogSearch);
                 }
 
                 renderListing();
