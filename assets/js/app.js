@@ -13,6 +13,7 @@ let reviewServicesPromise = null;
 let emailJsPromise = null;
 let confettiPromise = null;
 let analyticsPromise = null;
+let analyticsSetupComplete = false;
 
 function shouldReduceNonEssentialEffects() {
     if (typeof window === 'undefined') return true;
@@ -177,6 +178,48 @@ async function initAnalytics() {
     }
 
     return analyticsPromise;
+}
+
+function setupLazyAnalytics() {
+    if (analyticsSetupComplete || typeof window === 'undefined' || !ANALYTICS_MEASUREMENT_ID) {
+        return;
+    }
+
+    analyticsSetupComplete = true;
+
+    let hasStartedLoading = false;
+    const loadAnalytics = () => {
+        if (hasStartedLoading) return;
+        hasStartedLoading = true;
+        initAnalytics().catch(() => null);
+    };
+
+    const interactionEvents = ['pointerdown', 'keydown', 'submit', 'touchstart'];
+    const cleanupListeners = () => {
+        interactionEvents.forEach((eventName) => {
+            window.removeEventListener(eventName, handleInteraction, listenerOptions);
+        });
+        window.removeEventListener('scroll', handleInteraction, scrollListenerOptions);
+    };
+
+    const handleInteraction = () => {
+        cleanupListeners();
+        loadAnalytics();
+    };
+
+    const listenerOptions = { passive: true, once: true };
+    const scrollListenerOptions = { passive: true };
+
+    interactionEvents.forEach((eventName) => {
+        window.addEventListener(eventName, handleInteraction, listenerOptions);
+    });
+
+    window.addEventListener('scroll', handleInteraction, scrollListenerOptions);
+
+    window.setTimeout(() => {
+        cleanupListeners();
+        loadAnalytics();
+    }, 15000);
 }
  
 /**
@@ -427,7 +470,7 @@ function main() {
 
     runWhenIdle(() => {
         I18n.init();
-        initAnalytics().catch(() => null);
+        setupLazyAnalytics();
         initConversionTracking();
         initCustomCursor();
         initFloatingButtons();
