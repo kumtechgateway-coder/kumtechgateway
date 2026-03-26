@@ -3,8 +3,8 @@ window.pricingData = {
     {
       id: "websites",
       eyebrow: "Websites",
-      name: "Web Design & Development",
-      summary: "Professional websites, landing pages, e-commerce builds, and booking flows for businesses that want a stronger digital presence across local, national, or international markets.",
+      name: "Website Systems & Conversion Design",
+      summary: "Professional websites, landing pages, e-commerce builds, and booking flows for businesses that need a stronger online presence and clearer conversion paths.",
       startingPrice: "150,000 FCFA",
       pricingNote: "starting from",
       tone: "cyan",
@@ -79,8 +79,8 @@ window.pricingData = {
     {
       id: "branding",
       eyebrow: "Branding",
-      name: "Branding & Graphic Design",
-      summary: "Logo systems, social graphics, and brand direction for businesses that need to look consistent and professional across every touchpoint.",
+      name: "Brand Identity & Marketing Assets",
+      summary: "Logo systems, identity kits, and campaign assets for businesses that need to look more credible, consistent, and ready to grow.",
       startingPrice: "80,000 FCFA",
       pricingNote: "starting from",
       tone: "orange",
@@ -155,8 +155,8 @@ window.pricingData = {
     {
       id: "growth",
       eyebrow: "Growth",
-      name: "SEO, Google Business Profile & Ads",
-      summary: "Visibility-focused packages for businesses that want more discovery, stronger positioning, and better lead generation.",
+      name: "Search Visibility & Lead Generation",
+      summary: "SEO, Google Business Profile, and ads packages for businesses that want more discovery, stronger trust, and better-quality leads.",
       startingPrice: "100,000 FCFA",
       pricingNote: "starting from",
       tone: "cyan",
@@ -229,8 +229,8 @@ window.pricingData = {
     {
       id: "custom",
       eyebrow: "Custom Systems",
-      name: "Automation, Portals & Custom Products",
-      summary: "Custom scopes for internal tools, workflow automation, portals, and multi-step digital products that need more than a brochure site.",
+      name: "Custom Systems & Workflow Automation",
+      summary: "Custom scopes for internal tools, workflow automation, portals, and digital products that need more than a brochure site.",
       startingPrice: "Quote Based",
       pricingNote: "tailored scope",
       tone: "orange",
