@@ -1,6 +1,3 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyDK-VZPOkgebi-Obl-JG7Z-283cJmiUDm4",
   authDomain: "kumtechgateway-237.firebaseapp.com",
@@ -11,8 +8,36 @@ const firebaseConfig = {
   measurementId: "G-30MVBTWFKJ"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+let reviewServicesPromise = null;
+
+async function getReviewServices() {
+    if (!reviewServicesPromise) {
+        reviewServicesPromise = Promise.all([
+            import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+            import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js")
+        ]).then(([firebaseApp, firestore]) => {
+            const existingApp = firebaseApp.getApps().find((instance) => instance.name === 'kumtech-reviews');
+            const reviewApp = existingApp || firebaseApp.initializeApp(firebaseConfig, 'kumtech-reviews');
+
+            return {
+                db: firestore.getFirestore(reviewApp),
+                collection: firestore.collection,
+                addDoc: firestore.addDoc,
+                serverTimestamp: firestore.serverTimestamp,
+                getDocs: firestore.getDocs,
+                query: firestore.query,
+                where: firestore.where,
+                orderBy: firestore.orderBy,
+                limit: firestore.limit
+            };
+        }).catch((error) => {
+            reviewServicesPromise = null;
+            throw error;
+        });
+    }
+
+    return reviewServicesPromise;
+}
  
 /**
  * Kumtech Gateway Portfolio Website
@@ -196,27 +221,45 @@ async function loadComponents() {
  * Initializes all application functionality.
  */
 function main() {    
-    // Portfolio generation is now handled within initPortfolioPage()
-    I18n.init();
-    initConversionTracking();
-    initCustomCursor();
-    initHeroParticles();
+    const pathname = window.location.pathname;
+    const isHomePage = pathname === '/' || pathname === '/index.html';
+    const initReviewsAndSlider = () => {
+        initReviews();
+    };
+
     initNavAndState();
     initScrollBehaviors();
     initCounters();
-    initPortfolioPage();
-    initTestimonialSlider();
-    initFloatingButtons();
-    initModal();
-    initLightbox();
     initThemeToggle();
-    initContactForm();
     initBlogPages();
     initGalleryPage();
     initProjectDetailPage();
-    initGalleryPreview();
-    initPricingSections();
-    initReviews();
+
+    if (isHomePage) {
+        runWhenVisible('#pricing', initPricingSections, { rootMargin: '300px' });
+        runWhenVisible('#portfolio', initPortfolioPage, { rootMargin: '300px' });
+        runWhenVisible('#gallery-preview', initGalleryPreview, { rootMargin: '300px' });
+        runWhenVisible('#contact', initContactForm, { rootMargin: '300px' });
+        runWhenVisible('#testimonialTrack', initReviewsAndSlider, { rootMargin: '250px' });
+    } else {
+        initPricingSections();
+        initPortfolioPage();
+        initGalleryPreview();
+        initContactForm();
+        initReviewsAndSlider();
+    }
+
+    runWhenIdle(() => {
+        I18n.init();
+        initConversionTracking();
+        initCustomCursor();
+        initFloatingButtons();
+        initModal();
+        initLightbox();
+        if (isHomePage) {
+            initHeroParticles();
+        }
+    }, 1200);
  
     // Set current year in footer
     const currentYearEl = document.getElementById('currentYear');
@@ -231,9 +274,6 @@ function main() {
         }
     }, true);
 
-    // Console greeting
-    console.log('Kumtech Gateway Portfolio Website loaded successfully.');
-    console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316, #FDBA74');
 }
 
 function getPricingToneClassName(tone, featured = false) {
@@ -445,8 +485,10 @@ function initCustomCursor() {
     const cursorDot = document.getElementById('cursor-dot');
     const cursorOutline = document.getElementById('cursor-outline');
     const bodyForCursor = document.body;
+    const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (cursorDot && cursorOutline) {
+    if (cursorDot && cursorOutline && supportsFinePointer && !prefersReducedMotion) {
         window.addEventListener('mousemove', function(e) {
             const posX = e.clientX;
             const posY = e.clientY;
@@ -475,15 +517,20 @@ function initCustomCursor() {
             bodyForCursor.classList.remove('cursor-active');
         });
 
-        document.querySelectorAll('a, button, .cursor-pointer, [data-id], .filter-btn').forEach(el => {
-            el.addEventListener('mouseenter', () => {
+        document.addEventListener('pointerover', (event) => {
+            if (event.pointerType && event.pointerType !== 'mouse') return;
+            if (event.target.closest('a, button, .cursor-pointer, [data-id], .filter-btn')) {
                 cursorOutline.classList.add('hover');
                 cursorDot.classList.add('hover');
-            });
-            el.addEventListener('mouseleave', () => {
+            }
+        });
+
+        document.addEventListener('pointerout', (event) => {
+            if (event.pointerType && event.pointerType !== 'mouse') return;
+            if (event.target.closest('a, button, .cursor-pointer, [data-id], .filter-btn')) {
                 cursorOutline.classList.remove('hover');
                 cursorDot.classList.remove('hover');
-            });
+            }
         });
     }    
 }
@@ -494,8 +541,10 @@ function initCustomCursor() {
 function initHeroParticles() {
     // Hero Particle Animation
     const particleContainer = document.getElementById('hero-particle-bg');
-    if (particleContainer) {
-        const numParticles = 25;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (particleContainer && !prefersReducedMotion) {
+        const numParticles = window.innerWidth < 768 ? 10 : 16;
         for (let i = 0; i < numParticles; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -569,12 +618,53 @@ function initNavAndState() {
      * @param {number} wait - The delay in milliseconds.
      * @returns {Function} - The debounced function.
      */
-    function debounce(func, wait) {
+     function debounce(func, wait) {
         let timeout;
         return function(...args) {
             clearTimeout(timeout);
             timeout = setTimeout(() => func.apply(this, args), wait);
         };
+    }
+
+    function runWhenIdle(callback, timeout = 1200) {
+        if (typeof callback !== 'function') return;
+
+        if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(() => callback(), { timeout });
+            return;
+        }
+
+        window.setTimeout(callback, 1);
+    }
+
+    function runWhenVisible(target, callback, options = {}) {
+        if (typeof callback !== 'function') return;
+
+        const element = typeof target === 'string' ? document.querySelector(target) : target;
+        if (!element) return;
+
+        let hasRun = false;
+        const execute = () => {
+            if (hasRun) return;
+            hasRun = true;
+            callback();
+        };
+
+        if (!('IntersectionObserver' in window)) {
+            runWhenIdle(execute, 600);
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+                observer.disconnect();
+                execute();
+            }
+        }, {
+            rootMargin: options.rootMargin || '0px'
+        });
+
+        observer.observe(element);
     }
 
     /**
@@ -1081,6 +1171,11 @@ function initTestimonialSlider() {
     const nextTestimonialBtn = document.getElementById('nextTestimonial');
 
     if (testimonialContainer && testimonialTrack && prevTestimonialBtn && nextTestimonialBtn) {
+        if (testimonialTrack.dataset.sliderInitialized === 'true') {
+            return;
+        }
+
+        testimonialTrack.dataset.sliderInitialized = 'true';
         let autoScrollInterval;
 
         const getScrollAmount = () => {
@@ -2545,6 +2640,10 @@ function initReviews() {
     const form = document.getElementById('reviewForm');
     let previouslyFocusedElement = null;
 
+    if (!reviewModal && !form && !document.getElementById('testimonialTrack')) {
+        return;
+    }
+
     // 1. Load Reviews
     loadReviews();
 
@@ -2606,6 +2705,7 @@ async function loadReviews() {
     };
     
     try {
+        const { db, collection, getDocs, query, where, orderBy, limit } = await getReviewServices();
         // Fetch approved reviews ordered by newest first, limited to 20
         const q = query(
             collection(db, "reviews"),
@@ -2622,6 +2722,7 @@ async function loadReviews() {
 
         if (reviews.length > 0) {
             renderReviews(reviews);
+            initTestimonialSlider();
         } else {
             hideSliderButtons();
         }
@@ -2784,6 +2885,7 @@ async function handleReviewSubmission(e) {
     const review = form.querySelector('[name="review"]').value;
 
     try {
+        const { db, collection, addDoc, serverTimestamp } = await getReviewServices();
         await addDoc(collection(db, "reviews"), {
             name: name,
             company: company,
