@@ -236,38 +236,19 @@ function main() {
     console.log('Brand Colors: #FFFFFF, #00B4D8, #1F3C88, #0F172A, #F97316, #FDBA74');
 }
 
-function getPricingToneClasses(tone, featured) {
-    if (featured) {
-        return {
-            ring: 'ring-2 ring-orange/30 dark:ring-orange/40',
-            badge: 'bg-gradient-to-r from-orange to-soft-amber text-white',
-            accent: 'from-orange to-soft-amber',
-            subtle: 'bg-orange/10 text-orange'
-        };
+function getPricingToneClassName(tone, featured = false) {
+    if (featured || tone === 'orange') {
+        return 'pricing-tone-orange';
     }
 
-    if (tone === 'orange') {
-        return {
-            ring: 'ring-1 ring-orange/15 dark:ring-orange/20',
-            badge: 'bg-orange/10 text-orange',
-            accent: 'from-orange to-soft-amber',
-            subtle: 'bg-orange/10 text-orange'
-        };
-    }
-
-    return {
-        ring: 'ring-1 ring-cyan/15 dark:ring-cyan/20',
-        badge: 'bg-cyan/10 text-cyan',
-        accent: 'from-tech-blue to-cyan',
-        subtle: 'bg-cyan/10 text-cyan'
-    };
+    return 'pricing-tone-cyan';
 }
 
 function renderPricingPlan(plan) {
-    const tones = getPricingToneClasses(plan.tone, plan.featured);
+    const toneClassName = getPricingToneClassName(plan.tone, plan.featured);
     const features = (plan.features || []).map(feature => `
-        <li class="flex items-start gap-3 text-sm text-charcoal/75 dark:text-gray-300">
-            <span class="mt-0.5 w-5 h-5 rounded-full ${tones.subtle} flex items-center justify-center text-[10px] shrink-0">
+        <li class="pricing-card-feature">
+            <span class="pricing-card-check" aria-hidden="true">
                 <i class="fas fa-check"></i>
             </span>
             <span>${escapeHtml(feature)}</span>
@@ -275,25 +256,28 @@ function renderPricingPlan(plan) {
     `).join('');
 
     return `
-        <article class="relative rounded-[2rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-800 p-8 shadow-[0_18px_50px_-22px_rgba(15,23,42,0.28)] ${tones.ring} ${plan.featured ? 'xl:-translate-y-3' : ''}">
-            <div class="flex items-start justify-between gap-4 mb-6">
+        <article class="pricing-plan-card ${toneClassName} ${plan.featured ? 'pricing-card-featured xl:-translate-y-3' : ''}">
+            <div class="flex items-start justify-between gap-4">
                 <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase ${tones.badge}">${escapeHtml(plan.badge)}</span>
-                    <h3 class="font-heading text-2xl font-bold text-tech-blue dark:text-white mt-4">${escapeHtml(plan.name)}</h3>
+                    <span class="pricing-card-badge">${escapeHtml(plan.badge)}</span>
+                    <h3 class="pricing-card-title font-heading text-tech-blue dark:text-white mt-4">${escapeHtml(plan.name)}</h3>
                 </div>
-                ${plan.featured ? '<span class="text-orange text-xl"><i class="fas fa-crown"></i></span>' : ''}
+                ${plan.featured ? '<span class="pricing-card-flag" aria-label="Featured plan"><i class="fas fa-crown"></i></span>' : ''}
             </div>
-            <p class="text-charcoal/70 dark:text-gray-400 leading-relaxed min-h-[72px]">${escapeHtml(plan.description)}</p>
-            <div class="mt-8 mb-8">
-                <div class="flex items-end gap-3 flex-wrap">
-                    <span class="font-heading text-4xl font-bold text-charcoal dark:text-white">${escapeHtml(plan.price)}</span>
-                    <span class="text-sm uppercase tracking-[0.18em] text-charcoal/45 dark:text-gray-500 pb-1">${escapeHtml(plan.period)}</span>
+            <p class="pricing-card-text text-charcoal/75 dark:text-gray-300 mt-4 min-h-[96px]">${escapeHtml(plan.description)}</p>
+            <div class="pricing-card-price-row mt-6">
+                <div class="flex items-center gap-3 flex-wrap">
+                    <span class="pricing-card-price font-heading text-charcoal dark:text-white">${escapeHtml(plan.price)}</span>
+                    <span class="pricing-card-meta">${escapeHtml(plan.period)}</span>
                 </div>
             </div>
-            <ul class="space-y-3 mb-8">
-                ${features}
-            </ul>
-            <a href="${escapeHtml(plan.ctaHref)}" class="inline-flex items-center justify-center w-full px-6 py-3.5 rounded-full font-bold text-white bg-gradient-to-r ${tones.accent} hover:-translate-y-0.5 transition-all duration-300 shadow-lg">
+            <div class="pricing-card-list mt-6">
+                <p class="pricing-card-list-label">Includes</p>
+                <ul class="space-y-3 mt-4">
+                    ${features}
+                </ul>
+            </div>
+            <a href="${escapeHtml(plan.ctaHref)}" class="pricing-card-button mt-6">
                 ${escapeHtml(plan.ctaLabel)}
             </a>
         </article>
@@ -301,10 +285,10 @@ function renderPricingPlan(plan) {
 }
 
 function renderPricingServicePreview(service) {
-    const tones = getPricingToneClasses(service.tone, false);
+    const toneClassName = getPricingToneClassName(service.tone, false);
     const highlights = (service.highlights || []).map((item) => `
-        <li class="flex items-start gap-3 text-sm text-charcoal/75 dark:text-gray-300">
-            <span class="mt-0.5 w-5 h-5 rounded-full ${tones.subtle} flex items-center justify-center text-[10px] shrink-0">
+        <li class="pricing-card-feature">
+            <span class="pricing-card-check" aria-hidden="true">
                 <i class="fas fa-check"></i>
             </span>
             <span>${escapeHtml(item)}</span>
@@ -312,20 +296,23 @@ function renderPricingServicePreview(service) {
     `).join('');
 
     return `
-        <article class="rounded-[2rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-800 p-8 shadow-[0_18px_50px_-22px_rgba(15,23,42,0.28)] ${tones.ring}">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase ${tones.badge}">${escapeHtml(service.eyebrow)}</span>
-            <h3 class="font-heading text-2xl font-bold text-tech-blue dark:text-white mt-5">${escapeHtml(service.name)}</h3>
-            <p class="mt-4 text-charcoal/70 dark:text-gray-400 leading-relaxed min-h-[96px]">${escapeHtml(service.summary)}</p>
-            <div class="mt-7">
-                <div class="flex items-end gap-3 flex-wrap">
-                    <span class="font-heading text-4xl font-bold text-charcoal dark:text-white">${escapeHtml(service.startingPrice)}</span>
-                    <span class="text-sm uppercase tracking-[0.18em] text-charcoal/45 dark:text-gray-500 pb-1">${escapeHtml(service.pricingNote)}</span>
+        <article class="pricing-service-card ${toneClassName}">
+            <span class="pricing-card-badge">${escapeHtml(service.eyebrow)}</span>
+            <h3 class="pricing-card-title font-heading text-tech-blue dark:text-white mt-5">${escapeHtml(service.name)}</h3>
+            <p class="pricing-card-text text-charcoal/75 dark:text-gray-300 mt-4 min-h-[96px]">${escapeHtml(service.summary)}</p>
+            <div class="pricing-card-price-row mt-6">
+                <div class="flex items-center gap-3 flex-wrap">
+                    <span class="pricing-card-price font-heading text-charcoal dark:text-white">${escapeHtml(service.startingPrice)}</span>
+                    <span class="pricing-card-meta">${escapeHtml(service.pricingNote)}</span>
                 </div>
             </div>
-            <ul class="space-y-3 my-8">
-                ${highlights}
-            </ul>
-            <a href="${escapeHtml(service.ctaHref)}" class="inline-flex items-center justify-center w-full px-6 py-3.5 rounded-full font-bold text-white bg-gradient-to-r ${tones.accent} hover:-translate-y-0.5 transition-all duration-300 shadow-lg">
+            <div class="pricing-card-list mt-6">
+                <p class="pricing-card-list-label">Good for</p>
+                <ul class="space-y-3 mt-4">
+                    ${highlights}
+                </ul>
+            </div>
+            <a href="${escapeHtml(service.ctaHref)}" class="pricing-card-button mt-6">
                 ${escapeHtml(service.ctaLabel)}
             </a>
         </article>
@@ -334,18 +321,25 @@ function renderPricingServicePreview(service) {
 
 function renderPricingServiceSection(service) {
     const plans = Array.isArray(service.plans) ? service.plans : [];
+    const toneClassName = getPricingToneClassName(service.tone, false);
+    const highlights = (service.highlights || []).map((item) => `
+        <span class="pricing-service-tag">${escapeHtml(item)}</span>
+    `).join('');
 
     return `
-        <section id="service-${escapeHtml(service.id)}" class="rounded-[2.25rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-6 md:p-8 xl:p-10 shadow-[0_24px_70px_-34px_rgba(15,23,42,0.38)]">
+        <section id="service-${escapeHtml(service.id)}" class="pricing-service-shell ${toneClassName}">
             <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-6 mb-10">
                 <div class="max-w-3xl">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase ${getPricingToneClasses(service.tone, false).badge}">${escapeHtml(service.eyebrow)}</span>
-                    <h3 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue dark:text-white mt-4">${escapeHtml(service.name)}</h3>
-                    <p class="mt-4 text-lg text-charcoal/70 dark:text-gray-400 leading-relaxed">${escapeHtml(service.summary)}</p>
+                    <span class="pricing-card-badge">${escapeHtml(service.eyebrow)}</span>
+                    <h3 class="pricing-card-title font-heading text-tech-blue dark:text-white mt-4">${escapeHtml(service.name)}</h3>
+                    <p class="pricing-card-text text-charcoal/75 dark:text-gray-300 mt-4">${escapeHtml(service.summary)}</p>
+                    <div class="flex flex-wrap gap-2.5 mt-5">
+                        ${highlights}
+                    </div>
                 </div>
-                <div class="xl:text-right">
-                    <div class="text-sm uppercase tracking-[0.2em] text-charcoal/45 dark:text-gray-500">${escapeHtml(service.pricingNote)}</div>
-                    <div class="font-heading text-3xl md:text-4xl font-bold text-charcoal dark:text-white mt-2">${escapeHtml(service.startingPrice)}</div>
+                <div class="pricing-service-stat xl:text-right">
+                    <div class="pricing-card-meta">${escapeHtml(service.pricingNote)}</div>
+                    <div class="pricing-card-price font-heading text-charcoal dark:text-white mt-3">${escapeHtml(service.startingPrice)}</div>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
