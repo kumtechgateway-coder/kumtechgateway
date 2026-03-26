@@ -3,6 +3,13 @@
  * Dynamically generates portfolio cards based on portfolio-data.js
  */
 
+function escapePortfolioHtml(value) {
+    if (value == null) return '';
+    return String(value).replace(/[&<>"']/g, (match) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[match]
+    ));
+}
+
 // Helper to generate srcset locally to ensure availability and performance
 function encodeAssetUrl(src) {
     if (!src) return '';
@@ -79,7 +86,7 @@ function createPortfolioCard(project, index, isPortfolioPage) {
         const techs = project.fullData.technologies.slice(0, 3);
         techStackHTML = `
             <div class="flex flex-wrap gap-2 mt-3">
-                ${techs.map(tech => `<span class="text-[10px] font-medium px-2 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded">${tech}</span>`).join('')}
+                ${techs.map(tech => `<span class="text-[10px] font-medium px-2 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded">${escapePortfolioHtml(tech)}</span>`).join('')}
             </div>
         `;
     }
@@ -90,7 +97,7 @@ function createPortfolioCard(project, index, isPortfolioPage) {
         <div class="rounded-xl overflow-hidden">
             <img src="${encodedImage}" 
                  ${responsiveAttrs}
-                 alt="${project.title}" 
+                 alt="${escapePortfolioHtml(project.title)}" 
                  class="w-full h-[170px] object-cover transition-transform duration-500 group-hover:scale-105" 
                  loading="${loadingMode}" 
                  decoding="async" 
@@ -103,17 +110,17 @@ function createPortfolioCard(project, index, isPortfolioPage) {
 
             <!-- Tag -->
             <span class="bg-tech-blue/10 text-tech-blue dark:bg-cyan/20 dark:text-cyan-300 text-xs font-semibold px-3 py-1 rounded-full self-start uppercase">
-                ${project.category}
+                ${escapePortfolioHtml(project.category)}
             </span>
 
             <!-- Title -->
             <h3 class="mt-3 text-tech-blue dark:text-white font-bold leading-tight text-base portfolio-title transition-colors duration-300 group-hover:text-cyan">
-                ${project.title}
+                ${escapePortfolioHtml(project.title)}
             </h3>
 
             <!-- Description -->
             <p class="text-gray-500 dark:text-gray-400 text-sm mt-2 leading-relaxed line-clamp-3 portfolio-description flex-1">
-                ${project.description}
+                ${escapePortfolioHtml(project.description)}
             </p>
 
             <!-- Technologies -->

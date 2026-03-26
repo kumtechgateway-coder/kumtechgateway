@@ -220,7 +220,7 @@ const portfolioData = [
         id: "faith-construction",
         category: "Web Development",
         title: "Faith Construction Corporate Site",
-        description: "A high-performance, dynamic corporate website for Cameroon’s premier builder, featuring a modern dark-mode aesthetic and real-time project statistics.",
+        description: "A high-performance, dynamic corporate website for Cameroon's premier builder, featuring a modern dark-mode aesthetic and real-time project statistics.",
         image: "images/faithconstruction.webp",
         fullData: {
             client: "Faith Construction",

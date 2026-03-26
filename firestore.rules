@@ -28,7 +28,7 @@ service cloud.firestore {
 
     match /reviews/{reviewId} {
       allow read: if resource.data.approved == true;
-      allow create: if isValidReviewSubmission();
+      allow create: if false;
       allow update, delete: if false;
     }
 

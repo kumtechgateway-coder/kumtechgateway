@@ -673,9 +673,9 @@
                 <!-- Review Buttons -->
                 <div class="flex flex-col sm:flex-row justify-center gap-4 mb-10">
                     <a href="https://g.page/r/CTyT8y4hhe89EAI/review" target="_blank" rel="noopener" data-track-event="review_google_click" data-track-category="engagement" data-track-label="homepage_google_review" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-slate-800 text-charcoal dark:text-white border border-gray-200 dark:border-white/10 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 font-medium group"><i class="fab fa-google text-red-500 text-lg group-hover:scale-110 transition-transform"></i> Leave a Google Review</a>
-                    <button id="openReviewForm" data-track-event="review_form_open" data-track-category="engagement" data-track-label="homepage_review_form" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-tech-blue text-white shadow-md hover:shadow-lg hover:bg-cyan hover:-translate-y-1 transition-all duration-300 font-medium"><i class="fas fa-pen text-sm"></i> Leave a Website Review</button>
+                    <a href="/#contact" data-track-event="contact_cta_click" data-track-category="engagement" data-track-label="homepage_private_feedback" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-tech-blue text-white shadow-md hover:shadow-lg hover:bg-cyan hover:-translate-y-1 transition-all duration-300 font-medium"><i class="fas fa-message text-sm"></i> Share Feedback Privately</a>
                 </div>
-                <p class="text-center text-sm text-charcoal/60 dark:text-gray-400 max-w-2xl mx-auto mb-10">Website reviews are moderated before publication to reduce spam and misleading submissions. For public third-party feedback, you can also review us on Google.</p>
+                <p class="text-center text-sm text-charcoal/60 dark:text-gray-400 max-w-2xl mx-auto mb-10">Public website review submissions are paused for abuse prevention. For verified public feedback, please use Google Reviews, or contact us directly with private feedback.</p>
                 
                 <div class="relative px-2 md:px-4">
                     <!-- Navigation Buttons -->
@@ -717,7 +717,7 @@
             </div>
             <div class="p-4 bg-gray-50 dark:bg-slate-900/50">
                 <div class="bg-white dark:bg-slate-700 p-3.5 rounded-2xl rounded-tl-none shadow-sm text-sm text-charcoal dark:text-gray-200 leading-relaxed border border-gray-100 dark:border-slate-600">
-                    Hi there! 👋 How can we help you grow your business today?
+                    Hi there! &#128075; How can we help you grow your business today?
                 </div>
                 <div class="text-[10px] text-gray-400 mt-2 text-right font-medium">Just now</div>
             </div>
@@ -731,60 +731,6 @@
               <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white dark:border-slate-900"></span>
             </span>
         </a>
-    </div>
-
-    <!-- Review Modal -->
-    <div id="reviewModal" class="fixed inset-0 z-[110] hidden items-center justify-center px-5" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle" aria-describedby="reviewModalDescription">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0" id="reviewOverlay"></div>
-        <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl relative z-10 max-w-lg w-full transform scale-95 opacity-0 transition-all duration-300" id="reviewContent" tabindex="-1">
-            <button id="closeReviewBtn" type="button" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-charcoal dark:text-white hover:bg-red-100 hover:text-red-500 transition-colors" aria-label="Close review dialog">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="text-center mb-6">
-                <h3 id="reviewModalTitle" class="text-2xl font-bold text-tech-blue dark:text-white mb-2">Write a Review</h3>
-                <p id="reviewModalDescription" class="text-charcoal/60 dark:text-gray-400 text-sm">Share your experience with Kumtech Gateway</p>
-            </div>
-
-            <form id="reviewForm" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-charcoal/70 dark:text-gray-400 uppercase tracking-wider mb-1">Full Name</label>
-                    <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-charcoal dark:text-white" placeholder="John Doe">
-                </div>
-                
-                <div>
-                    <label class="block text-xs font-bold text-charcoal/70 dark:text-gray-400 uppercase tracking-wider mb-1">Company (Optional)</label>
-                    <input type="text" name="company" class="w-full px-4 py-3 rounded-xl bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-charcoal dark:text-white" placeholder="TechHub">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-charcoal/70 dark:text-gray-400 uppercase tracking-wider mb-1">Rating</label>
-                    <div class="relative">
-                        <select name="rating" required class="w-full px-4 py-3 rounded-xl bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-charcoal dark:text-white appearance-none cursor-pointer">
-                            <option value="" disabled selected>Select a rating</option>
-                            <option value="5">★★★★★ (Excellent)</option>
-                            <option value="4">★★★★ (Good)</option>
-                            <option value="3">★★★ (Average)</option>
-                            <option value="2">★★ (Poor)</option>
-                            <option value="1">★ (Terrible)</option>
-                        </select>
-                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-charcoal/50 dark:text-gray-400">
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-charcoal/70 dark:text-gray-400 uppercase tracking-wider mb-1">Review</label>
-                    <textarea name="review" rows="3" required class="w-full px-4 py-3 rounded-xl bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all resize-none text-charcoal dark:text-white" placeholder="Tell us about your experience..."></textarea>
-                </div>
-
-                <!-- Honeypot -->
-                <input type="text" name="website_check" hidden autocomplete="off">
-
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-tech-blue to-cyan text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">Submit Review</button>
-            </form>
-        </div>
     </div>
 
     <!-- Success Modal (Global Fixed) -->

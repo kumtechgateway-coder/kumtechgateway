@@ -1495,7 +1495,7 @@ function initModal() {
                 study.results.forEach(result => {
                     const li = document.createElement('li');
                     li.className = 'flex items-start gap-3 text-charcoal/80 dark:text-gray-300';
-                    li.innerHTML = `<i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${result}</span>`;
+                    li.innerHTML = `<i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${escapeHtml(result)}</span>`;
                     resultsList.appendChild(li);
                 });
             }
@@ -1527,11 +1527,11 @@ function initModal() {
                     div.innerHTML = `
                         <button class="group w-full text-left cursor-pointer bg-soft-gray dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 rounded-lg p-3 transition-colors duration-300 flex items-center gap-4">
                             <div class="w-16 h-16 rounded-md overflow-hidden shrink-0">
-                                <img src="${encodeAssetUrl(relatedProject.image)}" srcset="${srcset}" sizes="5vw" alt="${relatedProject.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
+                                <img src="${encodeAssetUrl(relatedProject.image)}" srcset="${srcset}" sizes="5vw" alt="${escapeHtml(relatedProject.title)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
                             </div>
                             <div>
-                                <h4 class="font-bold text-tech-blue dark:text-white mb-1 text-sm line-clamp-1">${relatedProject.title}</h4>
-                                <p class="text-xs text-charcoal/60 dark:text-gray-400 uppercase tracking-wider">${relatedProject.category}</p>
+                                <h4 class="font-bold text-tech-blue dark:text-white mb-1 text-sm line-clamp-1">${escapeHtml(relatedProject.title)}</h4>
+                                <p class="text-xs text-charcoal/60 dark:text-gray-400 uppercase tracking-wider">${escapeHtml(relatedProject.category)}</p>
                             </div>
                         </button>
                     `;
@@ -2632,67 +2632,11 @@ function initGalleryPage() {
  * Initializes the Review System
  */
 function initReviews() {
-    const reviewModal = document.getElementById('reviewModal');
-    const openBtn = document.getElementById('openReviewForm');
-    const closeBtn = document.getElementById('closeReviewBtn');
-    const overlay = document.getElementById('reviewOverlay');
-    const content = document.getElementById('reviewContent');
-    const form = document.getElementById('reviewForm');
-    let previouslyFocusedElement = null;
-
-    if (!reviewModal && !form && !document.getElementById('testimonialTrack')) {
+    if (!document.getElementById('testimonialTrack')) {
         return;
     }
 
-    // 1. Load Reviews
     loadReviews();
-
-    // 2. Modal Logic
-    if (reviewModal && openBtn) {
-        const openModal = () => {
-            previouslyFocusedElement = document.activeElement;
-            reviewModal.classList.remove('hidden');
-            reviewModal.classList.add('flex');
-            reviewModal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-            // Animation
-            requestAnimationFrame(() => {
-                overlay.classList.remove('opacity-0');
-                content.classList.remove('opacity-0', 'scale-95');
-                content.classList.add('scale-100');
-                if (closeBtn) closeBtn.focus();
-            });
-        };
-
-        const closeModal = () => {
-            overlay.classList.add('opacity-0');
-            content.classList.remove('scale-100');
-            content.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => {
-                reviewModal.classList.add('hidden');
-                reviewModal.classList.remove('flex');
-                reviewModal.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-                if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
-                    previouslyFocusedElement.focus();
-                }
-            }, 300);
-        };
-
-        openBtn.addEventListener('click', openModal);
-        if (closeBtn) closeBtn.addEventListener('click', closeModal);
-        if (overlay) overlay.addEventListener('click', closeModal);
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && !reviewModal.classList.contains('hidden')) {
-                closeModal();
-            }
-        });
-    }
-
-    // 3. Handle Submission
-    if (form) {
-        form.addEventListener('submit', handleReviewSubmission);
-    }
 }
 
 async function loadReviews() {
@@ -2837,85 +2781,6 @@ function renderReviews(reviews) {
         track.appendChild(card);
     });
 }
-
-async function handleReviewSubmission(e) {
-    e.preventDefault();
-    const form = e.target;
-    
-    if (form.website_check.value) return;
-
-    const btn = form.querySelector('button[type="submit"]');
-    const originalText = btn.innerText;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-
-    const showSuccessAndReset = (title, text) => {
-        const reviewModal = document.getElementById('reviewModal');
-        const overlay = document.getElementById('reviewOverlay');
-        const content = document.getElementById('reviewContent');
-        if (!overlay || !content) return;
-
-        // The success message is now configurable.
-        overlay.classList.add('opacity-0');
-        content.classList.remove('scale-100');
-        content.classList.add('opacity-0', 'scale-95');
-        setTimeout(() => {
-            reviewModal.classList.add('hidden');
-            reviewModal.classList.remove('flex');
-            document.body.style.overflow = '';
-            
-            const successModal = document.getElementById('successModal');
-            const successTitleEl = document.getElementById('successTitle');
-            const successTextEl = document.getElementById('successText');
-            if (successModal) {
-                if(successTitleEl) successTitleEl.textContent = title;
-                if(successTextEl) successTextEl.textContent = text;
-                successModal.classList.add('active');
-                if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#00B4D8', '#F97316'] });
-            }
-            form.reset();
-            btn.disabled = false;
-            btn.innerText = originalText;
-        }, 300);
-    };
-
-    const name = form.querySelector('[name="name"]').value;
-    const company = form.querySelector('[name="company"]').value;
-    const rating = parseInt(form.querySelector('[name="rating"]').value, 10);
-    const review = form.querySelector('[name="review"]').value;
-
-    try {
-        const { db, collection, addDoc, serverTimestamp } = await getReviewServices();
-        await addDoc(collection(db, "reviews"), {
-            name: name,
-            company: company,
-            rating: rating,
-            review: review,
-            approved: false,
-            createdAt: serverTimestamp()
-        });
-
-        showSuccessAndReset(
-            'Review Submitted!',
-            'Thank you for your feedback. It will be visible after moderation.'
-        );
-        trackEvent('review_submit_success', {
-            category: 'engagement',
-            label: 'website_review_form'
-        });
-        loadReviews(); // Refresh the reviews list to show the new submission
-    } catch (error) {
-        console.error('Submission Error:', error);
-        trackEvent('review_submit_error', {
-            category: 'engagement',
-            label: 'website_review_form'
-        });
-        Toast.show('Sorry, there was an error submitting your review.', 'error');
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-    }
-}
-
 
 function initProjectDetailPage() {
     const container = document.getElementById('project-detail-container');
@@ -3066,7 +2931,7 @@ function initProjectDetailPage() {
     // Key Results
     if (resultsEl && project.fullData.results && project.fullData.results.length > 0) {
         resultsEl.innerHTML = project.fullData.results.map(r =>
-            `<li class="flex items-start gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${r}</span></li>`
+            `<li class="flex items-start gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${escapeHtml(r)}</span></li>`
         ).join('');
     } else if (resultsContainer) {
         resultsContainer.classList.add('hidden');
@@ -3131,8 +2996,8 @@ function initProjectDetailPage() {
                         <img src="${encodeAssetUrl(rp.image)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="${escapeHtml(rp.title)}" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-heading font-bold text-tech-blue dark:text-white line-clamp-2 mb-1">${rp.title}</h3>
-                        <p class="text-xs text-cyan uppercase font-semibold">${rp.category}</p>
+                        <h3 class="font-heading font-bold text-tech-blue dark:text-white line-clamp-2 mb-1">${escapeHtml(rp.title)}</h3>
+                        <p class="text-xs text-cyan uppercase font-semibold">${escapeHtml(rp.category)}</p>
                     </div>
                 </a>
             `).join('');

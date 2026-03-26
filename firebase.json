@@ -5,15 +5,42 @@
     "ignore": [
       "firebase.json",
       "firebase-debug.log",
+      "*.log",
       ".firebaserc",
       ".git/**",
       ".gitignore",
       ".hintrc",
       "**/.*",
       "**/node_modules/**",
+      "docs/**",
+      "output/**",
+      "lighthouse-*.json",
       "package.json",
       "package-lock.json",
       "scripts/**"
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "DENY"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "camera=(), microphone=(), geolocation=()"
+          }
+        ]
+      }
     ],
     "rewrites": [
       {
