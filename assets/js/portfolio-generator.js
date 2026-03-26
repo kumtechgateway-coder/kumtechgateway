@@ -15,8 +15,8 @@ function generatePortfolio(gridElement) {
     // Determine if we are on the homepage or portfolio page
     const isPortfolioPage = window.location.pathname.includes('portfolio.html') || document.getElementById('portfolio-page');
     
-    // Homepage shows 4 items, Portfolio page shows all
-    const itemsToShow = isPortfolioPage ? portfolioData : portfolioData.slice(0, 4);
+    // Homepage shows a curated preview, Portfolio page shows all
+    const itemsToShow = isPortfolioPage ? portfolioData : portfolioData.slice(0, 6);
 
     // Clear existing content
     gridElement.innerHTML = '';

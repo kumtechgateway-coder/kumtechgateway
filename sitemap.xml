@@ -66,6 +66,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://kumtechgateway.com/projects/demaco-real-estate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kumtechgateway.com/projects/bluebells-empire/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kumtechgateway.com/projects/richwil-beauty-spa/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://kumtechgateway.com/projects/rapha-maria-residence/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -76,7 +91,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://kumtechgateway.com/projects/eco-friendly-brand/</loc>
+    <loc>https://kumtechgateway.com/projects/market-basket-campaigns/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -97,16 +112,6 @@
   </url>
   <url>
     <loc>https://kumtechgateway.com/projects/fitness-tracker/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/projects/email-marketing/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/projects/travel-branding/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

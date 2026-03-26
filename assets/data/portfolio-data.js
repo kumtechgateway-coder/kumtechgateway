@@ -87,35 +87,107 @@ const portfolioData = [
     {
         id: "bold-brand-identity",
         category: "Graphic Design",
-        title: "Bold Brand Identity System",
-        description: "A concept-led identity system blending logo exploration, palette direction, 3D treatments, and marketing mockups into one cohesive visual story.",
+        title: "BOLD Identity System",
+        description: "A software-focused brand identity presented across stationery, apparel, signage, and digital mockups to prove the system works beyond the logo itself.",
         image: "images/bold mockups.png",
         fullData: {
-            client: "Bold Brand Concept",
+            client: "BOLD",
             timeline: "2026",
-            services: "Logo Design, Brand Identity, Marketing Collateral, Creative Direction",
-            challenge: "Create a brand direction that feels modern and expressive while still staying clear across logos, mockups, 3D explorations, and promotional layouts.",
-            solution: "We built a flexible visual system around a strong core mark, secondary logo variations, a supporting palette, dimensional logo treatments, and rollout-ready marketing assets that show how the identity behaves in real use.",
+            services: "Logo Design, Brand Identity, Stationery Mockups, Brand Presentation",
+            challenge: "The identity needed to feel modern, structured, and credible for a development-led business while still looking strong across both print and screen applications.",
+            solution: "We built a clean blue-and-orange identity around a bold geometric wordmark, then applied it across business cards, branded apparel, office signage, and product-style digital mockups to demonstrate a consistent rollout.",
             results: [
-                "Created a more complete visual presentation from concept to collateral",
-                "Showed how the identity adapts across flat, 3D, and mockup applications",
-                "Delivered a stronger brand story for presentation, pitching, and launch planning"
+                "Created a stronger presentation from logo concept to real-world application",
+                "Delivered a visual system that stays recognizable across print, apparel, and screens",
+                "Improved the brand's credibility with more polished rollout-ready assets"
             ],
             gallery: [
-                "images/brand identity.png",
                 "images/bold logo.png",
-                "images/blu logo2.png",
-                "images/3d bold logo.png",
-                "images/3d.png",
-                "images/color palette.png",
-                "images/marketing portfolio-01.png",
-                "images/marketing portfolio-02.png",
-                "images/mockup1.png",
-                "images/mockup2.png",
-                "images/ChatGPT Image Mar 23, 2026, 08_17_22 AM.png",
-                "images/ChatGPT Image Mar 23, 2026, 08_14_05 AM.png"
+                "images/3d bold logo.png"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
+            liveUrl: "#"
+        }
+    },
+
+    {
+        id: "demaco-real-estate",
+        category: "Graphic Design",
+        title: "Demaco Real Estate Identity",
+        description: "A real-estate identity system with a clear monogram, detailed brand board, and rollout-ready stationery and merchandise applications.",
+        image: "images/brand identity.png",
+        fullData: {
+            client: "Demaco Real Estate",
+            timeline: "2026",
+            services: "Real Estate Branding, Identity Design, Brand Guidelines, Stationery Mockups",
+            challenge: "The brand needed a reliable real-estate identity that felt professional on documents, merchandise, app icons, and signage without losing visual simplicity.",
+            solution: "We developed a crisp blue-led identity system with a property-inspired monogram, defined typography, material finishes, stationery applications, merchandise, favicon direction, and a polished presentation board for consistency.",
+            results: [
+                "Created a more complete identity system for real-estate communications",
+                "Improved consistency across stationery, merchandise, and digital touchpoints",
+                "Delivered a brand presentation that is easier to hand off and scale"
+            ],
+            gallery: [
+                "images/logo (2).png"
+            ],
+            technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
+            liveUrl: "#"
+        }
+    },
+
+    {
+        id: "bluebells-empire",
+        category: "Graphic Design",
+        title: "Bluebells Empire Brand System",
+        description: "A premium blue-and-gold identity for a real-estate and investment brand, presented through a full board, icon system, and dimensional logo treatment.",
+        image: "images/ChatGPT Image Mar 23, 2026, 08_14_05 AM.png",
+        fullData: {
+            client: "Bluebells Empire",
+            timeline: "2026",
+            services: "Brand Identity, Real Estate Branding, Logo Variations, Brand Presentation",
+            challenge: "The brand needed a more premium visual direction that could communicate development, reliability, and aspiration while staying recognizable across physical and digital media.",
+            solution: "We built a blue-and-gold visual language around a monogram mark, documented palette and typography choices, added stationery and merchandise concepts, and extended the brand with a refined 3D logo presentation.",
+            results: [
+                "Elevated the brand with a more premium real-estate visual language",
+                "Created reusable logo variations for digital and physical use",
+                "Strengthened presentation quality for proposals, profiles, and rollout materials"
+            ],
+            gallery: [
+                "images/blu logo2.png",
+                "images/ChatGPT Image Mar 23, 2026, 08_17_22 AM.png"
+            ],
+            technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
+            liveUrl: "#"
+        }
+    },
+
+    {
+        id: "richwil-beauty-spa",
+        category: "Graphic Design",
+        title: "RichWil Beauty Spa Rollout",
+        description: "A soft luxury beauty-spa identity extended across stationery, merchandise, palette definition, 3D logo treatment, and campaign-ready service flyers.",
+        image: "images/mockup2.png",
+        fullData: {
+            client: "RichWil Beauty Spa",
+            timeline: "2026",
+            services: "Beauty Branding, Print Design, Marketing Flyers, Stationery System",
+            challenge: "The brand needed a soft, premium visual style that could work equally well for spa branding, service promotion, merchandise, and front-desk collateral.",
+            solution: "We created a lavender-led beauty identity, documented the palette, built a 3D logo mockup, produced branded stationery and merchandise scenes, and extended the system into targeted flyers for makeup, grooming, hair coloring, and dread services.",
+            results: [
+                "Built a consistent spa brand across both identity and promotional materials",
+                "Made service offers easier to market through matching flyer creatives",
+                "Delivered a more polished luxury feel across print and merchandise touchpoints"
+            ],
+            gallery: [
+                "images/mockup1.png",
+                "images/3d.png",
+                "images/color palette.png",
+                "images/flyer.png",
+                "images/flyer0.png",
+                "images/flyer2.png",
+                "images/flyer4.png"
+            ],
+            technologies: ["Adobe Photoshop", "Adobe Illustrator", "Figma"],
             liveUrl: "#"
         }
     },
@@ -175,23 +247,26 @@ const portfolioData = [
 
     
     {
-        id: "eco-friendly-brand",
-        category: "Graphic Design",
-        title: "Eco-Friendly Brand Identity",
-        description: "Developed a brand focused on sustainability with eco-friendly materials and messaging.",
-        image: "https://placehold.co/800x600/22C55E/FFFFFF?text=Eco+Branding",
+        id: "market-basket-campaigns",
+        category: "Ads Management",
+        title: "Market Basket Campaign Creatives",
+        description: "Offer-led promotional creatives designed to make Market Basket's services and marketplace positioning easier to understand at a glance.",
+        image: "images/marketing portfolio-01.png",
         fullData: {
-            client: "Sustainable Goods Co.",
-            timeline: "2024",
-            services: "Branding, Packaging Design, Content Strategy",
-            challenge: "Create a brand identity that communicates the company's commitment to sustainability without appearing generic or preachy.",
-            solution: "We developed a nature-inspired color palette, custom typography, and packaging made from recycled materials. The brand voice was crafted to be authentic and inspiring.",
-            results: ["Strong brand differentiation in a crowded market", "Positive media coverage in sustainability blogs", "25% increase in customer loyalty"],
-            gallery: [
-                "https://placehold.co/800x600/22C55E/FFFFFF?text=Eco+Packaging",
-                "https://placehold.co/800x600/22C55E/FFFFFF?text=Sustainable+Logo"
+            client: "Market Basket",
+            timeline: "2026",
+            services: "Campaign Creative, Offer Positioning, Promotional Design, Ads Support",
+            challenge: "The campaign needed to explain multiple value propositions quickly while staying bold enough for attention-driven ad and promotional placement.",
+            solution: "We designed high-contrast campaign creatives that present the offer, pricing context, audience benefit, and contact path in a single visual flow, making the campaigns easier to scan and easier to act on.",
+            results: [
+                "Made campaign messaging clearer for fast-scroll promotional contexts",
+                "Improved the visual structure of offer-led marketing communication",
+                "Created reusable creative directions for future promotional pushes"
             ],
-            technologies: ["Illustrator", "Figma", "Shopify"],
+            gallery: [
+                "images/marketing portfolio-02.png"
+            ],
+            technologies: ["Adobe Photoshop", "Illustrator", "Creative Strategy"],
             liveUrl: "#"
         }
     },
@@ -276,46 +351,5 @@ const portfolioData = [
             technologies: ["React Native", "Firebase", "Node.js"]
         }
     },
-    {
-        id: "email-marketing",
-        category: "Ads Management",
-        title: "Email Marketing Automation",
-        description: "Automated email workflows that increased customer retention and sales for an online retailer.",
-        image: "https://placehold.co/800x600/F97316/FFFFFF?text=Email+Marketing",
-        fullData: {
-            client: "Online Retailer",
-            timeline: "2023",
-            services: "Email Marketing, Automation, Content Strategy",
-            challenge: "The client wanted to increase customer lifetime value and recover abandoned carts through effective email marketing.",
-            solution: "We set up automated email workflows for welcome series, abandoned carts, and post-purchase follow-ups. We also designed new email templates and segmented the audience for targeted campaigns.",
-            results: ["25% recovery rate for abandoned carts", "Email-driven revenue increased by 40%", "Open rates improved by 15%"],
-            gallery: [
-                "https://placehold.co/800x600/F97316/FFFFFF?text=Newsletter+Template",
-                "https://placehold.co/800x600/F97316/FFFFFF?text=Campaign+Results"
-            ],
-            technologies: ["Mailchimp", "Klaviyo", "HTML Email"],
-            liveUrl: "#"
-        }
-    },
-    {
-        id: "travel-branding",
-        category: "Graphic Design",
-        title: "Travel Agency Branding",
-        description: "Vibrant and adventurous brand identity for a modern travel agency targeting thrill-seekers.",
-        image: "https://placehold.co/800x600/00B4D8/FFFFFF?text=Travel+Branding",
-        fullData: {
-            client: "Adventure Tours Co.",
-            timeline: "2024",
-            services: "Branding, Logo Design, Web Design",
-            challenge: "To create a brand identity that captures the spirit of adventure and appeals to a younger, thrill-seeking demographic.",
-            solution: "We designed a dynamic logo, a bold color palette, and a website filled with immersive photography and video. The brand messaging focuses on unique experiences and storytelling.",
-            results: ["Successfully repositioned the brand to the target demographic", "Social media engagement increased by 200%", "Bookings for adventure packages went up by 60%"],
-            gallery: [
-                "https://placehold.co/800x600/00B4D8/FFFFFF?text=Travel+Brochure",
-                "https://placehold.co/800x600/00B4D8/FFFFFF?text=Adventure+Logo"
-            ],
-            technologies: ["Figma", "Webflow", "Illustrator"],
-            liveUrl: "#"
-        }
-    }
+    
 ];
