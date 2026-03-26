@@ -1930,31 +1930,40 @@ function initBlogPages() {
         const delay = Math.min(index * 80, 320);
 
         return `
-            <article class="blog-card group bg-white dark:bg-slate-800 rounded-[1.75rem] overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col reveal-up" style="animation-delay: ${delay}ms">
-                <a href="${postUrl}" class="block overflow-hidden relative bg-soft-gray dark:bg-slate-700">
-                    <img src="${imageUrl}" alt="${safeTitle}" class="w-full aspect-[16/10] object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
-                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div class="absolute top-4 left-4 bg-gradient-to-r from-tech-blue to-cyan text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-[0.18em] shadow-md">
-                        ${safeCategory}
-                    </div>
+            <article class="blog-card portfolio-card group bg-white dark:bg-slate-800 rounded-xl shadow-md p-4 reveal-up flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-slate-200 dark:border-slate-700" style="animation-delay: ${delay}ms">
+                <a href="${postUrl}" class="block rounded-xl overflow-hidden bg-soft-gray dark:bg-slate-700">
+                    <img src="${imageUrl}" alt="${safeTitle}" class="w-full h-[170px] object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
                 </a>
-                <div class="p-6 flex flex-col flex-1">
-                    <div class="flex flex-wrap items-center gap-3 text-xs text-charcoal/60 dark:text-gray-400 mb-3">
-                        <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-cyan"></i> ${safeDate}</span>
-                        <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                        <span class="flex items-center gap-1"><i class="far fa-user text-cyan"></i> ${safeAuthor}</span>
-                        <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                        <span class="flex items-center gap-1"><i class="far fa-clock text-cyan"></i> ${safeReadingTime}</span>
+                <div class="mt-4 flex flex-col flex-1">
+                    <div class="flex items-start justify-between gap-3">
+                        <span class="bg-tech-blue/10 text-tech-blue dark:bg-cyan/20 dark:text-cyan-300 text-xs font-semibold px-3 py-1 rounded-full self-start uppercase">
+                            ${safeCategory}
+                        </span>
+                        <span class="text-[11px] text-charcoal/55 dark:text-gray-400 whitespace-nowrap">${safeReadingTime}</span>
                     </div>
-                    <h3 class="text-xl font-bold text-tech-blue dark:text-white mb-3 leading-tight group-hover:text-cyan transition-colors">
+
+                    <h3 class="mt-3 text-tech-blue dark:text-white font-bold leading-tight text-base portfolio-title transition-colors duration-300 group-hover:text-cyan">
                         <a href="${postUrl}">${safeTitle}</a>
                     </h3>
-                    <p class="text-charcoal/70 dark:text-gray-400 text-sm mb-6 line-clamp-3 flex-1 leading-relaxed">
+
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-2 leading-relaxed line-clamp-3 portfolio-description flex-1">
                         ${safeExcerpt}
                     </p>
-                    <a href="${postUrl}" class="inline-flex items-center text-tech-blue dark:text-cyan font-bold text-sm group/link mt-auto">
-                        Read Article <i class="fas fa-arrow-right ml-2 transform group-hover/link:translate-x-1 transition-transform"></i>
-                    </a>
+
+                    <div class="flex items-center justify-between gap-3 mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
+                        <div class="min-w-0">
+                            <p class="text-[11px] text-charcoal/55 dark:text-gray-400 truncate">
+                                <i class="far fa-calendar-alt text-cyan mr-1"></i>${safeDate}
+                            </p>
+                            <p class="text-[11px] text-charcoal/55 dark:text-gray-400 truncate mt-1">
+                                <i class="far fa-user text-cyan mr-1"></i>${safeAuthor}
+                            </p>
+                        </div>
+                        <a href="${postUrl}" class="portfolio-card-btn group/link flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm border border-gray-300 dark:border-gray-600 px-3 py-1 rounded-full transition-all duration-300 hover:bg-tech-blue hover:text-white hover:border-tech-blue dark:hover:bg-cyan dark:hover:text-charcoal dark:hover:border-cyan">
+                            Read
+                            <span class="text-lg leading-none -mt-px transition-transform duration-300 group-hover/link:translate-x-1">&raquo;</span>
+                        </a>
+                    </div>
                 </div>
             </article>
         `;
@@ -2074,13 +2083,12 @@ function initBlogPages() {
 
                     if (emptyState) emptyState.classList.add('hidden');
 
-                    const [featuredPost, ...remainingPosts] = matchingPosts;
                     if (featuredContainer) {
-                        featuredContainer.classList.remove('hidden');
-                        featuredContainer.innerHTML = renderFeaturedBlog(featuredPost);
+                        featuredContainer.innerHTML = '';
+                        featuredContainer.classList.add('hidden');
                     }
 
-                    blogGrid.innerHTML = remainingPosts.map((post, index) => renderBlogCard(post, index)).join('');
+                    blogGrid.innerHTML = matchingPosts.map((post, index) => renderBlogCard(post, index)).join('');
 
                     setTimeout(() => {
                         document.querySelectorAll('.reveal-up').forEach((element) => element.classList.add('active'));
@@ -2107,7 +2115,7 @@ function initBlogPages() {
             })
             .catch((err) => {
                 console.error('Error loading blog posts:', err);
-                blogGrid.innerHTML = '<p class="text-center md:col-span-2 xl:col-span-3 text-red-500">Failed to load blog posts.</p>';
+                blogGrid.innerHTML = '<p class="text-center sm:col-span-2 lg:col-span-4 text-red-500">Failed to load blog posts.</p>';
             });
     }
 
