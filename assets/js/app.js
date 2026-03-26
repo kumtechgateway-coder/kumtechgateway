@@ -8,9 +8,11 @@ const firebaseConfig = {
   measurementId: "G-30MVBTWFKJ"
 };
 
+const ANALYTICS_MEASUREMENT_ID = 'G-H55QGC66WN';
 let reviewServicesPromise = null;
 let emailJsPromise = null;
 let confettiPromise = null;
+let analyticsPromise = null;
 
 function shouldReduceNonEssentialEffects() {
     if (typeof window === 'undefined') return true;
@@ -111,6 +113,70 @@ async function getConfettiService() {
     }
 
     return confettiPromise;
+}
+
+async function initAnalytics() {
+    if (typeof window === 'undefined' || !ANALYTICS_MEASUREMENT_ID) {
+        return null;
+    }
+
+    if (window.__kumtechAnalyticsReady && typeof window.gtag === 'function') {
+        return window.gtag;
+    }
+
+    if (!analyticsPromise) {
+        analyticsPromise = new Promise((resolve, reject) => {
+            window.dataLayer = window.dataLayer || [];
+            if (typeof window.gtag !== 'function') {
+                window.gtag = function() {
+                    window.dataLayer.push(arguments);
+                };
+            }
+
+            const finalize = () => {
+                if (window.__kumtechAnalyticsReady) {
+                    resolve(window.gtag);
+                    return;
+                }
+
+                window.gtag('js', new Date());
+                window.gtag('config', ANALYTICS_MEASUREMENT_ID);
+                window.__kumtechAnalyticsReady = true;
+                resolve(window.gtag);
+            };
+
+            const existingScript = document.querySelector('script[data-external-script="google-analytics"]');
+            if (existingScript) {
+                if (existingScript.dataset.loaded === 'true') {
+                    finalize();
+                    return;
+                }
+
+                existingScript.addEventListener('load', () => {
+                    existingScript.dataset.loaded = 'true';
+                    finalize();
+                }, { once: true });
+                existingScript.addEventListener('error', () => reject(new Error('Failed to load Google Analytics.')), { once: true });
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_MEASUREMENT_ID}`;
+            script.async = true;
+            script.dataset.externalScript = 'google-analytics';
+            script.onload = () => {
+                script.dataset.loaded = 'true';
+                finalize();
+            };
+            script.onerror = () => reject(new Error('Failed to load Google Analytics.'));
+            document.head.appendChild(script);
+        }).catch((error) => {
+            analyticsPromise = null;
+            throw error;
+        });
+    }
+
+    return analyticsPromise;
 }
  
 /**
@@ -325,6 +391,7 @@ function main() {
 
     runWhenIdle(() => {
         I18n.init();
+        initAnalytics().catch(() => null);
         initConversionTracking();
         initCustomCursor();
         initFloatingButtons();
