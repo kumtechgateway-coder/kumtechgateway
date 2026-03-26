@@ -95,7 +95,7 @@ function createPortfolioCard(project, index, isPortfolioPage) {
                  loading="${loadingMode}" 
                  decoding="async" 
                  ${fetchPriority}
-                 onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found'">
+                 onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
         </div>
 
         <!-- Content -->

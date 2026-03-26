@@ -226,7 +226,7 @@ function main() {
     document.addEventListener('error', function(e) {
         if (e.target.tagName.toLowerCase() === 'img') {
             e.target.onerror = null; // Prevent infinite loop
-            e.target.src = 'https://placehold.co/600x400?text=Image+Not+Found';
+            e.target.src = '/images/logo.png';
             e.target.classList.add('object-contain', 'bg-gray-50');
         }
     }, true);
@@ -1432,7 +1432,7 @@ function initModal() {
                     div.innerHTML = `
                         <button class="group w-full text-left cursor-pointer bg-soft-gray dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 rounded-lg p-3 transition-colors duration-300 flex items-center gap-4">
                             <div class="w-16 h-16 rounded-md overflow-hidden shrink-0">
-                                <img src="${relatedProject.image}" srcset="${srcset}" sizes="5vw" alt="${relatedProject.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Img'">
+                                <img src="${encodeAssetUrl(relatedProject.image)}" srcset="${srcset}" sizes="5vw" alt="${relatedProject.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
                             </div>
                             <div>
                                 <h4 class="font-bold text-tech-blue dark:text-white mb-1 text-sm line-clamp-1">${relatedProject.title}</h4>
@@ -2321,7 +2321,7 @@ function initGalleryPreview() {
                      width="${img.width || 600}"
                      height="${img.height || 800}"
                      class="w-full h-auto rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-500 group-hover:scale-105 cursor-zoom-in"
-                     loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/${img.width || 600}x${img.height || 800}?text=Image+Error'">
+                     loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
                 
                 <!-- Hover Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
@@ -2446,7 +2446,7 @@ function initGalleryPage() {
                 const srcset = generateSrcset(imgData.src);
                 const isEager = loadedCount === 0 && i < 6;
                 const delay = isEager ? '' : ['delay-100', 'delay-200', 'delay-300'][i % 3];
-                const placeholderSrc = imgData.placeholder ? encodeAssetUrl(imgData.placeholder) : `https://placehold.co/30x40?text=+`;
+                const placeholderSrc = imgData.placeholder ? encodeAssetUrl(imgData.placeholder) : '/images/logo-placeholder.webp';
 
                 const div = document.createElement('div');
                 div.className = `mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-[10px] overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1`;
@@ -2463,7 +2463,7 @@ function initGalleryPage() {
                          class="w-full h-full object-cover cursor-zoom-in group-hover:scale-105 transition-transform duration-500 ${!isEager ? 'img-blur-up' : ''}"
                          ${isEager ? 'loading="eager" fetchPriority="high"' : 'loading="lazy"'}
                          decoding="async"
-                         onerror="this.onerror=null; this.src='https://placehold.co/${imgData.width || 600}x${imgData.height || 800}?text=Image+Error'; this.classList.add('loaded');">
+                         onerror="this.onerror=null; this.src='/images/logo.png'; this.classList.add('loaded','object-contain','bg-gray-50');">
                     <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
                     <span class="inline-block px-3 py-1 bg-cyan/90 text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${imgData.category ? imgData.category.replace('-', ' ') : 'Design'}</span>
                     <p class="text-white text-sm font-medium opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75"><i class="fas fa-search-plus mr-2"></i>View Full Size</p>
@@ -2855,8 +2855,14 @@ function initProjectDetailPage() {
     const currentUrl = window.location.href;
     const pageTitle = `${project.title} | Kumtech Gateway Project`;
     const pageDescription = project.description;
-    // Ensure we have a full URL for the image
-    const pageImage = project.image.startsWith('http') ? project.image : `https://kumtechgateway.com/${project.image}`;
+    const projectImage = encodeAssetUrl(project.image);
+    let pageImage = 'https://kumtechgateway.com/images/logo.png';
+
+    try {
+        pageImage = new URL(projectImage || '/images/logo.png', window.location.origin).href;
+    } catch (error) {
+        pageImage = 'https://kumtechgateway.com/images/logo.png';
+    }
 
     // 1. Update Title & Description
     document.title = pageTitle;
@@ -2909,13 +2915,13 @@ function initProjectDetailPage() {
     if (categoryEl) categoryEl.textContent = project.category;
     if (titleEl) titleEl.textContent = project.title;
     if (descriptionEl) descriptionEl.textContent = project.description;
-    if (challengeEl) challengeEl.textContent = project.fullData.challenge;
-    if (solutionEl) solutionEl.textContent = project.fullData.solution;
+    if (challengeEl) challengeEl.textContent = project.fullData.challenge || project.description;
+    if (solutionEl) solutionEl.textContent = project.fullData.solution || project.description;
     
     // Info Box
-    if (clientEl) clientEl.textContent = project.fullData.client;
-    if (timelineEl) timelineEl.textContent = project.fullData.timeline;
-    if (servicesEl) servicesEl.textContent = project.fullData.services;
+    if (clientEl) clientEl.textContent = project.fullData.client || 'Confidential client';
+    if (timelineEl) timelineEl.textContent = project.fullData.timeline || 'Custom engagement';
+    if (servicesEl) servicesEl.textContent = project.fullData.services || project.category;
     
     // Live Site Link
     if (liveSiteLink) {
@@ -2975,11 +2981,19 @@ function initProjectDetailPage() {
     }
     
     // Image Gallery
-    const images = [project.image, ...(project.fullData.gallery || [])];
-    if (mainImage) mainImage.src = images[0]; // Set initial image
+    const images = [project.image, ...(project.fullData.gallery || [])].filter(Boolean);
+    if (mainImage) {
+        mainImage.src = encodeAssetUrl(images[0] || '/images/logo.png');
+        mainImage.alt = project.title;
+        mainImage.onerror = () => {
+            mainImage.onerror = null;
+            mainImage.src = '/images/logo.png';
+            mainImage.classList.add('object-contain', 'bg-gray-50');
+        };
+    }
     if (thumbnailsContainer) {
         thumbnailsContainer.innerHTML = images.map((imgSrc, index) =>
-            `<img src="${imgSrc}" alt="${project.title} thumbnail ${index + 1}" class="w-28 h-16 object-cover rounded-lg shadow-md cursor-pointer border-2 ${index === 0 ? 'border-cyan scale-105 opacity-100' : 'border-transparent opacity-60'} hover:opacity-100 hover:scale-105 transition-all" data-src="${imgSrc}">`
+            `<img src="${encodeAssetUrl(imgSrc)}" alt="${escapeHtml(project.title)} thumbnail ${index + 1}" class="w-28 h-16 object-cover rounded-lg shadow-md cursor-pointer border-2 ${index === 0 ? 'border-cyan scale-105 opacity-100' : 'border-transparent opacity-60'} hover:opacity-100 hover:scale-105 transition-all" data-src="${encodeAssetUrl(imgSrc)}" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">`
         ).join('');
         
         thumbnailsContainer.addEventListener('click', e => {
@@ -3012,7 +3026,7 @@ function initProjectDetailPage() {
             relatedGrid.innerHTML = related.map(rp => `
                 <a href="${getProjectDetailUrl(rp.id)}" class="group block bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-200 dark:border-slate-700 hover:-translate-y-1">
                     <div class="aspect-video bg-slate-100 dark:bg-slate-700">
-                        <img src="${rp.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="${rp.title}">
+                        <img src="${encodeAssetUrl(rp.image)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="${escapeHtml(rp.title)}" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
                     </div>
                     <div class="p-4">
                         <h3 class="font-heading font-bold text-tech-blue dark:text-white line-clamp-2 mb-1">${rp.title}</h3>

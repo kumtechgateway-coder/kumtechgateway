@@ -41,7 +41,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/tailwind.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="icon" type="image/png" href="/images/logo.png">
 </head>
 <body class="project-detail-page font-sans antialiased bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100">
 
@@ -55,7 +55,7 @@
         </div>
 
         <!-- Main content -->
-        <div id="project-content">
+        <div id="project-content" class="hidden">
             <!-- Main content section -->
             <section class="py-12 md:py-16">
                 <div class="container max-w-7xl mx-auto px-5">
@@ -119,12 +119,13 @@
                             <div class="mb-8 animate-fade-up">
                                 <span id="project-category" class="inline-block px-3 py-1 mb-3 text-xs font-bold tracking-wider text-cyan uppercase rounded-full bg-cyan/10"></span>
                                 <h1 id="project-title" class="text-3xl md:text-4xl font-heading font-bold text-tech-blue dark:text-white leading-tight"></h1>
+                                <p id="project-description" class="mt-4 text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl"></p>
                             </div>
                             
                             <!-- Gallery section -->
                             <div id="gallery-section" class="mb-12 animate-scale-in">
                                 <div class="relative group rounded-2xl overflow-hidden bg-gray-100 dark:bg-dark-800 aspect-video cursor-zoom-in">
-                                    <img id="project-main-image" src="https://placehold.co/1200x800/0284c7/white?text=Kumtech+Gateway+Dashboard" alt="Project main" class="w-full h-full object-cover">
+                                    <img id="project-main-image" src="/images/logo.png" alt="Project main" class="w-full h-full object-cover">
                                     <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                         <i class="fas fa-search-plus text-white text-3xl"></i>
                                     </div>
@@ -132,10 +133,10 @@
                                 
                                 <!-- Thumbnails -->
                                 <div id="project-thumbnails" class="grid grid-cols-4 gap-3 mt-4">
-                                    <img src="https://placehold.co/300x200/0284c7/white?text=Dashboard" class="w-full h-20 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-primary-500 transition-all duration-200">
-                                    <img src="https://placehold.co/300x200/0369a1/white?text=Analytics" class="w-full h-20 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-primary-500 transition-all duration-200">
-                                    <img src="https://placehold.co/300x200/0ea5e9/white?text=Edge+Node" class="w-full h-20 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-primary-500 transition-all duration-200">
-                                    <img src="https://placehold.co/300x200/38bdf8/white?text=Mobile+View" class="w-full h-20 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-primary-500 transition-all duration-200">
+                                    <div class="w-full h-20 rounded-lg border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-dark-800"></div>
+                                    <div class="w-full h-20 rounded-lg border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-dark-800"></div>
+                                    <div class="w-full h-20 rounded-lg border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-dark-800"></div>
+                                    <div class="w-full h-20 rounded-lg border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-dark-800"></div>
                                 </div>
                             </div>
                             
@@ -146,9 +147,7 @@
                                         <i class="fas fa-mountain text-primary-500"></i>
                                         The Challenge
                                     </h3>
-                                    <p id="project-challenge" class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                        Kumtech's manufacturing plant was struggling with data silos and delayed insights from their legacy systems. Real-time monitoring was impossible, leading to unexpected downtime and efficiency losses. They needed a unified platform to collect, process, and visualize data from multiple production lines.
-                                    </p>
+                                    <p id="project-challenge" class="text-gray-600 dark:text-gray-300 leading-relaxed"></p>
                                 </div>
                                 
                                 <div class="bg-white dark:bg-dark-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-800">
@@ -156,9 +155,7 @@
                                         <i class="fas fa-lightbulb text-primary-500"></i>
                                         The Solution
                                     </h3>
-                                    <p id="project-solution" class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                        We deployed an edge gateway running Node-RED and custom Node.js services to aggregate data from 200+ sensors. The gateway processes data locally, reducing cloud costs by 60%, while a real-time dashboard provides operators with instant insights and alerts for predictive maintenance.
-                                    </p>
+                                    <p id="project-solution" class="text-gray-600 dark:text-gray-300 leading-relaxed"></p>
                                 </div>
                             </div>
                             
@@ -168,24 +165,7 @@
                                     <i class="fas fa-chart-line text-primary-500"></i>
                                     Key Results
                                 </h3>
-                                <ul id="project-results" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <li class="flex items-start gap-3 bg-white dark:bg-dark-800/50 p-4 rounded-xl">
-                                        <i class="fas fa-clock text-primary-500 mt-1"></i>
-                                        <span><strong class="font-semibold">85%</strong> reduction in data latency</span>
-                                    </li>
-                                    <li class="flex items-start gap-3 bg-white dark:bg-dark-800/50 p-4 rounded-xl">
-                                        <i class="fas fa-dollar-sign text-primary-500 mt-1"></i>
-                                        <span><strong class="font-semibold">60%</strong> lower cloud costs</span>
-                                    </li>
-                                    <li class="flex items-start gap-3 bg-white dark:bg-dark-800/50 p-4 rounded-xl">
-                                        <i class="fas fa-chart-bar text-primary-500 mt-1"></i>
-                                        <span><strong class="font-semibold">99.9%</span> uptime achieved</strong>
-                                    </li>
-                                    <li class="flex items-start gap-3 bg-white dark:bg-dark-800/50 p-4 rounded-xl">
-                                        <i class="fas fa-bell text-primary-500 mt-1"></i>
-                                        <span><strong class="font-semibold">3x</strong> faster alert response</span>
-                                    </li>
-                                </ul>
+                                <ul id="project-results" class="grid grid-cols-1 md:grid-cols-2 gap-4"></ul>
                             </div>
                         </div>
                     </div>
@@ -206,37 +186,8 @@
                     </div>
                     
                     <div id="related-projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Related project card 1 -->
-                        <div class="group bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300">
-                            <div class="aspect-video bg-gray-200 dark:bg-dark-700">
-                                <img src="https://placehold.co/600x400/0284c7/white?text=Smart+Factory" alt="Smart Factory" class="w-full h-full object-cover">
-                            </div>
-                            <div class="p-5">
-                                <h3 class="font-heading font-semibold text-gray-900 dark:text-white mb-2">Smart Factory Dashboard</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Real-time production monitoring</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Related project card 2 -->
-                        <div class="group bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300">
-                            <div class="aspect-video bg-gray-200 dark:bg-dark-700">
-                                <img src="https://placehold.co/600x400/0369a1/white?text=Edge+AI" alt="Edge AI" class="w-full h-full object-cover">
-                            </div>
-                            <div class="p-5">
-                                <h3 class="font-heading font-semibold text-gray-900 dark:text-white mb-2">Edge AI Analytics</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Predictive maintenance platform</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Related project card 3 -->
-                        <div class="group bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300">
-                            <div class="aspect-video bg-gray-200 dark:bg-dark-700">
-                                <img src="https://placehold.co/600x400/0ea5e9/white?text=IoT+Gateway" alt="IoT Gateway" class="w-full h-full object-cover">
-                            </div>
-                            <div class="p-5">
-                                <h3 class="font-heading font-semibold text-gray-900 dark:text-white mb-2">Industrial IoT Gateway</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Legacy equipment integration</p>
-                            </div>
+                        <div class="sm:col-span-2 lg:col-span-3 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700 px-6 py-10 text-center text-gray-500 dark:text-gray-400">
+                            Related projects will load here when similar work exists.
                         </div>
                     </div>
                 </div>
@@ -293,13 +244,11 @@
     <script src="/assets/data/portfolio-data.js"></script>
     <script src="/assets/js/portfolio-generator.js"></script>
     <script type="module" src="/assets/js/app.js"></script>
-    
-    <script>
-        // Simple loader hide (replace with actual implementation)
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('project-loader').style.display = 'none';
-            }, 500);
-        });
-        
-        // 
+
+    <noscript>
+        <div class="fixed inset-x-4 bottom-4 z-50 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 shadow-lg">
+            JavaScript is required to load this project page. You can still browse all case studies on <a href="/portfolio.html" class="font-semibold underline">the portfolio page</a>.
+        </div>
+    </noscript>
+</body>
+</html>

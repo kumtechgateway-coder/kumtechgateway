@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v80';
+const CACHE_NAME = 'kumtech-cache-v81';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -53,7 +53,17 @@ function getNavigationFallback(pathname) {
     return './blog-post.html';
   }
 
+  if (normalizedPath.startsWith('/projects/')) {
+    return './project-detail.html';
+  }
+
   return routeFallbacks[normalizedPath] || './404.html';
+}
+
+function isNetworkFirstAsset(pathname) {
+  return pathname.endsWith('.html') ||
+    pathname.startsWith('/assets/js/') ||
+    pathname.startsWith('/assets/data/');
 }
 
 self.addEventListener('install', (event) => {
@@ -90,6 +100,15 @@ self.addEventListener('fetch', (event) => {
           const routeFallback = getNavigationFallback(requestUrl.pathname);
           return cachedPage || caches.match(routeFallback) || caches.match('./index.html');
         })
+    );
+    return;
+  }
+
+  if (isNetworkFirstAsset(requestUrl.pathname)) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => cacheResponse(request, response))
+        .catch(() => caches.match(request))
     );
     return;
   }
