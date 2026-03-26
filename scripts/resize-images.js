@@ -40,67 +40,83 @@ fs.readdir(imagesDir, async (err, files) => {
         'social-media': []
     };
 
-    const processingPromises = files.map(async (file) => {
+    const sourceRank = { '.png': 4, '.jpg': 3, '.jpeg': 3, '.webp': 2 };
+    const preferredSources = new Map();
+
+    files.forEach((file) => {
+        const ext = path.extname(file).toLowerCase();
+        const name = path.basename(file, ext);
+
+        if (!['.jpg', '.jpeg', '.png', '.webp'].includes(ext) || name.match(/-\d+w$/) || name.endsWith('-placeholder')) {
+            return;
+        }
+
+        const current = preferredSources.get(name);
+        const rank = sourceRank[ext] || 0;
+
+        if (!current || rank > current.rank) {
+            preferredSources.set(name, { file, rank });
+        }
+    });
+
+    const processingPromises = [...preferredSources.values()].map(async ({ file }) => {
         const ext = path.extname(file).toLowerCase();
         const name = path.basename(file, ext);
         const filePath = path.join(imagesDir, file);
 
-        // Process only original images, skip resized ones
-        if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext) && !name.match(/-\d+w$/) && !name.endsWith('-placeholder')) {
-            const imagePipeline = sharp(filePath);
-            
-            try {
-                // 1. Get Metadata
-                const metadata = await imagePipeline.metadata();
+        const imagePipeline = sharp(filePath);
+        
+        try {
+            // 1. Get Metadata
+            const metadata = await imagePipeline.metadata();
 
-                // 2. Generate placeholder
-                const placeholderFilename = `${name}-placeholder.webp`;
-                const placeholderPath = path.join(imagesDir, placeholderFilename);
-                await imagePipeline
-                    .clone()
-                    .resize({ width: placeholderWidth })
-                    .webp({ quality: 20, alphaQuality: 20 })
-                    .toFile(placeholderPath);
+            // 2. Generate placeholder
+            const placeholderFilename = `${name}-placeholder.webp`;
+            const placeholderPath = path.join(imagesDir, placeholderFilename);
+            await imagePipeline
+                .clone()
+                .resize({ width: placeholderWidth })
+                .webp({ quality: 20, alphaQuality: 20 })
+                .toFile(placeholderPath);
 
-                // 3. Add to gallery data object
-                // Make regex less strict: match keyword anywhere in the filename
-                const categoryMatch = name.match(/(flyer|banner|poster|socialmedia)/i);
-                if (categoryMatch) {
-                    const keyword = categoryMatch[0].toLowerCase();
-                    const singularCategory = keyword === 'socialmedia' ? 'social-media' : keyword;
-                    const pluralCategoryKey = { 'flyer': 'flyers', 'banner': 'banners', 'poster': 'posters', 'socialmedia': 'social-media' }[keyword];
+            // 3. Add to gallery data object
+            // Make regex less strict: match keyword anywhere in the filename
+            const categoryMatch = name.match(/(flyer|banner|poster|socialmedia)/i);
+            if (categoryMatch) {
+                const keyword = categoryMatch[0].toLowerCase();
+                const singularCategory = keyword === 'socialmedia' ? 'social-media' : keyword;
+                const pluralCategoryKey = { 'flyer': 'flyers', 'banner': 'banners', 'poster': 'posters', 'socialmedia': 'social-media' }[keyword];
 
-                    // Ensure the derived key is valid before proceeding
-                    if (pluralCategoryKey && galleryData.hasOwnProperty(pluralCategoryKey)) {
-                        galleryData[pluralCategoryKey].push({
-                            id: name,
-                            src: `images/${file}`,
-                            placeholder: `images/${placeholderFilename}`,
-                            alt: `${singularCategory.replace('-', ' ')} ${name.replace(new RegExp(categoryMatch[0], 'i'), '')}`.trim(),
-                            category: singularCategory, // Use singular form for filtering
-                            width: metadata.width,
-                            height: metadata.height
-                        });
-                    }
+                // Ensure the derived key is valid before proceeding
+                if (pluralCategoryKey && galleryData.hasOwnProperty(pluralCategoryKey)) {
+                    galleryData[pluralCategoryKey].push({
+                        id: name,
+                        src: `images/${file}`,
+                        placeholder: `images/${placeholderFilename}`,
+                        alt: `${singularCategory.replace('-', ' ')} ${name.replace(new RegExp(categoryMatch[0], 'i'), '')}`.trim(),
+                        category: singularCategory, // Use singular form for filtering
+                        width: metadata.width,
+                        height: metadata.height
+                    });
                 }
-
-                // 4. Generate responsive sizes
-                const resizePromises = responsiveSizes.map(width => {
-                    const outputFilename = `${name}-${width}w.webp`;
-                    const outputPath = path.join(imagesDir, outputFilename);
-
-                    return imagePipeline
-                        .clone()
-                        .resize({ width: width, withoutEnlargement: true }) // Don't upscale small images
-                        .webp({ quality: 80 })
-                        .toFile(outputPath)
-                        .then(() => console.log(`Resized: ${outputFilename}`));
-                });
-                await Promise.all(resizePromises);
-
-            } catch (err) {
-                console.error(`Error processing ${file}:`, err.message);
             }
+
+            // 4. Generate responsive sizes
+            const resizePromises = responsiveSizes.map(width => {
+                const outputFilename = `${name}-${width}w.webp`;
+                const outputPath = path.join(imagesDir, outputFilename);
+
+                return imagePipeline
+                    .clone()
+                    .resize({ width: width, withoutEnlargement: true }) // Don't upscale small images
+                    .webp({ quality: 80 })
+                    .toFile(outputPath)
+                    .then(() => console.log(`Resized: ${outputFilename}`));
+            });
+            await Promise.all(resizePromises);
+
+        } catch (err) {
+            console.error(`Error processing ${file}:`, err.message);
         }
     });
 

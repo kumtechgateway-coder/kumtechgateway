@@ -11,31 +11,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kumtechgateway.com/web-design-services.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/branding-services.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/seo-services.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/google-business-services.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/ads-management-services.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://kumtechgateway.com/pricing.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -54,21 +29,6 @@
     <loc>https://kumtechgateway.com/blog.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/privacy-policy.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/terms-of-service.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kumtechgateway.com/project-terms-refund-policy.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kumtechgateway.com/blog/why-business-needs-website-cameroon/</loc>
@@ -97,6 +57,11 @@
   </url>
   <url>
     <loc>https://kumtechgateway.com/projects/golden-aura/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kumtechgateway.com/projects/bold-brand-identity/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

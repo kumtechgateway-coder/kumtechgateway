@@ -84,6 +84,42 @@ const portfolioData = [
         }
     },
 
+    {
+        id: "bold-brand-identity",
+        category: "Graphic Design",
+        title: "Bold Brand Identity System",
+        description: "A concept-led identity system blending logo exploration, palette direction, 3D treatments, and marketing mockups into one cohesive visual story.",
+        image: "images/bold mockups.png",
+        fullData: {
+            client: "Bold Brand Concept",
+            timeline: "2026",
+            services: "Logo Design, Brand Identity, Marketing Collateral, Creative Direction",
+            challenge: "Create a brand direction that feels modern and expressive while still staying clear across logos, mockups, 3D explorations, and promotional layouts.",
+            solution: "We built a flexible visual system around a strong core mark, secondary logo variations, a supporting palette, dimensional logo treatments, and rollout-ready marketing assets that show how the identity behaves in real use.",
+            results: [
+                "Created a more complete visual presentation from concept to collateral",
+                "Showed how the identity adapts across flat, 3D, and mockup applications",
+                "Delivered a stronger brand story for presentation, pitching, and launch planning"
+            ],
+            gallery: [
+                "images/brand identity.png",
+                "images/bold logo.png",
+                "images/blu logo2.png",
+                "images/3d bold logo.png",
+                "images/3d.png",
+                "images/color palette.png",
+                "images/marketing portfolio-01.png",
+                "images/marketing portfolio-02.png",
+                "images/mockup1.png",
+                "images/mockup2.png",
+                "images/ChatGPT Image Mar 23, 2026, 08_17_22 AM.png",
+                "images/ChatGPT Image Mar 23, 2026, 08_14_05 AM.png"
+            ],
+            technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
+            liveUrl: "#"
+        }
+    },
+
     /* rapha maria */
     {
         id: "rapha-maria-residence",

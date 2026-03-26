@@ -62,6 +62,10 @@ function createPortfolioCard(project, index, isPortfolioPage) {
     const isEager = (isPortfolioPage && index < 4) || (!isPortfolioPage && index < 2);
     const loadingMode = isEager ? 'eager' : 'lazy';
     const fetchPriority = isEager ? 'fetchpriority="high"' : '';
+    const srcset = getSrcset(project.image);
+    const responsiveAttrs = srcset
+        ? `srcset="${srcset}" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"`
+        : '';
 
     // Generate Tech Stack HTML
     let techStackHTML = '';
@@ -79,6 +83,7 @@ function createPortfolioCard(project, index, isPortfolioPage) {
         <!-- Image -->
         <div class="rounded-xl overflow-hidden">
             <img src="${project.image}" 
+                 ${responsiveAttrs}
                  alt="${project.title}" 
                  class="w-full h-[170px] object-cover transition-transform duration-500 group-hover:scale-105" 
                  loading="${loadingMode}" 
