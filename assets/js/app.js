@@ -349,11 +349,60 @@ function renderPricingServiceSection(service) {
     `;
 }
 
+function formatServiceStartingPointPrice(plan, pricePrefix = '') {
+    const normalizedPrefix = typeof pricePrefix === 'string' ? pricePrefix.trim() : '';
+    const planPrice = escapeHtml(plan?.price || '');
+    const normalizedPeriod = typeof plan?.period === 'string' ? plan.period.trim().toLowerCase() : '';
+    const shouldAppendPeriod = normalizedPeriod && !['one-time', 'starting from', 'tailored'].includes(normalizedPeriod);
+    const periodLabel = shouldAppendPeriod ? ` / ${escapeHtml(plan.period)}` : '';
+
+    return `${normalizedPrefix ? `${escapeHtml(normalizedPrefix)} ` : ''}${planPrice}${periodLabel}`.trim();
+}
+
+function renderServiceStartingPointRows(service, pricePrefix = '') {
+    const plans = Array.isArray(service?.plans) ? service.plans : [];
+
+    return plans.map((plan) => {
+        const note = plan.servicePageNote || plan.description || '';
+
+        return `
+            <div class="pricing-package-row">
+                <div>
+                    <p class="pricing-package-name text-tech-blue dark:text-white">${escapeHtml(plan.name)}</p>
+                    <p class="pricing-package-note">${escapeHtml(note)}</p>
+                </div>
+                <p class="pricing-package-price">${formatServiceStartingPointPrice(plan, pricePrefix)}</p>
+            </div>
+        `;
+    }).join('');
+}
+
+function initServiceStartingPointCards(services) {
+    document.querySelectorAll('[data-service-starting-points]').forEach((card) => {
+        const serviceId = card.getAttribute('data-service-starting-points');
+        const listContainer = card.querySelector('[data-service-starting-points-list]');
+        if (!serviceId || !listContainer) return;
+
+        const service = services.find((entry) => entry.id === serviceId);
+        if (!service) return;
+
+        card.classList.remove('pricing-tone-orange', 'pricing-tone-cyan');
+        card.classList.add(getPricingToneClassName(service.tone, false));
+
+        listContainer.innerHTML = renderServiceStartingPointRows(
+            service,
+            card.getAttribute('data-service-price-prefix') || ''
+        );
+    });
+}
+
 function initPricingSections() {
     const pricingSource = window.pricingData;
     if (!pricingSource || !Array.isArray(pricingSource.services)) return;
 
     const services = pricingSource.services;
+
+    initServiceStartingPointCards(services);
 
     document.querySelectorAll('[data-pricing-grid]').forEach((grid) => {
         const variant = grid.getAttribute('data-pricing-variant') || 'full';
