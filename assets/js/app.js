@@ -9,6 +9,8 @@ const firebaseConfig = {
 };
 
 let reviewServicesPromise = null;
+let emailJsPromise = null;
+let confettiPromise = null;
 
 async function getReviewServices() {
     if (!reviewServicesPromise) {
@@ -37,6 +39,68 @@ async function getReviewServices() {
     }
 
     return reviewServicesPromise;
+}
+
+function loadExternalScript(src, globalName) {
+    if (typeof window === 'undefined') {
+        return Promise.reject(new Error(`Cannot load ${globalName} outside the browser.`));
+    }
+
+    if (window[globalName]) {
+        return Promise.resolve(window[globalName]);
+    }
+
+    return new Promise((resolve, reject) => {
+        const existingScript = document.querySelector(`script[data-external-script="${globalName}"]`);
+        if (existingScript) {
+            existingScript.addEventListener('load', () => resolve(window[globalName]), { once: true });
+            existingScript.addEventListener('error', () => reject(new Error(`Failed to load ${globalName}.`)), { once: true });
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        script.dataset.externalScript = globalName;
+        script.onload = () => resolve(window[globalName]);
+        script.onerror = () => reject(new Error(`Failed to load ${globalName}.`));
+        document.head.appendChild(script);
+    });
+}
+
+async function getEmailJsService() {
+    if (!emailJsPromise) {
+        emailJsPromise = loadExternalScript(
+            'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js',
+            'emailjs'
+        ).then((emailjsLib) => {
+            if (!emailjsLib || typeof emailjsLib.init !== 'function') {
+                throw new Error('EmailJS failed to initialize.');
+            }
+
+            emailjsLib.init('Ke9ARhxYKkr1xzW7K');
+            return emailjsLib;
+        }).catch((error) => {
+            emailJsPromise = null;
+            throw error;
+        });
+    }
+
+    return emailJsPromise;
+}
+
+async function getConfettiService() {
+    if (!confettiPromise) {
+        confettiPromise = loadExternalScript(
+            'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js',
+            'confetti'
+        ).catch((error) => {
+            confettiPromise = null;
+            throw error;
+        });
+    }
+
+    return confettiPromise;
 }
  
 /**
@@ -1841,9 +1905,19 @@ function initContactForm() {
         const successModal = document.getElementById('successModal');
         const resetFormBtn = document.getElementById('resetFormBtn');
         const successSound = new Audio('/assets/audio/success.mp3');
+        const prewarmContactEnhancers = () => {
+            getEmailJsService().catch(() => undefined);
+            getConfettiService().catch(() => undefined);
+        };
+
+        if (emailForm) {
+            emailForm.addEventListener('focusin', prewarmContactEnhancers, { once: true });
+        }
+
+        contactFormContainer.addEventListener('pointerenter', prewarmContactEnhancers, { once: true });
 
         if (emailForm && sendBtn) {
-            emailForm.addEventListener('submit', (e) => {
+            emailForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
                 // Honeypot Check (Spam Prevention)
@@ -1885,8 +1959,23 @@ function initContactForm() {
 
                 const serviceID = 'service_616vx27';
                 const templateID = 'template_io83jnh';
+                let emailjsClient;
 
-                emailjs.sendForm(serviceID, templateID, emailForm)
+                try {
+                    emailjsClient = await getEmailJsService();
+                } catch (error) {
+                    console.error('EmailJS Load Error:', error);
+                    trackEvent('contact_form_submit_error', {
+                        category: 'lead',
+                        label: 'email_contact_form_load_failure'
+                    });
+                    sendBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
+                    sendBtn.disabled = false;
+                    Toast.show('Contact form is temporarily unavailable. Please use WhatsApp or phone.', 'error');
+                    return;
+                }
+
+                emailjsClient.sendForm(serviceID, templateID, emailForm)
                     .then(() => {
                     trackEvent('contact_form_submit_success', {
                         category: 'lead',
@@ -1951,14 +2040,18 @@ function initContactForm() {
                             }
 
                             // Trigger Confetti
-                            if (typeof confetti === 'function') {
-                                confetti({
+                            getConfettiService().then((confettiFn) => {
+                                if (typeof confettiFn !== 'function') {
+                                    return;
+                                }
+
+                                confettiFn({
                                     particleCount: 150,
                                     spread: 70,
                                     origin: { y: 0.6 },
                                     colors: ['#00B4D8', '#1F3C88', '#F97316', '#FDBA74'] // Brand colors
                                 });
-                            }
+                            }).catch(() => undefined);
 
                             sendBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
                             sendBtn.disabled = false;
