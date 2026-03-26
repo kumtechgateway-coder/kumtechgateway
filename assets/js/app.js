@@ -578,6 +578,16 @@ function initNavAndState() {
     }
 
     /**
+     * Encodes asset URLs safely for use in src/srcset attributes.
+     * @param {string} src
+     * @returns {string}
+     */
+    function encodeAssetUrl(src) {
+        if (!src) return '';
+        return encodeURI(src);
+    }
+
+    /**
      * Generates a srcset attribute string for responsive images.
      * Assumes resized images exist with '-<width>w.webp' suffix.
      * @param {string} src - The original image source URL.
@@ -585,7 +595,7 @@ function initNavAndState() {
      */
     function generateSrcset(src) {
         if (!src || (!src.endsWith('.webp') && !src.endsWith('.png') && !src.endsWith('.jpg') && !src.endsWith('.jpeg'))) return '';
-        const base = src.substring(0, src.lastIndexOf('.'));
+        const base = encodeAssetUrl(src.substring(0, src.lastIndexOf('.')));
         const sizes = [400, 800, 1200]; // Must match sizes in resize-images.js
         // The resize script always outputs webp
         return sizes.map(w => `${base}-${w}w.webp ${w}w`).join(', ');
@@ -2299,12 +2309,13 @@ function initGalleryPreview() {
         grid.innerHTML = ''; // Clear any placeholders
 
         previewImages.forEach((img, i) => {
+            const encodedSrc = encodeAssetUrl(img.src);
             const srcset = generateSrcset(img.src);
             const delay = ['delay-100', 'delay-200', 'delay-300', 'delay-400'][i % 4];
             
             const cardHTML = `
             <div class="mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-800">
-                <img src="${img.src}" srcset="${srcset}"
+                <img src="${encodedSrc}" srcset="${srcset}"
                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                      alt="${img.alt}"
                      width="${img.width || 600}"
@@ -2431,10 +2442,11 @@ function initGalleryPage() {
             const batch = displayImages.slice(loadedCount, nextLimit);
 
             batch.forEach((imgData, i) => {
+                const encodedSrc = encodeAssetUrl(imgData.src);
                 const srcset = generateSrcset(imgData.src);
                 const isEager = loadedCount === 0 && i < 6;
                 const delay = isEager ? '' : ['delay-100', 'delay-200', 'delay-300'][i % 3];
-                const placeholderSrc = imgData.placeholder || `https://placehold.co/30x40?text=+`;
+                const placeholderSrc = imgData.placeholder ? encodeAssetUrl(imgData.placeholder) : `https://placehold.co/30x40?text=+`;
 
                 const div = document.createElement('div');
                 div.className = `mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-[10px] overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1`;
@@ -2442,8 +2454,8 @@ function initGalleryPage() {
                 div.style.aspectRatio = `${imgData.width || 600} / ${imgData.height || 800}`;
 
                 const imgHTML = `
-                    <img src="${isEager ? imgData.src : placeholderSrc}"
-                         ${isEager ? `srcset="${srcset}"` : `data-src="${imgData.src}" data-srcset="${srcset}"`}
+                    <img src="${isEager ? encodedSrc : placeholderSrc}"
+                         ${isEager ? `srcset="${srcset}"` : `data-src="${encodedSrc}" data-srcset="${srcset}"`}
                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                          alt="${imgData.alt}"
                          width="${imgData.width || 600}"

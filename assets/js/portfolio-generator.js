@@ -4,9 +4,14 @@
  */
 
 // Helper to generate srcset locally to ensure availability and performance
+function encodeAssetUrl(src) {
+    if (!src) return '';
+    return encodeURI(src);
+}
+
 function getSrcset(src) {
     if (!src || (!src.endsWith('.webp') && !src.endsWith('.png') && !src.endsWith('.jpg') && !src.endsWith('.jpeg'))) return '';
-    const base = src.substring(0, src.lastIndexOf('.'));
+    const base = encodeAssetUrl(src.substring(0, src.lastIndexOf('.')));
     const sizes = [400, 800, 1200]; 
     return sizes.map(w => `${base}-${w}w.webp ${w}w`).join(', ');
 }
@@ -62,6 +67,7 @@ function createPortfolioCard(project, index, isPortfolioPage) {
     const isEager = (isPortfolioPage && index < 4) || (!isPortfolioPage && index < 2);
     const loadingMode = isEager ? 'eager' : 'lazy';
     const fetchPriority = isEager ? 'fetchpriority="high"' : '';
+    const encodedImage = encodeAssetUrl(project.image);
     const srcset = getSrcset(project.image);
     const responsiveAttrs = srcset
         ? `srcset="${srcset}" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"`
@@ -82,7 +88,7 @@ function createPortfolioCard(project, index, isPortfolioPage) {
     cardLink.innerHTML = `
         <!-- Image -->
         <div class="rounded-xl overflow-hidden">
-            <img src="${project.image}" 
+            <img src="${encodedImage}" 
                  ${responsiveAttrs}
                  alt="${project.title}" 
                  class="w-full h-[170px] object-cover transition-transform duration-500 group-hover:scale-105" 
