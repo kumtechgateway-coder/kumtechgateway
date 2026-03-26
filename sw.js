@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kumtech-cache-v81';
+const CACHE_NAME = 'kumtech-cache-v82';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -12,6 +12,7 @@ const PRECACHE_URLS = [
   './components/navbar.html',
   './components/footer.html',
   './404.html',
+  './assets/css/tailwind.css',
   './assets/css/style.css',
   './assets/js/app.js',
   './assets/js/portfolio-generator.js',
@@ -62,6 +63,7 @@ function getNavigationFallback(pathname) {
 
 function isNetworkFirstAsset(pathname) {
   return pathname.endsWith('.html') ||
+    pathname.startsWith('/assets/css/') ||
     pathname.startsWith('/assets/js/') ||
     pathname.startsWith('/assets/data/');
 }

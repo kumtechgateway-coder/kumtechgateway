@@ -80,6 +80,7 @@ function main() {
     const generatedHtmlFiles = [...walkHtmlFiles('blog'), ...walkHtmlFiles('projects')];
     const blogShell = read('blog-post.html');
     const projectShell = read('project-detail.html');
+    const serviceWorker = read('sw.js');
 
     for (const file of criticalFiles) {
         assert(exists(file), `Missing required file: ${file}`, failures);
@@ -120,6 +121,9 @@ function main() {
     assertIncludes(blogShell, 'link rel="icon" type="image/png" href="/images/logo.png"', 'Blog shell favicon path must be absolute.', failures);
     assertIncludes(projectShell, 'meta name="robots" content="noindex, follow"', 'Project shell must be noindex.', failures);
     assertIncludes(projectShell, 'link rel="canonical" href="https://kumtechgateway.com/portfolio.html"', 'Project shell canonical must point to the portfolio index.', failures);
+    assertIncludes(serviceWorker, "pathname.startsWith('/assets/css/')", 'Service worker must treat CSS as a network-first asset.', failures);
+    assertIncludes(serviceWorker, "'./assets/css/tailwind.css'", 'Service worker must precache tailwind.css.', failures);
+    assertIncludes(serviceWorker, "'./assets/css/style.css'", 'Service worker must precache style.css.', failures);
 
     if (failures.length) {
         console.error('Production check failed:\n');
