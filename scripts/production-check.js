@@ -4,10 +4,12 @@ const vm = require('vm');
 
 const root = path.resolve(__dirname, '..');
 const criticalFiles = [
+    'blog-post.html',
     'project-detail.html',
     'assets/js/app.js',
     'assets/js/portfolio-generator.js',
     'assets/data/blog.json',
+    'firebase.json',
     'sw.js',
     'sitemap.xml'
 ];
@@ -67,11 +69,17 @@ function assert(condition, message, failures) {
     }
 }
 
+function assertIncludes(content, value, message, failures) {
+    assert(content.includes(value), message, failures);
+}
+
 function main() {
     const failures = [];
     const blog = JSON.parse(read('assets/data/blog.json'));
     const portfolio = loadPortfolio();
     const generatedHtmlFiles = [...walkHtmlFiles('blog'), ...walkHtmlFiles('projects')];
+    const blogShell = read('blog-post.html');
+    const projectShell = read('project-detail.html');
 
     for (const file of criticalFiles) {
         assert(exists(file), `Missing required file: ${file}`, failures);
@@ -106,6 +114,12 @@ function main() {
             assert(exists(assetPath), `Missing project asset: ${assetPath}`, failures);
         }
     }
+
+    assertIncludes(blogShell, 'meta name="robots" content="noindex, follow"', 'Blog shell must be noindex.', failures);
+    assertIncludes(blogShell, 'link rel="canonical" href="https://kumtechgateway.com/blog.html"', 'Blog shell canonical must point to the blog index.', failures);
+    assertIncludes(blogShell, 'link rel="icon" type="image/png" href="/images/logo.png"', 'Blog shell favicon path must be absolute.', failures);
+    assertIncludes(projectShell, 'meta name="robots" content="noindex, follow"', 'Project shell must be noindex.', failures);
+    assertIncludes(projectShell, 'link rel="canonical" href="https://kumtechgateway.com/portfolio.html"', 'Project shell canonical must point to the portfolio index.', failures);
 
     if (failures.length) {
         console.error('Production check failed:\n');
