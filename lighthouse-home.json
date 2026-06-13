@@ -707,7 +707,7 @@
             "entity": "web.app"
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/hero-800w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/hero-800w.webp",
             "sessionTargetType": "page",
             "protocol": "h2",
             "rendererStartTime": 976.2009999994189,
@@ -929,7 +929,7 @@
             "entity": "Google Fonts"
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/PSX_20251123_141018-800w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/PSX_20251123_141018-800w.webp",
             "sessionTargetType": "page",
             "protocol": "h3",
             "rendererStartTime": 1781.125,
@@ -997,7 +997,7 @@
             "entity": "web.app"
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/logo-400w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/logo-400w.webp",
             "sessionTargetType": "page",
             "protocol": "h3",
             "rendererStartTime": 2339.194000000134,
@@ -1031,7 +1031,7 @@
             "entity": "web.app"
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/logo-400w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/logo-400w.webp",
             "sessionTargetType": "page",
             "protocol": "h3",
             "rendererStartTime": 4575.98399999924,
@@ -2993,7 +2993,7 @@
         ],
         "items": [
           {
-            "url": "https://kumtechgateway-237.web.app/images/hero-800w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/hero-800w.webp",
             "totalBytes": 198062
           },
           {
@@ -3009,7 +3009,7 @@
             "totalBytes": 48568
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/PSX_20251123_141018-800w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/PSX_20251123_141018-800w.webp",
             "totalBytes": 31118
           },
           {
@@ -3029,7 +3029,7 @@
             "totalBytes": 10513
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/logo-400w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/logo-400w.webp",
             "totalBytes": 9013
           }
         ],
@@ -3836,10 +3836,10 @@
                 "width": 372,
                 "height": 558
               },
-              "snippet": "<img src=\"https://kumtechgateway-237.web.app/images/hero-800w.webp\" alt=\"Digital Growth\" class=\"drop-shadow-2xl w-full h-auto object-contain animate-float-img\" width=\"448\" height=\"448\" fetchpriority=\"high\" decoding=\"async\">",
+              "snippet": "<img src=\"https://kumtechgateway-237.web.app/images/site/hero-800w.webp\" alt=\"Digital Growth\" class=\"drop-shadow-2xl w-full h-auto object-contain animate-float-img\" width=\"448\" height=\"448\" fetchpriority=\"high\" decoding=\"async\">",
               "nodeLabel": "Digital Growth"
             },
-            "url": "https://kumtechgateway-237.web.app/images/hero-800w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/hero-800w.webp",
             "totalBytes": 199426,
             "wastedBytes": 92112,
             "subItems": {
@@ -3870,10 +3870,10 @@
                 "width": 39,
                 "height": 40
               },
-              "snippet": "<img src=\"/images/logo-400w.webp\" alt=\"Kumtech Gateway Logo\" class=\"h-10 md:h-12 w-auto transition-all duration-300\" width=\"48\" height=\"48\" decoding=\"async\" fetchpriority=\"high\">",
+              "snippet": "<img src=\"/images/site/logo-400w.webp\" alt=\"Kumtech Gateway Logo\" class=\"h-10 md:h-12 w-auto transition-all duration-300\" width=\"48\" height=\"48\" decoding=\"async\" fetchpriority=\"high\">",
               "nodeLabel": "Kumtech Gateway Logo"
             },
-            "url": "https://kumtechgateway-237.web.app/images/logo-400w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/logo-400w.webp",
             "totalBytes": 8232,
             "wastedBytes": 7997,
             "subItems": {
@@ -3964,7 +3964,7 @@
               "width": 372,
               "height": 558
             },
-            "snippet": "<img src=\"https://kumtechgateway-237.web.app/images/hero-800w.webp\" alt=\"Digital Growth\" class=\"drop-shadow-2xl w-full h-auto object-contain animate-float-img\" width=\"448\" height=\"448\" fetchpriority=\"high\" decoding=\"async\">",
+            "snippet": "<img src=\"https://kumtechgateway-237.web.app/images/site/hero-800w.webp\" alt=\"Digital Growth\" class=\"drop-shadow-2xl w-full h-auto object-contain animate-float-img\" width=\"448\" height=\"448\" fetchpriority=\"high\" decoding=\"async\">",
             "nodeLabel": "Digital Growth"
           }
         ]
@@ -4013,7 +4013,7 @@
               "width": 372,
               "height": 558
             },
-            "snippet": "<img src=\"https://kumtechgateway-237.web.app/images/hero-800w.webp\" alt=\"Digital Growth\" class=\"drop-shadow-2xl w-full h-auto object-contain animate-float-img\" width=\"448\" height=\"448\" fetchpriority=\"high\" decoding=\"async\">",
+            "snippet": "<img src=\"https://kumtechgateway-237.web.app/images/site/hero-800w.webp\" alt=\"Digital Growth\" class=\"drop-shadow-2xl w-full h-auto object-contain animate-float-img\" width=\"448\" height=\"448\" fetchpriority=\"high\" decoding=\"async\">",
             "nodeLabel": "Digital Growth"
           }
         ]

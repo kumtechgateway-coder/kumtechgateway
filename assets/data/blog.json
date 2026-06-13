@@ -7,7 +7,7 @@
         "date": "February 24, 2024",
         "author": "Kumtech Team",
         "category": "Website Systems",
-        "image": "images/faithconstruction.webp"
+        "image": "images/web-projects/faithconstruction.webp"
     },
     {
         "id": "digital-marketing-strategies-yaounde",
@@ -17,7 +17,7 @@
         "date": "February 10, 2024",
         "author": "Sarah M.",
         "category": "Growth Campaigns",
-        "image": "images/marketing portfolio-01.png"
+        "image": "images/flyers/marketing portfolio-01.png"
     },
     {
         "id": "graphic-design-trends-2024",
@@ -27,6 +27,6 @@
         "date": "January 15, 2024",
         "author": "Kumtech Design",
         "category": "Brand Identity",
-        "image": "images/bold mockups.png"
+        "image": "images/brand-assets/bold mockups.png"
     }
 ]

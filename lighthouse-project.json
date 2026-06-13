@@ -822,7 +822,7 @@
             "entity": "web.app"
           },
           {
-            "url": "https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008_14_05%20AM.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/ChatGPT%20Image%20Mar%2023,%202026,%2008_14_05%20AM.png",
             "sessionTargetType": "page",
             "protocol": "h2",
             "rendererStartTime": 867.9459999985993,
@@ -890,7 +890,7 @@
             "entity": "Google Fonts"
           },
           {
-            "url": "https://kumtechgateway.com/images/blu%20logo2.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/blu%20logo2.png",
             "sessionTargetType": "page",
             "protocol": "h2",
             "rendererStartTime": 1616.5179999992251,
@@ -907,7 +907,7 @@
             "entity": "kumtechgateway.com"
           },
           {
-            "url": "https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008_17_22%20AM.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/ChatGPT%20Image%20Mar%2023,%202026,%2008_17_22%20AM.png",
             "sessionTargetType": "page",
             "protocol": "h2",
             "rendererStartTime": 1616.7829999998212,
@@ -924,7 +924,7 @@
             "entity": "kumtechgateway.com"
           },
           {
-            "url": "https://kumtechgateway.com/images/kumtechlogo.webp",
+            "url": "https://kumtechgateway.com/images/brand-assets/kumtechlogo.webp",
             "sessionTargetType": "page",
             "protocol": "h2",
             "rendererStartTime": 1617.0219999980181,
@@ -941,7 +941,7 @@
             "entity": "kumtechgateway.com"
           },
           {
-            "url": "https://kumtechgateway.com/images/rmlogo.webp",
+            "url": "https://kumtechgateway.com/images/brand-assets/rmlogo.webp",
             "sessionTargetType": "page",
             "protocol": "h2",
             "rendererStartTime": 1617.23399999924,
@@ -958,7 +958,7 @@
             "entity": "kumtechgateway.com"
           },
           {
-            "url": "https://kumtechgateway.com/images/goldenlogo.webp",
+            "url": "https://kumtechgateway.com/images/brand-assets/goldenlogo.webp",
             "sessionTargetType": "page",
             "protocol": "h2",
             "rendererStartTime": 1617.4020000007004,
@@ -1026,7 +1026,7 @@
             "entity": "Cloudflare CDN"
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/logo-400w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/logo-400w.webp",
             "sessionTargetType": "page",
             "protocol": "h3",
             "rendererStartTime": 2280.127999998629,
@@ -1077,7 +1077,7 @@
             "entity": "web.app"
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/logo.png",
+            "url": "https://kumtechgateway-237.web.app/images/site/logo.png",
             "sessionTargetType": "page",
             "protocol": "h3",
             "rendererStartTime": 7966.529999999329,
@@ -3252,11 +3252,11 @@
         ],
         "items": [
           {
-            "url": "https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008_17_22%20AM.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/ChatGPT%20Image%20Mar%2023,%202026,%2008_17_22%20AM.png",
             "totalBytes": 2140288
           },
           {
-            "url": "https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008_14_05%20AM.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/ChatGPT%20Image%20Mar%2023,%202026,%2008_14_05%20AM.png",
             "totalBytes": 1946530
           },
           {
@@ -3268,7 +3268,7 @@
             "totalBytes": 144818
           },
           {
-            "url": "https://kumtechgateway-237.web.app/images/logo.png",
+            "url": "https://kumtechgateway-237.web.app/images/site/logo.png",
             "totalBytes": 127551
           },
           {
@@ -3276,7 +3276,7 @@
             "totalBytes": 108732
           },
           {
-            "url": "https://kumtechgateway.com/images/blu%20logo2.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/blu%20logo2.png",
             "totalBytes": 80057
           },
           {
@@ -4165,7 +4165,7 @@
               "snippet": "<img src=\"https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008…\" class=\"w-full h-24 object-cover rounded-lg border border-gray-100 dark:border-gra…\" loading=\"lazy\" alt=\"Bluebells Empire Brand System preview 2\">",
               "nodeLabel": "Bluebells Empire Brand System preview 2"
             },
-            "url": "https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008_17_22%20AM.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/ChatGPT%20Image%20Mar%2023,%202026,%2008_17_22%20AM.png",
             "totalBytes": 2441840,
             "wastedBytes": 2124116,
             "subItems": {
@@ -4199,7 +4199,7 @@
               "snippet": "<img src=\"https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008…\" alt=\"Bluebells Empire Brand System\" class=\"w-full h-full object-cover\">",
               "nodeLabel": "Bluebells Empire Brand System"
             },
-            "url": "https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008_14_05%20AM.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/ChatGPT%20Image%20Mar%2023,%202026,%2008_14_05%20AM.png",
             "totalBytes": 2242542,
             "wastedBytes": 1848343,
             "subItems": {
@@ -4226,10 +4226,10 @@
                 "width": 180,
                 "height": 96
               },
-              "snippet": "<img src=\"https://kumtechgateway.com/images/blu%20logo2.png\" class=\"w-full h-24 object-cover rounded-lg border border-gray-100 dark:border-gra…\" loading=\"lazy\" alt=\"Bluebells Empire Brand System preview 1\">",
+              "snippet": "<img src=\"https://kumtechgateway.com/images/brand-assets/blu%20logo2.png\" class=\"w-full h-24 object-cover rounded-lg border border-gray-100 dark:border-gra…\" loading=\"lazy\" alt=\"Bluebells Empire Brand System preview 1\">",
               "nodeLabel": "Bluebells Empire Brand System preview 1"
             },
-            "url": "https://kumtechgateway.com/images/blu%20logo2.png",
+            "url": "https://kumtechgateway.com/images/brand-assets/blu%20logo2.png",
             "totalBytes": 81876,
             "wastedBytes": 65319,
             "subItems": {
@@ -4260,10 +4260,10 @@
                 "width": 39,
                 "height": 40
               },
-              "snippet": "<img src=\"/images/logo-400w.webp\" alt=\"Kumtech Gateway Logo\" class=\"h-10 md:h-12 w-auto transition-all duration-300\" width=\"48\" height=\"48\" decoding=\"async\" fetchpriority=\"high\">",
+              "snippet": "<img src=\"/images/site/logo-400w.webp\" alt=\"Kumtech Gateway Logo\" class=\"h-10 md:h-12 w-auto transition-all duration-300\" width=\"48\" height=\"48\" decoding=\"async\" fetchpriority=\"high\">",
               "nodeLabel": "Kumtech Gateway Logo"
             },
-            "url": "https://kumtechgateway-237.web.app/images/logo-400w.webp",
+            "url": "https://kumtechgateway-237.web.app/images/site/logo-400w.webp",
             "totalBytes": 8232,
             "wastedBytes": 7997,
             "subItems": {
@@ -4759,32 +4759,32 @@
               "type": "subitems",
               "items": [
                 {
-                  "url": "https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008_17_22%20AM.png",
+                  "url": "https://kumtechgateway.com/images/brand-assets/ChatGPT%20Image%20Mar%2023,%202026,%2008_17_22%20AM.png",
                   "mainThreadTime": 7.617000000551343,
                   "transferSize": 2140288
                 },
                 {
-                  "url": "https://kumtechgateway.com/images/ChatGPT%20Image%20Mar%2023,%202026,%2008_14_05%20AM.png",
+                  "url": "https://kumtechgateway.com/images/brand-assets/ChatGPT%20Image%20Mar%2023,%202026,%2008_14_05%20AM.png",
                   "mainThreadTime": 0,
                   "transferSize": 1946530
                 },
                 {
-                  "url": "https://kumtechgateway.com/images/blu%20logo2.png",
+                  "url": "https://kumtechgateway.com/images/brand-assets/blu%20logo2.png",
                   "mainThreadTime": 0,
                   "transferSize": 80057
                 },
                 {
-                  "url": "https://kumtechgateway.com/images/kumtechlogo.webp",
+                  "url": "https://kumtechgateway.com/images/brand-assets/kumtechlogo.webp",
                   "mainThreadTime": 0,
                   "transferSize": 7392
                 },
                 {
-                  "url": "https://kumtechgateway.com/images/goldenlogo.webp",
+                  "url": "https://kumtechgateway.com/images/brand-assets/goldenlogo.webp",
                   "mainThreadTime": 0,
                   "transferSize": 6344
                 },
                 {
-                  "url": "https://kumtechgateway.com/images/rmlogo.webp",
+                  "url": "https://kumtechgateway.com/images/brand-assets/rmlogo.webp",
                   "mainThreadTime": 0,
                   "transferSize": 5954
                 }

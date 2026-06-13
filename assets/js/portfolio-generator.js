@@ -102,19 +102,19 @@ function createPortfolioCard(project, index, isPortfolioPage) {
                  loading="${loadingMode}" 
                  decoding="async" 
                  ${fetchPriority}
-                 onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
+                 onerror="this.onerror=null;this.src='/images/site/logo.png';this.classList.add('object-contain','bg-gray-50')">
         </div>
 
         <!-- Content -->
         <div class="mt-4 flex flex-col flex-1">
 
             <!-- Tag -->
-            <span class="bg-tech-blue/10 text-tech-blue dark:bg-cyan/20 dark:text-cyan-300 text-xs font-semibold px-3 py-1 rounded-full self-start uppercase">
+            <span class="bg-tech-blue/10 text-tech-blue dark:bg-brand-gray/20 dark:text-orange text-xs font-semibold px-3 py-1 rounded-full self-start uppercase">
                 ${escapePortfolioHtml(project.category)}
             </span>
 
             <!-- Title -->
-            <h3 class="mt-3 text-tech-blue dark:text-white font-bold leading-tight text-base portfolio-title transition-colors duration-300 group-hover:text-cyan">
+            <h3 class="mt-3 text-tech-blue dark:text-white font-bold leading-tight text-base portfolio-title transition-colors duration-300 group-hover:text-orange">
                 ${escapePortfolioHtml(project.title)}
             </h3>
 
@@ -128,7 +128,7 @@ function createPortfolioCard(project, index, isPortfolioPage) {
 
             <!-- Button -->
             <div class="flex justify-end mt-4">
-                <span class="portfolio-card-btn group/btn flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm border border-gray-300 dark:border-gray-600 px-3 py-1 rounded-full transition-all duration-300 group-hover:bg-tech-blue group-hover:text-white group-hover:border-tech-blue dark:group-hover:bg-cyan dark:group-hover:text-charcoal dark:group-hover:border-cyan">
+                <span class="portfolio-card-btn group/btn flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm border border-gray-300 dark:border-gray-600 px-3 py-1 rounded-full transition-all duration-300 group-hover:bg-tech-blue group-hover:text-white group-hover:border-tech-blue dark:group-hover:bg-orange dark:group-hover:text-charcoal dark:group-hover:border-orange">
                     View Details
                     <span class="text-lg leading-none -mt-px transition-transform duration-300 group-hover/btn:translate-x-1">&raquo;</span>
                 </span>

@@ -42,7 +42,7 @@ window.pricingData = {
           price: "300,000 FCFA",
           period: "one-time",
           servicePageNote: "For service businesses that need better structure, messaging, and lead flow.",
-          description: "A stronger company website package with better structure, messaging, and conversion flow for brands ready to scale their reach.",
+          description: "A stronger company website package with better structure, messaging, and conversion flow for businesses that need to present their services more clearly online.",
           badge: "Most Popular",
           tone: "orange",
           featured: true,

@@ -1,7 +1,8 @@
-const CACHE_NAME = 'kumtech-cache-v82';
+const CACHE_NAME = 'kumtech-cache-v83';
 const PRECACHE_URLS = [
   './',
   './index.html',
+  './about.html',
   './pricing.html',
   './portfolio.html',
   './gallery.html',
@@ -21,8 +22,8 @@ const PRECACHE_URLS = [
   './assets/data/pricing-data.js',
   './assets/data/blog.json',
   './assets/data/translations.json',
-  './images/logo.png',
-  './images/hero.png',
+  './images/site/logo.png',
+  './images/site/hero.png',
   './assets/audio/success.mp3'
 ];
 
@@ -41,6 +42,7 @@ function getNavigationFallback(pathname) {
   const routeFallbacks = {
     '/': './index.html',
     '/index.html': './index.html',
+    '/about.html': './about.html',
     '/pricing.html': './pricing.html',
     '/portfolio.html': './portfolio.html',
     '/gallery.html': './gallery.html',

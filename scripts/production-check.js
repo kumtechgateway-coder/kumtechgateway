@@ -4,6 +4,7 @@ const vm = require('vm');
 
 const root = path.resolve(__dirname, '..');
 const criticalFiles = [
+    'about.html',
     'blog-post.html',
     'project-detail.html',
     'assets/js/app.js',
@@ -55,12 +56,68 @@ function walkHtmlFiles(dir) {
     return files;
 }
 
+function listTopLevelHtmlFiles() {
+    return fs.readdirSync(root, { withFileTypes: true })
+        .filter((entry) => entry.isFile() && entry.name.endsWith('.html'))
+        .map((entry) => entry.name);
+}
+
 function normalizeLocalAsset(assetPath) {
     return String(assetPath || '').trim().replace(/^\/+/, '');
 }
 
+function normalizeReferencedPath(assetPath) {
+    const sanitized = String(assetPath || '').trim().split(/[?#]/, 1)[0];
+    return decodeURIComponent(sanitized.replace(/^\/+/, ''));
+}
+
 function isRemoteAsset(assetPath) {
     return /^https?:\/\//i.test(String(assetPath || '').trim());
+}
+
+function isIgnorableHref(href) {
+    return /^(?:https?:|mailto:|tel:|#|javascript:)/i.test(String(href || '').trim());
+}
+
+function extractHtmlAttributeValues(content) {
+    const values = [];
+    const pattern = /\b(?:src|href|content)=["']([^"']+)["']/gi;
+    let match;
+    while ((match = pattern.exec(content))) {
+        values.push(match[1]);
+    }
+    return values;
+}
+
+function resolveInternalHref(currentFile, href) {
+    const cleanHref = String(href || '').trim().split(/[?#]/, 1)[0];
+    if (!cleanHref || isIgnorableHref(cleanHref)) {
+        return null;
+    }
+
+    if (cleanHref === '/') {
+        return 'index.html';
+    }
+
+    if (/^\/blog\/[^/]+\/?$/i.test(cleanHref)) {
+        const [, slug] = cleanHref.replace(/^\/+|\/+$/g, '').split('/');
+        return path.join('blog', slug, 'index.html');
+    }
+
+    if (/^\/projects\/[^/]+\/?$/i.test(cleanHref)) {
+        const [, slug] = cleanHref.replace(/^\/+|\/+$/g, '').split('/');
+        return path.join('projects', slug, 'index.html');
+    }
+
+    if (/^\/.+\.html$/i.test(cleanHref)) {
+        return cleanHref.replace(/^\/+/, '');
+    }
+
+    if (/^[^/].+\.html$/i.test(cleanHref)) {
+        return path.normalize(path.join(path.dirname(currentFile), cleanHref));
+    }
+
+    return null;
 }
 
 function assert(condition, message, failures) {
@@ -73,11 +130,34 @@ function assertIncludes(content, value, message, failures) {
     assert(content.includes(value), message, failures);
 }
 
+function validateHtmlReferences(htmlFiles, failures) {
+    for (const file of htmlFiles) {
+        const content = read(file);
+        const references = extractHtmlAttributeValues(content);
+
+        for (const reference of references) {
+            if (/^\/?(?:images|assets|components)\//i.test(reference)) {
+                const assetPath = normalizeReferencedPath(reference);
+                assert(exists(assetPath), `Missing HTML asset reference in ${file}: ${reference}`, failures);
+            }
+
+            const resolvedHref = resolveInternalHref(file, reference);
+            if (resolvedHref) {
+                assert(exists(resolvedHref), `Broken internal link in ${file}: ${reference}`, failures);
+            }
+        }
+
+        assert(!content.includes('href="images/site/favicon-white.png"'), `${file} should use an absolute favicon path.`, failures);
+    }
+}
+
 function main() {
     const failures = [];
     const blog = JSON.parse(read('assets/data/blog.json'));
     const portfolio = loadPortfolio();
+    const topLevelHtmlFiles = listTopLevelHtmlFiles();
     const generatedHtmlFiles = [...walkHtmlFiles('blog'), ...walkHtmlFiles('projects')];
+    const htmlFilesToAudit = [...new Set([...topLevelHtmlFiles, ...generatedHtmlFiles])];
     const blogShell = read('blog-post.html');
     const projectShell = read('project-detail.html');
     const serviceWorker = read('sw.js');
@@ -90,6 +170,8 @@ function main() {
         const content = read(file);
         assert(!content.includes('placehold.co'), `Placeholder asset found in ${file}`, failures);
     }
+
+    validateHtmlReferences(htmlFilesToAudit, failures);
 
     for (const post of blog) {
         const generatedPath = path.join('blog', post.id, 'index.html');
@@ -118,7 +200,7 @@ function main() {
 
     assertIncludes(blogShell, 'meta name="robots" content="noindex, follow"', 'Blog shell must be noindex.', failures);
     assertIncludes(blogShell, 'link rel="canonical" href="https://kumtechgateway.com/blog.html"', 'Blog shell canonical must point to the blog index.', failures);
-    assertIncludes(blogShell, 'link rel="icon" type="image/png" href="/images/logo.png"', 'Blog shell favicon path must be absolute.', failures);
+    assertIncludes(blogShell, 'link rel="icon" type="image/png" href="/images/site/favicon-white.png"', 'Blog shell favicon path must be absolute.', failures);
     assertIncludes(projectShell, 'meta name="robots" content="noindex, follow"', 'Project shell must be noindex.', failures);
     assertIncludes(projectShell, 'link rel="canonical" href="https://kumtechgateway.com/portfolio.html"', 'Project shell canonical must point to the portfolio index.', failures);
     assertIncludes(serviceWorker, "pathname.startsWith('/assets/css/')", 'Service worker must treat CSS as a network-first asset.', failures);

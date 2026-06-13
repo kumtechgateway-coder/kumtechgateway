@@ -10,7 +10,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "Kumtech Gateway Identity",
         description: "Complete brand identity design including logo, color palette, and visual assets for a leading tech agency.",
-        image: "images/kumtechlogo.webp",
+        image: "images/brand-assets/kumtechlogo.webp",
         fullData: {
             client: "Kumtech Gateway",
             timeline: "2024",
@@ -19,9 +19,9 @@ const portfolioData = [
             solution: "We developed a clean, geometric logo and a vibrant color palette combining Tech Blue and Cyan.",
             results: ["Increased brand recognition", "Consistent visual language", "Modernized digital presence"],
             gallery: [
-                "images/kumtechcolor.webp",
-                "images/kumtechmockup.webp", 
-                "images/kumtechmodel.webp",
+                "images/brand-assets/kumtechcolor.webp",
+                "images/brand-assets/kumtechmockup.webp", 
+                "images/brand-assets/kumtechmodel.webp",
             ],
             technologies: ["Figma", "Illustrator", "Photoshop"],
             liveUrl: "#"
@@ -34,7 +34,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "RM Digital Village Visual Identity",
         description: "A comprehensive brand identity system for a digital-first organization, featuring a tech-forward color palette and professional stationery mockups.",
-        image: "images/rmlogo.webp",
+        image: "images/brand-assets/rmlogo.webp",
         fullData: {
             client: "RM Digital Village",
             timeline: "2024",
@@ -47,9 +47,9 @@ const portfolioData = [
                 "Delivered comprehensive brand guidelines for scalable growth"
             ],
             gallery: [
-                "images/rmcolor.webp",
-                "images/rmmockup.webp",
-                "images/rmmodel.webp"
+                "images/brand-assets/rmcolor.webp",
+                "images/brand-assets/rmmockup.webp",
+                "images/brand-assets/rmmodel.webp"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
             liveUrl: "#"
@@ -62,7 +62,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "Golden Aura Luxury Branding",
         description: "A sophisticated and elegant brand identity designed for a high-end wellness or lifestyle brand, utilizing a warm, premium palette.",
-        image: "images/goldenlogo.webp",
+        image: "images/brand-assets/goldenlogo.webp",
         fullData: {
             client: "Golden Aura",
             timeline: "2024",
@@ -75,9 +75,9 @@ const portfolioData = [
                 "Strong emotional resonance through warm, inviting color theory"
             ],
             gallery: [
-                "images/goldencolor.webp",
-                "images/goldenmockup.webp",
-                "images/goldenmodel.webp"
+                "images/brand-assets/goldencolor.webp",
+                "images/brand-assets/goldenmockup.webp",
+                "images/brand-assets/goldenmodel.webp"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "InDesign"],
             liveUrl: "#"
@@ -89,7 +89,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "BOLD Identity System",
         description: "A software-focused brand identity presented across stationery, apparel, signage, and digital mockups to prove the system works beyond the logo itself.",
-        image: "images/bold mockups.png",
+        image: "images/brand-assets/bold mockups.png",
         fullData: {
             client: "BOLD",
             timeline: "2026",
@@ -102,8 +102,8 @@ const portfolioData = [
                 "Improved the brand's credibility with more polished rollout-ready assets"
             ],
             gallery: [
-                "images/bold logo.png",
-                "images/3d bold logo.png"
+                "images/brand-assets/bold logo.png",
+                "images/brand-assets/3d bold logo.png"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
             liveUrl: "#"
@@ -115,7 +115,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "Demaco Real Estate Identity",
         description: "A real-estate identity system with a clear monogram, detailed brand board, and rollout-ready stationery and merchandise applications.",
-        image: "images/brand identity.png",
+        image: "images/brand-assets/brand identity.png",
         fullData: {
             client: "Demaco Real Estate",
             timeline: "2026",
@@ -128,7 +128,7 @@ const portfolioData = [
                 "Delivered a brand presentation that is easier to hand off and scale"
             ],
             gallery: [
-                "images/logo (2).png"
+                "images/brand-assets/logo (2).png"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
             liveUrl: "#"
@@ -140,7 +140,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "Bluebells Empire Brand System",
         description: "A premium blue-and-gold identity for a real-estate and investment brand, presented through a full board, icon system, and dimensional logo treatment.",
-        image: "images/ChatGPT Image Mar 23, 2026, 08_14_05 AM.png",
+        image: "images/brand-assets/ChatGPT Image Mar 23, 2026, 08_14_05 AM.png",
         fullData: {
             client: "Bluebells Empire",
             timeline: "2026",
@@ -153,8 +153,8 @@ const portfolioData = [
                 "Strengthened presentation quality for proposals, profiles, and rollout materials"
             ],
             gallery: [
-                "images/blu logo2.png",
-                "images/ChatGPT Image Mar 23, 2026, 08_17_22 AM.png"
+                "images/brand-assets/blu logo2.png",
+                "images/brand-assets/ChatGPT Image Mar 23, 2026, 08_17_22 AM.png"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
             liveUrl: "#"
@@ -166,7 +166,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "RichWil Beauty Spa Rollout",
         description: "A soft luxury beauty-spa identity extended across stationery, merchandise, palette definition, 3D logo treatment, and campaign-ready service flyers.",
-        image: "images/mockup2.png",
+        image: "images/brand-assets/mockup2.png",
         fullData: {
             client: "RichWil Beauty Spa",
             timeline: "2026",
@@ -179,9 +179,9 @@ const portfolioData = [
                 "Delivered a more polished luxury feel across print and merchandise touchpoints"
             ],
             gallery: [
-                "images/mockup1.png",
-                "images/3d.png",
-                "images/color palette.png"
+                "images/brand-assets/mockup1.png",
+                "images/brand-assets/3d.png",
+                "images/brand-assets/color palette.png"
             ],
             technologies: ["Adobe Photoshop", "Adobe Illustrator", "Figma"],
             liveUrl: "#"
@@ -194,7 +194,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "Rapha Maria Residence Visual Identity",
         description: "An elegant and welcoming brand identity for a premium residential property, featuring a soft pastel palette.",
-        image: "images/raphalogo.webp",
+        image: "images/brand-assets/raphalogo.webp",
         fullData: {
             client: "Rapha Maria Residence",
             timeline: "2024",
@@ -207,8 +207,8 @@ const portfolioData = [
                 "Established a cohesive brand feel for both staff apparel and digital presence"
             ],
             gallery: [
-                "images/raphacolor.webp",
-                "images/raphamodel.webp"
+                "images/brand-assets/raphacolor.webp",
+                "images/brand-assets/raphamodel.webp"
             ],
             technologies: ["Adobe Illustrator", "Figma", "Photoshop"],
             liveUrl: "#"
@@ -221,7 +221,7 @@ const portfolioData = [
         category: "Web Development",
         title: "Faith Construction Corporate Site",
         description: "A high-performance, dynamic corporate website for Cameroon's premier builder, featuring a modern dark-mode aesthetic and real-time project statistics.",
-        image: "images/faithconstruction.webp",
+        image: "images/web-projects/faithconstruction.webp",
         fullData: {
             client: "Faith Construction",
             timeline: "2024",
@@ -234,7 +234,7 @@ const portfolioData = [
                 "Optimized performance using Tailwind CSS for rapid load times"
             ],
             gallery: [
-                "images/faithconstruction.webp"
+                "images/web-projects/faithconstruction.webp"
             ],
             technologies: ["HTML5", "TailwindCSS", "JavaScript", "JSON"],
             liveUrl: "https://kumtechgateway.com/"

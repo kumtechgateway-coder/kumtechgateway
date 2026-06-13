@@ -380,17 +380,35 @@ const I18n = {
  */
 async function loadComponent(placeholderId, url, onLoad) {
     const placeholder = document.getElementById(placeholderId);
-    if (!placeholder || placeholder.dataset.loaded === 'true') return;
+    if (!placeholder || placeholder.dataset.loaded === 'true' || placeholder.dataset.loading === 'true') return;
+
+    placeholder.dataset.loading = 'true';
 
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const html = await response.text();
-        placeholder.outerHTML = html;
-        placeholder.dataset.loaded = 'true';
+
+        const template = document.createElement('template');
+        template.innerHTML = html.trim();
+
+        if (!template.content.childNodes.length) {
+            throw new Error(`Component ${url} did not return any markup.`);
+        }
+
+        const fragment = template.content.cloneNode(true);
+        const firstElement = fragment.firstElementChild;
+
+        placeholder.replaceWith(fragment);
+
+        if (firstElement) {
+            firstElement.dataset.loaded = 'true';
+        }
+
         if (typeof onLoad === 'function') onLoad();
     } catch (error) {
         console.error(`Error loading component ${url}:`, error);
+        delete placeholder.dataset.loading;
         placeholder.innerHTML = `<p class="text-red-500 text-center py-4">Error loading component.</p>`;
     }
 }
@@ -487,7 +505,7 @@ function main() {
     document.addEventListener('error', function(e) {
         if (e.target.tagName.toLowerCase() === 'img') {
             e.target.onerror = null; // Prevent infinite loop
-            e.target.src = '/images/logo-400w.webp';
+            e.target.src = '/images/site/logo.png';
             e.target.classList.add('object-contain', 'bg-gray-50');
         }
     }, true);
@@ -676,7 +694,7 @@ function initPricingSections() {
 
     document.querySelectorAll('[data-pricing-nav]').forEach((navContainer) => {
         navContainer.innerHTML = services.map((service) => `
-            <a href="#service-${escapeHtml(service.id)}" class="inline-flex items-center justify-center px-5 py-3 rounded-full border border-tech-blue/15 dark:border-white/10 bg-white/80 dark:bg-slate-800 text-tech-blue dark:text-white font-semibold hover:bg-tech-blue hover:text-white dark:hover:bg-cyan dark:hover:text-charcoal transition-all duration-300">
+            <a href="#service-${escapeHtml(service.id)}" class="inline-flex items-center justify-center px-5 py-3 rounded-full border border-tech-blue/15 dark:border-white/10 bg-white/80 dark:bg-slate-800 text-tech-blue dark:text-white font-semibold hover:bg-tech-blue hover:text-white dark:hover:bg-orange dark:hover:text-charcoal transition-all duration-300">
                 ${escapeHtml(service.name)}
             </a>
         `).join('');
@@ -688,7 +706,7 @@ function initPricingSections() {
             <details class="group rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-slate-800 px-6 py-5 shadow-sm">
                 <summary class="list-none cursor-pointer flex items-center justify-between gap-4 font-semibold text-tech-blue dark:text-white">
                     <span>${escapeHtml(faq.question)}</span>
-                    <span class="text-cyan transition-transform duration-300 group-open:rotate-45"><i class="fas fa-plus"></i></span>
+                    <span class="text-orange transition-transform duration-300 group-open:rotate-45"><i class="fas fa-plus"></i></span>
                 </summary>
                 <p class="mt-4 text-charcoal/70 dark:text-gray-400 leading-relaxed">${escapeHtml(faq.answer)}</p>
             </details>
@@ -1184,12 +1202,12 @@ function generateFilterButtons() {
     const buttonsHTML = sortedFilters.map(filter => {
         // Normalize filter name for the data-filter attribute
         const filterValue = filter.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
-        return `<button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-cyan hover:text-tech-blue dark:hover:text-cyan" data-filter="${filterValue}">${filter}</button>`;
+        return `<button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-orange hover:text-tech-blue dark:hover:text-orange" data-filter="${filterValue}">${filter}</button>`;
     }).join('');
 
     // Add the 'All' button at the beginning
     container.innerHTML = `
-        <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-cyan hover:text-tech-blue dark:hover:text-cyan" data-filter="all">All</button>
+        <button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-orange hover:text-tech-blue dark:hover:text-orange" data-filter="all">All</button>
         ${buttonsHTML}
     `;
 }
@@ -1541,22 +1559,22 @@ function injectModalComponent() {
                 <div id="modal-scroll-content" class="flex-1 p-6 overflow-y-auto custom-scrollbar md:p-10">
                     <!-- Header -->
                     <div class="mb-6">
-                        <span id="modalCategory" class="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-cyan uppercase rounded-full bg-cyan/10"></span>
+                        <span id="modalCategory" class="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-orange uppercase rounded-full bg-cyan/10"></span>
                         <h2 id="modalTitle" class="text-3xl font-bold leading-tight md:text-4xl font-heading text-tech-blue dark:text-white"></h2>
                     </div>
 
                     <!-- Meta Info -->
                     <div class="grid grid-cols-2 gap-6 py-6 my-6 border-t border-b md:grid-cols-3 border-gray-100 dark:border-white/10">
                         <div>
-                            <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Client</span>
+                            <span class="block mb-1 text-xs font-bold tracking-wide text-orange uppercase">Client</span>
                             <span id="modalClient" class="font-medium text-tech-blue dark:text-gray-200"></span>
                         </div>
                         <div>
-                            <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Timeline</span>
+                            <span class="block mb-1 text-xs font-bold tracking-wide text-orange uppercase">Timeline</span>
                             <span id="modalTimeline" class="font-medium text-tech-blue dark:text-gray-200"></span>
                         </div>
                         <div>
-                            <span class="block mb-1 text-xs font-bold tracking-wide text-cyan uppercase">Services</span>
+                            <span class="block mb-1 text-xs font-bold tracking-wide text-orange uppercase">Services</span>
                             <span id="modalServices" class="font-medium text-tech-blue dark:text-gray-200"></span>
                         </div>
                     </div>
@@ -1564,14 +1582,14 @@ function injectModalComponent() {
                     <!-- Body Content -->
                     <div class="max-w-none prose-lg prose dark:prose-invert text-charcoal/80 dark:text-gray-300 space-y-8">
                         <div>
-                            <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-cyan">
-                                <i class="w-5 text-center fas fa-mountain text-cyan"></i> The Challenge
+                            <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-orange">
+                                <i class="w-5 text-center fas fa-mountain text-orange"></i> The Challenge
                             </h3>
                             <p id="modalChallenge" class="leading-relaxed"></p>
                         </div>
                         <div>
-                            <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-cyan">
-                                <i class="w-5 text-center fas fa-lightbulb text-cyan"></i> The Solution
+                            <h3 class="flex items-center gap-3 mb-3 text-lg font-bold not-prose text-tech-blue dark:text-orange">
+                                <i class="w-5 text-center fas fa-lightbulb text-orange"></i> The Solution
                             </h3>
                             <p id="modalSolution" class="leading-relaxed"></p>
                         </div>
@@ -1579,8 +1597,8 @@ function injectModalComponent() {
                     
                     <!-- Key Results -->
                     <div class="p-6 my-6 border rounded-xl bg-soft-gray dark:bg-white/5 border-tech-blue/10 dark:border-white/10">
-                        <h3 class="flex items-center gap-3 mb-4 text-lg font-bold text-tech-blue dark:text-cyan">
-                            <i class="w-5 text-center fas fa-chart-line text-cyan"></i> Key Results
+                        <h3 class="flex items-center gap-3 mb-4 text-lg font-bold text-tech-blue dark:text-orange">
+                            <i class="w-5 text-center fas fa-chart-line text-orange"></i> Key Results
                         </h3>
                         <ul id="modalResults" class="space-y-3"></ul>
                     </div>
@@ -1597,7 +1615,7 @@ function injectModalComponent() {
                 
                 <!-- Sticky CTA Footer -->
                 <div class="p-6 mt-auto bg-white border-t border-gray-100 dark:bg-slate-900 dark:border-white/10">
-                     <a href="/#contact" class="inline-flex items-center justify-center w-full py-3.5 font-bold text-white transition-colors transform rounded-xl bg-tech-blue hover:bg-cyan shadow-lg hover:shadow-cyan/30 hover:-translate-y-0.5">
+                     <a href="/#contact" class="inline-flex items-center justify-center w-full py-3.5 font-bold text-white transition-colors transform rounded-xl bg-tech-blue hover:bg-orange shadow-lg hover:shadow-tech-blue/30 hover:-translate-y-0.5">
                         Start a Project Like This
                      </a>
                 </div>
@@ -1767,7 +1785,7 @@ function initModal() {
                 study.results.forEach(result => {
                     const li = document.createElement('li');
                     li.className = 'flex items-start gap-3 text-charcoal/80 dark:text-gray-300';
-                    li.innerHTML = `<i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${escapeHtml(result)}</span>`;
+                    li.innerHTML = `<i class="fas fa-check-circle text-orange mt-1 shrink-0"></i><span>${escapeHtml(result)}</span>`;
                     resultsList.appendChild(li);
                 });
             }
@@ -1799,7 +1817,7 @@ function initModal() {
                     div.innerHTML = `
                         <button class="group w-full text-left cursor-pointer bg-soft-gray dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 rounded-lg p-3 transition-colors duration-300 flex items-center gap-4">
                             <div class="w-16 h-16 rounded-md overflow-hidden shrink-0">
-                                <img src="${encodeAssetUrl(relatedProject.image)}" srcset="${srcset}" sizes="5vw" alt="${escapeHtml(relatedProject.title)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
+                                <img src="${encodeAssetUrl(relatedProject.image)}" srcset="${srcset}" sizes="5vw" alt="${escapeHtml(relatedProject.title)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/site/logo.png';this.classList.add('object-contain','bg-gray-50')">
                             </div>
                             <div>
                                 <h4 class="font-bold text-tech-blue dark:text-white mb-1 text-sm line-clamp-1">${escapeHtml(relatedProject.title)}</h4>
@@ -2152,7 +2170,7 @@ function initContactForm() {
                     const iconRect = sendIcon.getBoundingClientRect();
                     const flyIcon = document.createElement('div');
                     flyIcon.innerHTML = '<i class="fas fa-paper-plane text-white text-xl"></i>';
-                    flyIcon.className = 'flying-icon bg-gradient-to-r from-tech-blue to-cyan w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,180,216,0.6)] z-[9999]';
+                    flyIcon.className = 'flying-icon bg-gradient-to-r from-tech-blue to-orange w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,180,216,0.6)] z-[9999]';
                     flyIcon.style.left = `${iconRect.left}px`;
                     flyIcon.style.top = `${iconRect.top}px`;
                     document.body.appendChild(flyIcon);
@@ -2185,7 +2203,7 @@ function initContactForm() {
                     setTimeout(() => {
                         // Morph into checkmark
                         flyIcon.style.transition = 'all 0.3s ease';
-                        flyIcon.classList.remove('bg-gradient-to-r', 'from-tech-blue', 'to-cyan');
+                        flyIcon.classList.remove('bg-gradient-to-r', 'from-tech-blue', 'to-orange');
                         flyIcon.style.background = '#dcfce7'; // bg-green-100
                         flyIcon.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.4)';
                         flyIcon.innerHTML = '<i class="fas fa-check text-green-500 text-3xl"></i>';
@@ -2301,13 +2319,13 @@ function initBlogPages() {
                 </a>
                 <div class="mt-4 flex flex-col flex-1">
                     <div class="flex items-start justify-between gap-3">
-                        <span class="bg-tech-blue/10 text-tech-blue dark:bg-cyan/20 dark:text-cyan-300 text-xs font-semibold px-3 py-1 rounded-full self-start uppercase">
+                        <span class="bg-tech-blue/10 text-tech-blue dark:bg-brand-gray/20 dark:text-orange text-xs font-semibold px-3 py-1 rounded-full self-start uppercase">
                             ${safeCategory}
                         </span>
                         <span class="text-[11px] text-charcoal/55 dark:text-gray-400 whitespace-nowrap">${safeReadingTime}</span>
                     </div>
 
-                    <h3 class="mt-3 text-tech-blue dark:text-white font-bold leading-tight text-base portfolio-title transition-colors duration-300 group-hover:text-cyan">
+                    <h3 class="mt-3 text-tech-blue dark:text-white font-bold leading-tight text-base portfolio-title transition-colors duration-300 group-hover:text-orange">
                         <a href="${postUrl}">${safeTitle}</a>
                     </h3>
 
@@ -2318,13 +2336,13 @@ function initBlogPages() {
                     <div class="flex items-center justify-between gap-3 mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
                         <div class="min-w-0">
                             <p class="text-[11px] text-charcoal/55 dark:text-gray-400 truncate">
-                                <i class="far fa-calendar-alt text-cyan mr-1"></i>${safeDate}
+                                <i class="far fa-calendar-alt text-orange mr-1"></i>${safeDate}
                             </p>
                             <p class="text-[11px] text-charcoal/55 dark:text-gray-400 truncate mt-1">
-                                <i class="far fa-user text-cyan mr-1"></i>${safeAuthor}
+                                <i class="far fa-user text-orange mr-1"></i>${safeAuthor}
                             </p>
                         </div>
-                        <a href="${postUrl}" class="portfolio-card-btn group/link flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm border border-gray-300 dark:border-gray-600 px-3 py-1 rounded-full transition-all duration-300 hover:bg-tech-blue hover:text-white hover:border-tech-blue dark:hover:bg-cyan dark:hover:text-charcoal dark:hover:border-cyan">
+                        <a href="${postUrl}" class="portfolio-card-btn group/link flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm border border-gray-300 dark:border-gray-600 px-3 py-1 rounded-full transition-all duration-300 hover:bg-tech-blue hover:text-white hover:border-tech-blue dark:hover:bg-orange dark:hover:text-charcoal dark:hover:border-orange">
                             Read
                             <span class="text-lg leading-none -mt-px transition-transform duration-300 group-hover/link:translate-x-1">&raquo;</span>
                         </a>
@@ -2350,20 +2368,20 @@ function initBlogPages() {
                     <img src="${imageUrl}" alt="${safeTitle}" class="w-full aspect-[16/11] object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
                 </a>
                 <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase bg-cyan/10 text-cyan">Featured Article</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase bg-cyan/10 text-orange">Featured Article</span>
                     <p class="mt-5 text-[11px] uppercase tracking-[0.18em] text-orange font-bold">${safeCategory}</p>
                     <h2 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue dark:text-white mt-4 leading-tight">
-                        <a href="${postUrl}" class="hover:text-cyan transition-colors">${safeTitle}</a>
+                        <a href="${postUrl}" class="hover:text-orange transition-colors">${safeTitle}</a>
                     </h2>
                     <div class="flex flex-wrap items-center gap-3 text-xs text-charcoal/60 dark:text-gray-400 mt-5">
-                        <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-cyan"></i> ${safeDate}</span>
+                        <span class="flex items-center gap-1"><i class="far fa-calendar-alt text-orange"></i> ${safeDate}</span>
                         <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                        <span class="flex items-center gap-1"><i class="far fa-user text-cyan"></i> ${safeAuthor}</span>
+                        <span class="flex items-center gap-1"><i class="far fa-user text-orange"></i> ${safeAuthor}</span>
                         <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                        <span class="flex items-center gap-1"><i class="far fa-clock text-cyan"></i> ${safeReadingTime}</span>
+                        <span class="flex items-center gap-1"><i class="far fa-clock text-orange"></i> ${safeReadingTime}</span>
                     </div>
                     <p class="mt-5 text-charcoal/70 dark:text-gray-400 leading-relaxed">${safeExcerpt}</p>
-                    <a href="${postUrl}" class="inline-flex items-center mt-8 px-6 py-3 rounded-full bg-gradient-to-r from-tech-blue to-cyan text-white font-bold hover:-translate-y-1 transition-all duration-300">
+                    <a href="${postUrl}" class="inline-flex items-center mt-8 px-6 py-3 rounded-full bg-gradient-to-r from-tech-blue to-orange text-white font-bold hover:-translate-y-1 transition-all duration-300">
                         Read Featured Article
                     </a>
                 </div>
@@ -2383,8 +2401,8 @@ function initBlogPages() {
                 <div class="overflow-hidden rounded-2xl bg-white/60 dark:bg-slate-700">
                     <img src="${imageUrl}" alt="${safeTitle}" class="w-full aspect-[16/10] object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
                 </div>
-                <p class="mt-5 text-[11px] uppercase tracking-[0.18em] text-cyan font-bold">${safeCategory}</p>
-                <h3 class="font-heading text-2xl font-bold text-tech-blue dark:text-white mt-3 leading-tight group-hover:text-cyan transition-colors">${safeTitle}</h3>
+                <p class="mt-5 text-[11px] uppercase tracking-[0.18em] text-orange font-bold">${safeCategory}</p>
+                <h3 class="font-heading text-2xl font-bold text-tech-blue dark:text-white mt-3 leading-tight group-hover:text-orange transition-colors">${safeTitle}</h3>
                 <p class="mt-4 text-sm text-charcoal/70 dark:text-gray-400 line-clamp-3">${safeExcerpt}</p>
             </a>
         `;
@@ -2421,7 +2439,7 @@ function initBlogPages() {
 
                     filtersContainer.innerHTML = categories.map((category) => {
                         const isActive = category === activeCategory;
-                        return `<button type="button" class="px-4 py-2 rounded-full text-xs font-bold tracking-[0.16em] uppercase transition-all duration-300 ${isActive ? 'bg-tech-blue text-white border border-tech-blue shadow-md' : 'bg-white dark:bg-slate-800 text-charcoal/70 dark:text-gray-300 border border-gray-200 dark:border-white/10 hover:border-cyan/40 hover:text-tech-blue dark:hover:text-cyan'}" data-blog-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`;
+                        return `<button type="button" class="px-4 py-2 rounded-full text-xs font-bold tracking-[0.16em] uppercase transition-all duration-300 ${isActive ? 'bg-tech-blue text-white border border-tech-blue shadow-md' : 'bg-white dark:bg-slate-800 text-charcoal/70 dark:text-gray-300 border border-gray-200 dark:border-white/10 hover:border-orange/40 hover:text-tech-blue dark:hover:text-orange'}" data-blog-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`;
                     }).join('');
                 };
 
@@ -2520,7 +2538,7 @@ function initBlogPages() {
                         const authorInitial = getAuthorInitial(post.author);
                         const readingTime = getReadingTimeLabel(post.content);
                         const safeReadingTime = escapeHtml(readingTime);
-                        const metaImageUrl = safeImageUrl || 'https://kumtechgateway.com/images/logo.png';
+                        const metaImageUrl = safeImageUrl || 'https://kumtechgateway.com/images/site/logo.png';
                         const publishedIso = parseBlogDate(post.date) ? new Date(parseBlogDate(post.date)).toISOString() : new Date().toISOString();
                         const relatedPosts = sortedPosts.filter((entry) => entry.id !== post.id && entry.category === post.category).slice(0, 2);
 
@@ -2565,7 +2583,7 @@ function initBlogPages() {
                                 "name": "Kumtech Gateway",
                                 "logo": {
                                     "@type": "ImageObject",
-                                    "url": "https://kumtechgateway.com/images/logo.png"
+                                    "url": "https://kumtechgateway.com/images/site/logo.png"
                                 }
                             },
                             "description": post.excerpt,
@@ -2586,12 +2604,12 @@ function initBlogPages() {
 
                         postContainer.innerHTML = `
                             <article>
-                                <a href="/blog.html" class="inline-flex items-center gap-2 text-sm font-bold text-tech-blue dark:text-cyan hover:text-orange transition-colors">
+                                <a href="/blog.html" class="inline-flex items-center gap-2 text-sm font-bold text-tech-blue dark:text-orange hover:text-orange transition-colors">
                                     <i class="fas fa-arrow-left"></i>
                                     Back to Blog
                                 </a>
                                 <header class="mt-8 mb-10">
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase bg-cyan/10 text-cyan">${safeCategory}</span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase bg-cyan/10 text-orange">${safeCategory}</span>
                                     <h1 class="text-3xl md:text-5xl font-heading font-bold text-tech-blue dark:text-white mt-5 leading-tight">${safeTitle}</h1>
                                     <p class="mt-5 text-lg text-charcoal/70 dark:text-gray-400 leading-relaxed">${safeExcerpt}</p>
                                     <div class="flex flex-wrap items-center gap-4 text-charcoal/60 dark:text-gray-400 text-sm border-b border-gray-200 dark:border-white/10 pb-6 mt-6">
@@ -2621,7 +2639,7 @@ function initBlogPages() {
                                                 <p class="text-[11px] uppercase tracking-[0.18em] text-orange font-bold">Keep Reading</p>
                                                 <h2 class="font-heading text-3xl font-bold text-tech-blue dark:text-white mt-3">Related insights</h2>
                                             </div>
-                                            <a href="/blog.html" class="text-tech-blue dark:text-cyan font-bold hover:text-orange transition-colors">Explore all articles</a>
+                                            <a href="/blog.html" class="text-tech-blue dark:text-orange font-bold hover:text-orange transition-colors">Explore all articles</a>
                                         </div>
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             ${relatedPosts.map(renderInlineBlogCard).join('')}
@@ -2640,12 +2658,12 @@ function initBlogPages() {
                         if (robotsMeta) robotsMeta.setAttribute('content', 'noindex, nofollow');
 
                         document.title = '404 - Post Not Found | Kumtech Gateway';
-                        postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Post Not Found</h2><p class="text-charcoal/60 mb-6">The article you are looking for does not exist or has been moved.</p><a href="/blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Blog</a></div>';
+                        postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Post Not Found</h2><p class="text-charcoal/60 mb-6">The article you are looking for does not exist or has been moved.</p><a href="/blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-orange transition-colors">Return to Blog</a></div>';
                     }
                 })
                 .catch((error) => {
                     console.error('Error loading blog post:', error);
-                    postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Unable to load article</h2><p class="text-charcoal/60 mb-6">Something went wrong while loading this post.</p><a href="/blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Blog</a></div>';
+                    postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Unable to load article</h2><p class="text-charcoal/60 mb-6">Something went wrong while loading this post.</p><a href="/blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-orange transition-colors">Return to Blog</a></div>';
                 });
         } else {
             window.location.href = '/blog.html';
@@ -2676,11 +2694,11 @@ function initGalleryPreview() {
                      width="${img.width || 600}"
                      height="${img.height || 800}"
                      class="w-full h-auto rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-500 group-hover:scale-105 cursor-zoom-in"
-                     loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
+                     loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/site/logo.png';this.classList.add('object-contain','bg-gray-50')">
                 
                 <!-- Hover Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
-                    <span class="inline-block px-3 py-1 bg-cyan/90 text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${safeCategory}</span>
+                    <span class="inline-block px-3 py-1 bg-orange text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${safeCategory}</span>
                     <p class="text-white text-sm font-medium opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75"><i class="fas fa-search-plus mr-2"></i>View Full Size</p>
                 </div>
             </div>`;
@@ -2720,7 +2738,7 @@ function generateGalleryFilters() {
             count = galleryData[cat] ? galleryData[cat].length : 0;
         }
 
-        return `<button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-cyan hover:text-tech-blue dark:hover:text-cyan ${cat === 'all' ? 'active' : ''}" data-filter="${cat}">
+        return `<button class="filter-btn px-4 py-2 text-xs md:text-sm rounded-full border border-gray-200 dark:border-white/20 text-charcoal/80 dark:text-gray-300 cursor-pointer transition-all font-medium hover:bg-gray-100 dark:hover:bg-white/10 hover:border-tech-blue/50 dark:hover:border-orange hover:text-tech-blue dark:hover:text-orange ${cat === 'all' ? 'active' : ''}" data-filter="${cat}">
             ${catName} <span class="text-[10px] opacity-60 ml-1">(${count})</span>
         </button>`;
     }).join('');
@@ -2744,7 +2762,7 @@ function initGalleryPage() {
         const batchSize = 12;
 
         const emptyStateHTML = `<div class="empty-state text-center py-16 reveal-up active" style="column-span: all;">
-                                    <i class="fas fa-camera-retro text-4xl text-cyan mb-4"></i>
+                                    <i class="fas fa-camera-retro text-4xl text-orange mb-4"></i>
                                     <h3 class="text-xl font-bold text-charcoal dark:text-white">No Images Found</h3>
                                     <p class="text-charcoal/60 dark:text-gray-400">There are no images in this category yet. Try another one!</p>
                                 </div>`;
@@ -2800,7 +2818,7 @@ function initGalleryPage() {
                 const srcset = generateSrcset(imgData.src);
                 const isEager = loadedCount === 0 && i < 6;
                 const delay = isEager ? '' : ['delay-100', 'delay-200', 'delay-300'][i % 3];
-                const placeholderSrc = imgData.placeholder ? encodeAssetUrl(imgData.placeholder) : '/images/logo-placeholder.webp';
+                const placeholderSrc = imgData.placeholder ? encodeAssetUrl(imgData.placeholder) : '/images/site/logo-placeholder.webp';
 
                 const div = document.createElement('div');
                 div.className = `mb-4 break-inside-avoid group reveal-up ${delay} relative rounded-[10px] overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1`;
@@ -2817,9 +2835,9 @@ function initGalleryPage() {
                          class="w-full h-full object-cover cursor-zoom-in group-hover:scale-105 transition-transform duration-500 ${!isEager ? 'img-blur-up' : ''}"
                          ${isEager ? 'loading="eager" fetchPriority="high"' : 'loading="lazy"'}
                          decoding="async"
-                         onerror="this.onerror=null; this.src='/images/logo.png'; this.classList.add('loaded','object-contain','bg-gray-50');">
+                         onerror="this.onerror=null; this.src='/images/site/logo.png'; this.classList.add('loaded','object-contain','bg-gray-50');">
                     <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
-                    <span class="inline-block px-3 py-1 bg-cyan/90 text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${imgData.category ? imgData.category.replace('-', ' ') : 'Design'}</span>
+                    <span class="inline-block px-3 py-1 bg-orange text-white text-xs font-bold rounded-full mb-2 w-max transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${imgData.category ? imgData.category.replace('-', ' ') : 'Design'}</span>
                     <p class="text-white text-sm font-medium opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75"><i class="fas fa-search-plus mr-2"></i>View Full Size</p>
                     </div>`;
 
@@ -3023,12 +3041,12 @@ function renderReviews(reviews) {
         card.className = 'min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg shadow-gray-100 dark:shadow-none border border-gray-50 dark:border-white/5 relative hover:-translate-y-2 transition-transform duration-300';
         
         card.innerHTML = `
-            <div class="text-4xl text-cyan/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
+            <div class="text-4xl text-orange/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
             <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-cyan text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">${initials}</div>
+                <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-orange text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">${initials}</div>
                 <div>
                     <h4 class="font-bold text-tech-blue dark:text-white">${escapeHtml(review.name)}</h4>
-                    <p class="text-xs text-cyan uppercase tracking-wider font-semibold">${escapeHtml(review.company || 'Client')}</p>
+                    <p class="text-xs text-orange uppercase tracking-wider font-semibold">${escapeHtml(review.company || 'Client')}</p>
                 </div>
             </div>
             <div class="flex gap-1 text-orange text-xs mb-4">
@@ -3044,6 +3062,12 @@ function renderReviews(reviews) {
 function initProjectDetailPage() {
     const container = document.getElementById('project-detail-container');
     if (!container) return;
+
+    if (typeof portfolioData === 'undefined' || !Array.isArray(portfolioData)) {
+        container.innerHTML = `<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Project Unavailable</h2><p class="text-charcoal/60 mb-6">The project data could not be loaded right now. Please try again shortly.</p><a href="/portfolio.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-orange transition-colors">Return to Portfolio</a></div>`;
+        document.title = "Project Unavailable | Kumtech Gateway";
+        return;
+    }
     
     const loader = document.getElementById('project-loader');
     const content = document.getElementById('project-content');
@@ -3070,7 +3094,7 @@ function initProjectDetailPage() {
     };
     
     if (!project || !project.fullData) {
-        container.innerHTML = `<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Project Not Found</h2><p class="text-charcoal/60 mb-6">The project you are looking for does not exist or has been moved.</p><a href="/portfolio.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-cyan transition-colors">Return to Portfolio</a></div>`;
+        container.innerHTML = `<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Project Not Found</h2><p class="text-charcoal/60 mb-6">The project you are looking for does not exist or has been moved.</p><a href="/portfolio.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-orange transition-colors">Return to Portfolio</a></div>`;
         document.title = "404 - Project Not Found | Kumtech Gateway";
         return;
     }
@@ -3082,12 +3106,12 @@ function initProjectDetailPage() {
     const pageTitle = `${project.title} | Kumtech Gateway Project`;
     const pageDescription = project.description;
     const projectImage = encodeAssetUrl(project.image);
-    let pageImage = 'https://kumtechgateway.com/images/logo.png';
+    let pageImage = 'https://kumtechgateway.com/images/site/logo.png';
 
     try {
-        pageImage = new URL(projectImage || '/images/logo.png', window.location.origin).href;
+        pageImage = new URL(projectImage || '/images/site/logo.png', window.location.origin).href;
     } catch (error) {
-        pageImage = 'https://kumtechgateway.com/images/logo.png';
+        pageImage = 'https://kumtechgateway.com/images/site/logo.png';
     }
 
     // 1. Update Title & Description
@@ -3190,7 +3214,7 @@ function initProjectDetailPage() {
     // Key Results
     if (resultsEl && project.fullData.results && project.fullData.results.length > 0) {
         resultsEl.innerHTML = project.fullData.results.map(r =>
-            `<li class="flex items-start gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-cyan mt-1 shrink-0"></i><span>${escapeHtml(r)}</span></li>`
+            `<li class="flex items-start gap-3 text-charcoal/80 dark:text-gray-300"><i class="fas fa-check-circle text-orange mt-1 shrink-0"></i><span>${escapeHtml(r)}</span></li>`
         ).join('');
     } else if (resultsContainer) {
         resultsContainer.classList.add('hidden');
@@ -3209,17 +3233,17 @@ function initProjectDetailPage() {
     // Image Gallery
     const images = [project.image, ...(project.fullData.gallery || [])].filter(Boolean);
     if (mainImage) {
-        mainImage.src = encodeAssetUrl(images[0] || '/images/logo.png');
+        mainImage.src = encodeAssetUrl(images[0] || '/images/site/logo.png');
         mainImage.alt = project.title;
         mainImage.onerror = () => {
             mainImage.onerror = null;
-            mainImage.src = '/images/logo.png';
+            mainImage.src = '/images/site/logo.png';
             mainImage.classList.add('object-contain', 'bg-gray-50');
         };
     }
     if (thumbnailsContainer) {
         thumbnailsContainer.innerHTML = images.map((imgSrc, index) =>
-            `<img src="${encodeAssetUrl(imgSrc)}" alt="${escapeHtml(project.title)} thumbnail ${index + 1}" class="w-28 h-16 object-cover rounded-lg shadow-md cursor-pointer border-2 ${index === 0 ? 'border-cyan scale-105 opacity-100' : 'border-transparent opacity-60'} hover:opacity-100 hover:scale-105 transition-all" data-src="${encodeAssetUrl(imgSrc)}" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">`
+            `<img src="${encodeAssetUrl(imgSrc)}" alt="${escapeHtml(project.title)} thumbnail ${index + 1}" class="w-28 h-16 object-cover rounded-lg shadow-md cursor-pointer border-2 ${index === 0 ? 'border-orange scale-105 opacity-100' : 'border-transparent opacity-60'} hover:opacity-100 hover:scale-105 transition-all" data-src="${encodeAssetUrl(imgSrc)}" onerror="this.onerror=null;this.src='/images/site/logo.png';this.classList.add('object-contain','bg-gray-50')">`
         ).join('');
         
         thumbnailsContainer.addEventListener('click', e => {
@@ -3233,11 +3257,11 @@ function initProjectDetailPage() {
                     }, 200);
                 }
                 thumbnailsContainer.querySelectorAll('img').forEach(img => {
-                    img.classList.remove('border-cyan', 'scale-105', 'opacity-100');
+                    img.classList.remove('border-orange', 'scale-105', 'opacity-100');
                     img.classList.add('border-transparent', 'opacity-60');
                 });
                 e.target.classList.remove('border-transparent', 'opacity-60');
-                e.target.classList.add('border-cyan', 'scale-105', 'opacity-100');
+                e.target.classList.add('border-orange', 'scale-105', 'opacity-100');
             }
         });
     }
@@ -3252,11 +3276,11 @@ function initProjectDetailPage() {
             relatedGrid.innerHTML = related.map(rp => `
                 <a href="${getProjectDetailUrl(rp.id)}" class="group block bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-200 dark:border-slate-700 hover:-translate-y-1">
                     <div class="aspect-video bg-slate-100 dark:bg-slate-700">
-                        <img src="${encodeAssetUrl(rp.image)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="${escapeHtml(rp.title)}" onerror="this.onerror=null;this.src='/images/logo.png';this.classList.add('object-contain','bg-gray-50')">
+                        <img src="${encodeAssetUrl(rp.image)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="${escapeHtml(rp.title)}" onerror="this.onerror=null;this.src='/images/site/logo.png';this.classList.add('object-contain','bg-gray-50')">
                     </div>
                     <div class="p-4">
                         <h3 class="font-heading font-bold text-tech-blue dark:text-white line-clamp-2 mb-1">${escapeHtml(rp.title)}</h3>
-                        <p class="text-xs text-cyan uppercase font-semibold">${escapeHtml(rp.category)}</p>
+                        <p class="text-xs text-orange uppercase font-semibold">${escapeHtml(rp.category)}</p>
                     </div>
                 </a>
             `).join('');
