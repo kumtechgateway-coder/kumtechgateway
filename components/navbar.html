@@ -1,3 +1,12 @@
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress" role="progressbar" aria-hidden="true"></div>
+
+<!-- Skip to Content -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Mobile Nav Overlay -->
+<div id="nav-overlay" aria-hidden="true"></div>
+
 <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-3 md:py-4 bg-white dark:bg-charcoal shadow-sm">
     <div class="container mx-auto px-5 max-w-[1200px] flex justify-between items-center">
         <!-- Logo -->
@@ -20,11 +29,11 @@
 
         <!-- Action Buttons -->
         <div class="flex items-center gap-4">
-            <button id="themeToggle" class="w-9 h-9 rounded-full flex items-center justify-center bg-soft-gray dark:bg-white/10 text-tech-blue dark:text-orange hover:bg-tech-blue hover:text-white transition-all" aria-label="Toggle theme">
+            <button type="button" id="themeToggle" class="w-9 h-9 rounded-full flex items-center justify-center bg-soft-gray dark:bg-white/10 text-tech-blue dark:text-orange hover:bg-tech-blue hover:text-white transition-all" aria-label="Toggle theme">
                 <i class="fas fa-sun block dark:hidden"></i>
                 <i class="fas fa-moon hidden dark:block"></i>
             </button>
-            <button id="menuToggle" class="md:hidden w-9 h-9 flex items-center justify-center text-tech-blue dark:text-white text-xl" aria-label="Toggle menu" aria-controls="navMenu" aria-expanded="false">
+            <button type="button" id="menuToggle" class="md:hidden w-9 h-9 flex items-center justify-center text-tech-blue dark:text-white text-xl" aria-label="Toggle menu" aria-controls="navMenu" aria-expanded="false">
                 <i class="fas fa-bars"></i>
             </button>
         </div>

@@ -140,7 +140,7 @@ const portfolioData = [
         category: "Graphic Design",
         title: "Bluebells Empire Brand System",
         description: "A premium blue-and-gold identity for a real-estate and investment brand, presented through a full board, icon system, and dimensional logo treatment.",
-        image: "images/brand-assets/ChatGPT Image Mar 23, 2026, 08_14_05 AM.png",
+        image: "images/brand-assets/ChatGPT Image Mar 23, 2026, 08_14_05 AM.webp",
         fullData: {
             client: "Bluebells Empire",
             timeline: "2026",
@@ -153,8 +153,8 @@ const portfolioData = [
                 "Strengthened presentation quality for proposals, profiles, and rollout materials"
             ],
             gallery: [
-                "images/brand-assets/blu logo2.png",
-                "images/brand-assets/ChatGPT Image Mar 23, 2026, 08_17_22 AM.png"
+                "images/brand-assets/blu logo2.webp",
+                "images/brand-assets/ChatGPT Image Mar 23, 2026, 08_17_22 AM.webp"
             ],
             technologies: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
             liveUrl: "#"

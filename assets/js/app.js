@@ -946,6 +946,8 @@ function initScrollBehaviors() {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section');
     
+    const navOverlay = document.getElementById('nav-overlay');
+
     const setMenuState = (isOpen) => {
         if (!menuToggle || !navMenu) return;
 
@@ -953,6 +955,11 @@ function initScrollBehaviors() {
         menuToggle.classList.toggle('active', isOpen);
         menuToggle.setAttribute('aria-expanded', String(isOpen));
         navMenu.setAttribute('aria-hidden', String(!isOpen));
+
+        if (navOverlay) {
+            navOverlay.classList.toggle('active', isOpen);
+            navOverlay.setAttribute('aria-hidden', String(!isOpen));
+        }
 
         const icon = menuToggle.querySelector('i');
         if (icon) {
@@ -962,6 +969,10 @@ function initScrollBehaviors() {
 
         document.body.style.overflow = isOpen ? 'hidden' : '';
     };
+
+    if (navOverlay) {
+        navOverlay.addEventListener('click', () => setMenuState(false));
+    }
 
     // Mobile menu toggle
     if (menuToggle && navMenu) {
@@ -1029,8 +1040,10 @@ function initScrollBehaviors() {
 
             if (linkPage === resolvedPage) {
                 link.classList.add('active');
+                link.setAttribute('aria-current', 'page');
             } else {
                 link.classList.remove('active');
+                link.removeAttribute('aria-current');
             }
         });
     } else {
@@ -1118,6 +1131,19 @@ function initScrollBehaviors() {
         });
     });
     
+    // Scroll Progress Bar
+    const scrollProgressBar = document.getElementById('scroll-progress');
+    if (scrollProgressBar) {
+        const updateProgress = () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+            scrollProgressBar.style.width = pct + '%';
+        };
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        updateProgress();
+    }
+
     // Complex Scroll Animations
     const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-zoom, .reveal-pop');
     
@@ -1269,7 +1295,6 @@ function initPortfolioPage() {
                 const filterName = filter.history[filter.historyIndex];
                 updateFilterUI(filterName);
                 resetAndFilter();
-                filterItems();
             };
 
             const addToHistory = (filterName) => {
@@ -1353,9 +1378,9 @@ function initPortfolioPage() {
             // Filter button click events
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const filter = btn.getAttribute('data-filter');
-                    updateFilterUI(filter);
-                    addToHistory(filter);
+                    const selectedFilter = btn.getAttribute('data-filter');
+                    updateFilterUI(selectedFilter);
+                    addToHistory(selectedFilter);
                     resetAndFilter();
                 });
             });
@@ -2794,7 +2819,8 @@ function initGalleryPage() {
                         img.classList.add('loaded');
                     };
                     tempImg.onerror = () => {
-                        img.onerror();
+                        img.src = '/images/site/logo.png';
+                        img.classList.add('loaded', 'object-contain', 'bg-gray-50');
                     };
                     observer.unobserve(img);
                 }
@@ -3250,10 +3276,10 @@ function initProjectDetailPage() {
             if (e.target.tagName === 'IMG') {
                 // Add a fade effect for the main image
                 if (mainImage) {
-                    mainImage.style.opacity = 0;
+                    mainImage.style.opacity = '0';
                     setTimeout(() => {
                         mainImage.src = e.target.dataset.src;
-                        mainImage.style.opacity = 1;
+                        mainImage.style.opacity = '1';
                     }, 200);
                 }
                 thumbnailsContainer.querySelectorAll('img').forEach(img => {

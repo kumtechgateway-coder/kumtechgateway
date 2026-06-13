@@ -87,7 +87,7 @@
     <!-- Navigation Placeholder -->
     <header id="navbar-placeholder"></header>
 
-    <main>
+    <main id="main-content">
     <!-- Portfolio Section -->
     <section class="pb-16 md:pb-24 relative dark:bg-charcoal" id="portfolio">
             <!-- Controls -->
@@ -136,8 +136,8 @@
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
-    <!-- Back to Top Button (Desktop) -->
-    <button id="backToTop" class="hidden md:flex fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-orange to-soft-amber text-white rounded-full items-center justify-center text-lg shadow-custom cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 hover:bg-tech-blue hover:from-tech-blue hover:to-tech-blue hover:-translate-y-1 z-50" aria-label="Back to top">
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="flex fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-orange to-soft-amber text-white rounded-full items-center justify-center text-lg shadow-custom cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 hover:bg-tech-blue hover:from-tech-blue hover:to-tech-blue hover:-translate-y-1 z-50" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
@@ -161,7 +161,7 @@
             </div>
             <div class="p-4 bg-gray-50 dark:bg-slate-900/50">
                 <div class="bg-white dark:bg-slate-700 p-3.5 rounded-2xl rounded-tl-none shadow-sm text-sm text-charcoal dark:text-gray-200 leading-relaxed border border-gray-100 dark:border-slate-600">
-                    Hi there! 👋 How can we help you grow your business today?
+                    Hi there. Share your business name, the service you need, and your deadline, and we will guide you clearly.
                 </div>
                 <div class="text-[10px] text-gray-400 mt-2 text-right font-medium">Just now</div>
             </div>
@@ -191,8 +191,8 @@
         <img id="lightboxImage" src="" alt="Gallery Image" class="max-w-[90vw] max-h-[90vh] object-contain transform scale-95 transition-all duration-300 select-none">
     </div>
 
-    <script src="/assets/data/portfolio-data.js"></script>
-    <script src="/assets/js/portfolio-generator.js"></script>
+    <script src="/assets/data/portfolio-data.js" defer></script>
+    <script src="/assets/js/portfolio-generator.js" defer></script>
     <script type="module" src="/assets/js/app.js"></script>
 </body>
 </html>

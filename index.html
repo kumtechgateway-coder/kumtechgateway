@@ -150,7 +150,7 @@
     <!-- Navigation Placeholder -->
     <header id="navbar-placeholder"></header>
 
-    <main>
+    <main id="main-content">
     <!-- Home/Hero Section -->
     <section class="relative flex items-start min-h-screen bg-gradient-to-br from-soft-gray/80 to-white dark:from-charcoal dark:to-slate-900 overflow-hidden pt-16 lg:pt-16 pb-12 lg:pb-0" id="home">
         <div class="absolute inset-0 z-0 pointer-events-none" id="hero-particle-bg"></div>
@@ -773,7 +773,6 @@
                     <a href="https://g.page/r/CTyT8y4hhe89EAI/review" target="_blank" rel="noopener" data-track-event="review_google_click" data-track-category="engagement" data-track-label="homepage_google_review" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-slate-800 text-charcoal dark:text-white border border-gray-200 dark:border-white/10 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 font-medium group"><i class="fab fa-google text-red-500 text-lg group-hover:scale-110 transition-transform"></i> Leave a Google Review</a>
                     <a href="/#contact" data-track-event="contact_cta_click" data-track-category="engagement" data-track-label="homepage_private_feedback" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-tech-blue text-white shadow-md hover:shadow-lg hover:bg-orange hover:-translate-y-1 transition-all duration-300 font-medium"><i class="fas fa-message text-sm"></i> Share Feedback Privately</a>
                 </div>
-                <p class="text-center text-sm text-charcoal/60 dark:text-gray-400 max-w-2xl mx-auto mb-10">Public website review submissions are paused for abuse prevention. For verified public feedback, please use Google Reviews, or contact us directly with private feedback.</p>
                 
                 <div class="relative px-2 md:px-4">
                     <!-- Navigation Buttons -->
@@ -859,10 +858,10 @@
     </div>
 
     <!-- Script -->
-    <script src="/assets/data/pricing-data.js"></script>
+    <script src="/assets/data/pricing-data.js" defer></script>
     <script src="/assets/data/gallery-data.js" defer></script>
-    <script src="/assets/data/portfolio-data.js"></script>
-    <script src="/assets/js/portfolio-generator.js"></script>
+    <script src="/assets/data/portfolio-data.js" defer></script>
+    <script src="/assets/js/portfolio-generator.js" defer></script>
     <script type="module" src="/assets/js/app.js"></script>
 </body>
 
