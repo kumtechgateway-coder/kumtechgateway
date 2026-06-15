@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Kumtech Gateway</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="/images/site/favicon-white.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .btn-approve { background:#16a34a; color:#fff; }
+        .btn-approve:hover { background:#15803d; }
+        .btn-revoke  { background:#f1f5f9; color:#1e293b; }
+        .btn-revoke:hover  { background:#e2e8f0; }
+        .btn-delete  { background:#fef2f2; color:#ef4444; }
+        .btn-delete:hover  { background:#fee2e2; }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 min-h-screen text-charcoal transition-colors duration-300">
+
+    <!-- ── LOGIN ─────────────────────────────────────────────────────────── -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center px-5 py-12">
+        <div class="w-full max-w-sm">
+
+            <div class="text-center mb-8">
+                <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-tech-blue to-orange text-white text-xl mb-4 shadow-lg">
+                    <i class="fas fa-shield-halved"></i>
+                </span>
+                <h1 class="text-xl font-bold text-charcoal">Admin Panel</h1>
+                <p class="text-sm text-charcoal/50 mt-0.5">Kumtech Gateway</p>
+            </div>
+
+            <!-- Sign-in pane -->
+            <div id="loginPane" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <form id="signInForm" novalidate>
+                    <div class="mb-4">
+                        <label for="adminEmail" class="block text-xs font-semibold uppercase tracking-wide text-charcoal mb-1.5">Email</label>
+                        <input type="email" id="adminEmail" required autocomplete="email"
+                               class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/10 transition placeholder-gray-400">
+                    </div>
+                    <div class="mb-1">
+                        <label for="adminPassword" class="block text-xs font-semibold uppercase tracking-wide text-charcoal mb-1.5">Password</label>
+                        <div class="relative">
+                            <input type="password" id="adminPassword" required autocomplete="current-password"
+                                   class="w-full px-3 py-2 pr-10 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/10 transition placeholder-gray-400">
+                            <button type="button" id="togglePassword" aria-label="Show or hide password"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-charcoal transition-colors">
+                                <i id="togglePasswordIcon" class="fas fa-eye text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p id="loginError" class="text-xs text-red-500 mt-2 hidden"></p>
+                    <button type="submit" id="signInBtn"
+                            class="w-full mt-4 flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-tech-blue to-orange text-white font-bold text-sm shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0">
+                        <i id="signInIcon" class="fas fa-arrow-right-to-bracket"></i>
+                        <span id="loginLabel">Sign In</span>
+                    </button>
+                </form>
+                <button type="button" id="showForgotPassword"
+                        class="w-full text-center text-xs text-charcoal/50 hover:text-tech-blue mt-4 transition-colors">
+                    Forgot password?
+                </button>
+            </div>
+
+            <!-- Forgot password pane -->
+            <div id="forgotPane" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <button type="button" id="showSignIn"
+                        class="flex items-center gap-1.5 text-xs text-charcoal/50 hover:text-tech-blue transition-colors mb-5">
+                    <i class="fas fa-arrow-left text-[10px]"></i> Back to sign in
+                </button>
+                <h2 class="text-base font-bold text-charcoal mb-1">Reset Password</h2>
+                <p class="text-xs text-charcoal/50 mb-4">Enter your email and we'll send a reset link.</p>
+                <form id="resetForm" novalidate>
+                    <div class="mb-3">
+                        <label for="resetEmail" class="block text-xs font-semibold uppercase tracking-wide text-charcoal mb-1.5">Email</label>
+                        <input type="email" id="resetEmail" required autocomplete="email"
+                               class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/10 transition placeholder-gray-400">
+                    </div>
+                    <p id="resetMessage" class="text-xs mb-3 hidden"></p>
+                    <button type="submit" id="resetBtn"
+                            class="w-full px-5 py-2.5 rounded-full bg-tech-blue text-white font-bold text-sm hover:bg-orange transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+                        Send Reset Link
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ── DASHBOARD ─────────────────────────────────────────────────────── -->
+    <div id="dashboardScreen" class="hidden min-h-screen flex-col">
+
+        <header class="bg-white border-b border-gray-200 px-5 py-3 flex items-center justify-between sticky top-0 z-10 shadow-sm">
+            <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-gradient-to-br from-tech-blue to-orange flex items-center justify-center text-white text-xs shadow-sm">
+                    <i class="fas fa-shield-halved"></i>
+                </span>
+                <span class="font-bold text-sm text-charcoal">Reviews</span>
+                <span class="text-charcoal/30 mx-1">·</span>
+                <span class="text-xs text-charcoal/50">Kumtech Gateway</span>
+            </div>
+            <div class="flex items-center gap-1">
+<button type="button" id="refreshBtn" aria-label="Refresh reviews"
+                        class="w-8 h-8 flex items-center justify-center rounded-full text-charcoal/40 hover:bg-gray-100 transition-all">
+                    <i class="fas fa-rotate-right text-sm"></i>
+                </button>
+                <button type="button" id="signOutBtn"
+                        class="flex items-center gap-1.5 text-xs font-medium text-charcoal/50 hover:text-red-500 transition-colors px-3 py-1.5 rounded-full hover:bg-red-50 ml-1">
+                    <i class="fas fa-right-from-bracket"></i> Sign out
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 max-w-3xl w-full mx-auto px-5 py-8">
+
+            <div class="flex gap-2 mb-6">
+                <button type="button" id="tabPending"
+                        class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all bg-tech-blue text-white shadow-sm">
+                    Pending
+                    <span id="pendingCount" class="bg-white/20 text-white text-xs font-bold px-2 py-0.5 rounded-full min-w-[1.5rem] text-center">0</span>
+                </button>
+                <button type="button" id="tabApproved"
+                        class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all bg-white text-charcoal border border-gray-200">
+                    Approved
+                    <span id="approvedCount" class="bg-gray-100 text-charcoal/60 text-xs font-bold px-2 py-0.5 rounded-full min-w-[1.5rem] text-center">0</span>
+                </button>
+            </div>
+
+            <div id="reviewsList" class="flex flex-col gap-3"></div>
+
+        </div>
+    </div>
+
+    <script type="module" src="/assets/js/admin.js"></script>
+</body>
+</html>

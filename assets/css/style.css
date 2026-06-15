@@ -213,6 +213,7 @@ h6 { font-size: 0.75rem;  font-weight: 700; line-height: 1.5;  letter-spacing: 0
     box-shadow:
         0 24px 60px rgba(2, 6, 23, 0.28),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
 }
 
@@ -365,6 +366,7 @@ h6 { font-size: 0.75rem;  font-weight: 700; line-height: 1.5;  letter-spacing: 0
 
 #navbar {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
 
@@ -526,6 +528,10 @@ h6 { font-size: 0.75rem;  font-weight: 700; line-height: 1.5;  letter-spacing: 0
     transition: all 0.3s ease;
 }
 
+#live-site-link:not(.hidden) {
+    display: inline-flex;
+}
+
 #live-site-link::before {
     content: '';
     position: absolute;
@@ -622,8 +628,8 @@ h6 { font-size: 0.75rem;  font-weight: 700; line-height: 1.5;  letter-spacing: 0
 
 .glass-panel {
     background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -816,8 +822,8 @@ h6 { font-size: 0.75rem;  font-weight: 700; line-height: 1.5;  letter-spacing: 0
     border-radius: 1.25rem;
     border: 1px solid rgba(var(--pricing-accent-rgb), 0.14);
     background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .pricing-card-list {
@@ -825,8 +831,8 @@ h6 { font-size: 0.75rem;  font-weight: 700; line-height: 1.5;  letter-spacing: 0
     border-radius: 1.35rem;
     border: 1px solid rgba(148, 163, 184, 0.14);
     background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .pricing-card-feature {
@@ -898,8 +904,8 @@ h6 { font-size: 0.75rem;  font-weight: 700; line-height: 1.5;  letter-spacing: 0
     border-radius: 1.35rem;
     border: 1px solid rgba(var(--pricing-accent-rgb), 0.14);
     background: rgba(255, 255, 255, 0.74);
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .pricing-service-tag {
@@ -1003,6 +1009,10 @@ article p.text-sm,
 /* =========================================
    Scroll Progress Bar
    ========================================= */
+
+#lightbox:not(.hidden) {
+    display: flex;
+}
 
 #scroll-progress {
     position: fixed;
