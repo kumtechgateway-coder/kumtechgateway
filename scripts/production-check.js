@@ -4,7 +4,6 @@ const vm = require('vm');
 
 const root = path.resolve(__dirname, '..');
 const criticalFiles = [
-    'about.html',
     'blog-post.html',
     'project-detail.html',
     'assets/js/app.js',

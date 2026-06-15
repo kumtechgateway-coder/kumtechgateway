@@ -9,6 +9,17 @@ const firebaseConfig = {
 };
 
 const ANALYTICS_MEASUREMENT_ID = 'G-H55QGC66WN';
+
+// Google Reviews (Places API New)
+// SECURITY: this key is visible in browser DevTools — that is expected for browser-side Google APIs.
+// Protect it with BOTH restrictions in Google Cloud Console → APIs & Services → Credentials:
+//   1. Application restriction → HTTP Referrers:
+//        https://kumtechgateway.com/*
+//        https://www.kumtechgateway.com/*
+//   2. API restriction → select "Places API (New)" only
+// Never set a live key here without both restrictions in place.
+const GOOGLE_REVIEWS_API_KEY  = null; // 'AIzaSy...'
+const GOOGLE_REVIEWS_PLACE_ID = null; // 'ChIJxxxxxxxxxxxxxxx' — find at developers.google.com/maps/documentation/javascript/examples/places-placeid-finder
 let reviewServicesPromise = null;
 let emailJsPromise = null;
 let confettiPromise = null;
@@ -473,6 +484,7 @@ function main() {
     initProjectDetailPage();
 
     if (isHomePage) {
+        initReviewForm();
         runWhenVisible('#pricing', initPricingSections, { rootMargin: '300px' });
         runWhenVisible('#portfolio', initPortfolioPage, { rootMargin: '300px' });
         runWhenVisible('#gallery-preview', initGalleryPreview, { rootMargin: '300px' });
@@ -714,69 +726,6 @@ function initPricingSections() {
     });
 }
 
-/**
- * Initializes the custom cursor functionality.
- */
-function initCustomCursor() {
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorOutline = document.getElementById('cursor-outline');
-    const bodyForCursor = document.body;
-    const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const shouldUseCustomCursor = window.innerWidth >= 1024 && !shouldReduceNonEssentialEffects();
-
-    if (cursorDot && cursorOutline && supportsFinePointer && shouldUseCustomCursor) {
-        let lastX = 0;
-        let lastY = 0;
-        let rafId = null;
-
-        const syncCursorPosition = () => {
-            cursorDot.style.left = `${lastX}px`;
-            cursorDot.style.top = `${lastY}px`;
-            cursorOutline.style.left = `${lastX}px`;
-            cursorOutline.style.top = `${lastY}px`;
-            rafId = null;
-        };
-
-        window.addEventListener('mousemove', function(e) {
-            lastX = e.clientX;
-            lastY = e.clientY;
-
-            if (!bodyForCursor.classList.contains('cursor-active')) {
-                bodyForCursor.classList.add('cursor-active');
-            }
-
-            if (rafId === null) {
-                rafId = window.requestAnimationFrame(syncCursorPosition);
-            }
-        }, { passive: true });
-
-        bodyForCursor.addEventListener('mouseenter', () => {
-            if (window.innerWidth >= 1024) {
-                bodyForCursor.classList.add('cursor-active');
-            }
-        });
-
-        bodyForCursor.addEventListener('mouseleave', () => {
-            bodyForCursor.classList.remove('cursor-active');
-        });
-
-        document.addEventListener('pointerover', (event) => {
-            if (event.pointerType && event.pointerType !== 'mouse') return;
-            if (event.target.closest('a, button, .cursor-pointer, [data-id], .filter-btn')) {
-                cursorOutline.classList.add('hover');
-                cursorDot.classList.add('hover');
-            }
-        });
-
-        document.addEventListener('pointerout', (event) => {
-            if (event.pointerType && event.pointerType !== 'mouse') return;
-            if (event.target.closest('a, button, .cursor-pointer, [data-id], .filter-btn')) {
-                cursorOutline.classList.remove('hover');
-                cursorDot.classList.remove('hover');
-            }
-        });
-    }    
-}
 
 /**
  * Initializes the particle animation in the hero section.
@@ -947,6 +896,7 @@ function initScrollBehaviors() {
     const sections = document.querySelectorAll('section');
     
     const navOverlay = document.getElementById('nav-overlay');
+    const desktopMq = window.matchMedia('(min-width: 768px)');
 
     const setMenuState = (isOpen) => {
         if (!menuToggle || !navMenu) return;
@@ -954,7 +904,10 @@ function initScrollBehaviors() {
         navMenu.classList.toggle('active', isOpen);
         menuToggle.classList.toggle('active', isOpen);
         menuToggle.setAttribute('aria-expanded', String(isOpen));
-        navMenu.setAttribute('aria-hidden', String(!isOpen));
+        // Desktop nav is always accessible — only manage aria-hidden on mobile
+        if (!desktopMq.matches) {
+            navMenu.setAttribute('aria-hidden', String(!isOpen));
+        }
 
         if (navOverlay) {
             navOverlay.classList.toggle('active', isOpen);
@@ -969,6 +922,24 @@ function initScrollBehaviors() {
 
         document.body.style.overflow = isOpen ? 'hidden' : '';
     };
+
+    // Set correct initial state: mobile starts hidden, desktop starts accessible
+    if (navMenu) {
+        navMenu.setAttribute('aria-hidden', desktopMq.matches ? 'false' : 'true');
+    }
+
+    // Keep aria-hidden in sync whenever the viewport crosses the md breakpoint
+    desktopMq.addEventListener('change', (e) => {
+        if (!navMenu) return;
+        if (e.matches) {
+            // Crossed to desktop — nav is always visible and must be accessible
+            navMenu.setAttribute('aria-hidden', 'false');
+            if (navMenu.classList.contains('active')) setMenuState(false);
+        } else if (!navMenu.classList.contains('active')) {
+            // Crossed to mobile and menu is closed — hide from AT
+            navMenu.setAttribute('aria-hidden', 'true');
+        }
+    });
 
     if (navOverlay) {
         navOverlay.addEventListener('click', () => setMenuState(false));
@@ -1004,6 +975,23 @@ function initScrollBehaviors() {
         if (event.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
             setMenuState(false);
             menuToggle.focus();
+        }
+    });
+
+    // Focus trap — cycle Tab through toggle + nav links while the mobile menu is open
+    document.addEventListener('keydown', function(event) {
+        if (event.key !== 'Tab' || !navMenu || !navMenu.classList.contains('active')) return;
+        const linksInMenu = [...navMenu.querySelectorAll(
+            'a[href]:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )];
+        const trapped = menuToggle ? [menuToggle, ...linksInMenu] : linksInMenu;
+        if (trapped.length < 2) return;
+        const first = trapped[0];
+        const last  = trapped[trapped.length - 1];
+        if (event.shiftKey) {
+            if (document.activeElement === first) { event.preventDefault(); last.focus(); }
+        } else {
+            if (document.activeElement === last)  { event.preventDefault(); first.focus(); }
         }
     });
     
@@ -1494,14 +1482,6 @@ function initFloatingButtons() {
     if (whatsappContainer) {
         const whatsappPopup = document.getElementById('whatsapp-popup');
         const closePopupBtn = document.getElementById('close-whatsapp-popup');
-
-        // Add the requested message to the popup
-        if (whatsappPopup) {
-            const messageElement = whatsappPopup.querySelector('p');
-            if (messageElement) {
-                messageElement.innerHTML += '<br>Contact us on WhatsApp for a quick response!';
-            }
-        }
 
         const handleScroll = () => {
             if (window.scrollY > 300) {
@@ -2011,56 +1991,20 @@ function initLightbox() {
 }
 
 function initThemeToggle() {
-    // Navbar Theme Logic
     const nav = document.getElementById('navbar');
     const darkSections = document.querySelectorAll('[data-theme="dark"]');
 
-
     window.addEventListener('scroll', throttle(() => {
-        // Navbar Theme
         if (nav && darkSections.length > 0) {
-            const navHeight = nav.offsetHeight;
-            const triggerPoint = navHeight / 2;
+            const triggerPoint = nav.offsetHeight / 2;
             let isDark = false;
-            
             darkSections.forEach(section => {
                 const rect = section.getBoundingClientRect();
-                if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
-                    isDark = true;
-                }
+                if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) isDark = true;
             });
-            
-            if (isDark) {
-                nav.classList.add('navbar-dark');
-            } else {
-                nav.classList.remove('navbar-dark');
-            }
+            nav.classList.toggle('navbar-dark', isDark);
         }
     }), { passive: true });
-
-
-    // Theme Toggle Logic
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    
-    // Check for saved user preference, if any, on load
-    if (localStorage.theme === 'dark') {
-        html.classList.add('dark');
-    } else {
-        html.classList.remove('dark');
-    }
-    
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                localStorage.theme = 'light';
-            } else {
-                html.classList.add('dark');
-                localStorage.theme = 'dark';
-            }
-        });
-    }    
 }
 
 function initContactForm() {
@@ -2081,8 +2025,12 @@ function initContactForm() {
         methodBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 // Update buttons
-                methodBtns.forEach(b => b.classList.remove('active', 'border-tech-blue', 'bg-tech-blue/5'));
+                methodBtns.forEach(b => {
+                    b.classList.remove('active', 'border-tech-blue', 'bg-tech-blue/5');
+                    b.setAttribute('aria-pressed', 'false');
+                });
                 btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
                 
                 const method = btn.getAttribute('data-method');
                 trackEvent('contact_method_select', {
@@ -2166,6 +2114,7 @@ function initContactForm() {
                 // Send Email via EmailJS
                 sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 sendBtn.disabled = true;
+                sendBtn.setAttribute('aria-busy', 'true');
 
                 const serviceID = 'service_616vx27';
                 const templateID = 'template_io83jnh';
@@ -2181,6 +2130,7 @@ function initContactForm() {
                     });
                     sendBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
                     sendBtn.disabled = false;
+                    sendBtn.setAttribute('aria-busy', 'false');
                     Toast.show('Contact form is temporarily unavailable. Please use WhatsApp or phone.', 'error');
                     return;
                 }
@@ -2265,6 +2215,7 @@ function initContactForm() {
 
                             sendBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
                             sendBtn.disabled = false;
+                            sendBtn.setAttribute('aria-busy', 'false');
                             emailForm.reset();
                         }, 300);
                     }, 800); // Flight time
@@ -2277,6 +2228,7 @@ function initContactForm() {
                     });
                     sendBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
                     sendBtn.disabled = false;
+                    sendBtn.setAttribute('aria-busy', 'false');
                     emailForm.classList.add('shake');
                     setTimeout(() => emailForm.classList.remove('shake'), 500);
                     Toast.show('Failed to send message. Please check your connection.', 'error');
@@ -2942,40 +2894,236 @@ function initReviews() {
     loadReviews();
 }
 
+function initReviewForm() {
+    const openBtn      = document.getElementById('openReviewForm');
+    const modal        = document.getElementById('reviewFormModal');
+    const content      = document.getElementById('reviewModalContent');
+    const overlay      = document.getElementById('reviewModalOverlay');
+    const closeBtn     = document.getElementById('closeReviewModal');
+    const form         = document.getElementById('reviewSubmitForm');
+    const formState    = document.getElementById('reviewFormState');
+    const successState = document.getElementById('reviewSuccessState');
+    const submitBtn    = document.getElementById('reviewSubmitBtn');
+    const submitIcon   = document.getElementById('reviewSubmitIcon');
+    const submitLabel  = document.getElementById('reviewSubmitLabel');
+    const formError    = document.getElementById('reviewFormError');
+    const ratingError  = document.getElementById('ratingError');
+    const textarea     = document.getElementById('review-text');
+    const charCount    = document.getElementById('review-char-count');
+
+    if (!openBtn || !modal || !form) return;
+
+    // ── Star rating ───────────────────────────────────────────────────
+    const starBtns = modal.querySelectorAll('#starRating [data-star]');
+    let selectedRating = 0;
+
+    const paintStars = (n) => {
+        starBtns.forEach((btn, i) => {
+            btn.classList.toggle('text-orange', i < n);
+            btn.classList.toggle('text-gray-300', i >= n);
+        });
+    };
+
+    starBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => paintStars(+btn.dataset.star));
+        btn.addEventListener('mouseleave', () => paintStars(selectedRating));
+        btn.addEventListener('click', () => {
+            selectedRating = +btn.dataset.star;
+            paintStars(selectedRating);
+            ratingError?.classList.add('hidden');
+        });
+    });
+
+    // ── Character count ───────────────────────────────────────────────
+    textarea?.addEventListener('input', () => {
+        if (charCount) charCount.textContent = textarea.value.length;
+    });
+
+    // ── Open / close ──────────────────────────────────────────────────
+    const resetModal = () => {
+        form.reset();
+        selectedRating = 0;
+        paintStars(0);
+        if (charCount) charCount.textContent = '0';
+        formError?.classList.add('hidden');
+        ratingError?.classList.add('hidden');
+        formState.classList.remove('hidden');
+        successState.classList.add('hidden');
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitIcon) submitIcon.className = 'fas fa-paper-plane';
+        if (submitLabel) submitLabel.textContent = 'Submit Review';
+    };
+
+    const openModal = () => {
+        modal.classList.remove('opacity-0', 'invisible');
+        modal.classList.add('opacity-100', 'visible');
+        content.classList.remove('scale-95');
+        content.classList.add('scale-100');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => document.getElementById('review-name')?.focus(), 50);
+    };
+
+    const closeModal = () => {
+        modal.classList.add('opacity-0', 'invisible');
+        modal.classList.remove('opacity-100', 'visible');
+        content.classList.add('scale-95');
+        content.classList.remove('scale-100');
+        document.body.style.overflow = '';
+        openBtn.focus();
+        setTimeout(resetModal, 300);
+    };
+
+    openBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
+    closeBtn?.addEventListener('click', closeModal);
+    overlay?.addEventListener('click', closeModal);
+    document.getElementById('closeAfterSuccess')?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('invisible')) closeModal();
+    });
+
+    // Focus trap — keep Tab cycling inside the dialog while it is open
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab' || modal.classList.contains('invisible')) return;
+        const focusable = [...modal.querySelectorAll(
+            'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )];
+        if (focusable.length < 2) return;
+        const first = focusable[0];
+        const last  = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+            if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        } else {
+            if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+        }
+    });
+
+    // ── Submission ────────────────────────────────────────────────────
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        formError?.classList.add('hidden');
+
+        const name    = document.getElementById('review-name').value.trim();
+        const company = document.getElementById('review-company').value.trim();
+        const review  = textarea.value.trim();
+
+        if (!selectedRating) {
+            ratingError?.classList.remove('hidden');
+            return;
+        }
+        if (name.length < 2 || name.length > 80) {
+            if (formError) { formError.textContent = 'Please enter your name (2–80 characters).'; formError.classList.remove('hidden'); }
+            return;
+        }
+        if (company.length > 80) {
+            if (formError) { formError.textContent = 'Business / role must be 80 characters or fewer.'; formError.classList.remove('hidden'); }
+            return;
+        }
+        if (review.length < 10 || review.length > 1000) {
+            if (formError) { formError.textContent = 'Review must be between 10 and 1000 characters.'; formError.classList.remove('hidden'); }
+            return;
+        }
+
+        if (submitBtn) submitBtn.disabled = true;
+        if (submitIcon) submitIcon.className = 'fas fa-spinner fa-spin';
+        if (submitLabel) submitLabel.textContent = 'Submitting…';
+
+        try {
+            const { db, collection, addDoc, serverTimestamp } = await getReviewServices();
+            await addDoc(collection(db, 'reviews'), {
+                name,
+                company,
+                rating:    selectedRating,
+                review,
+                approved:  false,
+                createdAt: serverTimestamp()
+            });
+
+            formState.classList.add('hidden');
+            successState.classList.remove('hidden');
+        } catch (err) {
+            console.error('Review submission error:', err);
+            if (formError) { formError.textContent = 'Something went wrong. Please try again.'; formError.classList.remove('hidden'); }
+            if (submitBtn) submitBtn.disabled = false;
+            if (submitIcon) submitIcon.className = 'fas fa-paper-plane';
+            if (submitLabel) submitLabel.textContent = 'Submit Review';
+        }
+    });
+}
+
+async function fetchFirebaseReviews() {
+    try {
+        const { db, collection, getDocs, query, where, orderBy, limit } = await getReviewServices();
+        const q = query(
+            collection(db, 'reviews'),
+            where('approved', '==', true),
+            orderBy('createdAt', 'desc'),
+            limit(20)
+        );
+        const snapshot = await getDocs(q);
+        const reviews = [];
+        snapshot.forEach((doc) => reviews.push(doc.data()));
+        return reviews;
+    } catch (_) {
+        return [];
+    }
+}
+
+async function fetchGoogleReviews() {
+    if (!GOOGLE_REVIEWS_API_KEY || !GOOGLE_REVIEWS_PLACE_ID) return [];
+    try {
+        const res = await fetch(
+            `https://places.googleapis.com/v1/places/${GOOGLE_REVIEWS_PLACE_ID}`,
+            {
+                headers: {
+                    'X-Goog-Api-Key': GOOGLE_REVIEWS_API_KEY,
+                    'X-Goog-FieldMask': 'reviews'
+                }
+            }
+        );
+        if (!res.ok) return [];
+        const data = await res.json();
+        return (data.reviews || []).map(r => ({
+            name:      r.authorAttribution?.displayName || 'Google Reviewer',
+            rating:    r.rating || 5,
+            review:    r.text?.text || r.originalText?.text || '',
+            photoUrl:  r.authorAttribution?.photoUri  || null,
+            authorUri: r.authorAttribution?.uri        || null, // ToS: must link reviewer name here
+            timeAgo:   r.relativePublishTimeDescription || null,
+            source:    'google'
+        }));
+    } catch (_) {
+        return [];
+    }
+}
+
 async function loadReviews() {
     const prevBtn = document.getElementById('prevTestimonial');
     const nextBtn = document.getElementById('nextTestimonial');
-    
+
     const hideSliderButtons = () => {
         if (prevBtn) prevBtn.style.display = 'none';
         if (nextBtn) nextBtn.style.display = 'none';
     };
-    
-    try {
-        const { db, collection, getDocs, query, where, orderBy, limit } = await getReviewServices();
-        // Fetch approved reviews ordered by newest first, limited to 20
-        const q = query(
-            collection(db, "reviews"),
-            where("approved", "==", true),
-            orderBy("createdAt", "desc"),
-            limit(20)
-        );
-        const querySnapshot = await getDocs(q);
-        const reviews = [];
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            reviews.push(data);
-        });
 
-        if (reviews.length > 0) {
-            renderReviews(reviews);
-            initTestimonialSlider();
-        } else {
-            hideSliderButtons();
-        }
-    } catch (error) {
-        console.error("Error loading reviews:", error);
+    const [fbResult, gResult] = await Promise.allSettled([
+        fetchFirebaseReviews(),
+        fetchGoogleReviews()
+    ]);
+
+    const reviews = [
+        ...(fbResult.status === 'fulfilled' ? fbResult.value : []),
+        ...(gResult.status === 'fulfilled' ? gResult.value : [])
+    ];
+
+    if (reviews.length > 0) {
+        renderReviews(reviews);
+        initTestimonialSlider();
+    } else {
         hideSliderButtons();
+        const track = document.getElementById('testimonialTrack');
+        if (track) {
+            track.innerHTML = '<p class="w-full text-center py-8 text-charcoal/50 dark:text-gray-500">No reviews yet — be the first to share your experience.</p>';
+        }
     }
 }
 
@@ -3055,38 +3203,63 @@ function renderReviews(reviews) {
     track.innerHTML = ''; // Clear existing reviews before rendering new ones
 
     reviews.forEach(review => {
-        // Generate Initials
-        const initials = review.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-        
-        // Generate Stars
-        const starsHTML = Array(5).fill(0).map((_, i) => 
-            `<i class="fas fa-star ${i < review.rating ? '' : 'text-gray-300'}"></i>`
+        const safeName  = escapeHtml(review.name || 'Reviewer');
+        const initials  = (review.name || '?').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        const isGoogle  = review.source === 'google';
+
+        const starsHTML = Array(5).fill(0).map((_, i) =>
+            `<i class="fas fa-star ${i < (review.rating || 5) ? 'text-orange' : 'text-gray-300 dark:text-slate-600'}"></i>`
         ).join('');
+
+        const avatarHtml = review.photoUrl
+            ? `<img src="${escapeHtml(review.photoUrl)}" alt="${safeName}" class="w-12 h-12 rounded-full object-cover shadow-md flex-shrink-0" referrerpolicy="no-referrer" loading="lazy">`
+            : `<div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-orange text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md flex-shrink-0">${initials}</div>`;
+
+        // Google ToS: reviewer name must link to their Google Maps profile when URI is available
+        const safeAuthorUri = isGoogle ? sanitizeContentUrl(review.authorUri || '') : '';
+        const nameHtml = (isGoogle && safeAuthorUri)
+            ? `<a href="${escapeHtml(safeAuthorUri)}" target="_blank" rel="noopener noreferrer" class="font-bold text-tech-blue dark:text-white leading-tight hover:text-orange transition-colors block truncate">${safeName}</a>`
+            : `<span class="font-bold text-tech-blue dark:text-white leading-tight block truncate">${safeName}</span>`;
+
+        // Google reviews: show Google badge + relative time. Firebase: show company.
+        const sublineHtml = isGoogle
+            ? `<div class="flex items-center gap-1.5 mt-0.5">
+                   <i class="fab fa-google text-[10px]" style="color:#4285F4" aria-hidden="true"></i>
+                   <span class="text-[10px] font-semibold text-gray-400">${escapeHtml(review.timeAgo || 'Google Review')}</span>
+               </div>`
+            : `<p class="text-xs text-orange uppercase tracking-wider font-semibold mt-0.5">${escapeHtml(review.company || 'Client')}</p>`;
 
         const card = document.createElement('div');
         card.className = 'min-w-full md:min-w-[calc(33.333%-1.33rem)] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg shadow-gray-100 dark:shadow-none border border-gray-50 dark:border-white/5 relative hover:-translate-y-2 transition-transform duration-300';
-        
+
         card.innerHTML = `
             <div class="text-4xl text-orange/20 absolute top-6 right-8"><i class="fas fa-quote-right"></i></div>
             <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-orange text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">${initials}</div>
-                <div>
-                    <h4 class="font-bold text-tech-blue dark:text-white">${escapeHtml(review.name)}</h4>
-                    <p class="text-xs text-orange uppercase tracking-wider font-semibold">${escapeHtml(review.company || 'Client')}</p>
+                ${avatarHtml}
+                <div class="min-w-0">
+                    ${nameHtml}
+                    ${sublineHtml}
                 </div>
             </div>
-            <div class="flex gap-1 text-orange text-xs mb-4">
-                ${starsHTML}
-            </div>
-            <p class="text-charcoal/80 dark:text-gray-300 italic leading-relaxed relative z-10">"${escapeHtml(review.review)}"</p>
+            <div class="flex gap-1 text-xs mb-4">${starsHTML}</div>
+            <p class="text-charcoal/80 dark:text-gray-300 italic leading-relaxed relative z-10">"${escapeHtml(review.review || '')}"</p>
         `;
 
         track.appendChild(card);
     });
+
+    // Google ToS: show "Powered by Google" attribution whenever Google reviews are present
+    if (reviews.some(r => r.source === 'google') && !document.getElementById('google-reviews-attr')) {
+        const attr = document.createElement('p');
+        attr.id        = 'google-reviews-attr';
+        attr.className = 'text-center text-[11px] text-gray-400 mt-6';
+        attr.innerHTML = '<i class="fab fa-google mr-1" style="color:#4285F4" aria-hidden="true"></i> Reviews powered by Google';
+        track.parentElement.after(attr);
+    }
 }
 
 function initProjectDetailPage() {
-    const container = document.getElementById('project-detail-container');
+    const container = document.querySelector('.project-detail-container');
     if (!container) return;
 
     if (typeof portfolioData === 'undefined' || !Array.isArray(portfolioData)) {

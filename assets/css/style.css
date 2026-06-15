@@ -50,9 +50,14 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading), sans-serif;
-    font-weight: 600;
     line-height: 1.3;
 }
+h1 { font-size: 1.5rem;   font-weight: 800; line-height: 1.2;  letter-spacing: -0.02em; }
+h2 { font-size: 1.25rem;  font-weight: 700; line-height: 1.3;  letter-spacing: -0.01em; }
+h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.35; }
+h4 { font-size: 1rem;     font-weight: 600; line-height: 1.5;  }
+h5 { font-size: 0.875rem; font-weight: 600; line-height: 1.5;  }
+h6 { font-size: 0.75rem;  font-weight: 700; line-height: 1.5;  letter-spacing: 0.06em; text-transform: uppercase; }
 
 /* =========================================
    Custom Scrollbar
@@ -67,26 +72,14 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--brand-canvas);
 }
 
-.dark ::-webkit-scrollbar-track {
-    background: #1e293b;
-}
-
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #1C2553;
     border-radius: 5px;
     transition: background 0.2s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-    background: #475569;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
+    background: #2d3a6e;
 }
 
 /* =========================================
@@ -380,11 +373,6 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.dark #navbar.scrolled {
-    background-color: rgba(15, 23, 42, 0.95);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
 /* Nav links */
 .nav-link {
     position: relative;
@@ -409,11 +397,6 @@ h1, h2, h3, h4, h5, h6 {
 .nav-link:hover,
 .nav-link.active {
     color: var(--brand-tech-blue);
-}
-
-.dark .nav-link:hover,
-.dark .nav-link.active {
-    color: var(--brand-orange);
 }
 
 .nav-link:hover::after,
@@ -441,9 +424,7 @@ h1, h2, h3, h4, h5, h6 {
         visibility: hidden;
     }
     
-    .dark #navMenu {
-        background: #1e293b;
-    }
+
     
     #navMenu.active {
         transform: translateY(0);
@@ -461,9 +442,7 @@ h1, h2, h3, h4, h5, h6 {
         background-color: #f8fafc;
     }
     
-    .dark #navMenu .nav-link:hover {
-        background-color: #334155;
-    }
+
 }
 
 /* =========================================
@@ -478,10 +457,6 @@ h1, h2, h3, h4, h5, h6 {
 #project-main-image {
     transition: opacity 0.3s ease;
     background: linear-gradient(135deg, rgba(var(--brand-tech-blue-rgb), 0.08) 0%, rgba(var(--brand-gray-rgb), 0.32) 100%);
-}
-
-.dark #project-main-image {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
 }
 
 /* Thumbnail hover effect */
@@ -506,11 +481,6 @@ h1, h2, h3, h4, h5, h6 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.dark .project-info-card {
-    background: #1e293b;
-    border-color: #334155;
-}
-
 .project-info-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 30px rgba(var(--brand-tech-blue-rgb), 0.16);
@@ -533,54 +503,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
-.dark #project-results li::before {
-    color: var(--brand-orange);
-}
-
 /* =========================================
    Buttons & Interactive Elements
    ========================================= */
 
-/* Custom cursor */
-#cursor-dot,
-#cursor-outline {
-    pointer-events: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    z-index: 10000;
-    transition: opacity 0.3s ease, background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
-    will-change: transform; /* Performance hint for the browser */
-}
-
-#cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--brand-tech-blue);
-}
-
-#cursor-outline {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(var(--brand-tech-blue-rgb), 0.18);
-    transition: opacity 0.3s ease, background-color 0.3s ease, width 0.3s ease, height 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-body.cursor-active #cursor-dot,
-body.cursor-active #cursor-outline {
-    opacity: 1;
-}
-
-#cursor-dot.hover {
-    background-color: var(--brand-orange);
-}
-
-#cursor-outline.hover {
-    width: 56px;
-    height: 56px;
-    background-color: rgba(var(--brand-orange-rgb), 0.2);
-}
 
 /* Back to top button */
 #backToTop {
@@ -650,13 +576,6 @@ body.cursor-active #cursor-outline {
     font-size: 0.95rem;
 }
 
-.dark .toast {
-    background: #1e293b;
-    color: #f1f5f9;
-    border-left-color: var(--brand-orange);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
 .toast.show {
     transform: translateX(0);
 }
@@ -708,11 +627,6 @@ body.cursor-active #cursor-outline {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.dark .glass-panel {
-    background: rgba(15, 23, 42, 0.8);
-    border-color: rgba(255, 255, 255, 0.05);
-}
-
 /* =========================================
    Portfolio Card Effects
    ========================================= */
@@ -757,13 +671,6 @@ body.cursor-active #cursor-outline {
     color: white;
     border-color: var(--brand-tech-blue);
     box-shadow: 0 10px 24px rgba(var(--brand-tech-blue-rgb), 0.18);
-}
-
-.dark .filter-btn.active {
-    background-color: var(--brand-orange);
-    color: var(--brand-charcoal);
-    border-color: var(--brand-orange);
-    box-shadow: 0 10px 24px rgba(var(--brand-orange-rgb), 0.22);
 }
 
 /* =========================================
@@ -1033,53 +940,65 @@ body.cursor-active #cursor-outline {
     text-align: right;
 }
 
-.dark .pricing-plan-card,
-.dark .pricing-service-card,
-.dark .pricing-service-shell,
-.dark .branding-price-card {
-    border-color: rgba(255, 255, 255, 0.08);
-    background:
-        linear-gradient(180deg, rgba(15, 23, 42, 0.96) 0%, rgba(17, 24, 39, 0.92) 100%);
-    box-shadow: 0 30px 80px -46px rgba(2, 6, 23, 0.85);
-}
-
-.dark .pricing-card-badge {
-    box-shadow: none;
-}
-
-.dark .pricing-card-meta,
-.dark .pricing-card-list-label {
-    color: rgba(226, 232, 240, 0.58);
-}
-
-.dark .pricing-card-price-row,
-.dark .pricing-card-list,
-.dark .pricing-service-stat {
-    border-color: rgba(255, 255, 255, 0.08);
-    background: rgba(15, 23, 42, 0.46);
-}
-
-.dark .pricing-card-feature,
-.dark .pricing-service-tag,
-.dark .pricing-package-note {
-    color: rgba(226, 232, 240, 0.78);
-}
-
-.dark .pricing-package-price {
-    color: #f8fafc;
-}
-
 /* =========================================
-   Fluid Typography
+   Visibility & Readability
    ========================================= */
 
-/* Headings scale naturally via Tailwind's responsive utilities.
-   Only apply minor floor adjustments on very small viewports. */
-@media (max-width: 375px) {
-    .text-4xl  { font-size: 1.75rem  !important; line-height: 1.2 !important; }
-    .text-5xl  { font-size: 2rem     !important; line-height: 1.15 !important; }
-    .text-6xl  { font-size: 2.25rem  !important; line-height: 1.1 !important; }
+/* Body copy in cards/sections: nudge Tailwind's 14px up to 15px */
+section p.text-sm,
+article p.text-sm,
+.h-full > p.text-sm {
+    font-size: 0.9375rem;
+    line-height: 1.75;
 }
+
+/* Dark/navy sections — lift low-opacity text to pass contrast */
+[data-theme="dark"] .text-white\/45 { color: rgba(255, 255, 255, 0.68) !important; }
+[data-theme="dark"] .text-white\/55 { color: rgba(255, 255, 255, 0.74) !important; }
+[data-theme="dark"] .text-white\/60 { color: rgba(255, 255, 255, 0.80) !important; }
+[data-theme="dark"] .text-white\/70 { color: rgba(255, 255, 255, 0.84) !important; }
+
+/* =========================================
+   Typography Cap — 24 px ceiling, hierarchy preserved
+   =========================================
+   Scale inside the cap:
+     H1 hero     24 px  (text-5xl / text-6xl → here)
+     H2 section  22 px  (text-4xl → here)
+     H3 card     20 px  (text-3xl → here, same as text-xl)
+     H4 sub      18 px  (text-lg — unchanged)
+     Body        16 px  (text-base — unchanged)
+     Small body  15 px  (text-sm — lifted in Visibility section)
+     Labels      12–14 px (text-xs / text-sm — unchanged)
+   ========================================= */
+
+/* Base sizes */
+.text-6xl, .text-5xl { font-size: 1.5rem   !important; line-height: 1.25 !important; }
+.text-4xl             { font-size: 1.375rem !important; line-height: 1.3  !important; }
+.text-3xl             { font-size: 1.25rem  !important; line-height: 1.35 !important; }
+
+/* sm: (640 px+) */
+@media (min-width: 640px) {
+    .sm\:text-6xl, .sm\:text-5xl { font-size: 1.5rem   !important; line-height: 1.25 !important; }
+    .sm\:text-4xl                 { font-size: 1.375rem !important; line-height: 1.3  !important; }
+    .sm\:text-3xl                 { font-size: 1.25rem  !important; line-height: 1.35 !important; }
+}
+
+/* md: (768 px+) */
+@media (min-width: 768px) {
+    .md\:text-6xl, .md\:text-5xl { font-size: 1.5rem   !important; line-height: 1.25 !important; }
+    .md\:text-4xl                 { font-size: 1.375rem !important; line-height: 1.3  !important; }
+    .md\:text-3xl                 { font-size: 1.25rem  !important; line-height: 1.35 !important; }
+}
+
+/* lg: (1024 px+) */
+@media (min-width: 1024px) {
+    .lg\:text-6xl, .lg\:text-5xl { font-size: 1.5rem   !important; line-height: 1.25 !important; }
+    .lg\:text-4xl                 { font-size: 1.375rem !important; line-height: 1.3  !important; }
+    .lg\:text-3xl                 { font-size: 1.25rem  !important; line-height: 1.35 !important; }
+}
+
+/* Stat-bar display values — clamp would peak at 2.4rem without this */
+.stat-bar-value { font-size: clamp(1.25rem, 2vw, 1.5rem) !important; line-height: 1.1 !important; }
 
 /* =========================================
    Scroll Progress Bar
@@ -1190,11 +1109,6 @@ body {
     backdrop-filter: blur(20px) !important;
 }
 
-.dark #navbar.scrolled {
-    background-color: rgba(10, 15, 40, 0.97) !important;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 4px 24px rgba(0, 0, 0, 0.4) !important;
-}
-
 /* =========================================
    Section Heading Accent Line
    ========================================= */
@@ -1290,6 +1204,72 @@ body {
 }
 
 /* =========================================
+   Typography Hierarchy — 24px maximum
+   Hierarchy enforced via BOTH size AND weight
+   =========================================
+   L1  Hero / page title   24px  weight 800
+   L2  Section heading     20px  weight 700
+   L3  Sub-section / H3   18px  weight 600
+   L4  Card / component   16px  weight 600
+   Body prose             16px  weight 400
+   Label overline         11px  weight 700 uppercase
+   ========================================= */
+
+/* L1 — Hero: was text-5xl/6xl/7xl → 24px + extrabold */
+.text-5xl, .text-6xl, .text-7xl, .text-8xl, .text-9xl,
+.sm\:text-5xl {
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.02em !important;
+}
+
+/* L2 — Section heading: was text-4xl → 20px + bold */
+.text-4xl {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* L2 — Section heading: was text-3xl → 20px + bold */
+.text-3xl {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* L3 — Sub-section: text-2xl → 18px + semibold */
+.text-2xl {
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+}
+
+/* Responsive variants */
+@media (min-width: 768px) {
+    .md\:text-5xl, .md\:text-6xl {
+        font-size: 1.5rem !important;
+        font-weight: 800 !important;
+        line-height: 1.2 !important;
+        letter-spacing: -0.02em !important;
+    }
+    .md\:text-4xl {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        letter-spacing: -0.01em !important;
+    }
+    .md\:text-3xl {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        letter-spacing: -0.01em !important;
+    }
+}
+
+/* =========================================
    WhatsApp Popup
    ========================================= */
 
@@ -1297,6 +1277,38 @@ body {
     transform-origin: bottom right;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    width: 240px !important;
+}
+
+/* Compact header */
+#whatsapp-popup > div:first-child {
+    padding: 0.5rem 0.65rem !important;
+    gap: 0.5rem !important;
+}
+
+/* Smaller avatar in header */
+#whatsapp-popup > div:first-child .relative.z-10.rounded-full {
+    width: 1.85rem !important;
+    height: 1.85rem !important;
+    font-size: 0.75rem !important;
+    flex-shrink: 0;
+}
+
+/* Compact body */
+#whatsapp-popup > div:last-child {
+    padding: 0.5rem 0.65rem !important;
+}
+
+/* Compact message bubble */
+#whatsapp-popup > div:last-child > div:first-child {
+    padding: 0.45rem 0.6rem !important;
+    font-size: 0.7rem !important;
+    line-height: 1.35 !important;
+}
+
+/* Compact timestamp */
+#whatsapp-popup > div:last-child > div:last-child {
+    margin-top: 0.2rem !important;
 }
 
 /* =========================================
@@ -1348,7 +1360,29 @@ body {
 /* Focus styles */
 :focus-visible {
     outline: 2px solid var(--brand-tech-blue);
-    outline-offset: 2px;
+    outline-offset: 3px;
+}
+
+/* Dark-section override: navy ring is invisible on navy/charcoal backgrounds */
+[data-theme="dark"] :focus-visible {
+    outline-color: white;
+}
+
+/* Form inputs use border-color change + ring as focus indicator; suppress the
+   global outline at both :focus and :focus-visible to keep the indicator clean */
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+    outline: none;
+}
+
+/* Pressed/active feedback — instant brightness drop, no layout conflict with hover transforms */
+a:active,
+button:active {
+    filter: brightness(0.88);
 }
 
 /* Selection styling */
@@ -1357,7 +1391,3 @@ body {
     color: white;
 }
 
-.dark ::selection {
-    background: var(--brand-orange);
-    color: var(--brand-charcoal);
-}

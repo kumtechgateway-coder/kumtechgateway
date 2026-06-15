@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -142,7 +142,7 @@
     }
     </script>
 </head>
-<body class="font-sans text-charcoal bg-white overflow-x-hidden leading-relaxed dark:bg-charcoal dark:text-white transition-colors duration-300">
+<body class="font-sans text-charcoal bg-white overflow-x-hidden leading-relaxed transition-colors duration-300">
     <!-- Custom Cursor -->
     <div id="cursor-dot" class="hidden md:block"></div>
     <div id="cursor-outline" class="hidden md:block"></div>
@@ -152,32 +152,32 @@
 
     <main id="main-content">
     <!-- Home/Hero Section -->
-    <section class="relative flex items-start min-h-screen bg-gradient-to-br from-soft-gray/80 to-white dark:from-charcoal dark:to-slate-900 overflow-hidden pt-16 lg:pt-16 pb-12 lg:pb-0" id="home">
+    <section class="relative flex items-start min-h-screen bg-gradient-to-br from-soft-gray/80 to-white overflow-hidden pt-16 lg:pt-16 pb-0 sm:pb-6 lg:pb-0" id="home">
         <div class="absolute inset-0 z-0 pointer-events-none" id="hero-particle-bg"></div>
 
         <div class="container mx-auto px-5 max-w-[1200px] flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 relative z-10 lg:min-h-[calc(100vh-6rem)]">
             <div class="flex-1 text-center lg:text-left lg:max-w-[56%] lg:pr-8">
                 <span class="inline-flex items-center gap-2 rounded-full border border-tech-blue/15 bg-white/80 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-tech-blue shadow-sm backdrop-blur reveal-up">Build To Trust</span>
-                <h1 class="font-heading text-3xl sm:text-4xl font-extrabold text-tech-blue dark:text-white mb-4 mt-4 leading-tight tracking-tight reveal-up drop-shadow-sm">Websites, branding, and growth systems that help your business <span class="bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-orange to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block">look professional, become visible, and earn trust</span></h1>
-                <p class="text-sm lg:text-[0.96rem] font-normal text-charcoal dark:text-gray-300 mb-6 lg:mb-8 max-w-xl mx-auto lg:mx-0 reveal-up delay-200">Kumtech Gateway helps businesses present their services clearly, guide better-fit clients to the right next step, and build stronger digital presence without unnecessary complexity.</p>
+                <h1 class="font-heading text-4xl sm:text-5xl font-extrabold text-tech-blue mb-4 mt-4 leading-tight tracking-tight reveal-up drop-shadow-sm">Websites, branding, and growth systems that help your business <span class="bg-clip-text text-transparent bg-gradient-to-r from-tech-blue via-orange to-tech-blue bg-[length:200%_auto] animate-[gradient_3s_ease_infinite] relative inline-block">look professional, become visible, and earn trust</span></h1>
+                <p class="text-base lg:text-[1.05rem] font-normal text-charcoal mb-6 lg:mb-8 max-w-xl mx-auto lg:mx-0 reveal-up delay-200">Kumtech Gateway helps businesses present their services clearly, guide better-fit clients to the right next step, and build stronger digital presence without unnecessary complexity.</p>
                 <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start reveal-up delay-400">
-                    <a href="#contact" class="inline-block px-6 py-2.5 rounded-full font-bold text-sm cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white shadow-lg shadow-orange/20 hover:shadow-xl hover:shadow-orange/30 hover:-translate-y-1" data-i18n="hero.cta">Start Your Project</a>
-                    <a href="#portfolio" class="inline-block px-6 py-2.5 rounded-full font-medium text-sm cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal dark:text-white border-tech-blue dark:border-white hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover" data-i18n="hero.explore">Explore Our Work</a>
+                    <a href="#contact" class="inline-block px-6 py-3 rounded-full font-bold text-sm cursor-pointer transition-all duration-300 text-center bg-gradient-to-r from-orange to-soft-amber text-white shadow-lg shadow-orange/20 hover:shadow-xl hover:shadow-orange/30 hover:-translate-y-1" data-i18n="hero.cta">Start Your Project</a>
+                    <a href="#portfolio" class="inline-block px-6 py-3 rounded-full font-medium text-sm cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal border-tech-blue hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover" data-i18n="hero.explore">Explore Our Work</a>
                 </div>
                 
                 <div class="mt-8 flex items-center justify-center lg:justify-start gap-5 flex-wrap reveal-up delay-600">
-                    <div class="flex items-center gap-2.5 text-charcoal text-sm dark:text-gray-300">
+                    <div class="flex items-center gap-2.5 text-charcoal text-sm">
                         <i class="fas fa-file-contract text-orange text-lg"></i>
                         <span>Clear pricing and project terms</span>
                     </div>
                     <div class="w-px h-5 bg-tech-blue/30 hidden sm:block"></div>
-                    <div class="flex items-center gap-2.5 text-charcoal dark:text-gray-300 text-sm">
+                    <div class="flex items-center gap-2.5 text-charcoal text-sm">
                         <i class="fas fa-comments text-orange text-lg"></i>
                         <span>Email, phone, and WhatsApp support</span>
                     </div>
                 </div>
             </div>
-            <div class="flex-1 relative w-full flex items-end justify-center reveal-zoom delay-200 mt-8 lg:mt-0 lg:absolute lg:right-0 xl:-right-2 lg:bottom-0 lg:translate-y-12 lg:w-[40%] lg:max-w-[520px]">
+            <div class="flex-1 relative w-full flex items-end justify-center reveal-zoom delay-200 mt-8 sm:mt-12 lg:mt-0 lg:absolute lg:right-0 xl:-right-2 lg:bottom-0 lg:translate-y-12 lg:w-[40%] lg:max-w-[520px]">
                 <div class="relative w-full max-w-md sm:max-w-lg lg:max-w-[520px] min-h-[340px] sm:min-h-[420px] lg:min-h-0 flex items-end justify-center">
                     <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-[120%] h-[90%] bg-gradient-to-tr from-tech-blue/20 to-orange/20 rounded-full blur-3xl -z-10"></div>
                     <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[72%] h-8 rounded-full bg-tech-blue/10 blur-2xl"></div>
@@ -238,289 +238,376 @@
     </section>
 
     <!-- About Section -->
-    <section class="relative -mt-24 lg:-mt-36 pt-32 md:pt-36 pb-16 md:pb-24 bg-gradient-to-br from-charcoal to-tech-blue overflow-hidden" id="about" data-theme="dark">
+    <section class="relative -mt-24 lg:-mt-36 pt-44 md:pt-52 lg:pt-56 pb-16 md:pb-24 bg-gradient-to-br from-charcoal to-tech-blue overflow-hidden" id="about" data-theme="dark">
         <!-- Parallax Background -->
         <div id="about-parallax" class="absolute inset-0 pointer-events-none">
             <div class="absolute -top-20 -right-20 w-96 h-96 bg-cyan/20 rounded-full blur-[100px] transition-transform duration-100 ease-linear will-change-transform"></div>
             <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-[80px] transition-transform duration-100 ease-linear will-change-transform"></div>
+            <div class="absolute bottom-0 right-1/3 w-72 h-72 bg-orange/10 rounded-full blur-[90px]"></div>
         </div>
 
         <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
-            <div class="text-center mb-14 max-w-4xl mx-auto">
-                <span class="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-orange reveal-up">About Kumtech Gateway</span>
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-white mt-5 mb-4 reveal-up">Built in Cameroon, structured to help businesses look professional, stay clear, and build trust online</h2>
-                <p class="text-base md:text-lg text-white/72 max-w-3xl mx-auto reveal-up delay-200">We combine practical communication, thoughtful design, and remote-ready delivery so businesses can present their services with more confidence and less confusion.</p>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-14 xl:gap-20 items-center">
-                <div class="flex-1 relative w-full reveal-left">
-                    <div class="relative min-h-[420px] sm:min-h-[520px] flex items-end justify-center rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent px-4 sm:px-6 pt-10 overflow-hidden shadow-[0_30px_80px_rgba(2,6,23,0.22)]">
-                        <div class="absolute inset-x-[8%] bottom-6 h-24 rounded-full bg-black/35 blur-3xl"></div>
-                        <div class="absolute left-0 top-16 h-56 w-56 rounded-full bg-orange/20 blur-[90px]"></div>
-                        <div class="absolute right-0 top-10 h-64 w-64 rounded-full bg-white/10 blur-[110px]"></div>
-                        <div class="absolute inset-x-10 bottom-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 xl:gap-16 lg:items-end">
+
+                <!-- Left: Founder in editorial white card — white bg image blends naturally inside white container -->
+                <div class="relative max-w-[600px] mx-auto lg:max-w-none w-full pt-16 pb-10 reveal-left">
+
+                    <!-- Badge: Location — top-left, sits on dark section bg above card -->
+                    <div class="absolute left-2 sm:left-4 top-1 z-20 rounded-2xl border border-white/10 bg-charcoal/80 px-4 py-3 backdrop-blur-sm shadow-2xl">
+                        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/55">Location</span>
+                        <strong class="mt-1 block text-sm font-medium text-white">Simbock, Yaounde 🇨🇲</strong>
+                    </div>
+
+                    <!-- Badge: Projects — top-right, sits on dark section bg above card -->
+                    <div class="absolute right-2 sm:right-4 top-1 z-20 rounded-2xl border border-orange/25 bg-orange/15 px-4 py-3 backdrop-blur-sm shadow-xl">
+                        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-orange">Projects</span>
+                        <strong class="text-xl font-bold text-white leading-none mt-0.5 block">50<span class="text-orange">+</span></strong>
+                    </div>
+
+                    <!-- White editorial card: image white bg is intentional — heavy shadow separates from dark section -->
+                    <div class="relative w-full rounded-[2rem] bg-white overflow-hidden shadow-[0_28px_80px_rgba(10,12,30,0.55)]">
+                        <!-- Top gradient softens the white edge against the dark bg above -->
+                        <div class="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-gray-50 to-transparent pointer-events-none z-10"></div>
                         <picture>
                             <source
                                 type="image/webp"
                                 srcset="/images/site/home-about-400w.webp 400w, /images/site/home-about-800w.webp 800w, /images/site/home-about-1200w.webp 1200w"
-                                sizes="(max-width: 1024px) 100vw, 520px">
-                            <img src="/images/site/home-about-800w.webp" alt="Kumtech Gateway founder working at a branded desk setup" class="relative z-10 w-full max-w-[720px] h-auto object-contain drop-shadow-[0_28px_50px_rgba(2,6,23,0.4)]" loading="lazy" decoding="async" width="800" height="515">
+                                sizes="(max-width: 1024px) 90vw, 540px">
+                            <img src="/images/site/home-about-800w.webp" alt="Kumtech Gateway founder working at a branded desk setup" class="relative z-0 w-full h-auto object-cover block" loading="lazy" decoding="async" width="800" height="515">
                         </picture>
-                        <div class="absolute left-5 top-5 rounded-2xl border border-white/10 bg-charcoal/75 px-4 py-3 backdrop-blur-md shadow-2xl">
-                            <span class="block text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">Location</span>
-                            <strong class="mt-1 block text-sm text-white">Simbock, Yaounde</strong>
+                        <!-- Bottom gradient fades the desk edge -->
+                        <div class="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-white to-transparent pointer-events-none z-10"></div>
+                    </div>
+
+                    <!-- Badge: Brand Promise — bottom-left, overlaps card foot -->
+                    <div class="absolute left-2 sm:left-4 bottom-2 z-20 rounded-2xl border border-white/10 bg-charcoal/80 px-4 py-3 backdrop-blur-sm shadow-2xl">
+                        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/55">Brand Promise</span>
+                        <strong class="mt-1 flex items-center gap-1.5 text-sm font-medium text-white">
+                            <i class="fas fa-check-circle text-orange text-xs"></i>Built To Trust
+                        </strong>
+                    </div>
+
+                    <!-- Badge: 2+ Years — bottom-right, overlaps card foot -->
+                    <div class="absolute right-2 sm:right-4 bottom-2 z-20 bg-tech-blue px-5 py-4 rounded-2xl text-center shadow-2xl min-w-[120px]">
+                        <div class="flex items-baseline justify-center gap-0.5">
+                            <span data-target="2" class="block text-5xl font-bold leading-none text-white">2</span>
+                            <span class="text-3xl font-bold text-orange leading-none">+</span>
                         </div>
-                        <div class="absolute left-5 bottom-6 rounded-2xl border border-white/10 bg-white/8 px-4 py-3 backdrop-blur-md shadow-2xl">
-                            <span class="block text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">Focus</span>
-                            <strong class="mt-1 block text-sm text-white">Web, brand, and digital growth support</strong>
-                        </div>
-                        <div class="absolute bottom-8 right-5 lg:right-6 bg-white/90 dark:bg-slate-900/80 backdrop-blur-md text-tech-blue dark:text-white p-5 rounded-2xl text-center shadow-2xl min-w-[160px] border border-white/20 dark:border-slate-700/50 transition-all duration-300 hover:scale-105 hover:shadow-tech-blue/20">
-                            <div class="flex items-baseline justify-center gap-1">
-                                <span data-target="2" class="block text-5xl font-bold leading-none text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-orange">2</span>
-                                <span class="text-4xl font-bold text-orange">+</span>
-                            </div>
-                            <span class="text-sm font-medium text-charcoal dark:text-gray-300 mt-1 block">Years of<br>steady delivery</span>
-                        </div>
+                        <span class="text-xs font-medium text-white/65 mt-1 block leading-tight">Years of<br>steady delivery</span>
                     </div>
                 </div>
-                <div class="flex-1 reveal-right">
-                    <span class="inline-flex items-center text-[11px] font-bold uppercase tracking-[0.24em] text-orange/90">Why businesses choose us</span>
-                    <h3 class="font-heading text-3xl font-semibold text-white mt-4 mb-5 leading-tight">We combine clarity, design, and practical delivery so businesses are easier to trust</h3>
-                    <p class="mb-5 text-white/80 leading-relaxed">Kumtech Gateway is a growing digital brand based in Simbock, Yaounde, Cameroon. We help businesses improve how they are seen online through websites, branding, SEO, ads, and practical digital systems.</p>
-                    <p class="mb-8 text-white/80 leading-relaxed">Our approach is simple: explain the work clearly, build what the client actually needs, and deliver solutions that make the business easier to trust, contact, and remember.</p>
 
-                    <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
-                        <a href="#contact" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white hover:shadow-lg hover:-translate-y-1 hover:shadow-custom-hover">Tell Us What You Need</a>
-                        <p class="text-sm text-white/60">We focus on clarity, practical delivery, and brand-led digital work.</p>
+                <!-- Right: Content — bottom-aligned with the image column -->
+                <div class="flex flex-col justify-end reveal-right">
+                    <span class="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-orange mb-5 w-fit">About Kumtech Gateway</span>
+                    <p class="text-white/75 leading-relaxed mb-7">Based in Yaounde, Cameroon — we combine thoughtful design, practical communication, and reliable delivery to help businesses build stronger brands, professional websites, and digital systems built for real business needs.</p>
+
+                    <!-- Mission + Vision: left-border accent, no heavy boxes -->
+                    <div class="mb-8 space-y-5">
+                        <div class="pl-4 border-l-2 border-orange/60">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-orange mb-2">Our Mission</p>
+                            <p class="text-white/80 text-sm leading-relaxed">To help businesses in Cameroon build trusted brands, websites, and digital solutions that help them grow locally and compete globally.</p>
+                        </div>
+                        <div class="pl-4 border-l-2 border-white/20">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-white/50 mb-2">Our Vision</p>
+                            <p class="text-white/80 text-sm leading-relaxed">To build one of Cameroon's most trusted digital brands — helping businesses of all sizes compete confidently in local and global markets.</p>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <a href="#contact" class="self-start inline-block px-8 py-3.5 rounded-full font-bold text-base transition-all duration-300 text-center bg-gradient-to-r from-orange to-soft-amber text-white shadow-lg shadow-orange/20 hover:shadow-xl hover:shadow-orange/30 hover:-translate-y-1">Tell Us What You Need</a>
+                        <a href="portfolio.html" class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 underline underline-offset-4 decoration-white/30 hover:decoration-white/70">See Our Work →</a>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="mt-14 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 pt-10 border-t border-white/15">
-                <div class="h-full rounded-[1.75rem] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-orange/15 text-orange"><i class="fas fa-route"></i></span>
-                        <div>
-                            <span class="block text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">Guidance</span>
-                            <h4 class="text-white font-semibold">Clear next steps</h4>
-                        </div>
+    <!-- Brand Values Section -->
+    <section class="py-16 md:py-20 bg-white" data-theme="light">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="text-center mb-8 reveal-up">
+                <span class="text-[11px] font-bold uppercase tracking-[0.24em] text-tech-blue">What Drives Us</span>
+                <h2 class="font-heading text-2xl font-semibold text-charcoal mt-2">Our Brand Values</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div class="h-full rounded-[1.75rem] border border-gray-200 bg-gray-50 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-orange/15 text-orange"><i class="fas fa-shield-halved"></i></span>
+                        <h3 class="text-charcoal font-semibold">Trust</h3>
                     </div>
-                    <p class="text-sm leading-relaxed text-white/70">Clients understand the scope, delivery flow, and what happens next at each stage of the project.</p>
+                    <p class="text-sm leading-relaxed text-gray-500">We build relationships and solutions businesses can rely on — honest, consistent, and built to last.</p>
                 </div>
-                <div class="h-full rounded-[1.75rem] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-orange/15 text-orange"><i class="fas fa-pen-ruler"></i></span>
-                        <div>
-                            <span class="block text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">Presentation</span>
-                            <h4 class="text-white font-semibold">Professional by design</h4>
-                        </div>
+                <div class="h-full rounded-[1.75rem] border border-gray-200 bg-gray-50 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-orange/15 text-orange"><i class="fas fa-star"></i></span>
+                        <h3 class="text-charcoal font-semibold">Quality</h3>
                     </div>
-                    <p class="text-sm leading-relaxed text-white/70">We shape digital work to look polished, credible, and easier for serious clients to trust.</p>
+                    <p class="text-sm leading-relaxed text-gray-500">We focus on delivering clean, professional, and reliable work that reflects the standard your business deserves.</p>
                 </div>
-                <div class="h-full rounded-[1.75rem] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-orange/15 text-orange"><i class="fas fa-layer-group"></i></span>
-                        <div>
-                            <span class="block text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">Systems</span>
-                            <h4 class="text-white font-semibold">Practical structure</h4>
-                        </div>
+                <div class="h-full rounded-[1.75rem] border border-gray-200 bg-gray-50 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-orange/15 text-orange"><i class="fas fa-chart-line"></i></span>
+                        <h3 class="text-charcoal font-semibold">Growth</h3>
                     </div>
-                    <p class="text-sm leading-relaxed text-white/70">Everything is built around real business use, not only visual appeal or technical complexity.</p>
+                    <p class="text-sm leading-relaxed text-gray-500">We create solutions that help businesses reach more people, improve visibility, and compete confidently.</p>
                 </div>
-                <div class="h-full rounded-[1.75rem] border border-white/10 bg-black/10 p-5 backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white"><i class="fas fa-comments"></i></span>
-                        <div>
-                            <span class="block text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">Support</span>
-                            <h4 class="text-white font-semibold">Remote-ready collaboration</h4>
-                        </div>
+                <div class="h-full rounded-[1.75rem] border border-gray-200 bg-gray-50 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-tech-blue/10 text-tech-blue"><i class="fas fa-lightbulb"></i></span>
+                        <h3 class="text-charcoal font-semibold">Innovation</h3>
                     </div>
-                    <p class="text-sm leading-relaxed text-white/70">Phone, WhatsApp, and email support keep collaboration simple even when clients are not nearby.</p>
+                    <p class="text-sm leading-relaxed text-gray-500">We embrace modern ideas and creative thinking to solve real business problems with practical digital solutions.</p>
                 </div>
-                <div class="h-full rounded-[1.75rem] border border-white/10 bg-black/10 p-5 backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-orange">
-                            <strong class="text-base font-bold leading-none"><span data-target="50">50</span>+</strong>
-                        </span>
-                        <div>
-                            <span class="block text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">Delivery</span>
-                            <h4 class="text-white font-semibold">Proven output</h4>
-                        </div>
+                <div class="h-full rounded-[1.75rem] border border-gray-200 bg-gray-50 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-tech-blue/10 text-tech-blue"><i class="fas fa-repeat"></i></span>
+                        <h3 class="text-charcoal font-semibold">Consistency</h3>
                     </div>
-                    <p class="text-sm leading-relaxed text-white/70">Projects delivered across websites, branding, and digital support with a focus on usable results.</p>
+                    <p class="text-sm leading-relaxed text-gray-500">We maintain the same professionalism, reliability, and quality across every project and every platform.</p>
                 </div>
-                <div class="h-full rounded-[1.75rem] border border-white/10 bg-black/10 p-5 backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white"><i class="fas fa-location-dot"></i></span>
-                        <div>
-                            <span class="block text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">Roots</span>
-                            <h4 class="text-white font-semibold">Cameroon rooted</h4>
-                        </div>
+                <div class="h-full rounded-[1.75rem] border border-gray-200 bg-gray-50 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-tech-blue/10 text-tech-blue"><i class="fas fa-users"></i></span>
+                        <h3 class="text-charcoal font-semibold">Customer Focus</h3>
                     </div>
-                    <p class="text-sm leading-relaxed text-white/70">Built in Yaounde with a delivery style that works smoothly for both local and remote clients.</p>
+                    <p class="text-sm leading-relaxed text-gray-500">We listen, understand real business needs, and build solutions that create genuine value at every stage of growth.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Strengths Banner -->
-    <section class="py-12 bg-charcoal border-t border-white/10 border-b border-white/5 relative overflow-hidden" data-theme="dark">
-        <div class="container mx-auto px-5 max-w-[1200px]">
+    <section class="py-12 bg-gradient-to-r from-tech-blue to-orange relative overflow-hidden" data-theme="dark">
+        <!-- Darkening overlay so white text holds contrast across the full gradient -->
+        <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
+        <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
+            <h2 class="sr-only">How we deliver every project</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <!-- Strength 1 -->
                 <div class="flex flex-col items-center text-center group reveal-pop delay-100">
-                    <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-orange text-2xl mb-4 group-hover:bg-orange group-hover:text-white transition-all duration-300 shadow-lg shadow-tech-blue/5 group-hover:shadow-tech-blue/30">
+                    <div class="w-16 h-16 rounded-full bg-white/15 flex items-center justify-center text-white text-2xl mb-4 group-hover:bg-white/25 transition-all duration-300 shadow-lg">
                         <i class="fas fa-rocket"></i>
                     </div>
                     <h3 class="text-white font-bold text-lg mb-1">Structured Delivery</h3>
-                    <p class="text-white/60 text-sm">Clear scope, updates, and handoff</p>
+                    <p class="text-white/85 text-sm">Clear scope, updates, and handoff</p>
                 </div>
-                
+
                 <!-- Strength 2 -->
                 <div class="flex flex-col items-center text-center group reveal-pop delay-200">
-                    <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-orange text-2xl mb-4 group-hover:bg-orange group-hover:text-white transition-all duration-300 shadow-lg shadow-orange/5 group-hover:shadow-orange/30">
+                    <div class="w-16 h-16 rounded-full bg-white/15 flex items-center justify-center text-white text-2xl mb-4 group-hover:bg-white/25 transition-all duration-300 shadow-lg">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3 class="text-white font-bold text-lg mb-1">Practical Systems</h3>
-                    <p class="text-white/60 text-sm">Built for real business use</p>
+                    <p class="text-white/85 text-sm">Built for real business use</p>
                 </div>
-                
+
                 <!-- Strength 3 -->
                 <div class="flex flex-col items-center text-center group reveal-pop delay-300">
-                    <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-orange text-2xl mb-4 group-hover:bg-orange group-hover:text-white transition-all duration-300 shadow-lg shadow-tech-blue/5 group-hover:shadow-tech-blue/30">
+                    <div class="w-16 h-16 rounded-full bg-white/15 flex items-center justify-center text-white text-2xl mb-4 group-hover:bg-white/25 transition-all duration-300 shadow-lg">
                         <i class="fas fa-headset"></i>
                     </div>
                     <h3 class="text-white font-bold text-lg mb-1">Remote Workflow</h3>
-                    <p class="text-white/60 text-sm">Clear collaboration across calls, chat, and email</p>
+                    <p class="text-white/85 text-sm">Clear collaboration across calls, chat, and email</p>
                 </div>
-                
+
                 <!-- Strength 4 -->
                 <div class="flex flex-col items-center text-center group reveal-pop delay-400">
-                    <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-orange text-2xl mb-4 group-hover:bg-orange group-hover:text-white transition-all duration-300 shadow-lg shadow-orange/5 group-hover:shadow-orange/30">
+                    <div class="w-16 h-16 rounded-full bg-white/15 flex items-center justify-center text-white text-2xl mb-4 group-hover:bg-white/25 transition-all duration-300 shadow-lg">
                         <i class="fas fa-award"></i>
                     </div>
                     <h3 class="text-white font-bold text-lg mb-1">Trust-Focused</h3>
-                    <p class="text-white/60 text-sm">Built to improve credibility, visibility, and inquiries</p>
+                    <p class="text-white/85 text-sm">Built to improve credibility, visibility, and inquiries</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="py-20 md:py-28 relative bg-soft-gray dark:bg-slate-900" id="services">
+    <section class="py-20 md:py-28 relative bg-soft-gray" id="services">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-20">
-                <span class="text-orange font-bold tracking-wider uppercase text-sm mb-3 block reveal-up">What We Do</span>
-                <h2 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue dark:text-white mb-6 reveal-up delay-100">Practical digital services for businesses that need more trust, visibility, and clarity</h2>
-                <p class="text-lg text-charcoal/70 dark:text-gray-400 max-w-3xl mx-auto reveal-up delay-200">We combine brand, website, and growth work around what matters most: helping your business look professional, explain its offer clearly, and make it easier for clients to take the next step.</p>
+                <span class="text-tech-blue font-bold tracking-wider uppercase text-sm mb-3 block reveal-up">What We Do</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue mb-6 reveal-up delay-100">Practical digital services for businesses that need more trust, visibility, and clarity</h2>
+                <p class="text-lg text-charcoal/70 max-w-3xl mx-auto reveal-up delay-200">We combine brand, website, and growth work around what matters most: helping your business look professional, explain its offer clearly, and make it easier for clients to take the next step.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Branding & Graphic Design -->
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,180,216,0.2)] transition-all duration-300 group border border-gray-50 dark:border-white/5 hover:border-orange/30 relative overflow-hidden reveal-up delay-100 h-full flex flex-col hover:-translate-y-2">
+                <div class="bg-white p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,180,216,0.2)] transition-all duration-300 group border border-gray-50 hover:border-orange/30 relative overflow-hidden reveal-up delay-100 h-full flex flex-col hover:-translate-y-2">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-tech-blue to-orange transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                     
-                    <div class="w-16 h-16 rounded-2xl bg-soft-gray dark:bg-white/5 text-tech-blue dark:text-orange flex items-center justify-center text-2xl mb-6 group-hover:bg-gradient-to-br group-hover:from-tech-blue group-hover:to-orange group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-lg group-hover:rotate-3">
+                    <div class="w-16 h-16 rounded-2xl bg-soft-gray text-tech-blue flex items-center justify-center text-2xl mb-6 group-hover:bg-gradient-to-br group-hover:from-tech-blue group-hover:to-orange group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-lg group-hover:rotate-3">
                         <i class="fas fa-paint-brush"></i>
                     </div>
-                    <p class="text-[11px] uppercase tracking-[0.18em] text-orange font-bold mb-3">Look More Professional</p>
-                    <h3 class="font-heading text-xl font-bold text-tech-blue dark:text-white mb-3">Brand Identity &amp; Marketing Assets</h3>
-                    <p class="text-charcoal/70 dark:text-gray-400 text-sm leading-relaxed mb-6 flex-1">Build a stronger first impression with a brand system that makes your business look credible, consistent, and ready for wider visibility.</p>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-tech-blue font-bold mb-3">Look More Professional</p>
+                    <h3 class="font-heading text-xl font-bold text-tech-blue mb-3">Brand Identity &amp; Marketing Assets</h3>
+                    <p class="text-charcoal/70 text-sm leading-relaxed mb-6 flex-1">Build a stronger first impression with a brand system that makes your business look credible, consistent, and ready for wider visibility.</p>
                     
-                    <div class="border-t border-gray-100 dark:border-white/10 pt-5 mt-auto">
+                    <div class="border-t border-gray-100 pt-5 mt-auto">
                         <ul class="space-y-2.5">
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Logo & Brand Identity</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Marketing Materials</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>UI/UX Design</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Print Design</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Logo & Brand Identity</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Marketing Materials</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>UI/UX Design</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Print Design</li>
                         </ul>
-                        <a href="/branding-services.html" data-track-event="services_cta_click" data-track-category="cta" data-track-label="home_branding_learn_more" aria-label="Explore branding and graphic design services" class="inline-flex items-center gap-2 mt-5 text-sm font-bold text-tech-blue dark:text-orange hover:text-orange transition-colors">Explore Branding Services <i class="fas fa-arrow-right text-xs"></i></a>
+                        <a href="/branding-services.html" data-track-event="services_cta_click" data-track-category="cta" data-track-label="home_branding_learn_more" aria-label="Explore branding and graphic design services" class="inline-flex items-center gap-2 mt-5 text-sm font-bold text-tech-blue hover:text-orange transition-colors">Explore Branding Services <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
                 </div>
                 
                 <!-- Web Design -->
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,180,216,0.2)] transition-all duration-300 group border border-gray-50 dark:border-white/5 hover:border-orange/30 relative overflow-hidden reveal-up delay-200 h-full flex flex-col hover:-translate-y-2">
+                <div class="bg-white p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,180,216,0.2)] transition-all duration-300 group border border-gray-50 hover:border-orange/30 relative overflow-hidden reveal-up delay-200 h-full flex flex-col hover:-translate-y-2">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-tech-blue to-orange transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                     
-                    <div class="w-16 h-16 rounded-2xl bg-soft-gray dark:bg-white/5 text-tech-blue dark:text-orange flex items-center justify-center text-2xl mb-6 group-hover:bg-gradient-to-br group-hover:from-tech-blue group-hover:to-orange group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-lg group-hover:rotate-3">
+                    <div class="w-16 h-16 rounded-2xl bg-soft-gray text-tech-blue flex items-center justify-center text-2xl mb-6 group-hover:bg-gradient-to-br group-hover:from-tech-blue group-hover:to-orange group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-lg group-hover:rotate-3">
                         <i class="fas fa-laptop-code"></i>
                     </div>
-                    <p class="text-[11px] uppercase tracking-[0.18em] text-orange font-bold mb-3">Convert More Visitors</p>
-                    <h3 class="font-heading text-xl font-bold text-tech-blue dark:text-white mb-3">Website Systems</h3>
-                    <p class="text-charcoal/70 dark:text-gray-400 text-sm leading-relaxed mb-6 flex-1">Launch a website that explains your offer clearly, earns trust quickly, and turns more of the right visitors into inquiries.</p>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-tech-blue font-bold mb-3">Convert More Visitors</p>
+                    <h3 class="font-heading text-xl font-bold text-tech-blue mb-3">Website Systems</h3>
+                    <p class="text-charcoal/70 text-sm leading-relaxed mb-6 flex-1">Launch a website that explains your offer clearly, earns trust quickly, and turns more of the right visitors into inquiries.</p>
                     
-                    <div class="border-t border-gray-100 dark:border-white/10 pt-5 mt-auto">
+                    <div class="border-t border-gray-100 pt-5 mt-auto">
                         <ul class="space-y-2.5">
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Responsive Design</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>User Experience (UX)</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Wireframing</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Visual Design</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Responsive Design</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>User Experience (UX)</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Wireframing</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Visual Design</li>
                         </ul>
-                        <a href="/web-design-services.html" data-track-event="services_cta_click" data-track-category="cta" data-track-label="home_web_design_learn_more" aria-label="Explore website systems and web design services" class="inline-flex items-center gap-2 mt-5 text-sm font-bold text-tech-blue dark:text-orange hover:text-orange transition-colors">Explore Web Design Services <i class="fas fa-arrow-right text-xs"></i></a>
+                        <a href="/web-design-services.html" data-track-event="services_cta_click" data-track-category="cta" data-track-label="home_web_design_learn_more" aria-label="Explore website systems and web design services" class="inline-flex items-center gap-2 mt-5 text-sm font-bold text-tech-blue hover:text-orange transition-colors">Explore Web Design Services <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
                 </div>
                 
                 <!-- Web Development -->
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,180,216,0.2)] transition-all duration-300 group border border-gray-50 dark:border-white/5 hover:border-orange/30 relative overflow-hidden reveal-up delay-300 h-full flex flex-col hover:-translate-y-2">
+                <div class="bg-white p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,180,216,0.2)] transition-all duration-300 group border border-gray-50 hover:border-orange/30 relative overflow-hidden reveal-up delay-300 h-full flex flex-col hover:-translate-y-2">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-tech-blue to-orange transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                     
-                    <div class="w-16 h-16 rounded-2xl bg-soft-gray dark:bg-white/5 text-tech-blue dark:text-orange flex items-center justify-center text-2xl mb-6 group-hover:bg-gradient-to-br group-hover:from-tech-blue group-hover:to-orange group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-lg group-hover:rotate-3">
+                    <div class="w-16 h-16 rounded-2xl bg-soft-gray text-tech-blue flex items-center justify-center text-2xl mb-6 group-hover:bg-gradient-to-br group-hover:from-tech-blue group-hover:to-orange group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-lg group-hover:rotate-3">
                         <i class="fas fa-code"></i>
                     </div>
-                    <p class="text-[11px] uppercase tracking-[0.18em] text-orange font-bold mb-3">Run Something Bigger</p>
-                    <h3 class="font-heading text-xl font-bold text-tech-blue dark:text-white mb-3">Custom Platforms &amp; Systems</h3>
-                    <p class="text-charcoal/70 dark:text-gray-400 text-sm leading-relaxed mb-6 flex-1">Build portals, dashboards, and custom workflows that support how your business operates day to day and continue to support growth.</p>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-tech-blue font-bold mb-3">Run Something Bigger</p>
+                    <h3 class="font-heading text-xl font-bold text-tech-blue mb-3">Custom Platforms &amp; Systems</h3>
+                    <p class="text-charcoal/70 text-sm leading-relaxed mb-6 flex-1">Build portals, dashboards, and custom workflows that support how your business operates day to day and continue to support growth.</p>
                     
-                    <div class="border-t border-gray-100 dark:border-white/10 pt-5 mt-auto">
+                    <div class="border-t border-gray-100 pt-5 mt-auto">
                         <ul class="space-y-2.5">
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Frontend Development</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Backend Development</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>E-commerce Solutions</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>API Integration</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Frontend Development</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Backend Development</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>E-commerce Solutions</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>API Integration</li>
                         </ul>
-                        <a href="/web-design-services.html#development" data-track-event="services_cta_click" data-track-category="cta" data-track-label="home_web_development_learn_more" aria-label="Explore custom web development and system services" class="inline-flex items-center gap-2 mt-5 text-sm font-bold text-tech-blue dark:text-orange hover:text-orange transition-colors">Explore Custom Web Development <i class="fas fa-arrow-right text-xs"></i></a>
+                        <a href="/web-design-services.html#development" data-track-event="services_cta_click" data-track-category="cta" data-track-label="home_web_development_learn_more" aria-label="Explore custom web development and system services" class="inline-flex items-center gap-2 mt-5 text-sm font-bold text-tech-blue hover:text-orange transition-colors">Explore Custom Web Development <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
                 </div>
                 
                 <!-- Ads Management -->
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,180,216,0.2)] transition-all duration-300 group border border-gray-50 dark:border-white/5 hover:border-orange/30 relative overflow-hidden reveal-up delay-400 h-full flex flex-col hover:-translate-y-2">
+                <div class="bg-white p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,180,216,0.2)] transition-all duration-300 group border border-gray-50 hover:border-orange/30 relative overflow-hidden reveal-up delay-400 h-full flex flex-col hover:-translate-y-2">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-tech-blue to-orange transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                     
-                    <div class="w-16 h-16 rounded-2xl bg-soft-gray dark:bg-white/5 text-tech-blue dark:text-orange flex items-center justify-center text-2xl mb-6 group-hover:bg-gradient-to-br group-hover:from-tech-blue group-hover:to-orange group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-lg group-hover:rotate-3">
+                    <div class="w-16 h-16 rounded-2xl bg-soft-gray text-tech-blue flex items-center justify-center text-2xl mb-6 group-hover:bg-gradient-to-br group-hover:from-tech-blue group-hover:to-orange group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-lg group-hover:rotate-3">
                         <i class="fas fa-bullhorn"></i>
                     </div>
-                    <p class="text-[11px] uppercase tracking-[0.18em] text-orange font-bold mb-3">Get More Leads</p>
-                    <h3 class="font-heading text-xl font-bold text-tech-blue dark:text-white mb-3">Growth Campaigns</h3>
-                    <p class="text-charcoal/70 dark:text-gray-400 text-sm leading-relaxed mb-6 flex-1">Run paid campaigns and visibility systems that bring in better-fit traffic, stronger leads, and clearer growth data.</p>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-tech-blue font-bold mb-3">Get More Leads</p>
+                    <h3 class="font-heading text-xl font-bold text-tech-blue mb-3">Growth Campaigns</h3>
+                    <p class="text-charcoal/70 text-sm leading-relaxed mb-6 flex-1">Run paid campaigns and visibility systems that bring in better-fit traffic, stronger leads, and clearer growth data.</p>
                     
-                    <div class="border-t border-gray-100 dark:border-white/10 pt-5 mt-auto">
+                    <div class="border-t border-gray-100 pt-5 mt-auto">
                         <ul class="space-y-2.5">
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Social Media Ads</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Search Engine Marketing</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Campaign Optimization</li>
-                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80 dark:text-gray-400"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Analytics & Reporting</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Social Media Ads</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Search Engine Marketing</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Campaign Optimization</li>
+                            <li class="flex items-center gap-2.5 text-sm text-charcoal/80"><span class="w-5 h-5 rounded-full bg-cyan/10 text-orange flex items-center justify-center text-[10px] shrink-0"><i class="fas fa-check"></i></span>Analytics & Reporting</li>
                         </ul>
-                        <a href="/ads-management-services.html" data-track-event="services_cta_click" data-track-category="cta" data-track-label="home_ads_management_learn_more" aria-label="Explore ads management and growth campaign services" class="inline-flex items-center gap-2 mt-5 text-sm font-bold text-tech-blue dark:text-orange hover:text-orange transition-colors">Explore Ads Management Services <i class="fas fa-arrow-right text-xs"></i></a>
+                        <a href="/ads-management-services.html" data-track-event="services_cta_click" data-track-category="cta" data-track-label="home_ads_management_learn_more" aria-label="Explore ads management and growth campaign services" class="inline-flex items-center gap-2 mt-5 text-sm font-bold text-tech-blue hover:text-orange transition-colors">Explore Ads Management Services <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mt-12 reveal-up delay-500">
-                <a href="services.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal dark:text-white border-tech-blue dark:border-white hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover">View All Services</a>
+                <a href="services.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal border-tech-blue hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover">View All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-20 md:py-28 relative bg-white overflow-hidden" id="why-us">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-tech-blue/5 blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-orange/5 blur-3xl"></div>
+        </div>
+        <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
+
+            <div class="text-center mb-14 reveal-up">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.18em] uppercase bg-orange/10 text-tech-blue mb-4">Why Choose Us</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue mb-4">What makes working with us different</h2>
+                <p class="text-charcoal/60 max-w-xl mx-auto">A small team that takes your business seriously. Here's what that looks like in practice.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="group bg-soft-gray rounded-2xl p-6 border border-transparent hover:border-tech-blue/20 hover:shadow-lg transition-all duration-300 reveal-up">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-tech-blue/10 to-tech-blue/20 flex items-center justify-center text-tech-blue mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-comments text-lg"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-charcoal mb-2">Clear communication</h3>
+                    <p class="text-sm text-charcoal/60 leading-relaxed">You always know what's happening and why. No jargon, no status anxiety, no guessing games.</p>
+                </div>
+
+                <div class="group bg-soft-gray rounded-2xl p-6 border border-transparent hover:border-tech-blue/20 hover:shadow-lg transition-all duration-300 reveal-up delay-100">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-orange/10 to-orange/20 flex items-center justify-center text-orange mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-rocket text-lg"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-charcoal mb-2">Fast, reliable delivery</h3>
+                    <p class="text-sm text-charcoal/60 leading-relaxed">We work to your deadline, not ours. If something shifts, you hear from us immediately — not after the fact.</p>
+                </div>
+
+                <div class="group bg-soft-gray rounded-2xl p-6 border border-transparent hover:border-tech-blue/20 hover:shadow-lg transition-all duration-300 reveal-up delay-200">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan/10 to-cyan/20 flex items-center justify-center text-cyan mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-tag text-lg"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-charcoal mb-2">Transparent pricing</h3>
+                    <p class="text-sm text-charcoal/60 leading-relaxed">Professional results without the agency price tag. Every quote is itemised — no surprises, no hidden fees.</p>
+                </div>
+
+                <div class="group bg-soft-gray rounded-2xl p-6 border border-transparent hover:border-tech-blue/20 hover:shadow-lg transition-all duration-300 reveal-up delay-100">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-tech-blue/10 to-orange/20 flex items-center justify-center text-tech-blue mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-layer-group text-lg"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-charcoal mb-2">Web and design under one roof</h3>
+                    <p class="text-sm text-charcoal/60 leading-relaxed">Your website and brand assets are built by the same team, so they look and feel consistent across every touchpoint.</p>
+                </div>
+
+                <div class="group bg-soft-gray rounded-2xl p-6 border border-transparent hover:border-tech-blue/20 hover:shadow-lg transition-all duration-300 reveal-up delay-200">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-orange/10 to-soft-amber/20 flex items-center justify-center text-orange mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-rotate-left text-lg"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-charcoal mb-2">Revisions until you're satisfied</h3>
+                    <p class="text-sm text-charcoal/60 leading-relaxed">We don't stop at "done." We stop when you're genuinely happy with the result.</p>
+                </div>
+
+                <div class="group bg-soft-gray rounded-2xl p-6 border border-transparent hover:border-tech-blue/20 hover:shadow-lg transition-all duration-300 reveal-up delay-300">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan/10 to-tech-blue/20 flex items-center justify-center text-cyan mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-globe-africa text-lg"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-charcoal mb-2">Built for the African market</h3>
+                    <p class="text-sm text-charcoal/60 leading-relaxed">We understand how businesses present themselves here. We apply what actually works locally — not imported templates.</p>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Pricing Preview -->
-    <section class="py-16 md:py-24 relative bg-white dark:bg-charcoal overflow-hidden" id="pricing">
+    <section class="py-16 md:py-24 relative bg-white overflow-hidden" id="pricing">
         <div class="absolute inset-0 pointer-events-none">
             <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-cyan/10 blur-3xl"></div>
             <div class="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-orange/10 blur-3xl"></div>
         </div>
         <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
             <div class="text-center mb-16">
-                <span class="text-orange font-bold tracking-wider uppercase text-sm mb-3 block reveal-up">Pricing</span>
-                <h2 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue dark:text-white mb-5 reveal-up delay-100">Clear starting points for the outcome you need next</h2>
-                <p class="text-lg text-charcoal/70 dark:text-gray-400 max-w-3xl mx-auto reveal-up delay-200">We show named plans and visible starting prices so you can compare options faster, then tailor the final scope around your business goals and delivery needs.</p>
+                <span class="text-tech-blue font-bold tracking-wider uppercase text-sm mb-3 block reveal-up">Pricing</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-tech-blue mb-5 reveal-up delay-100">Clear starting points for the outcome you need next</h2>
+                <p class="text-lg text-charcoal/70 max-w-3xl mx-auto reveal-up delay-200">We show named plans and visible starting prices so you can compare options faster, then tailor the final scope around your business goals and delivery needs.</p>
             </div>
             <div data-pricing-grid data-pricing-variant="preview" data-pricing-limit="3" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"></div>
             <div class="text-center mt-12 reveal-up delay-300">
@@ -539,18 +626,18 @@
             <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-6 leading-tight reveal-up">Need a clearer digital presence clients can trust?</h2>
             <p class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-10 reveal-up delay-200">We help businesses in Cameroon and beyond improve how they present their services, communicate online, and turn interest into real inquiries.</p>
             <div class="flex flex-col sm:flex-row gap-5 justify-center reveal-up delay-300">
-                <a href="#contact" class="inline-block px-8 py-4 rounded-full font-bold text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white hover:shadow-lg hover:-translate-y-1 hover:shadow-custom-hover">Request a Quote</a>
+                <a href="#contact" class="inline-block px-8 py-4 rounded-full font-bold text-base cursor-pointer transition-all duration-300 text-center bg-gradient-to-r from-orange to-soft-amber text-white hover:shadow-lg hover:-translate-y-1 hover:shadow-custom-hover">Request a Quote</a>
                 <a href="#portfolio" class="inline-block px-8 py-4 rounded-full font-bold text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-white border-white hover:bg-white hover:text-tech-blue hover:-translate-y-1 hover:shadow-custom-hover">View Our Work</a>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section class="py-16 md:py-24 relative bg-white dark:bg-charcoal" id="portfolio">
+    <section class="py-16 md:py-24 relative bg-white" id="portfolio">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-orange after:rounded-sm reveal-up">Selected work built for clarity, consistency, and trust</h2>
-                <p class="text-lg text-orange max-w-xl mx-auto reveal-up delay-200">Recent websites, brand systems, and design work</p>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-orange after:rounded-sm reveal-up">Selected work built for clarity, consistency, and trust</h2>
+                <p class="text-lg text-charcoal/70 max-w-xl mx-auto reveal-up delay-200">Recent websites, brand systems, and design work</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 portfolio-grid">
                 <!-- Loading Indicator -->
@@ -560,30 +647,30 @@
             </div>
             
             <div class="text-center mt-16 reveal-up delay-500">
-                <a href="portfolio.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 border-transparent text-center bg-gradient-to-r from-orange to-soft-amber text-white hover:shadow-lg hover:-translate-y-1 hover:shadow-custom-hover">View All Projects</a>
+                <a href="portfolio.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 text-center bg-gradient-to-r from-orange to-soft-amber text-white hover:shadow-lg hover:-translate-y-1 hover:shadow-custom-hover">View All Projects</a>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section class="py-16 md:py-24 relative bg-soft-gray dark:bg-slate-900 overflow-hidden" id="gallery-preview">
+    <section class="py-16 md:py-24 relative bg-soft-gray overflow-hidden" id="gallery-preview">
         <!-- Decorative Background -->
-        <div class="absolute inset-0 pointer-events-none opacity-30 dark:opacity-10">
+        <div class="absolute inset-0 pointer-events-none opacity-30">
             <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-orange/10 via-transparent to-transparent"></div>
             <div class="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-tech-blue/10 via-transparent to-transparent"></div>
         </div>
 
         <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-orange after:rounded-sm reveal-up">Design work built to communicate clearly</h2>
-                <p class="text-lg text-orange max-w-xl mx-auto reveal-up delay-200">A closer look at selected visual projects</p>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-orange after:rounded-sm reveal-up">Design work built to communicate clearly</h2>
+                <p class="text-lg text-charcoal/70 max-w-xl mx-auto reveal-up delay-200">A closer look at selected visual projects</p>
             </div>
             
             <div class="columns-2 md:columns-3 lg:columns-4 gap-4" id="gallery-preview-grid" data-lightbox-container>
             </div>
 
             <div class="text-center mt-12 reveal-up delay-500">
-                <a href="gallery.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal dark:text-white border-tech-blue dark:border-white hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover">View Full Gallery</a>
+                <a href="gallery.html" class="inline-block px-8 py-3.5 rounded-full font-medium text-base cursor-pointer transition-all duration-300 border-2 text-center bg-transparent text-charcoal border-tech-blue hover:bg-tech-blue hover:text-white hover:-translate-y-1 hover:shadow-custom-hover">View Full Gallery</a>
             </div>
         </div>
     </section>
@@ -595,6 +682,7 @@
             <div class="absolute top-1/2 right-0 w-64 h-64 rounded-full bg-white blur-3xl"></div>
         </div>
         <div class="container mx-auto px-5 max-w-[1200px] relative z-10">
+            <h2 class="sr-only">Our process</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/20">
                 <div class="px-4 py-4 reveal-up delay-100">
                     <div class="text-4xl mb-4 text-orange"><i class="fas fa-lightbulb"></i></div>
@@ -619,8 +707,8 @@
     <section class="py-16 md:py-24 relative overflow-hidden" id="contact">
         <div class="container mx-auto px-5 max-w-[1200px]">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue dark:text-white mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-orange after:rounded-sm reveal-up">Tell us what you need, and we will guide you clearly</h2>
-                <p class="text-lg text-orange max-w-3xl mx-auto reveal-up delay-200">Share your business name, the service you need, your deadline, and any materials you already have. We will help you understand the right next step.</p>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-tech-blue mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-tech-blue after:to-orange after:rounded-sm reveal-up">Tell us what you need, and we will guide you clearly</h2>
+                <p class="text-lg text-charcoal/70 max-w-3xl mx-auto reveal-up delay-200">Share your business name, the service you need, your deadline, and any materials you already have. We will help you understand the right next step.</p>
             </div>
             <div class="flex flex-col lg:flex-row gap-16 items-start">
                 <div class="flex-1 reveal-left">
@@ -629,8 +717,8 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-tech-blue dark:text-white mb-2">Email</h3>
-                            <p class="text-charcoal dark:text-gray-300 text-base">kumtechgateway@gmail.com</p>
+                            <h3 class="text-lg font-semibold text-tech-blue mb-2">Email</h3>
+                            <p class="text-charcoal text-base">kumtechgateway@gmail.com</p>
                         </div>
                     </div>
                     
@@ -639,8 +727,8 @@
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-tech-blue dark:text-white mb-2">Phone</h3>
-                            <p class="text-charcoal dark:text-gray-300 text-base">+237 679 796 638</p>
+                            <h3 class="text-lg font-semibold text-tech-blue mb-2">Phone</h3>
+                            <p class="text-charcoal text-base">+237 679 796 638</p>
                         </div>
                     </div>
                     
@@ -649,13 +737,13 @@
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-tech-blue dark:text-white mb-2">Availability</h3>
-                            <p class="text-charcoal dark:text-gray-300 text-base">Send a message anytime</p>
+                            <h3 class="text-lg font-semibold text-tech-blue mb-2">Availability</h3>
+                            <p class="text-charcoal text-base">Send a message anytime</p>
                         </div>
                     </div>
                     
                     <div class="mt-12">
-                        <h3 class="text-xl font-semibold text-tech-blue dark:text-white mb-5">Connect With Us</h3>
+                        <h3 class="text-xl font-semibold text-tech-blue mb-5">Connect With Us</h3>
                         <div class="flex gap-4">
                             <a href="https://www.facebook.com/profile.php?id=61586900516807" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full bg-cyan/10 flex items-center justify-center text-tech-blue text-lg transition-all duration-300 hover:bg-orange hover:text-white hover:-translate-y-1" aria-label="Facebook">
                                 <i class="fab fa-facebook-f"></i>
@@ -676,24 +764,24 @@
                     </div>
                 </div>
                 
-                <div class="flex-1 bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-white/5 reveal-right relative overflow-hidden" id="contact-form-container">
-                    <h3 class="text-2xl font-bold text-tech-blue dark:text-white mb-6">Start Your Inquiry</h3>
+                <div class="flex-1 bg-white p-8 rounded-2xl shadow-xl border border-gray-100 reveal-right relative overflow-hidden" id="contact-form-container">
+                    <h3 class="text-2xl font-bold text-tech-blue mb-6">Start Your Inquiry</h3>
                     
                     <!-- Method Selector -->
                     <div class="mb-8">
-                        <label class="block text-sm font-medium text-charcoal/70 dark:text-gray-400 mb-3">Preferred Contact Method</label>
+                        <label class="block text-sm font-medium text-charcoal/70 mb-3">Preferred Contact Method</label>
                         <div class="grid grid-cols-3 gap-3">
-                            <button type="button" class="contact-method-btn active flex flex-col items-center justify-center p-3 rounded-xl border-2 border-tech-blue/10 bg-soft-gray/50 hover:border-tech-blue hover:bg-tech-blue/5 transition-all" data-method="email">
+                            <button type="button" aria-pressed="true" class="contact-method-btn active flex flex-col items-center justify-center p-3 rounded-xl border-2 border-tech-blue/10 bg-soft-gray/50 hover:border-tech-blue hover:bg-tech-blue/5 transition-all" data-method="email">
                                 <i class="fas fa-envelope text-xl mb-2 text-tech-blue"></i>
-                                <span class="text-xs font-medium text-charcoal dark:text-gray-300">Email</span>
+                                <span class="text-xs font-medium text-charcoal">Email</span>
                             </button>
-                            <button type="button" class="contact-method-btn flex flex-col items-center justify-center p-3 rounded-xl border-2 border-tech-blue/10 bg-soft-gray/50 hover:border-green-500 hover:bg-green-50 transition-all" data-method="whatsapp">
+                            <button type="button" aria-pressed="false" class="contact-method-btn flex flex-col items-center justify-center p-3 rounded-xl border-2 border-tech-blue/10 bg-soft-gray/50 hover:border-green-500 hover:bg-green-50 transition-all" data-method="whatsapp">
                                 <i class="fab fa-whatsapp text-xl mb-2 text-green-500"></i>
-                                <span class="text-xs font-medium text-charcoal dark:text-gray-300">WhatsApp</span>
+                                <span class="text-xs font-medium text-charcoal">WhatsApp</span>
                             </button>
-                            <button type="button" class="contact-method-btn flex flex-col items-center justify-center p-3 rounded-xl border-2 border-tech-blue/10 bg-soft-gray/50 hover:border-orange hover:bg-orange/5 transition-all" data-method="phone">
+                            <button type="button" aria-pressed="false" class="contact-method-btn flex flex-col items-center justify-center p-3 rounded-xl border-2 border-tech-blue/10 bg-soft-gray/50 hover:border-orange hover:bg-orange/5 transition-all" data-method="phone">
                                 <i class="fas fa-phone text-xl mb-2 text-orange"></i>
-                                <span class="text-xs font-medium text-charcoal dark:text-gray-300">Call</span>
+                                <span class="text-xs font-medium text-charcoal">Call</span>
                             </button>
                         </div>
                     </div>
@@ -702,31 +790,31 @@
                     <form id="contactForm" class="space-y-5 transition-all duration-300">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div class="form-group">
-                                <label for="name" class="block text-sm font-medium text-charcoal dark:text-gray-300 mb-1">Your Name</label>
-                                <input type="text" id="name" name="name" required autocomplete="name" class="w-full px-4 py-3 rounded-lg bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-charcoal dark:text-white" placeholder="John Doe">
+                                <label for="name" class="block text-sm font-medium text-charcoal mb-1">Your Name</label>
+                                <input type="text" id="name" name="name" required autocomplete="name" class="w-full px-4 py-3 rounded-lg bg-soft-gray border border-gray-200 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/60 transition-all text-charcoal" placeholder="John Doe">
                             </div>
                             <div class="form-group">
-                                <label for="email" class="block text-sm font-medium text-charcoal dark:text-gray-300 mb-1">Email Address</label>
-                                <input type="email" id="email" name="email" required autocomplete="email" class="w-full px-4 py-3 rounded-lg bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-charcoal dark:text-white" placeholder="john@example.com">
+                                <label for="email" class="block text-sm font-medium text-charcoal mb-1">Email Address</label>
+                                <input type="email" id="email" name="email" required autocomplete="email" class="w-full px-4 py-3 rounded-lg bg-soft-gray border border-gray-200 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/60 transition-all text-charcoal" placeholder="john@example.com">
                             </div>
                         </div>
                         <div class="form-group">
-                                <label for="message" class="block text-sm font-medium text-charcoal dark:text-gray-300 mb-1">Message</label>
-                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-lg bg-soft-gray dark:bg-white/5 border border-gray-200 dark:border-white/10 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all resize-none text-charcoal dark:text-white" placeholder="Tell us your business name, service needed, deadline, and any materials you already have."></textarea>
+                                <label for="message" class="block text-sm font-medium text-charcoal mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-lg bg-soft-gray border border-gray-200 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/60 transition-all resize-none text-charcoal" placeholder="Tell us your business name, service needed, deadline, and any materials you already have."></textarea>
                         </div>
                         <!-- Honeypot Field (Hidden) -->
                         <div class="hidden">
                             <input type="text" name="website_check" id="website_check" class="honeypot" tabindex="-1" autocomplete="off">
                         </div>
-                        <button type="submit" id="sendBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-tech-blue to-orange text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 group">
+                        <button type="submit" id="sendBtn" class="w-full py-4 rounded-full bg-gradient-to-r from-tech-blue to-orange text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 group">
                             <span>Send Message</span>
                             <i class="fas fa-paper-plane group-hover:translate-x-1 transition-transform" id="sendIcon"></i>
                         </button>
-                        <p class="text-xs leading-relaxed text-charcoal/60 dark:text-gray-400">
+                        <p class="text-xs leading-relaxed text-charcoal/60">
                             By submitting this form, you agree to our
-                            <a href="/privacy-policy.html" class="text-tech-blue dark:text-orange underline underline-offset-4">Privacy Policy</a>
+                            <a href="/privacy-policy.html" class="text-tech-blue underline underline-offset-4">Privacy Policy</a>
                             and
-                            <a href="/terms-of-service.html" class="text-tech-blue dark:text-orange underline underline-offset-4">Terms of Service</a>.
+                            <a href="/terms-of-service.html" class="text-tech-blue underline underline-offset-4">Terms of Service</a>.
                             We use your details only to respond to your inquiry or discuss your project.
                         </p>
                     </form>
@@ -737,8 +825,8 @@
                             <i class="fab fa-whatsapp"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold text-charcoal dark:text-white mb-2">Chat on WhatsApp</h4>
-                            <p class="text-charcoal/60 dark:text-gray-400 max-w-xs mx-auto">Send your business name, service needed, and deadline. We will reply with the clearest next step we can.</p>
+                            <h4 class="text-xl font-bold text-charcoal mb-2">Chat on WhatsApp</h4>
+                            <p class="text-charcoal/60 max-w-xs mx-auto">Send your business name, service needed, and deadline. We will reply with the clearest next step we can.</p>
                         </div>
                         <a href="https://wa.me/237679796638" target="_blank" class="px-8 py-4 rounded-full bg-[#25D366] text-white font-bold shadow-lg hover:shadow-green-500/30 hover:-translate-y-1 transition-all flex items-center gap-2">
                             <i class="fab fa-whatsapp text-xl"></i> WhatsApp Us Now
@@ -751,8 +839,8 @@
                             <i class="fas fa-phone-alt"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold text-charcoal dark:text-white mb-2">Call Us</h4>
-                            <p class="text-charcoal/60 dark:text-gray-400 max-w-xs mx-auto">Speak with us directly if you want to explain the project and ask questions in real time.</p>
+                            <h4 class="text-xl font-bold text-charcoal mb-2">Call Us</h4>
+                            <p class="text-charcoal/60 max-w-xs mx-auto">Speak with us directly if you want to explain the project and ask questions in real time.</p>
                         </div>
                         <a href="tel:+237679796638" class="px-8 py-4 rounded-full bg-orange text-white font-bold shadow-lg hover:shadow-tech-blue/30 hover:-translate-y-1 transition-all flex items-center gap-2">
                             <i class="fas fa-phone text-xl"></i> Call Now
@@ -764,14 +852,14 @@
             <!-- Testimonials Slider -->
             <div class="mt-20 reveal-up delay-400">
                 <div class="text-center mb-16">
-                    <h3 class="text-3xl font-semibold text-tech-blue dark:text-white mb-4">Client Feedback</h3>
-                    <p class="text-charcoal/70 dark:text-gray-400 max-w-2xl mx-auto">See how clients describe working with Kumtech Gateway.</p>
+                    <h3 class="text-3xl font-semibold text-tech-blue mb-4">Client Feedback</h3>
+                    <p class="text-charcoal/70 max-w-2xl mx-auto">See how clients describe working with Kumtech Gateway.</p>
                 </div>
 
                 <!-- Review Buttons -->
                 <div class="flex flex-col sm:flex-row justify-center gap-4 mb-10">
-                    <a href="https://g.page/r/CTyT8y4hhe89EAI/review" target="_blank" rel="noopener" data-track-event="review_google_click" data-track-category="engagement" data-track-label="homepage_google_review" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-slate-800 text-charcoal dark:text-white border border-gray-200 dark:border-white/10 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 font-medium group"><i class="fab fa-google text-red-500 text-lg group-hover:scale-110 transition-transform"></i> Leave a Google Review</a>
-                    <a href="/#contact" data-track-event="contact_cta_click" data-track-category="engagement" data-track-label="homepage_private_feedback" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-tech-blue text-white shadow-md hover:shadow-lg hover:bg-orange hover:-translate-y-1 transition-all duration-300 font-medium"><i class="fas fa-message text-sm"></i> Share Feedback Privately</a>
+                    <a href="https://g.page/r/CTyT8y4hhe89EAI/review" target="_blank" rel="noopener" data-track-event="review_google_click" data-track-category="engagement" data-track-label="homepage_google_review" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-charcoal border border-gray-200 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 font-medium group"><i class="fab fa-google text-red-500 text-lg group-hover:scale-110 transition-transform"></i> Leave a Google Review</a>
+                    <button type="button" id="openReviewForm" data-track-event="contact_cta_click" data-track-category="engagement" data-track-label="homepage_private_feedback" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-tech-blue text-white shadow-md hover:shadow-lg hover:bg-orange hover:-translate-y-1 transition-all duration-300 font-medium"><i class="fas fa-pen-to-square text-sm"></i> Write a Review</button>
                 </div>
                 
                 <div class="relative px-2 md:px-4">
@@ -791,13 +879,85 @@
     </section>
     </main>
 
+    <!-- Review Submission Modal -->
+    <div id="reviewFormModal" class="fixed inset-0 z-[110] flex items-center justify-center px-5 opacity-0 invisible transition-all duration-300" aria-modal="true" role="dialog" aria-labelledby="reviewFormTitle">
+        <div id="reviewModalOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div id="reviewModalContent" class="relative z-10 bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
+
+            <button type="button" id="closeReviewModal" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full text-charcoal/40 hover:bg-gray-100 hover:text-charcoal transition-all" aria-label="Close">
+                <i class="fas fa-times text-sm"></i>
+            </button>
+
+            <!-- Form State -->
+            <div id="reviewFormState">
+                <h3 id="reviewFormTitle" class="text-lg font-bold text-tech-blue mb-3">Share Your Experience</h3>
+
+                <form id="reviewSubmitForm" novalidate>
+                    <!-- Star Rating -->
+                    <div class="mb-3">
+                        <label class="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wide">Rating <span class="text-orange">*</span></label>
+                        <div id="starRating" class="flex gap-1" role="group" aria-label="Select rating">
+                            <button type="button" data-star="1" class="text-xl text-gray-300 hover:text-orange transition-colors leading-none" aria-label="1 star"><i class="fas fa-star"></i></button>
+                            <button type="button" data-star="2" class="text-xl text-gray-300 hover:text-orange transition-colors leading-none" aria-label="2 stars"><i class="fas fa-star"></i></button>
+                            <button type="button" data-star="3" class="text-xl text-gray-300 hover:text-orange transition-colors leading-none" aria-label="3 stars"><i class="fas fa-star"></i></button>
+                            <button type="button" data-star="4" class="text-xl text-gray-300 hover:text-orange transition-colors leading-none" aria-label="4 stars"><i class="fas fa-star"></i></button>
+                            <button type="button" data-star="5" class="text-xl text-gray-300 hover:text-orange transition-colors leading-none" aria-label="5 stars"><i class="fas fa-star"></i></button>
+                        </div>
+                        <p id="ratingError" class="text-xs text-red-500 mt-1 hidden">Please select a star rating.</p>
+                    </div>
+
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label for="review-name" class="block text-xs font-semibold text-charcoal mb-1 uppercase tracking-wide">Name <span class="text-orange">*</span></label>
+                        <input type="text" id="review-name" name="name" required minlength="2" maxlength="80" autocomplete="name" placeholder="e.g. Marie Nkono" class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-charcoal placeholder-gray-400 text-sm focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/60 transition">
+                    </div>
+
+                    <!-- Company -->
+                    <div class="mb-3">
+                        <label for="review-company" class="block text-xs font-semibold text-charcoal mb-1 uppercase tracking-wide">Business / Role <span class="text-gray-400 font-normal normal-case">(optional)</span></label>
+                        <input type="text" id="review-company" name="company" maxlength="80" autocomplete="organization" placeholder="e.g. Nkono Catering" class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-charcoal placeholder-gray-400 text-sm focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/60 transition">
+                    </div>
+
+                    <!-- Review Text -->
+                    <div class="mb-4">
+                        <label for="review-text" class="block text-xs font-semibold text-charcoal mb-1 uppercase tracking-wide">Review <span class="text-orange">*</span></label>
+                        <textarea id="review-text" name="review" required minlength="10" maxlength="1000" rows="3" placeholder="Tell us about your experience…" class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-charcoal placeholder-gray-400 text-sm focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/60 transition resize-none"></textarea>
+                        <div class="flex justify-end mt-0.5">
+                            <span class="text-xs text-gray-400"><span id="review-char-count">0</span>/1000</span>
+                        </div>
+                    </div>
+
+                    <!-- Inline Error -->
+                    <p id="reviewFormError" class="text-xs text-red-500 mb-3 hidden"></p>
+
+                    <!-- Submit -->
+                    <button type="submit" id="reviewSubmitBtn" class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-tech-blue to-orange text-white font-bold text-sm shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0">
+                        <i id="reviewSubmitIcon" class="fas fa-paper-plane"></i>
+                        <span id="reviewSubmitLabel">Submit Review</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success State -->
+            <div id="reviewSuccessState" class="hidden text-center py-4">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-2xl mx-auto mb-5">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h3 class="text-xl font-bold text-charcoal mb-2">Review Submitted</h3>
+                <p class="text-sm text-charcoal/60 leading-relaxed">Thank you. Your review is pending approval and will appear here once moderated.</p>
+                <button type="button" id="closeAfterSuccess" class="mt-6 px-6 py-2.5 rounded-full bg-tech-blue text-white font-semibold text-sm hover:bg-orange transition-colors">Done</button>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
     <!-- WhatsApp Button with popup -->
     <div id="whatsapp-container" class="fixed bottom-8 right-8 z-50 opacity-0 invisible translate-y-5 transition-all duration-300">
         <!-- Chat Widget Popup -->
-        <div id="whatsapp-popup" class="absolute bottom-full right-0 mb-4 w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden origin-bottom-right transition-all duration-300 opacity-0 scale-90 pointer-events-none border border-gray-100 dark:border-slate-700">
+        <div id="whatsapp-popup" class="absolute bottom-full right-0 mb-4 w-80 bg-white rounded-2xl shadow-2xl overflow-hidden origin-bottom-right transition-all duration-300 opacity-0 scale-90 pointer-events-none border border-gray-100">
             <div class="bg-tech-blue p-4 flex items-center gap-3 relative overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-r from-tech-blue to-orange opacity-90"></div>
                 <div class="relative z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white shrink-0">
@@ -806,15 +966,15 @@
                 </div>
                 <div class="relative z-10 flex-1">
                     <h4 class="text-white font-bold text-sm leading-tight">Kumtech Gateway</h4>
-                    <p class="text-white/80 text-xs">Usually replies quickly</p>
+                    <p class="text-white/80 text-xs">Replies within minutes</p>
                 </div>
                 <button id="close-whatsapp-popup" class="relative z-10 text-white/70 hover:text-white transition-colors p-1">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="p-4 bg-gray-50 dark:bg-slate-900/50">
-                <div class="bg-white dark:bg-slate-700 p-3.5 rounded-2xl rounded-tl-none shadow-sm text-sm text-charcoal dark:text-gray-200 leading-relaxed border border-gray-100 dark:border-slate-600">
-                    Hi there. Share your business name, the service you need, and your deadline, and we will guide you clearly.
+            <div class="p-4 bg-gray-50">
+                <div class="bg-white p-3.5 rounded-2xl rounded-tl-none shadow-sm text-sm text-charcoal leading-relaxed border border-gray-100">
+                    Ready to grow your brand? Get a free quote today — we reply fast!
                 </div>
                 <div class="text-[10px] text-gray-400 mt-2 text-right font-medium">Just now</div>
             </div>
@@ -825,7 +985,7 @@
             <!-- Red Live Dot -->
             <span class="absolute top-0 right-0 flex h-3.5 w-3.5 -mt-1 -mr-1">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white dark:border-slate-900"></span>
+              <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white"></span>
             </span>
         </a>
     </div>
@@ -833,12 +993,12 @@
     <!-- Success Modal (Global Fixed) -->
     <div id="successModal" class="fixed inset-0 z-[100] flex items-center justify-center px-5 opacity-0 invisible transition-all duration-500">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" id="successOverlay"></div>
-        <div class="bg-white dark:bg-slate-800 p-10 rounded-3xl shadow-2xl relative z-10 max-w-md w-full text-center transform scale-90 transition-all duration-500 flex flex-col items-center" id="successContent">
-            <div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-500 text-5xl mb-6 scale-0 transition-transform duration-500 delay-300 shadow-lg shadow-green-500/20" id="successIcon">
+        <div class="bg-white p-10 rounded-3xl shadow-2xl relative z-10 max-w-md w-full text-center transform scale-90 transition-all duration-500 flex flex-col items-center" id="successContent">
+            <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-5xl mb-6 scale-0 transition-transform duration-500 delay-300 shadow-lg shadow-green-500/20" id="successIcon">
                 <i class="fas fa-check"></i>
             </div>
-            <h3 class="text-3xl font-bold text-charcoal dark:text-white mb-3 translate-y-4 opacity-0 transition-all duration-500 delay-500" id="successTitle">Message Sent</h3>
-            <p class="text-charcoal/60 dark:text-gray-400 mb-8 text-lg translate-y-4 opacity-0 transition-all duration-500 delay-700" id="successText">Thanks for reaching out. We will review your message and reply with the next step.</p>
+            <h3 class="text-3xl font-bold text-charcoal mb-3 translate-y-4 opacity-0 transition-all duration-500 delay-500" id="successTitle">Message Sent</h3>
+            <p class="text-charcoal/60 mb-8 text-lg translate-y-4 opacity-0 transition-all duration-500 delay-700" id="successText">Thanks for reaching out. We will review your message and reply with the next step.</p>
             <button type="button" id="resetFormBtn" class="px-8 py-3 rounded-full bg-tech-blue text-white font-medium hover:bg-orange hover:-translate-y-1 shadow-lg shadow-tech-blue/30 transition-all translate-y-4 opacity-0 duration-500 delay-900">Send Another Message</button>
         </div>
     </div>
@@ -861,7 +1021,7 @@
     <script src="/assets/data/pricing-data.js" defer></script>
     <script src="/assets/data/gallery-data.js" defer></script>
     <script src="/assets/data/portfolio-data.js" defer></script>
-    <script src="/assets/js/portfolio-generator.js" defer></script>
+<script src="/assets/js/portfolio-generator.js" defer></script>
     <script type="module" src="/assets/js/app.js"></script>
 </body>
 

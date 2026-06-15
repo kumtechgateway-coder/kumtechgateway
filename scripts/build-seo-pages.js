@@ -200,7 +200,6 @@ ${relatedMarkup}`);
 function sitemap(blog, portfolio) {
     const staticPages = [
         ['index.html', '/', 'weekly', '1.0'],
-        ['about.html', '/about.html', 'monthly', '0.75'],
         ['services.html', '/services.html', 'weekly', '0.95'],
         ['branding-services.html', '/branding-services.html', 'monthly', '0.9'],
         ['web-design-services.html', '/web-design-services.html', 'monthly', '0.9'],
