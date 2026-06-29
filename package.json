@@ -8,7 +8,8 @@
     "seo:build": "node scripts/build-seo-pages.js",
     "tailwind:build": "tailwindcss -i ./assets/css/tailwind-source.css -o ./assets/css/tailwind.css --minify",
     "tailwind:watch": "tailwindcss -i ./assets/css/tailwind-source.css -o ./assets/css/tailwind.css --watch",
-    "test": "npm run seo:build && node scripts/production-check.js"
+    "test": "npm run seo:build && node scripts/production-check.js",
+    "test:deep": "node --test tests/deep-site.test.cjs"
   },
   "repository": {
     "type": "git",

@@ -26,6 +26,14 @@ let confettiPromise = null;
 let analyticsPromise = null;
 let analyticsSetupComplete = false;
 
+const logger = (() => {
+    const isProd = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
+    const noop = () => {};
+    return isProd
+        ? { log: noop, warn: noop, error: noop }
+        : { log: console.log.bind(console), warn: console.warn.bind(console), error: console.error.bind(console) };
+})();
+
 function shouldReduceNonEssentialEffects() {
     if (typeof window === 'undefined') return true;
 
@@ -332,7 +340,7 @@ const Toast = {
         toast.className = `toast ${type}`;
         toast.innerHTML = `
             <i class="fas ${type === 'error' ? 'fa-exclamation-circle text-red-500' : type === 'success' ? 'fa-check-circle text-green-500' : 'fa-info-circle text-tech-blue'}"></i>
-            <span class="font-medium text-sm">${message}</span>
+            <span class="font-medium text-sm">${escapeHtml(message)}</span>
         `;
         container.appendChild(toast);
         
@@ -364,7 +372,7 @@ const I18n = {
                 this.translations = data;
                 this.apply(lang);
             })
-            .catch(error => console.error('Error loading translations:', error));
+            .catch(error => logger.error('Error loading translations:', error));
     },
     apply(lang) {
         document.documentElement.lang = lang;
@@ -418,7 +426,7 @@ async function loadComponent(placeholderId, url, onLoad) {
 
         if (typeof onLoad === 'function') onLoad();
     } catch (error) {
-        console.error(`Error loading component ${url}:`, error);
+        logger.error(`Error loading component ${url}:`, error);
         delete placeholder.dataset.loading;
         placeholder.innerHTML = `<p class="text-red-500 text-center py-4">Error loading component.</p>`;
     }
@@ -502,7 +510,9 @@ function main() {
         I18n.init();
         setupLazyAnalytics();
         initConversionTracking();
-        initCustomCursor();
+        if (typeof initCustomCursor === 'function') {
+            initCustomCursor();
+        }
         initFloatingButtons();
         initModal();
         initLightbox();
@@ -550,7 +560,7 @@ function renderPricingPlan(plan) {
                     <span class="pricing-card-badge">${escapeHtml(plan.badge)}</span>
                     <h3 class="pricing-card-title font-heading text-tech-blue dark:text-white mt-4">${escapeHtml(plan.name)}</h3>
                 </div>
-                ${plan.featured ? '<span class="pricing-card-flag" aria-label="Featured plan"><i class="fas fa-crown"></i></span>' : ''}
+                ${plan.featured ? '<span class="pricing-card-flag" role="img" aria-label="Featured plan"><i class="fas fa-crown" aria-hidden="true"></i></span>' : ''}
             </div>
             <p class="pricing-card-text text-charcoal/75 dark:text-gray-300 mt-4 min-h-[96px]">${escapeHtml(plan.description)}</p>
             <div class="pricing-card-price-row mt-6">
@@ -758,7 +768,8 @@ function initHeroParticles() {
 function initNavAndState() {
     // Restore State (Scroll + Pagination)
     const stateKey = `appState-${window.location.pathname}`;
-    const savedState = JSON.parse(sessionStorage.getItem(stateKey));
+    let savedState = null;
+    try { savedState = JSON.parse(sessionStorage.getItem(stateKey)); } catch (_) { /* corrupted state — start fresh */ }
     
     if (savedState) {
         if (savedState.currentPage) AppState.filter.currentPage = savedState.currentPage;
@@ -780,8 +791,8 @@ function initNavAndState() {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js')
-                .then(reg => console.log('Service Worker registered'))
-                .catch(err => console.log('Service Worker registration failed: ', err));
+                .then(() => logger.log('Service Worker registered'))
+                .catch(err => logger.error('Service Worker registration failed:', err));
         });    
     }
 }
@@ -1697,7 +1708,7 @@ function initModal() {
      */
     function openModalWithData(project) {
         if (!project || !project.fullData) {
-            console.error('Invalid project data for modal:', project);
+            logger.error('Invalid project data for modal:', project);
             Toast.show('Could not load project details.', 'error');
             return;
         }
@@ -1738,7 +1749,7 @@ function initModal() {
             sliderTrack.style.transform = 'translateX(0)';
             sliderTrack.innerHTML = images.map((img, idx) => `
                 <div class="min-w-full h-full flex items-center justify-center bg-gray-100 dark:bg-slate-800 relative">
-                    <img src="${img}" class="w-full h-full object-cover cursor-zoom-in" alt="${project.title} ${idx + 1}" loading="${idx === 0 ? 'eager' : 'lazy'}">
+                    <img src="${img}" class="w-full h-full object-cover cursor-zoom-in" alt="${escapeHtml(project.title)} ${idx + 1}" loading="${idx === 0 ? 'eager' : 'lazy'}">
                 </div>
             `).join('');
         }
@@ -1877,6 +1888,10 @@ function initLightbox() {
 
     let currentImages = [];
     let currentImageIndex = 0;
+    let lightboxTrigger = null; // element that opened the lightbox — focus returns here on close
+
+    const getFocusableInLightbox = () =>
+        [...lightbox.querySelectorAll('button:not(.hidden), [tabindex="0"]')].filter(el => !el.disabled);
 
     const showImage = (index) => {
         if (currentImages.length === 0) return;
@@ -1905,11 +1920,13 @@ function initLightbox() {
         lightboxImage.src = imgData.highResSrc;
         lightboxImage.alt = imgData.alt;
 
+        lightboxTrigger = document.activeElement;
         lightbox.classList.remove('hidden');
         requestAnimationFrame(() => {
             lightbox.classList.remove('opacity-0');
             lightboxImage.classList.remove('scale-95');
             lightboxImage.classList.add('scale-100');
+            closeLightboxBtn.focus(); // move focus inside modal
         });
         document.body.style.overflow = 'hidden';
         
@@ -1929,6 +1946,7 @@ function initLightbox() {
         setTimeout(() => {
             lightbox.classList.add('hidden');
             lightboxImage.src = '';
+            if (lightboxTrigger) { lightboxTrigger.focus(); lightboxTrigger = null; }
         }, 300);
         document.body.style.overflow = '';
     };
@@ -1940,10 +1958,23 @@ function initLightbox() {
     
         document.addEventListener('keydown', (e) => {
             if (lightbox.classList.contains('hidden')) return;
-            
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') showImage(currentImageIndex - 1);
-            if (e.key === 'ArrowRight') showImage(currentImageIndex + 1);
+
+            if (e.key === 'Escape') { closeLightbox(); return; }
+            if (e.key === 'ArrowLeft') { showImage(currentImageIndex - 1); return; }
+            if (e.key === 'ArrowRight') { showImage(currentImageIndex + 1); return; }
+
+            // Focus trap — keep Tab cycling inside the lightbox
+            if (e.key === 'Tab') {
+                const focusable = getFocusableInLightbox();
+                if (focusable.length === 0) { e.preventDefault(); return; }
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey) {
+                    if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+                } else {
+                    if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+                }
+            }
         });
 
     // Swipe Gesture Support
@@ -2077,7 +2108,15 @@ function initContactForm() {
         if (emailForm && sendBtn) {
             emailForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                
+
+                // Rate-limit: prevent rapid repeat submissions (30-second cooldown)
+                const rateLimitKey = 'contactLastSubmit';
+                const lastSubmit = parseInt(localStorage.getItem(rateLimitKey) || '0', 10);
+                if (Date.now() - lastSubmit < 30_000) {
+                    Toast.show('Please wait a moment before submitting again.', 'error');
+                    return;
+                }
+
                 // Honeypot Check (Spam Prevention)
                 const honeypot = document.getElementById('website_check');
                 if (honeypot && honeypot.value) {
@@ -2088,7 +2127,7 @@ function initContactForm() {
                 const inputs = emailForm.querySelectorAll('input:not(.honeypot), select, textarea');
                 let isValid = true;
                 
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
 
                 inputs.forEach(input => {
                     const isEmailField = input.type === 'email';
@@ -2123,7 +2162,7 @@ function initContactForm() {
                 try {
                     emailjsClient = await getEmailJsService();
                 } catch (error) {
-                    console.error('EmailJS Load Error:', error);
+                    logger.error('EmailJS Load Error:', error);
                     trackEvent('contact_form_submit_error', {
                         category: 'lead',
                         label: 'email_contact_form_load_failure'
@@ -2185,8 +2224,9 @@ function initContactForm() {
                         
                         // Play Success Sound
                         successSound.currentTime = 0;
-                        successSound.play().catch(e => console.warn('Audio playback failed:', e));
+                        successSound.play().catch(e => logger.warn('Audio playback failed:', e));
 
+                        localStorage.setItem(rateLimitKey, String(Date.now()));
                         setTimeout(() => {
                             flyIcon.remove();
                             successModal.classList.add('active');
@@ -2221,7 +2261,7 @@ function initContactForm() {
                     }, 800); // Flight time
                 })
                 .catch((err) => {
-                    console.error('EmailJS Error:', err);
+                    logger.error('EmailJS Error:', err);
                     trackEvent('contact_form_submit_error', {
                         category: 'lead',
                         label: 'email_contact_form'
@@ -2299,7 +2339,7 @@ function initBlogPages() {
                         <span class="bg-tech-blue/10 text-tech-blue dark:bg-brand-gray/20 dark:text-orange text-xs font-semibold px-3 py-1 rounded-full self-start uppercase">
                             ${safeCategory}
                         </span>
-                        <span class="text-[11px] text-charcoal/55 dark:text-gray-400 whitespace-nowrap">${safeReadingTime}</span>
+                        <span class="text-[11px] text-charcoal/75 dark:text-gray-300 whitespace-nowrap">${safeReadingTime}</span>
                     </div>
 
                     <h3 class="mt-3 text-tech-blue dark:text-white font-bold leading-tight text-base portfolio-title transition-colors duration-300 group-hover:text-orange">
@@ -2312,10 +2352,10 @@ function initBlogPages() {
 
                     <div class="flex items-center justify-between gap-3 mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
                         <div class="min-w-0">
-                            <p class="text-[11px] text-charcoal/55 dark:text-gray-400 truncate">
+                            <p class="text-[11px] text-charcoal/75 dark:text-gray-300 truncate">
                                 <i class="far fa-calendar-alt text-orange mr-1"></i>${safeDate}
                             </p>
-                            <p class="text-[11px] text-charcoal/55 dark:text-gray-400 truncate mt-1">
+                            <p class="text-[11px] text-charcoal/75 dark:text-gray-300 truncate mt-1">
                                 <i class="far fa-user text-orange mr-1"></i>${safeAuthor}
                             </p>
                         </div>
@@ -2477,7 +2517,7 @@ function initBlogPages() {
                 renderListing();
             })
             .catch((err) => {
-                console.error('Error loading blog posts:', err);
+                logger.error('Error loading blog posts:', err);
                 blogGrid.innerHTML = '<p class="text-center sm:col-span-2 lg:col-span-4 text-red-500">Failed to load blog posts.</p>';
             });
     }
@@ -2639,7 +2679,7 @@ function initBlogPages() {
                     }
                 })
                 .catch((error) => {
-                    console.error('Error loading blog post:', error);
+                    logger.error('Error loading blog post:', error);
                     postContainer.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold mb-4">Unable to load article</h2><p class="text-charcoal/60 mb-6">Something went wrong while loading this post.</p><a href="/blog.html" class="inline-block px-6 py-3 rounded-full bg-tech-blue text-white font-bold hover:bg-orange transition-colors">Return to Blog</a></div>';
                 });
         } else {
@@ -3002,6 +3042,14 @@ function initReviewForm() {
         e.preventDefault();
         formError?.classList.add('hidden');
 
+        // Rate-limit: 60-second cooldown between review submissions
+        const reviewRateLimitKey = 'reviewLastSubmit';
+        const lastReviewSubmit = parseInt(localStorage.getItem(reviewRateLimitKey) || '0', 10);
+        if (Date.now() - lastReviewSubmit < 60_000) {
+            Toast.show('Please wait before submitting another review.', 'error');
+            return;
+        }
+
         const name    = document.getElementById('review-name').value.trim();
         const company = document.getElementById('review-company').value.trim();
         const review  = textarea.value.trim();
@@ -3038,10 +3086,11 @@ function initReviewForm() {
                 createdAt: serverTimestamp()
             });
 
+            localStorage.setItem(reviewRateLimitKey, String(Date.now()));
             formState.classList.add('hidden');
             successState.classList.remove('hidden');
         } catch (err) {
-            console.error('Review submission error:', err);
+            logger.error('Review submission error:', err);
             if (formError) { formError.textContent = 'Something went wrong. Please try again.'; formError.classList.remove('hidden'); }
             if (submitBtn) submitBtn.disabled = false;
             if (submitIcon) submitIcon.className = 'fas fa-paper-plane';

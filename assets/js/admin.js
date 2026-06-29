@@ -257,7 +257,7 @@ document.getElementById('reviewsList').addEventListener('click', async (e) => {
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 function esc(str) {
-    return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
 function authError(code) {
