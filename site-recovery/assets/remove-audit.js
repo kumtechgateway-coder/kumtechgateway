@@ -31,8 +31,9 @@
     });
   }
 
-  cleanAuditLinks();
-  const observer = new MutationObserver(cleanAuditLinks);
-  observer.observe(document.documentElement, {childList: true, subtree: true});
-  setTimeout(() => observer.disconnect(), 5000);
+  let attempts = 0;
+  const timer = setInterval(() => {
+    cleanAuditLinks();
+    if (++attempts > 30) clearInterval(timer);
+  }, 150);
 })();
