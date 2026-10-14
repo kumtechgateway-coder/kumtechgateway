@@ -78,7 +78,12 @@
       },
       {
         "source": "/audit.html",
-        "destination": "/audit",
+        "destination": "/contact",
+        "type": 301
+      },
+      {
+        "source": "/audit",
+        "destination": "/contact",
         "type": 301
       },
       {

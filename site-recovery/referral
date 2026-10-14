@@ -821,7 +821,7 @@
         <nav class="main-nav">
           <a href="/">Home</a><a href="/about">About</a
           ><a href="/services">Services</a
-          ><a href="/audit">Business Presence Audit</a
+          ><a href="/contact">Contact Kumtech</a
           ><a href="/contact">Contact</a>
         </nav>
         <a class="nav-cta" href="/contact">Let’s Talk</a>
@@ -1284,7 +1284,7 @@
         <div>
           <h4>Explore</h4>
           <a href="/about">About</a><a href="/services">Services</a
-          ><a href="/audit">Business Presence Audit</a>
+          ><a href="/contact">Contact Kumtech</a>
         </div>
         <div>
           <h4>Referral</h4>

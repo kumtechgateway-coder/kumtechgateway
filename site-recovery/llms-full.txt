@@ -21,10 +21,6 @@ Kumtech Gateway primarily serves Yaoundé and businesses across Cameroon. It is 
 
 Final prices depend on scope, complexity, pages, functionality, content and integrations. The normal payment structure is 50% upfront and 50% on completion.
 
-## Business Presence Audit
-
-The free Business Presence Audit is a five-question self-assessment covering identity, presence, visibility, communication, and trust and conversion. It takes about two minutes, gives an immediate score and does not require personal details before showing the result.
-
 ## Working process
 
 The normal project path is: clarify the business need and scope; confirm the contract, invoice and deposit; complete onboarding and share materials; build, review and refine the agreed solution; approve the result and complete the final payment before deliverables are released.
@@ -42,7 +38,7 @@ Omnis and KUMEXA are Kumtech ventures still in development. They must not be des
 ## Direct answers
 
 - Kumtech Gateway can improve an existing brand or website; a business does not always need to start over.
-- A client does not need to know the correct service before making contact. The Business Presence Audit or an initial conversation can identify the right entry point.
+- A client does not need to know the correct service before making contact. An initial conversation can identify the right entry point.
 - Website projects start from 100,000 XAF, but the final price depends on the agreed requirements.
 - Revisions caused by Kumtech Gateway correcting its own mistake are not treated as client-requested revisions.
 
