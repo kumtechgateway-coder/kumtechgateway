@@ -1,4 +1,4 @@
-section.audit{display:none!important}.contact-grid.kg-audit-removed{grid-template-columns:repeat(2,1fr)}@media(max-width:1000px){.contact-grid.kg-audit-removed{grid-template-columns:1fr}}
+section.audit,a[href="/audit"],a[href="/audit/"],a[href="/audit.html"],.page-cta:has(a[href="/audit"]){display:none!important}.contact-grid:has(>a[href="/audit"]){grid-template-columns:repeat(2,1fr)}@media(max-width:1000px){.contact-grid:has(>a[href="/audit"]){grid-template-columns:1fr}}
 .reveal-section,.reveal-item{opacity:1!important;transform:none!important;transition:none!important}
 .kg-projects{padding:96px 5vw;background:#f6f7fb;color:#141b3d;font-family:Montserrat,sans-serif}
 .kg-projects__head{max-width:1180px;margin:0 auto 38px;display:flex;justify-content:space-between;align-items:end;gap:28px}
