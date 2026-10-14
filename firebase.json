@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "kumtechgateway-237",
     "public": "site-recovery",
     "ignore": [
       "firebase.json",
