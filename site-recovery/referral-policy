@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>10% Referral Commission Policy | Kumtech Gateway</title>
+    <meta
+      name="description"
+      content="Official Kumtech Gateway 10% Referral Commission Policy: eligibility, calculation, exclusions, payout, records and integrity rules."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#1c2553" />
+    <link rel="canonical" href="https://kumtechgateway.com/referral-policy" />
+    <link rel="icon" href="/brand/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-30MVBTWFKJ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-30MVBTWFKJ");
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://kumtechgateway.com/referral-policy#webpage",
+            "name": "10% Referral Commission Policy | Kumtech Gateway",
+            "url": "https://kumtechgateway.com/referral-policy",
+            "about": { "@id": "https://kumtechgateway.com/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": ["Organization", "ProfessionalService"],
+            "@id": "https://kumtechgateway.com/#organization",
+            "name": "Kumtech Gateway",
+            "url": "https://kumtechgateway.com/",
+            "telephone": "+237673694431",
+            "email": "kumtechgateway@gmail.com",
+            "areaServed": [
+              { "@type": "City", "name": "Yaoundé" },
+              { "@type": "Country", "name": "Cameroon" }
+            ],
+            "sameAs": ["https://cm.linkedin.com/company/kumtech-gateway"]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        --navy: #1c2553;
+        --orange: #f17025;
+        --ink: #202331;
+        --muted: #667085;
+        --soft: #f6f7fb;
+        --line: #e7e9f0;
+        --white: #fff;
+        --green: #15803d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: Montserrat, Arial, sans-serif;
+        color: var(--ink);
+        background: #fff;
+        line-height: 1.62;
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        width: min(1180px, calc(100% - 40px));
+        margin: auto;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 80;
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(14px);
+      }
+      .nav {
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .brand img {
+        width: 182px;
+        height: auto;
+        display: block;
+      }
+      .main-nav {
+        display: flex;
+        gap: 22px;
+        margin-left: auto;
+        align-items: center;
+      }
+      .main-nav a,
+      .site-footer a {
+        text-decoration: none;
+      }
+      .main-nav a {
+        font-size: 13px;
+        font-weight: 600;
+        color: #34384a;
+      }
+      .main-nav a:hover {
+        color: var(--orange);
+      }
+      .nav-cta,
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 13px 20px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font:
+          700 14px Montserrat,
+          Arial,
+          sans-serif;
+      }
+      .nav-cta,
+      .btn.primary {
+        background: var(--navy);
+        color: #fff;
+      }
+      .nav-cta:hover,
+      .btn.primary:hover {
+        background: var(--orange);
+      }
+      .btn.orange {
+        background: var(--orange);
+        color: #fff;
+      }
+      .btn.orange:hover {
+        background: #d95e17;
+      }
+      .btn.secondary {
+        border-color: var(--navy);
+        color: var(--navy);
+        background: #fff;
+      }
+      .menu-btn {
+        display: none;
+        border: 0;
+        background: none;
+        font-size: 25px;
+        color: var(--navy);
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--navy);
+      }
+      .eyebrow:before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--orange);
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.12;
+      }
+      h1 {
+        font-size: clamp(42px, 6vw, 76px);
+        letter-spacing: -0.045em;
+        margin: 18px 0 22px;
+        color: var(--navy);
+      }
+      h2 {
+        font-size: clamp(30px, 4vw, 46px);
+        letter-spacing: -0.025em;
+        color: var(--navy);
+        margin: 0 0 14px;
+      }
+      .lead {
+        font-size: clamp(18px, 2vw, 22px);
+        color: var(--muted);
+        max-width: 760px;
+      }
+      .section {
+        padding: 78px 0;
+      }
+      .section.alt {
+        background: var(--soft);
+      }
+      .section-intro {
+        max-width: 780px;
+        color: var(--muted);
+        font-size: 17px;
+      }
+      .section-head {
+        margin-bottom: 34px;
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: #fff;
+        padding: 26px;
+        box-shadow: 0 10px 30px rgba(28, 37, 83, 0.04);
+      }
+      .card h3 {
+        color: var(--navy);
+        margin: 10px 0 8px;
+        font-size: 20px;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .site-footer {
+        background: #161b3f;
+        color: #fff;
+        padding: 60px 0 22px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.5fr repeat(3, 1fr);
+        gap: 42px;
+      }
+      .footer-logo {
+        width: 190px;
+        filter: brightness(0) invert(1);
+      }
+      .site-footer p {
+        color: rgba(255, 255, 255, 0.72);
+        max-width: 380px;
+      }
+      .site-footer h4 {
+        margin: 0 0 16px;
+        color: #fff;
+      }
+      .site-footer a,
+      .site-footer span {
+        display: block;
+        color: rgba(255, 255, 255, 0.72);
+        margin: 9px 0;
+        font-size: 14px;
+      }
+      .site-footer a:hover {
+        color: #fff;
+      }
+      .footer-promise {
+        display: inline-block !important;
+        color: #ffb58a !important;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        margin-top: 42px;
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .footer-bottom span {
+        margin: 0;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translateX(-50%) translateY(20px);
+        opacity: 0;
+        background: var(--navy);
+        color: #fff;
+        padding: 13px 18px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 13px;
+        z-index: 100;
+        transition: 0.25s;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      @media (max-width: 980px) {
+        .main-nav,
+        .nav > .nav-cta {
+          display: none;
+        }
+        .menu-btn {
+          display: block;
+          margin-left: auto;
+        }
+        .main-nav.open {
+          display: flex;
+          position: absolute;
+          left: 20px;
+          right: 20px;
+          top: 72px;
+          background: #fff;
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          padding: 18px;
+          flex-direction: column;
+          align-items: flex-start;
+          box-shadow: 0 18px 50px rgba(28, 37, 83, 0.14);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .wrap {
+          width: min(100% - 28px, 1180px);
+        }
+        .section {
+          padding: 60px 0;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-bottom {
+          flex-direction: column;
+        }
+        .brand img {
+          width: 160px;
+        }
+        h1 {
+          font-size: 42px;
+        }
+      }
+
+      .policy-hero {
+        padding: 74px 0;
+        background: linear-gradient(135deg, #f7f8fc, #fff 60%, #fff0e7);
+      }
+      .policy-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 25px;
+      }
+      .pill {
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 9px 13px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .summary-box {
+        background: var(--navy);
+        color: #fff;
+        border-radius: 28px;
+        padding: 30px;
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 22px;
+        align-items: center;
+      }
+      .summary-10 {
+        font-size: 70px;
+        font-weight: 800;
+        line-height: 0.9;
+        color: #fff;
+      }
+      .summary-10 span {
+        font-size: 30px;
+        color: #ffc6a6;
+      }
+      .summary-box p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.83);
+      }
+      .policy-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 34px;
+        align-items: start;
+      }
+      .toc {
+        position: sticky;
+        top: 105px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: #fff;
+        padding: 20px;
+      }
+      .toc h3 {
+        margin: 0 0 14px;
+        color: var(--navy);
+      }
+      .toc a {
+        display: block;
+        text-decoration: none;
+        font-size: 12px;
+        color: #606579;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f1f5;
+      }
+      .toc a:hover {
+        color: var(--orange);
+      }
+      .policy-content {
+        display: grid;
+        gap: 16px;
+      }
+      .policy-card {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 28px;
+        background: #fff;
+        display: grid;
+        grid-template-columns: 52px 1fr;
+        gap: 18px;
+      }
+      .policy-num {
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: #fff0e7;
+        color: var(--orange);
+        font-weight: 800;
+      }
+      .policy-card h2 {
+        font-size: 25px;
+        margin: 2px 0 12px;
+      }
+      .policy-card p {
+        color: #545a6b;
+        margin: 0 0 13px;
+      }
+      .policy-card p:last-child {
+        margin-bottom: 0;
+      }
+      .example-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 22px;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+      }
+      .example-table th,
+      .example-table td {
+        padding: 14px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+      .example-table th {
+        background: #f7f8fb;
+        color: var(--navy);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .example-table tr:last-child td {
+        border-bottom: 0;
+      }
+      .policy-note {
+        border-left: 4px solid var(--orange);
+        background: #fff5ee;
+        padding: 18px 20px;
+        border-radius: 0 16px 16px 0;
+        margin-top: 24px;
+        color: #51483f;
+      }
+      .back-box {
+        margin-top: 30px;
+        border-radius: 26px;
+        background: linear-gradient(135deg, var(--navy), #111735);
+        padding: 34px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        gap: 25px;
+        align-items: center;
+      }
+      .back-box h2 {
+        color: #fff;
+        margin: 0 0 8px;
+      }
+      .back-box p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.76);
+      }
+      @media (max-width: 900px) {
+        .policy-layout {
+          grid-template-columns: 1fr;
+        }
+        .toc {
+          position: static;
+        }
+      }
+      @media (max-width: 640px) {
+        .summary-box {
+          grid-template-columns: 1fr;
+        }
+        .policy-card {
+          grid-template-columns: 1fr;
+        }
+        .back-box {
+          display: block;
+        }
+        .back-box .btn {
+          margin-top: 20px;
+          width: 100%;
+        }
+        .example-table th,
+        .example-table td {
+          padding: 11px 9px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  <link rel="stylesheet" href="/assets/projects.css"></head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="/" aria-label="Kumtech Gateway home"
+          ><img
+            src="/brand/kumtech-horizontal-logo.png"
+            alt="Kumtech Gateway" /></a
+        ><button
+          class="menu-btn"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+        <nav class="main-nav">
+          <a href="/">Home</a><a href="/about">About</a
+          ><a href="/services">Services</a
+          ><a href="/audit">Business Presence Audit</a
+          ><a href="/contact">Contact</a>
+        </nav>
+        <a class="nav-cta" href="/contact">Let’s Talk</a>
+      </div>
+    </header>
+    <main>
+      <section class="policy-hero">
+        <div class="wrap">
+          <span class="eyebrow">Official Policy</span>
+          <h1>10% Referral<br />Commission Policy</h1>
+          <p class="lead">
+            The complete rules governing Kumtech Gateway's permanent referral
+            commission program.
+          </p>
+          <div class="policy-meta">
+            <span class="pill">Version 1.0</span
+            ><span class="pill">Effective 2 September 2026</span
+            ><span class="pill">Permanent Referral Policy</span>
+          </div>
+          <div class="summary-box">
+            <div class="summary-10">10<span>%</span></div>
+            <p>
+              <strong style="color: #fff">Policy summary:</strong> Anyone may
+              refer a new client to Kumtech Gateway. When the referred client
+              qualifies under this policy and successfully pays Kumtech for an
+              eligible service, the referrer earns a commission equal to 10% of
+              the qualifying Kumtech service fee.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section alt">
+        <div class="wrap policy-layout">
+          <aside class="toc">
+            <h3>On this page</h3>
+            <a href="#policy-1">1. Purpose</a
+            ><a href="#policy-2">2. Who Can Refer</a
+            ><a href="#policy-3">3. What Counts as a Valid Referral</a
+            ><a href="#policy-4">4. Commission Rate and Calculation</a
+            ><a href="#policy-5">5. Amounts Excluded from Commission</a
+            ><a href="#policy-6">6. When Commission Is Earned and Paid</a
+            ><a href="#policy-7">7. Referral Identification and Records</a
+            ><a href="#policy-8"
+              >8. Client Relationship and Project Acceptance</a
+            ><a href="#policy-9">9. Integrity and Misuse</a
+            ><a href="#policy-10">10. Policy Changes</a
+            ><a href="#examples">Illustrative examples</a
+            ><a href="/referral">← Back to Referral Program</a>
+          </aside>
+          <div class="policy-content">
+            <article id="policy-1" class="policy-card">
+              <div class="policy-num">01</div>
+              <div>
+                <h2>1. Purpose</h2>
+                <p>
+                  This policy establishes Kumtech Gateway’s permanent referral
+                  commission programme. Its purpose is to reward people who
+                  introduce genuine new clients while keeping referral payments
+                  transparent, sustainable, and tied to revenue actually
+                  received by Kumtech.
+                </p>
+              </div>
+            </article>
+            <article id="policy-2" class="policy-card">
+              <div class="policy-num">02</div>
+              <div>
+                <h2>2. Who Can Refer</h2>
+                <p>
+                  The referral programme is open to clients, former clients,
+                  partners, friends, community members, promoters, and other
+                  members of the public.
+                </p>
+                <p>
+                  A person may not claim commission for referring themselves or
+                  for a project in which they are the paying client or direct
+                  project owner.
+                </p>
+                <p>
+                  Kumtech may refuse referrals that appear fraudulent,
+                  misleading, abusive, or otherwise unsuitable.
+                </p>
+              </div>
+            </article>
+            <article id="policy-3" class="policy-card">
+              <div class="policy-num">03</div>
+              <div>
+                <h2>3. What Counts as a Valid Referral</h2>
+                <p>
+                  The referred client must be new to Kumtech Gateway and must
+                  not already be in active discussion, negotiation, quotation,
+                  onboarding, or an existing client relationship with Kumtech.
+                </p>
+                <p>
+                  The referrer must be identified when the lead first contacts
+                  Kumtech, or before Kumtech begins active sales discussions
+                  with that lead.
+                </p>
+                <p>
+                  Referral claims cannot normally be added retroactively after a
+                  client is already in Kumtech’s pipeline.
+                </p>
+              </div>
+            </article>
+            <article id="policy-4" class="policy-card">
+              <div class="policy-num">04</div>
+              <div>
+                <h2>4. Commission Rate and Calculation</h2>
+                <p>
+                  Commission rate: 10% of the qualifying Kumtech service fee
+                  actually paid by the referred client.
+                </p>
+                <p>
+                  If Kumtech gives the client a discount, the commission is
+                  calculated on the final discounted service fee actually paid.
+                </p>
+                <p>
+                  For one-off projects, the 10% applies to the eligible project
+                  service fee received by Kumtech.
+                </p>
+                <p>
+                  For recurring services, including Social Media Management, the
+                  10% applies to the first paid month only unless a separate
+                  written referral arrangement states otherwise.
+                </p>
+              </div>
+            </article>
+            <article id="policy-5" class="policy-card">
+              <div class="policy-num">05</div>
+              <div>
+                <h2>5. Amounts Excluded from Commission</h2>
+                <p>
+                  Referral commission is calculated only on Kumtech’s eligible
+                  service fee. Unless expressly included in writing, the
+                  following are excluded:
+                </p>
+                <p>
+                  Domain names, hosting, cloud infrastructure, software
+                  subscriptions, licences, plugins, and other third-party
+                  technology costs.
+                </p>
+                <p>
+                  Printing, production, delivery, advertising spend, media
+                  budgets, photography or talent fees paid to third parties, and
+                  other pass-through expenses.
+                </p>
+                <p>
+                  Taxes, statutory charges, refunds, credits, reimbursements,
+                  and amounts Kumtech collects solely on behalf of another
+                  provider.
+                </p>
+              </div>
+            </article>
+            <article id="policy-6" class="policy-card">
+              <div class="policy-num">06</div>
+              <div>
+                <h2>6. When Commission Is Earned and Paid</h2>
+                <p>
+                  Commission is earned only after Kumtech has successfully
+                  received the qualifying client payment.
+                </p>
+                <p>
+                  No commission is payable on unpaid, cancelled, refunded,
+                  fraudulent, reversed, or disputed amounts.
+                </p>
+                <p>
+                  Where a project is paid in instalments, Kumtech may calculate
+                  and release the referral commission after the qualifying
+                  project payment has been fully received, unless Kumtech
+                  confirms another arrangement in writing.
+                </p>
+                <p>
+                  Once eligibility is confirmed and the qualifying payment has
+                  cleared, Kumtech will normally process the referral payment
+                  within 7 business days.
+                </p>
+              </div>
+            </article>
+            <article id="policy-7" class="policy-card">
+              <div class="policy-num">07</div>
+              <div>
+                <h2>7. Referral Identification and Records</h2>
+                <p>
+                  The referrer should provide enough information for Kumtech to
+                  match the referral to the correct client, such as the client’s
+                  name, business name, phone number, or email address.
+                </p>
+                <p>
+                  Kumtech’s internal client and referral records will be used to
+                  determine whether a referral was received first and whether
+                  the client was already in the sales pipeline.
+                </p>
+                <p>
+                  If two people claim the same referral, Kumtech will review the
+                  available records and recognise the person whose qualifying
+                  referral can be reasonably verified first.
+                </p>
+              </div>
+            </article>
+            <article id="policy-8" class="policy-card">
+              <div class="policy-num">08</div>
+              <div>
+                <h2>8. Client Relationship and Project Acceptance</h2>
+                <p>
+                  A referral does not guarantee that Kumtech will accept the
+                  client or project.
+                </p>
+                <p>
+                  All referred clients remain subject to Kumtech’s normal
+                  discovery, scope, pricing, contract, payment, and
+                  project-acceptance processes.
+                </p>
+                <p>
+                  Referrers are not authorised to promise prices, discounts,
+                  timelines, deliverables, or contractual terms on behalf of
+                  Kumtech unless Kumtech has expressly authorised them to do so.
+                </p>
+              </div>
+            </article>
+            <article id="policy-9" class="policy-card">
+              <div class="policy-num">09</div>
+              <div>
+                <h2>9. Integrity and Misuse</h2>
+                <p>
+                  Referrers must represent Kumtech truthfully and must not use
+                  misleading claims, spam, impersonation, fake leads, or
+                  pressure tactics.
+                </p>
+                <p>
+                  Kumtech may withhold or cancel a commission where there is
+                  reasonable evidence of fraud, manipulation, duplicate claims,
+                  misrepresentation, or abuse of the programme.
+                </p>
+              </div>
+            </article>
+            <article id="policy-10" class="policy-card">
+              <div class="policy-num">10</div>
+              <div>
+                <h2>10. Policy Changes</h2>
+                <p>
+                  This is a permanent Kumtech Gateway policy, but Kumtech may
+                  revise its administrative rules when necessary to protect the
+                  programme, comply with applicable requirements, or improve
+                  operations. Any material change to the 10% commission
+                  structure will apply prospectively and should be documented in
+                  a new policy version.
+                </p>
+              </div>
+            </article>
+            <article id="examples" class="policy-card">
+              <div class="policy-num">%</div>
+              <div>
+                <h2>Illustrative Examples</h2>
+                <p>
+                  These examples show the approved 10% calculation on qualifying
+                  service fees paid.
+                </p>
+                <table class="example-table">
+                  <thead>
+                    <tr>
+                      <th>Qualifying service fee paid</th>
+                      <th>Commission rate</th>
+                      <th>Referral commission</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>75,000 XAF</td>
+                      <td>10%</td>
+                      <td><strong>7,500 XAF</strong></td>
+                    </tr>
+                    <tr>
+                      <td>150,000 XAF</td>
+                      <td>10%</td>
+                      <td><strong>15,000 XAF</strong></td>
+                    </tr>
+                    <tr>
+                      <td>300,000 XAF</td>
+                      <td>10%</td>
+                      <td><strong>30,000 XAF</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="policy-note">
+                  Referral commission is calculated only on Kumtech’s eligible
+                  service fee. Excluded third-party or pass-through costs do not
+                  increase the commission base.
+                </div>
+              </div>
+            </article>
+            <div class="back-box">
+              <div>
+                <h2>Ready to make a referral?</h2>
+                <p>
+                  Return to the referral page to submit a genuine new-client
+                  introduction.
+                </p>
+              </div>
+              <a class="btn orange" href="/referral#start-referral"
+                >Start a Referral</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          <img
+            class="footer-logo"
+            src="/brand/kumtech-horizontal-logo.png"
+            alt="Kumtech Gateway"
+          />
+          <p>
+            Kumtech Gateway helps businesses build professional brands, websites
+            and digital presence systems that earn trust.
+          </p>
+          <div class="footer-promise">Built To Trust</div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="/about">About</a><a href="/services">Services</a
+          ><a href="/audit">Business Presence Audit</a>
+        </div>
+        <div>
+          <h4>Referral</h4>
+          <a href="/referral">Referral Program</a
+          ><a href="/referral-policy">Referral Policy</a
+          ><a href="/contact">Contact Kumtech</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="tel:+237673694431">+237 673 694 431</a
+          ><a href="https://wa.me/237673694431" target="_blank" rel="noopener"
+            >WhatsApp</a
+          ><a href="mailto:kumtechgateway@gmail.com">kumtechgateway@gmail.com</a
+          ><span>Yaounde, Cameroon</span>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© 2026 Kumtech Gateway. All rights reserved.</span
+        ><span>Built Right.</span>
+      </div>
+    </footer>
+    <script>
+      const mb = document.querySelector(".menu-btn"),
+        mn = document.querySelector(".main-nav");
+      if (mb && mn) {
+        mb.addEventListener("click", () => {
+          mn.classList.toggle("open");
+          mb.setAttribute(
+            "aria-expanded",
+            mn.classList.contains("open") ? "true" : "false",
+          );
+        });
+      }
+    </script>
+  <script defer src="/assets/projects-module.js"></script></body>
+</html>

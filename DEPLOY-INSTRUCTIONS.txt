@@ -1,0 +1,12 @@
+KUMTECH GATEWAY — PROJECTS DEPLOYMENT
+
+1. Extract this ZIP file.
+2. Double-click Deploy-Kumtech.cmd.
+3. Complete the Google/Firebase sign-in window if prompted.
+4. Keep the command window open until it says “Deployment complete”.
+
+This update adds the homepage Selected Projects section, the Projects page,
+project imagery, navigation, SEO schema, sitemap and AI-search references.
+
+The package targets only Firebase Hosting project kumtechgateway-237.
+It does not change Firestore, Authentication, Analytics, billing, or email.

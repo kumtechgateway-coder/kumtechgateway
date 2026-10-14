@@ -1,0 +1,1362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>10% Referral Program | Kumtech Gateway</title>
+    <meta
+      name="description"
+      content="Refer a genuine new client to Kumtech Gateway and earn 10% commission on the qualifying Kumtech service fee they pay."
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content="#1c2553" />
+    <link rel="canonical" href="https://kumtechgateway.com/referral" />
+    <link rel="icon" href="/brand/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-30MVBTWFKJ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-30MVBTWFKJ");
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kumtech Gateway" />
+    <meta
+      property="og:title"
+      content="Refer a Client. Earn 10% | Kumtech Gateway"
+    />
+    <meta
+      property="og:description"
+      content="Kumtech Gateway's permanent referral program rewards genuine new-client introductions with 10% commission on qualifying service fees."
+    />
+    <meta property="og:url" content="https://kumtechgateway.com/referral" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://kumtechgateway.com/referral#webpage",
+            "name": "Kumtech Gateway 10% Referral Program",
+            "url": "https://kumtechgateway.com/referral",
+            "about": { "@id": "https://kumtechgateway.com/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": ["Organization", "ProfessionalService"],
+            "@id": "https://kumtechgateway.com/#organization",
+            "name": "Kumtech Gateway",
+            "url": "https://kumtechgateway.com/",
+            "telephone": "+237673694431",
+            "email": "kumtechgateway@gmail.com",
+            "areaServed": [
+              { "@type": "City", "name": "Yaoundé" },
+              { "@type": "Country", "name": "Cameroon" }
+            ],
+            "sameAs": ["https://cm.linkedin.com/company/kumtech-gateway"]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        --navy: #1c2553;
+        --orange: #f17025;
+        --ink: #202331;
+        --muted: #667085;
+        --soft: #f6f7fb;
+        --line: #e7e9f0;
+        --white: #fff;
+        --green: #15803d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: Montserrat, Arial, sans-serif;
+        color: var(--ink);
+        background: #fff;
+        line-height: 1.62;
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        width: min(1180px, calc(100% - 40px));
+        margin: auto;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 80;
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(14px);
+      }
+      .nav {
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .brand img {
+        width: 182px;
+        height: auto;
+        display: block;
+      }
+      .main-nav {
+        display: flex;
+        gap: 22px;
+        margin-left: auto;
+        align-items: center;
+      }
+      .main-nav a,
+      .site-footer a {
+        text-decoration: none;
+      }
+      .main-nav a {
+        font-size: 13px;
+        font-weight: 600;
+        color: #34384a;
+      }
+      .main-nav a:hover {
+        color: var(--orange);
+      }
+      .nav-cta,
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 13px 20px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font:
+          700 14px Montserrat,
+          Arial,
+          sans-serif;
+      }
+      .nav-cta,
+      .btn.primary {
+        background: var(--navy);
+        color: #fff;
+      }
+      .nav-cta:hover,
+      .btn.primary:hover {
+        background: var(--orange);
+      }
+      .btn.orange {
+        background: var(--orange);
+        color: #fff;
+      }
+      .btn.orange:hover {
+        background: #d95e17;
+      }
+      .btn.secondary {
+        border-color: var(--navy);
+        color: var(--navy);
+        background: #fff;
+      }
+      .menu-btn {
+        display: none;
+        border: 0;
+        background: none;
+        font-size: 25px;
+        color: var(--navy);
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--navy);
+      }
+      .eyebrow:before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--orange);
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.12;
+      }
+      h1 {
+        font-size: clamp(42px, 6vw, 76px);
+        letter-spacing: -0.045em;
+        margin: 18px 0 22px;
+        color: var(--navy);
+      }
+      h2 {
+        font-size: clamp(30px, 4vw, 46px);
+        letter-spacing: -0.025em;
+        color: var(--navy);
+        margin: 0 0 14px;
+      }
+      .lead {
+        font-size: clamp(18px, 2vw, 22px);
+        color: var(--muted);
+        max-width: 760px;
+      }
+      .section {
+        padding: 78px 0;
+      }
+      .section.alt {
+        background: var(--soft);
+      }
+      .section-intro {
+        max-width: 780px;
+        color: var(--muted);
+        font-size: 17px;
+      }
+      .section-head {
+        margin-bottom: 34px;
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: #fff;
+        padding: 26px;
+        box-shadow: 0 10px 30px rgba(28, 37, 83, 0.04);
+      }
+      .card h3 {
+        color: var(--navy);
+        margin: 10px 0 8px;
+        font-size: 20px;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .site-footer {
+        background: #161b3f;
+        color: #fff;
+        padding: 60px 0 22px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.5fr repeat(3, 1fr);
+        gap: 42px;
+      }
+      .footer-logo {
+        width: 190px;
+        filter: brightness(0) invert(1);
+      }
+      .site-footer p {
+        color: rgba(255, 255, 255, 0.72);
+        max-width: 380px;
+      }
+      .site-footer h4 {
+        margin: 0 0 16px;
+        color: #fff;
+      }
+      .site-footer a,
+      .site-footer span {
+        display: block;
+        color: rgba(255, 255, 255, 0.72);
+        margin: 9px 0;
+        font-size: 14px;
+      }
+      .site-footer a:hover {
+        color: #fff;
+      }
+      .footer-promise {
+        display: inline-block !important;
+        color: #ffb58a !important;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        margin-top: 42px;
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .footer-bottom span {
+        margin: 0;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translateX(-50%) translateY(20px);
+        opacity: 0;
+        background: var(--navy);
+        color: #fff;
+        padding: 13px 18px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 13px;
+        z-index: 100;
+        transition: 0.25s;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      @media (max-width: 980px) {
+        .main-nav,
+        .nav > .nav-cta {
+          display: none;
+        }
+        .menu-btn {
+          display: block;
+          margin-left: auto;
+        }
+        .main-nav.open {
+          display: flex;
+          position: absolute;
+          left: 20px;
+          right: 20px;
+          top: 72px;
+          background: #fff;
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          padding: 18px;
+          flex-direction: column;
+          align-items: flex-start;
+          box-shadow: 0 18px 50px rgba(28, 37, 83, 0.14);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .wrap {
+          width: min(100% - 28px, 1180px);
+        }
+        .section {
+          padding: 60px 0;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-bottom {
+          flex-direction: column;
+        }
+        .brand img {
+          width: 160px;
+        }
+        h1 {
+          font-size: 42px;
+        }
+      }
+
+      .hero {
+        padding: 84px 0 74px;
+        background:
+          radial-gradient(
+            circle at 85% 20%,
+            rgba(241, 112, 37, 0.16),
+            transparent 31%
+          ),
+          linear-gradient(135deg, #f7f8fc 0%, #fff 56%, #fff3ea 100%);
+        overflow: hidden;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 52px;
+        align-items: center;
+      }
+      .hero h1 span {
+        color: var(--orange);
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 13px;
+        margin-top: 30px;
+      }
+      .hero-note {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        margin-top: 22px;
+        color: #667085;
+        font-size: 13px;
+        max-width: 680px;
+      }
+      .hero-note b {
+        color: var(--navy);
+      }
+      .commission-panel {
+        position: relative;
+        border-radius: 32px;
+        background: var(--navy);
+        padding: 34px;
+        color: #fff;
+        box-shadow: 0 30px 75px rgba(28, 37, 83, 0.25);
+        overflow: hidden;
+      }
+      .commission-panel:before {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: var(--orange);
+        right: -90px;
+        top: -110px;
+        opacity: 0.9;
+      }
+      .commission-kicker {
+        position: relative;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 11px;
+        font-weight: 800;
+        color: #ffc6a6;
+      }
+      .big10 {
+        position: relative;
+        font-size: clamp(88px, 12vw, 150px);
+        font-weight: 800;
+        letter-spacing: -0.07em;
+        line-height: 0.85;
+        margin: 28px 0 16px;
+      }
+      .big10 span {
+        font-size: 0.36em;
+        color: #ffc6a6;
+        vertical-align: top;
+        margin-left: 4px;
+      }
+      .commission-panel p {
+        position: relative;
+        color: rgba(255, 255, 255, 0.82);
+        margin: 0 0 22px;
+      }
+      .formula {
+        position: relative;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 18px;
+        padding: 16px;
+        font-size: 13px;
+      }
+      .formula strong {
+        display: block;
+        color: #fff;
+        font-size: 16px;
+        margin-top: 5px;
+      }
+      .trust-strip {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: #fff;
+      }
+      .trust-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .trust-item {
+        padding: 20px 22px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        border-right: 1px solid var(--line);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .trust-item:last-child {
+        border-right: 0;
+      }
+      .tick {
+        display: inline-grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #fff2e9;
+        color: var(--orange);
+        font-weight: 800;
+        flex: 0 0 auto;
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .step-num {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: var(--orange);
+      }
+      .who-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        align-items: start;
+      }
+      .audience-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .audience {
+        padding: 17px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: #fff;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .rule-box {
+        background: var(--navy);
+        color: #fff;
+        border-radius: 26px;
+        padding: 30px;
+      }
+      .rule-box h3 {
+        margin-top: 0;
+        font-size: 25px;
+      }
+      .rule-box p,
+      .rule-box li {
+        color: rgba(255, 255, 255, 0.78);
+      }
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 13px;
+      }
+      .service {
+        padding: 22px 17px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: #fff;
+        font-weight: 800;
+        color: var(--navy);
+        min-height: 110px;
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+      }
+      .service:before {
+        content: "✓";
+        position: absolute;
+        top: 16px;
+        left: 17px;
+        color: var(--orange);
+        font-size: 18px;
+      }
+      .examples {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .example {
+        border-radius: 24px;
+        padding: 26px;
+        background: var(--navy);
+        color: #fff;
+      }
+      .example .amount {
+        font-size: 28px;
+        font-weight: 800;
+      }
+      .example .arrow {
+        color: #ffc6a6;
+        font-size: 13px;
+        margin: 6px 0;
+      }
+      .example .earn {
+        font-size: 24px;
+        font-weight: 800;
+        color: #fff;
+      }
+      .example small {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .eligibility {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+      .checklist {
+        display: grid;
+        gap: 12px;
+      }
+      .checkitem {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        border-bottom: 1px solid var(--line);
+        padding: 0 0 13px;
+      }
+      .checkitem b {
+        color: var(--navy);
+      }
+      .highlight {
+        border-radius: 26px;
+        background: #fff3eb;
+        border: 1px solid #ffd8c1;
+        padding: 28px;
+      }
+      .highlight strong {
+        color: var(--navy);
+      }
+      .form-shell {
+        display: grid;
+        grid-template-columns: 0.72fr 1.28fr;
+        gap: 28px;
+        align-items: start;
+      }
+      .form-copy {
+        position: sticky;
+        top: 108px;
+      }
+      .form-card {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 30px;
+        background: #fff;
+        box-shadow: 0 24px 60px rgba(28, 37, 83, 0.08);
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .field.full {
+        grid-column: 1/-1;
+      }
+      label {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--navy);
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid #d9dde7;
+        border-radius: 13px;
+        padding: 13px 14px;
+        font:
+          500 14px Montserrat,
+          Arial,
+          sans-serif;
+        color: var(--ink);
+        outline: none;
+        background: #fff;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--orange);
+        box-shadow: 0 0 0 3px rgba(241, 112, 37, 0.1);
+      }
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+      .consent {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        font-size: 12px;
+        color: var(--muted);
+        margin: 17px 0;
+      }
+      .consent input {
+        width: auto;
+        margin-top: 3px;
+      }
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .form-help {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 12px;
+      }
+      .faq {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      details {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px 20px;
+        background: #fff;
+      }
+      summary {
+        font-weight: 800;
+        color: var(--navy);
+        cursor: pointer;
+      }
+      details p {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 10px 0 0;
+      }
+      .final-cta {
+        background: linear-gradient(135deg, var(--navy), #111735);
+        color: #fff;
+        border-radius: 32px;
+        padding: 46px;
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        align-items: center;
+      }
+      .final-cta h2 {
+        color: #fff;
+        margin: 0 0 10px;
+      }
+      .final-cta p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 660px;
+      }
+      @media (max-width: 980px) {
+        .hero-grid,
+        .who-grid,
+        .eligibility,
+        .form-shell {
+          grid-template-columns: 1fr;
+        }
+        .commission-panel {
+          max-width: 620px;
+        }
+        .steps,
+        .examples {
+          grid-template-columns: 1fr 1fr;
+        }
+        .service-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .form-copy {
+          position: static;
+        }
+      }
+      @media (max-width: 640px) {
+        .hero {
+          padding: 58px 0;
+        }
+        .trust-grid {
+          grid-template-columns: 1fr;
+        }
+        .trust-item {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .steps,
+        .examples,
+        .faq,
+        .audience-grid,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .service-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .final-cta {
+          padding: 30px;
+          display: block;
+        }
+        .final-cta .btn {
+          margin-top: 22px;
+          width: 100%;
+        }
+        .form-card {
+          padding: 20px;
+        }
+      }
+    </style>
+  <link rel="stylesheet" href="/assets/projects.css"></head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="/" aria-label="Kumtech Gateway home"
+          ><img
+            src="/brand/kumtech-horizontal-logo.png"
+            alt="Kumtech Gateway" /></a
+        ><button
+          class="menu-btn"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+        <nav class="main-nav">
+          <a href="/">Home</a><a href="/about">About</a
+          ><a href="/services">Services</a
+          ><a href="/audit">Business Presence Audit</a
+          ><a href="/contact">Contact</a>
+        </nav>
+        <a class="nav-cta" href="/contact">Let’s Talk</a>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <span class="eyebrow">Permanent Referral Program</span>
+            <h1>Refer a client.<br /><span>Earn 10% commission.</span></h1>
+            <p class="lead">
+              Know a business or entrepreneur who needs professional branding, a
+              website, graphic design, Google Business Profile support, or
+              social media management? Introduce them to Kumtech Gateway and
+              earn 10% of the qualifying service fee they pay.
+            </p>
+            <div class="hero-actions">
+              <a class="btn orange" href="#start-referral">Start a Referral</a
+              ><a class="btn secondary" href="/referral-policy"
+                >View Referral Policy</a
+              >
+            </div>
+            <div class="hero-note">
+              <span class="tick">✓</span
+              ><span
+                ><b>Anyone can refer.</b> The client must be genuinely new to
+                Kumtech and your referral must be identified before active sales
+                discussions begin.</span
+              >
+            </div>
+          </div>
+          <aside class="commission-panel">
+            <div class="commission-kicker">Your referral reward</div>
+            <div class="big10">10<span>%</span></div>
+            <p>
+              Commission on the qualifying Kumtech service fee actually paid by
+              the referred client.
+            </p>
+            <div class="formula">
+              Example<strong>150,000 XAF paid → 15,000 XAF commission</strong>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <div class="trust-strip">
+        <div class="wrap trust-grid">
+          <div class="trust-item">
+            <span class="tick">1</span><span>Refer a genuine new client</span>
+          </div>
+          <div class="trust-item">
+            <span class="tick">2</span><span>Kumtech handles the project</span>
+          </div>
+          <div class="trust-item">
+            <span class="tick">3</span
+            ><span>Qualifying payment clears → you earn</span>
+          </div>
+        </div>
+      </div>
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">How It Works</span>
+            <h2>Three simple steps</h2>
+            <p class="section-intro">
+              You make the introduction. Kumtech handles discovery, scope,
+              pricing, delivery and payment directly with the client.
+            </p>
+          </div>
+          <div class="steps">
+            <article class="card">
+              <div class="step-num">STEP 01</div>
+              <h3>Refer a new client</h3>
+              <p>
+                Share a genuine new lead who needs an eligible Kumtech Gateway
+                service. Identify yourself as the referrer when the lead first
+                comes in.
+              </p>
+            </article>
+            <article class="card">
+              <div class="step-num">STEP 02</div>
+              <h3>The client works with Kumtech</h3>
+              <p>
+                We assess the opportunity through our normal process, agree
+                scope and pricing with the client, and deliver the approved work
+                professionally.
+              </p>
+            </article>
+            <article class="card">
+              <div class="step-num">STEP 03</div>
+              <h3>You earn 10%</h3>
+              <p>
+                After the qualifying payment is successfully received and
+                cleared, your 10% referral commission is confirmed and normally
+                processed within 7 business days.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section alt">
+        <div class="wrap who-grid">
+          <div>
+            <span class="eyebrow">Who Can Refer?</span>
+            <h2>You do not need to be an agent or marketer.</h2>
+            <p class="section-intro">
+              The referral program is open to people who can introduce genuine
+              new clients to Kumtech Gateway.
+            </p>
+            <div class="audience-grid" style="margin-top: 26px">
+              <div class="audience">Clients & former clients</div>
+              <div class="audience">Friends & community members</div>
+              <div class="audience">Partners & collaborators</div>
+              <div class="audience">Promoters & members of the public</div>
+            </div>
+          </div>
+          <aside class="rule-box">
+            <h3>What makes a referral valid?</h3>
+            <ul>
+              <li>The referred client must be new to Kumtech Gateway.</li>
+              <li>
+                They must not already be in active discussion, quotation,
+                onboarding, or an existing client relationship with Kumtech.
+              </li>
+              <li>
+                You must be identified as the referrer before Kumtech begins
+                active sales discussions.
+              </li>
+              <li>
+                You cannot refer yourself or claim commission where you are the
+                paying client or direct project owner.
+              </li>
+            </ul>
+            <a class="btn orange" href="/referral-policy"
+              >Read the full rules</a
+            >
+          </aside>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">Eligible Services</span>
+            <h2>Refer the services businesses already need</h2>
+            <p class="section-intro">
+              Referral commission applies to eligible Kumtech service fees.
+              Third-party costs and pass-through expenses are excluded.
+            </p>
+          </div>
+          <div class="service-grid">
+            <div class="service">Branding</div>
+            <div class="service">Website Design & Development</div>
+            <div class="service">Google Business Profile</div>
+            <div class="service">Graphic Design</div>
+            <div class="service">Social Media Management</div>
+          </div>
+        </div>
+      </section>
+      <section class="section alt">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">Commission Examples</span>
+            <h2>10% is easy to understand</h2>
+            <p class="section-intro">
+              Your commission is calculated from the qualifying Kumtech service
+              fee actually paid by the referred client.
+            </p>
+          </div>
+          <div class="examples">
+            <div class="example">
+              <div class="amount">75,000 XAF</div>
+              <div class="arrow">qualifying service fee paid</div>
+              <div class="earn">7,500 XAF</div>
+              <small>your 10% commission</small>
+            </div>
+            <div class="example">
+              <div class="amount">150,000 XAF</div>
+              <div class="arrow">qualifying service fee paid</div>
+              <div class="earn">15,000 XAF</div>
+              <small>your 10% commission</small>
+            </div>
+            <div class="example">
+              <div class="amount">300,000 XAF</div>
+              <div class="arrow">qualifying service fee paid</div>
+              <div class="earn">30,000 XAF</div>
+              <small>your 10% commission</small>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap eligibility">
+          <div>
+            <span class="eyebrow">Before You Refer</span>
+            <h2>Know the important points</h2>
+            <div class="checklist" style="margin-top: 26px">
+              <div class="checkitem">
+                <span class="tick">✓</span>
+                <div>
+                  <b>New clients only.</b><br /><span
+                    >Existing leads and active pipeline opportunities do not
+                    qualify retroactively.</span
+                  >
+                </div>
+              </div>
+              <div class="checkitem">
+                <span class="tick">✓</span>
+                <div>
+                  <b>10% of eligible service fees.</b><br /><span
+                    >Domains, hosting, printing, ad spend, software
+                    subscriptions, taxes and other third-party expenses are
+                    excluded.</span
+                  >
+                </div>
+              </div>
+              <div class="checkitem">
+                <span class="tick">✓</span>
+                <div>
+                  <b>Discounts affect the calculation.</b><br /><span
+                    >If the client receives a discount, commission is based on
+                    the final eligible amount actually paid.</span
+                  >
+                </div>
+              </div>
+              <div class="checkitem">
+                <span class="tick">✓</span>
+                <div>
+                  <b>Recurring services.</b><br /><span
+                    >For recurring services such as Social Media Management, 10%
+                    applies to the first paid month only unless a separate
+                    written arrangement says otherwise.</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <aside class="highlight">
+            <h3 style="font-size: 25px; color: var(--navy); margin-top: 0">
+              When is commission paid?
+            </h3>
+            <p>
+              Commission is earned only after Kumtech successfully receives the
+              qualifying client payment. No commission is payable on unpaid,
+              cancelled, refunded, fraudulent, reversed or disputed amounts.
+            </p>
+            <p>
+              <strong
+                >Once eligibility is confirmed and the qualifying payment has
+                cleared, Kumtech will normally process the referral payment
+                within 7 business days.</strong
+              >
+            </p>
+            <a href="/referral-policy" class="btn secondary"
+              >View Full Policy</a
+            >
+          </aside>
+        </div>
+      </section>
+      <section id="start-referral" class="section alt">
+        <div class="wrap form-shell">
+          <div class="form-copy">
+            <span class="eyebrow">Start a Referral</span>
+            <h2>Introduce your referral to Kumtech</h2>
+            <p class="section-intro">
+              Complete the form. When you submit, WhatsApp will open with a
+              structured referral message addressed to Kumtech Gateway.
+            </p>
+            <div class="highlight" style="margin-top: 24px">
+              <strong>Official Kumtech number</strong><br /><a
+                href="https://wa.me/237673694431"
+                target="_blank"
+                rel="noopener"
+                style="font-size: 20px; font-weight: 800; color: var(--navy)"
+                >+237 673 694 431</a
+              >
+              <p style="font-size: 13px; margin-bottom: 0">
+                We use the information you provide to identify the referrer,
+                match the lead correctly, and begin the normal client
+                qualification process.
+              </p>
+            </div>
+          </div>
+          <form id="referralForm" class="form-card">
+            <div class="form-grid">
+              <div class="field">
+                <label for="rname">Your full name *</label
+                ><input
+                  id="rname"
+                  required
+                  autocomplete="name"
+                  placeholder="Your name"
+                />
+              </div>
+              <div class="field">
+                <label for="rphone">Your phone / WhatsApp *</label
+                ><input
+                  id="rphone"
+                  required
+                  autocomplete="tel"
+                  placeholder="e.g. +237 6xx xxx xxx"
+                />
+              </div>
+              <div class="field full">
+                <label for="remail">Your email (optional)</label
+                ><input
+                  id="remail"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div class="field">
+                <label for="cname">Referred client's name *</label
+                ><input id="cname" required placeholder="Client name" />
+              </div>
+              <div class="field">
+                <label for="business">Business / organization</label
+                ><input id="business" placeholder="Business name" />
+              </div>
+              <div class="field">
+                <label for="cphone">Client phone / WhatsApp *</label
+                ><input id="cphone" required placeholder="Client phone" />
+              </div>
+              <div class="field">
+                <label for="cemail">Client email (optional)</label
+                ><input
+                  id="cemail"
+                  type="email"
+                  placeholder="client@example.com"
+                />
+              </div>
+              <div class="field full">
+                <label for="service">Service they may need *</label
+                ><select id="service" required>
+                  <option value="">Select a service</option>
+                  <option>Branding</option>
+                  <option>Website Design & Development</option>
+                  <option>Google Business Profile</option>
+                  <option>Graphic Design</option>
+                  <option>Social Media Management</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="notes">Helpful context (optional)</label
+                ><textarea
+                  id="notes"
+                  placeholder="What does the client need? How do you know them? Anything Kumtech should know before contacting them?"
+                ></textarea>
+              </div>
+            </div>
+            <label class="consent"
+              ><input id="agree" type="checkbox" required /><span
+                >I confirm this is a genuine referral and I understand that
+                eligibility and commission are subject to the Kumtech Gateway
+                Referral Policy.</span
+              ></label
+            >
+            <div class="form-actions">
+              <button class="btn orange" type="submit">
+                Send Referral on WhatsApp</button
+              ><a class="btn secondary" href="/referral-policy"
+                >Read Policy First</a
+              >
+            </div>
+            <div class="form-help">
+              Submitting does not guarantee project acceptance or commission.
+              Kumtech verifies new-client eligibility and qualifying payment
+              status.
+            </div>
+          </form>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">Common Questions</span>
+            <h2>Referral questions, answered</h2>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>Can anyone refer a client?</summary>
+              <p>
+                Yes. Clients, former clients, partners, friends, community
+                members, promoters and other members of the public can refer,
+                subject to the policy.
+              </p>
+            </details>
+            <details>
+              <summary>Can I refer an existing Kumtech lead?</summary>
+              <p>
+                No. The referred client must be genuinely new and not already in
+                active discussion, negotiation, quotation, onboarding, or an
+                existing client relationship with Kumtech.
+              </p>
+            </details>
+            <details>
+              <summary>What if the client receives a discount?</summary>
+              <p>
+                Your 10% commission is calculated on the final qualifying
+                service fee actually paid after the discount.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Do I earn 10% every month on social media management?
+              </summary>
+              <p>
+                No. For recurring services, 10% applies to the first paid month
+                only unless Kumtech confirms a different arrangement in writing.
+              </p>
+            </details>
+            <details>
+              <summary>Are hosting and advertising budgets included?</summary>
+              <p>
+                No. Third-party and pass-through costs such as hosting, domains,
+                printing, advertising spend, software and taxes are excluded
+                unless expressly included in writing.
+              </p>
+            </details>
+            <details>
+              <summary>How soon is commission processed?</summary>
+              <p>
+                Once eligibility is confirmed and the qualifying payment has
+                cleared, Kumtech normally processes the referral payment within
+                7 business days.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap final-cta">
+          <div>
+            <h2>Have someone in mind?</h2>
+            <p>
+              Make the introduction while the opportunity is fresh. Start a
+              referral and let Kumtech handle the business conversation
+              professionally.
+            </p>
+          </div>
+          <a class="btn orange" href="#start-referral">Start a Referral</a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          <img
+            class="footer-logo"
+            src="/brand/kumtech-horizontal-logo.png"
+            alt="Kumtech Gateway"
+          />
+          <p>
+            Kumtech Gateway helps businesses build professional brands, websites
+            and digital presence systems that earn trust.
+          </p>
+          <div class="footer-promise">Built To Trust</div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="/about">About</a><a href="/services">Services</a
+          ><a href="/audit">Business Presence Audit</a>
+        </div>
+        <div>
+          <h4>Referral</h4>
+          <a href="/referral">Referral Program</a
+          ><a href="/referral-policy">Referral Policy</a
+          ><a href="/contact">Contact Kumtech</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="tel:+237673694431">+237 673 694 431</a
+          ><a href="https://wa.me/237673694431" target="_blank" rel="noopener"
+            >WhatsApp</a
+          ><a href="mailto:kumtechgateway@gmail.com">kumtechgateway@gmail.com</a
+          ><span>Yaounde, Cameroon</span>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© 2026 Kumtech Gateway. All rights reserved.</span
+        ><span>Built Right.</span>
+      </div>
+    </footer>
+    <div class="toast" id="toast">Opening WhatsApp…</div>
+    <script>
+      const form = document.getElementById("referralForm");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (!form.reportValidity()) return;
+
+          const v = (id) => document.getElementById(id).value.trim();
+          const msg = [
+            "KUMTECH GATEWAY — NEW REFERRAL",
+            "",
+            `Referrer: ${v("rname")}`,
+            `Referrer phone: ${v("rphone")}`,
+            `Referrer email: ${v("remail") || "Not provided"}`,
+            "",
+            `Referred client: ${v("cname")}`,
+            `Business: ${v("business") || "Not provided"}`,
+            `Client phone: ${v("cphone")}`,
+            `Client email: ${v("cemail") || "Not provided"}`,
+            `Service: ${v("service")}`,
+            `Context: ${v("notes") || "Not provided"}`,
+            "",
+            "I am submitting this referral under the Kumtech Gateway Referral Policy.",
+          ].join("\n");
+
+          const url =
+            "https://wa.me/237673694431?text=" + encodeURIComponent(msg);
+          const toast = document.getElementById("toast");
+          if (toast) {
+            toast.textContent = "Opening WhatsApp…";
+            toast.classList.add("show");
+          }
+
+          // Same-tab navigation avoids popup blockers on mobile and desktop browsers.
+          window.location.href = url;
+        });
+      }
+    </script>
+    <script>
+      const mb = document.querySelector(".menu-btn"),
+        mn = document.querySelector(".main-nav");
+      if (mb && mn) {
+        mb.addEventListener("click", () => {
+          mn.classList.toggle("open");
+          mb.setAttribute(
+            "aria-expanded",
+            mn.classList.contains("open") ? "true" : "false",
+          );
+        });
+      }
+    </script>
+  <script defer src="/assets/projects-module.js"></script></body>
+</html>
