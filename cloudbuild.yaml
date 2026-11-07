@@ -1,0 +1,12 @@
+steps:
+  - name: us-docker.pkg.dev/firebase-cli/us/firebase
+    args:
+      - deploy
+      - --project
+      - kumtechgateway-237
+      - --only
+      - hosting
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
