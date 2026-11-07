@@ -10,7 +10,7 @@ html {
 
 :root {
     --font-sans: 'Inter';
-    --font-heading: 'Poppins';
+    --font-heading: 'Inter';
     --brand-tech-blue: #1c2553;
     --brand-tech-blue-rgb: 28, 37, 83;
     --brand-gray: #c4c3c5;
@@ -25,7 +25,7 @@ html {
 }
 
 body.project-detail-page {
-    --font-heading: 'Space Grotesk';
+    --font-heading: 'Inter';
 }
 
 /* Box sizing */
