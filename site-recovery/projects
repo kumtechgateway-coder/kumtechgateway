@@ -8,14 +8,14 @@
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#1c2553">
   <link rel="canonical" href="https://kumtechgateway.com/projects">
-  <link rel="icon" type="image/png" sizes="96x96" href="/brand/favicon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/brand/favicon-v2.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon-v2.png">
   <link rel="preload" as="image" href="/images/projects/faith-live-projects.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/index-DZvPoppv.css">
-  <link rel="stylesheet" href="/assets/projects.css?v=20261019-stable3">
+  <link rel="stylesheet" href="/assets/projects.css?v=20261107-brand1">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kumtech Gateway Projects | Branding, Websites &amp; Digital Work">
   <meta property="og:description" content="Selected Kumtech Gateway work backed by real project visuals.">
@@ -25,7 +25,7 @@
 </head>
 <body>
   <header class="header">
-    <a class="brand" href="/" aria-label="Kumtech Gateway home"><img src="/brand/kumtech-horizontal-logo.png" alt="Kumtech Gateway" width="2048" height="737"></a>
+    <a class="brand" href="/" aria-label="Kumtech Gateway home"><img src="/brand/kumtech-horizontal-logo-v2.png" alt="Kumtech Gateway" width="2048" height="538"></a>
     <nav class="nav" id="site-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/projects" aria-current="page">Projects</a><a href="/faq">FAQ</a><a href="/contact">Contact</a></nav>
     <a class="header-cta" href="/contact">Let's Talk <span aria-hidden="true">↗</span></a>
     <button class="menu" type="button" aria-label="Toggle navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -58,12 +58,12 @@
   </main>
 
   <footer>
-    <div><a class="brand footer-logo" href="/" aria-label="Kumtech Gateway home"><img src="/brand/kumtech-horizontal-logo.png" alt="Kumtech Gateway" width="2048" height="737" loading="lazy"></a><p>Trusted digital solutions, built right for real businesses.</p></div>
+    <div><a class="brand footer-logo" href="/" aria-label="Kumtech Gateway home"><img src="/brand/kumtech-horizontal-logo-v2.png" alt="Kumtech Gateway" width="2048" height="538" loading="lazy"></a><p>Trusted digital solutions, built right for real businesses.</p></div>
     <div><b>Explore</b><a href="/about">About</a><a href="/services">Services</a><a href="/projects">Projects</a><a href="/referral">Referral Program</a><a href="/faq">FAQ</a></div>
     <div><b>Contact</b><a href="mailto:kumtechgateway@gmail.com">kumtechgateway@gmail.com</a><a href="tel:+237673694431">+237 673 694 431</a><span>Yaoundé, Cameroon</span></div>
     <small>© 2026 Kumtech Gateway · Built To Trust</small>
   </footer>
-  <a class="kg-static-whatsapp" href="https://wa.me/237673694431?text=Hello%20Kumtech%20Gateway%2C%20I%20would%20like%20to%20discuss%20my%20business." aria-label="Talk to Kumtech on WhatsApp"><img src="/brand/kumtech-icon.png" alt="" width="30" height="30"><span>Talk to Kumtech</span></a>
+  <a class="kg-static-whatsapp" href="https://wa.me/237673694431?text=Hello%20Kumtech%20Gateway%2C%20I%20would%20like%20to%20discuss%20my%20business." aria-label="Talk to Kumtech on WhatsApp"><img src="/brand/kumtech-icon-v2.png" alt="" width="30" height="30"><span>Talk to Kumtech</span></a>
   <script>
     const menu=document.querySelector('.menu'),nav=document.querySelector('.nav');
     menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});
